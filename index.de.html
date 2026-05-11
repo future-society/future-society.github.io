@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Future Society Hub | FuSo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #111111;
+      --white:   #ffffff;
+      --gray:    #f4f4f4;
+      --mid:     #999999;
+      --accent:  #00802F;
+      --font:    'Inter', system-ui, sans-serif;
+      --gap: 2rem;
+      --max: 1280px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--black);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #about { background: var(--gray); }
+
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
+
+    .grid { display: grid; grid-template-columns: 0.3fr repeat(11, 1fr); gap: var(--gap); }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--black); }
+    nav .container { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--black); }
+    .nav-logo img { width: 32px; height: 32px; object-fit: contain; }
+    .nav-wordmark { font-size: 0.9rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav a { text-decoration: none; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); transition: color 0.15s; }
+    nav a:hover { color: var(--accent); }
+
+    .lang-switch { display: flex; gap: 0.5rem; margin-left: 1.5rem; padding-left: 1.5rem; border-left: 1px solid #ddd; }
+    .lang-switch a { font-size: 0.7rem; letter-spacing: 0.08em; }
+    .lang-switch a.active { color: var(--accent); }
+
+    #hero { margin-top: 56px; min-height: calc(100vh - 56px); display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--gap); padding: 0 2rem; max-width: var(--max); margin-left: auto; margin-right: auto; align-items: center; }
+    #hero { margin-top: 56px; }
+    .hero-text { grid-column: 1 / 8; }
+    .hero-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
+    h1 { font-size: clamp(4.5rem, 10vw, 8.5rem); font-weight: 900; line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 1rem; }
+    .hero-slogan { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 300; font-style: italic; color: var(--accent); margin-bottom: 2rem; letter-spacing: -0.01em; }
+    .hero-sub { font-size: 1.3rem; font-weight: 300; line-height: 1.5; max-width: 540px; color: #333; margin-bottom: 2.5rem; }
+    .hero-meta { font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--black); }
+    .hero-image { grid-column: 8 / 13; display: flex; align-items: center; justify-content: flex-start; }
+    .hero-image img { width: 100%; max-width: 360px; }
+    .accent-text { color: var(--accent); }
+
+    section { padding: 6rem 0; border-bottom: 1px solid var(--black); }
+    section:last-of-type { border-bottom: none; }
+    .section-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid); margin-bottom: 3rem; padding-top: 0.25rem; border-top: 2px solid var(--black); }
+    h2 { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; }
+    h3 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 0.5rem; }
+    p { font-size: 1rem; font-weight: 300; line-height: 1.7; color: #333; }
+
+    .about-label { grid-column: 1 / 3; }
+    .about-headline { grid-column: 3 / 9; }
+    .about-headline h2 { margin-bottom: 1.5rem; }
+    .about-body { grid-column: 9 / 13; padding-top: 0.5rem; }
+    .about-body p + p { margin-top: 1rem; }
+    .about-body a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); transition: opacity 0.15s; }
+    .about-body a:hover { opacity: 0.7; }
+
+    #concrete { background: var(--gray); }
+    #concrete .section-label { color: var(--mid); border-color: var(--black); }
+    .concrete-label { grid-column: 1 / 3; }
+    .concrete-header { grid-column: 3 / 13; margin-bottom: 3rem; }
+    .concrete-header h2 { margin-bottom: 0.75rem; }
+    .concrete-header p { color: #333; }
+    .projects-container { grid-column: 3 / -1; margin-top: 2rem; }
+    .projects-list { display: flex; flex-direction: column; border-top: 1px solid #e0e0e0; }
+    .project-item { border-bottom: 1px solid #e0e0e0; }
+    .project-header { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 0.25rem; cursor: pointer; transition: color 0.15s; }
+    .project-header:hover .project-title { color: var(--accent); }
+    .project-header:hover .project-toggle { color: var(--accent); }
+    .project-num { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; color: var(--mid); min-width: 2.25rem; padding-top: 0.15rem; }
+    .project-title { flex: 1; font-size: 0.95rem; font-weight: 600; line-height: 1.4; color: var(--black); margin: 0; transition: color 0.15s; }
+    .project-toggle { font-size: 1.25rem; font-weight: 300; line-height: 1; color: var(--mid); transition: transform 0.25s, color 0.15s; padding-top: 0.1rem; flex-shrink: 0; }
+    .project-item.open .project-toggle { transform: rotate(45deg); color: var(--accent); }
+    .project-item.open .project-title { color: var(--accent); }
+    .project-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .project-item.open .project-body { max-height: 600px; }
+    .project-body-inner { padding: 0 0 1.25rem calc(2.25rem + 1rem); font-size: 0.9rem; line-height: 1.65; color: #444; max-width: 720px; }
+    .project-body-inner a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); }
+    .project-body-inner a:hover { opacity: 0.7; }
+
+    #approach .grid { align-items: center; }
+    .approach-label { grid-column: 1 / 3; }
+    .approach-text { grid-column: 3 / 7; }
+    .approach-text h2 { margin-bottom: 1.5rem; }
+    .approach-text p { margin-bottom: 1rem; }
+    .approach-image { grid-column: 7 / 13; }
+    .approach-image img { width: 100%; border: 1px solid var(--black); }
+
+    .toolbox { grid-column: 3 / 13; margin-top: 1rem; display: flex; flex-direction: row; gap: 0.75rem; padding: 0; border: none; border-radius: 0; background: transparent; position: relative; justify-content: flex-start; align-items: center; flex-wrap: wrap; }
+    .chain-label { display: flex; align-items: center; justify-content: center; padding: 0 0.5rem; color: var(--mid); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; min-height: 45px; white-space: nowrap; flex-shrink: 0; }
+    .block-item { display: flex; align-items: center; justify-content: center; padding: 0.75rem 0.6rem; background: var(--accent); color: var(--white); font-size: 0.48rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; cursor: default; clip-path: none; border-radius: 4px; transition: background 0.15s, filter 0.15s; min-height: 45px; min-width: 90px; position: relative; flex-shrink: 0; }
+    .block-item::after { display: none; }
+    .block-item:hover { filter: brightness(1.2); }
+
+    #focus { background: var(--white); }
+    .focus-label { grid-column: 1 / 3; }
+    .focus-intro { grid-column: 3 / 13; }
+    .focus-intro h2 { margin-bottom: 1rem; }
+    .focus-grid { grid-column: 3 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--black); margin-top: 3rem; }
+    .focus-card { background: var(--gray); padding: 2rem; }
+    .focus-num { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .focus-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+
+    #events { background: var(--white); }
+    #participate { background: var(--gray); }
+
+    #team { background: var(--white); }
+    .team-label { grid-column: 1 / 3; }
+    .team-intro { grid-column: 3 / 13; margin-bottom: 3rem; }
+    .team-intro h2 { margin-bottom: 0.75rem; }
+    .team-bricks-wrap { grid-column: 3 / -1; }
+    .team-bricks { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1px; background: var(--black); }
+    .team-brick { background: var(--white); padding: 1.5rem 1.25rem; transition: background 0.15s; }
+    .team-brick:hover { background: var(--gray); }
+    .brick-role { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+    .brick-name { font-size: 1rem; font-weight: 700; color: var(--black); line-height: 1.2; letter-spacing: -0.01em; }
+    .brick-detail { font-size: 0.75rem; font-weight: 400; color: var(--mid); margin-top: 0.25rem; }
+    .brick-bio { display: none; }
+    .brick-bio.open { display: block; }
+    .learn-more-btn { display: inline-block; margin-top: 0.75rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); background: none; border: 1px solid var(--accent); padding: 0.4rem 0.8rem; cursor: pointer; transition: background 0.15s, color 0.15s; font-family: var(--font); }
+    .learn-more-btn:hover { background: var(--accent); color: var(--white); }
+
+    #directors { background: var(--white); color: var(--black); }
+    #directors .section-label { color: var(--mid); border-color: var(--black); }
+    #directors h2 { color: var(--black); }
+    #directors p { color: #333; }
+    .directors-label { grid-column: 1 / 3; }
+    .directors-intro { grid-column: 3 / 13; margin-bottom: 3rem; }
+    .directors-intro h2 { margin-bottom: 1rem; }
+    .director-cards { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(0,0,0,0.1); }
+    .director { background: var(--white); padding: 3rem; }
+    .director-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .director .name { font-size: 1.75rem; font-weight: 800; color: var(--black); letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .director .position { font-size: 0.85rem; font-weight: 500; color: #666; margin-bottom: 1.25rem; line-height: 1.5; }
+    .director .bio { font-size: 0.95rem; color: #333; line-height: 1.7; }
+    .director-link { display: inline-block; margin-top: 1.5rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 2px; transition: opacity 0.15s; }
+    .director-link:hover { opacity: 0.7; }
+    .partners { grid-column: 1 / -1; margin-top: 3rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 1.5rem; }
+    .partners-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); margin-bottom: 0.5rem; }
+    .partners p { font-size: 0.9rem; color: #666; }
+
+    #contact { background: var(--white); }
+    #contact .section-label { color: var(--mid); border-color: var(--black); }
+    .contact-label { grid-column: 1 / 3; }
+    .contact-body { grid-column: 3 / 9; }
+    .contact-body h2 { margin-bottom: 1.5rem; }
+
+    footer { background: var(--black); color: var(--white); padding: 3rem 0; }
+    footer .container { display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { display: flex; align-items: center; gap: 1rem; }
+    .footer-logo img { width: 36px; height: 36px; object-fit: contain; }
+    .footer-wordmark { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); }
+    .footer-sub { font-size: 0.75rem; color: rgba(255,255,255,0.4); letter-spacing: 0.05em; }
+    .footer-right { text-align: right; }
+    .footer-right p { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+
+    @media (max-width: 900px) {
+      :root { --gap: 1.5rem; }
+      nav ul { display: none; }
+      #hero { grid-template-columns: 1fr; padding-top: 4rem; min-height: auto; }
+      .hero-text { grid-column: 1 / -1; }
+      .hero-image { display: none; }
+      .about-label, .approach-label, .focus-label, .directors-label, .team-label, .contact-label, .concrete-label { display: none; }
+      .about-headline, .about-body, .approach-text, .approach-image, .toolbox, .focus-intro, .concrete-header, .projects-container, .team-intro, .team-bricks-wrap, .directors-intro, .contact-body { grid-column: 1 / -1; }
+      .projects-container { grid-template-columns: 1fr; }
+      .focus-grid { grid-template-columns: 1fr; }
+      .director-cards { grid-template-columns: 1fr; }
+      .team-bricks { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+      footer .container { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+      .footer-right { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <a class="nav-logo" href="#hero">
+      <img src="assets/fuso-logo.svg" alt="FuSo Logo">
+      <span class="nav-wordmark">Fu<span class="accent-text">So</span></span>
+    </a>
+    <ul>
+      <li><a href="#about">Über uns</a></li>
+      <li><a href="#focus">Schwerpunkte</a></li>
+      <li><a href="#concrete">Projekte</a></li>
+      <li><a href="#events">Veranstaltungen</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#participate">Mitmachen</a></li>
+      <li><a href="#contact">Kontakt</a></li>
+      <li class="lang-switch">
+        <a href="index.html">EN</a>
+        <a href="index.de.html" class="active">DE</a>
+        <a href="index.fr.html">FR</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div id="hero" style="margin-top:56px; border-bottom:1px solid var(--black);">
+  <div class="hero-text">
+    <p class="hero-label">Future Society Hub — Universität St.Gallen</p>
+    <h1>Fu<span class="accent-text">So</span></h1>
+    <p class="hero-slogan">where tech and society fuse</p>
+    <p class="hero-sub">Ein interdisziplinärer Hub, an dem Technologie, Recht und Gesellschaft zusammenfinden — von der wissenschaftlichen Erkenntnis bis zur Wirkung in der Praxis.</p>
+    <p class="hero-meta">Technologie &nbsp;&times;&nbsp; Gesellschaft</p>
+  </div>
+  <div class="hero-image">
+    <img src="assets/fuso-logo.svg" alt="FuSo Logo">
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="grid">
+      <div class="about-label">
+        <p class="section-label">Über uns</p>
+      </div>
+      <div class="about-headline">
+        <h2>Die drängenden Fragen der Technologie lösen wir nur, wenn <span class="accent-text">Disziplinen verschmelzen.</span></h2>
+      </div>
+      <div class="about-body">
+        <p>FuSo ist Hub und Anlaufstelle zugleich. Wir nehmen die Chancen und Risiken neuer Technologien von Anfang bis Ende in den Blick — gestützt auf die aktuelle Forschung.</p>
+        <p>An der Universität St.Gallen bündeln wir die Expertise der <a href="https://scs.unisg.ch" target="_blank" rel="noopener">School of Computer Science</a> und der <a href="https://www.unisg.ch/de/universitaet/schools/law/" target="_blank" rel="noopener">School of Law</a> und entwickeln daraus evidenzbasierte Full-Stack-Lösungen für Wissenschaft, Verwaltung, NGOs und Industrie.</p>
+      </div>
+      <div style="grid-column: 3 / 13; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--black);">
+        <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">Full-Stack: Von der Erkenntnis zur Wirkung</h3>
+        <p style="margin-bottom: 1.5rem;">Wo andere Hubs nach der Forschung aufhören, geht FuSo den ganzen Weg mit: vom ersten Gedanken über die gemeinsame Entwicklung und das Abwägen von Risiken bis zur Umsetzung und Evaluation in der Praxis.</p>
+      </div>
+      <div class="toolbox">
+        <span class="chain-label">Erkenntnis</span>
+        <span class="block-item">Ideenfindung</span>
+        <span class="block-item">Ko-Kreation</span>
+        <span class="block-item">Folgenabschätzung</span>
+        <span class="block-item">Politikanalyse</span>
+        <span class="block-item">Rechtskonformität</span>
+        <span class="block-item">Umsetzung</span>
+        <span class="block-item">Nutzerzentrierte Evaluation</span>
+        <span class="chain-label">Wirkung</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOCUS AREAS -->
+<section id="focus">
+  <div class="container">
+    <div class="grid">
+      <div class="focus-label">
+        <p class="section-label">Schwerpunkte</p>
+      </div>
+      <div class="focus-intro">
+        <h2>Unsere <span class="accent-text">Schwerpunkte</span></h2>
+      </div>
+      <div class="focus-grid">
+        <div class="focus-card">
+          <p class="focus-num">01</p>
+          <h3>KI-Governance &amp; Regulierung</h3>
+          <p>Wir beraten Behörden zur KI-Governance und bringen regulatorische Expertise zu neuen Technologien ein.</p>
+        </div>
+        <div class="focus-card">
+          <p class="focus-num">02</p>
+          <h3>Systemische Risiken eindämmen</h3>
+          <p>Wir entwickeln techno-rechtliche Werkzeuge, mit denen sich systemische Risiken neuer Technologien und Online-Plattformen weltweit erkennen und eindämmen lassen.</p>
+        </div>
+        <div class="focus-card">
+          <p class="focus-num">03</p>
+          <h3>Bildung &amp; digitale Kompetenzen</h3>
+          <p>Wir antizipieren künftig benötigte Kompetenzen, gestalten Bildungswege mit, fördern neue Fähigkeiten und schaffen ein sicheres digitales Umfeld für junge Menschen.</p>
+        </div>
+        <div class="focus-card">
+          <p class="focus-num">04</p>
+          <h3>Infrastrukturen von morgen</h3>
+          <p>Wir wirken am Entwurf, an der Entwicklung und an der Regulierung künftiger digitaler Infrastrukturen mit — zum Nutzen der Gesellschaft.</p>
+        </div>
+        <div class="focus-card">
+          <p class="focus-num">05</p>
+          <h3>Computational Law</h3>
+          <p>Wir loten aus, wie sich juristische Prozesse automatisieren lassen, um den Zugang zum Recht zu verbessern.</p>
+        </div>
+        <div class="focus-card">
+          <p class="focus-num">06</p>
+          <h3>Inklusive und gesunde Gesellschaft</h3>
+          <p>Wir stärken eine widerstandsfähige, gesunde und inklusive Gesellschaft mit Ubiquitous Computing im grossen Massstab.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GET CONCRETE -->
+<section id="concrete">
+  <div class="container">
+    <div class="grid">
+      <div class="concrete-label">
+        <p class="section-label">Projekte</p>
+      </div>
+      <div class="concrete-header">
+        <h2><span class="accent-text">Konkret</span> werden. Was heisst das?</h2>
+      </div>
+      <div class="projects-container">
+        <div class="projects-list" id="projectsList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="container">
+    <div class="grid">
+      <div style="grid-column: 1 / 3;">
+        <p class="section-label">Veranstaltungen</p>
+      </div>
+      <div style="grid-column: 3 / 13;">
+        <h2>Fu<span class="accent-text">So</span> Veranstaltungskalender</h2>
+      </div>
+      <div style="grid-column: 3 / 13; margin-top: 2rem;">
+        <div style="display: grid; gap: 1.5rem;">
+          <div style="padding-bottom: 1rem; border-bottom: 1px solid #ddd;">
+            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;">KEK Workshop „Meinungsmarkt oder Meinungsmacht?!"</p>
+            <p style="font-size: 0.85rem; color: #666;">9. Juni 2026 — Berlin</p>
+          </div>
+          <div style="padding-bottom: 1rem; border-bottom: 1px solid #ddd;">
+            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;">Everyday Law Workshop</p>
+            <p style="font-size: 0.85rem; color: #666;">6.–7. Juli 2026 — Lausanne</p>
+          </div>
+          <div style="padding-bottom: 1rem; border-bottom: 1px solid #ddd;">
+            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;">AI+Social Media Track <span style="font-weight: 400; color: #999;">(AI+X Summit)</span></p>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">1. Oktober 2026 — Zürich</p>
+            <a href="https://www.plusx.ai/" target="_blank" rel="noopener" style="font-size: 0.8rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">www.plusx.ai</a>
+          </div>
+          <div style="padding-bottom: 1rem; border-bottom: 1px solid #ddd;">
+            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;">Legal Design Workshop</p>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">4. November 2026 — St.Gallen</p>
+            <a href="https://www.legaldesignworkshop.org/" target="_blank" rel="noopener" style="font-size: 0.8rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">www.legaldesignworkshop.org</a>
+          </div>
+          <div style="padding-bottom: 1rem; border-bottom: 1px solid #ddd;">
+            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;">Legal Hackathons</p>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">7.–8. November 2026 — St.Gallen</p>
+            <a href="https://www.legalhackathons.org/" target="_blank" rel="noopener" style="font-size: 0.8rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">www.legalhackathons.org</a>
+          </div>
+          <div style="padding-bottom: 1rem;">
+            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;">Solid Symposium 2027</p>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">29.–30. April 2027 — St.Gallen</p>
+            <a href="https://sosy2027.eu" target="_blank" rel="noopener" style="font-size: 0.8rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">sosy2027.eu</a>
+          </div>
+          <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ddd;">
+            <p style="font-size: 0.9rem; color: #666;">Vergangene Veranstaltungen finden Sie auf unserem <a href="#" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">LinkedIn-Feed</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="container">
+    <div class="grid">
+      <div class="team-label">
+        <p class="section-label">Team</p>
+      </div>
+      <div class="team-intro">
+        <h2>Das <span class="accent-text">Team</span></h2>
+      </div>
+      <div class="team-bricks-wrap">
+        <div class="team-bricks">
+
+          <div class="team-brick">
+            <p class="brick-role">Co-Direktor</p>
+            <p class="brick-name">Simon Mayer</p>
+            <p class="brick-detail">Prof. Dr., ICS-HSG</p>
+            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Simon Mayer leitet die Interactions Research Group am ICS-HSG und erforscht technologievermittelte Interaktionen in komplexen sozio-technischen Systemen. Seine Arbeit umfasst das Web of Things, autonome Multi-Agenten-Systeme, Mensch-Roboter-Interaktion und Pervasive Computing.</p>
+          </div>
+
+          <div class="team-brick">
+            <p class="brick-role">Co-Direktorin</p>
+            <p class="brick-name">Aurelia Tamò-Larrieux</p>
+            <p class="brick-detail">Prof. Dr., ILE-HSG</p>
+            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Aurelia Tamò-Larrieux leitet das Legal Design &amp; Code Lab und ist auf Privacy-by-Design, KI-Transparenz, Computational Law und die Governance automatisierter Entscheidungsprozesse spezialisiert.</p>
+          </div>
+
+          <div class="team-brick">
+            <p class="brick-role">Hub-Leitung</p>
+            <p class="brick-name">Jannis</p>
+            <p class="brick-detail">Doktorand</p>
+            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+
+          <div class="team-brick">
+            <p class="brick-role">Hub-Leitung</p>
+            <p class="brick-name">Vlada</p>
+            <p class="brick-detail">Doktorandin</p>
+            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+
+          <div class="team-brick">
+            <p class="brick-role">Forschung</p>
+            <p class="brick-name">Team Member 1</p>
+            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+          </div>
+
+          <div class="team-brick">
+            <p class="brick-role">Forschung</p>
+            <p class="brick-name">Team Member 2</p>
+            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+
+          <div class="team-brick">
+            <p class="brick-role">Forschung</p>
+            <p class="brick-name">Team Member 3</p>
+            <p class="brick-detail">2026–2028</p>
+            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+          </div>
+
+          <div class="team-brick">
+            <p class="brick-role">Bridge PhD</p>
+            <p class="brick-name">Team Member 4</p>
+            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+          </div>
+
+          <div class="team-brick">
+            <p class="brick-role">Forschung</p>
+            <p class="brick-name">Team Member 5</p>
+            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores.</p>
+          </div>
+
+          <div class="team-brick">
+            <p class="brick-role">Forschung</p>
+            <p class="brick-name">Team Member 6</p>
+            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.</p>
+          </div>
+
+          <div class="team-brick">
+            <p class="brick-role">Forschung</p>
+            <p class="brick-name">Team Member 7</p>
+            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+          </div>
+
+          <div class="team-brick">
+            <p class="brick-role">Forschung</p>
+            <p class="brick-name">Team Member 8</p>
+            <p class="brick-detail">Bridge, 2026–2027</p>
+            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.</p>
+          </div>
+
+          <div class="team-brick">
+            <p class="brick-role">Forschung</p>
+            <p class="brick-name">Team Member 9</p>
+            <p class="brick-detail">Medical Ubicomp</p>
+            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti.</p>
+          </div>
+
+          <div class="team-brick">
+            <p class="brick-role">Forschung</p>
+            <p class="brick-name">Team Member 10</p>
+            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Et harum quidem rerum facilis est et expedita distinctio nam libero tempore, cum soluta nobis.</p>
+          </div>
+
+          <div class="team-brick">
+            <p class="brick-role">Forschung</p>
+            <p class="brick-name">Team Member 11</p>
+            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTICIPATE -->
+<section id="participate">
+  <div class="container">
+    <div class="grid">
+      <div style="grid-column: 1 / 3;">
+        <p class="section-label">Mitmachen</p>
+      </div>
+      <div style="grid-column: 3 / 13;">
+        <h2>Bei Fu<span class="accent-text">So</span> mitmachen</h2>
+        <div style="margin-top: 2rem; font-size: 0.95rem; line-height: 1.7; color: #333;">
+          <p style="margin-bottom: 1.5rem;">FuSo lebt von <strong>Zusammenarbeit und Engagement</strong>. Den <strong>Zusammenhalt im Team</strong> pflegen wir mit <strong>zweiwöchigen Themen-Lunches</strong>, mit <strong>Speed-Datings</strong>, die Forschende über Disziplinen hinweg zusammenbringen, und mit <strong>jährlichen Retreats</strong>. Nach aussen sprechen wir über <strong>Newsletter, Policy Briefs und Podcasts</strong> ein breiteres Publikum an.</p>
+
+          <p style="margin-bottom: 1.5rem;">Uns ist es wichtig, <strong>unterschiedliche Perspektiven und Talente</strong> einzubinden. Wir vergeben <strong>Fellowships</strong> und betreuen <strong>Abschlussarbeiten</strong>, die zu unseren Forschungsschwerpunkten passen. In <strong>Arbeitsgruppen zu Themen wie Plattform-Auditing oder Dezentralisierung</strong> arbeiten wir gemeinsam tief in aktuelle Fragen hinein.</p>
+
+          <p style="margin-bottom: 1.5rem;">Über FuSo hinaus <strong>gestalten wir mit anderen Institutionen Veranstaltungen, die etwas bewegen</strong> — von Auseinandersetzungen mit datenschutzkritischen Räumen bis hin zu <strong>Round Tables mit politischen Akteur:innen</strong> zu Fragen wie der KI-Regulierung. Wir fördern <strong>Sozialunternehmertum und Start-up-Initiativen</strong> und arbeiten dafür mit Partnern wie Startfeld zusammen, damit aus Ideen Wirkung wird.</p>
+
+          <p style="margin-bottom: 1.5rem;">Im Lehrangebot bieten wir zudem einen <strong>gemeinsamen Kurs in Contextual Studies</strong>, der technische und juristische Forschung im gesellschaftlichen Kontext verortet.</p>
+
+          <p style="font-weight: 600;">Ob als <strong>Forschende:r, Studierende:r oder politische:r Entscheidungsträger:in</strong> — oder einfach aus Begeisterung für Technologie und Gesellschaft: Beteiligen Sie sich an unseren Aktivitäten und werden Sie Teil der FuSo-Community. Melden Sie sich bei uns, wir erzählen Ihnen, wo Sie andocken können.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="grid">
+      <div class="contact-label">
+        <p class="section-label">Kontakt</p>
+      </div>
+      <div class="contact-body">
+        <h2>In <span class="accent-text">Kontakt</span> treten</h2>
+        <p style="margin-top:1.5rem;">Wir arbeiten mit Forschenden, politischen Entscheidungsträger:innen, Verwaltungen, NGOs und Industriepartnern zusammen. Wenn Sie an einer Zusammenarbeit interessiert sind, schreiben Sie uns gerne.</p>
+        <p style="margin-top:1rem;">
+          <strong>Universität St.Gallen</strong><br>
+          Institut für Computer Science<br>
+          Rosenbergstrasse 30<br>
+          St. Gallen, Schweiz<br>
+          <a href="mailto:fuso@unisg.ch" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">fuso@unisg.ch</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-logo">
+      <img src="assets/fuso-logo.svg" alt="FuSo Logo">
+      <div>
+        <p class="footer-wordmark">Future <span class="accent-text">Society</span> Hub</p>
+        <p class="footer-sub">Universität St.Gallen</p>
+      </div>
+    </div>
+    <div class="footer-right">
+      <p>Technologie &times; Gesellschaft</p>
+      <p style="margin-top:0.25rem;">St. Gallen, Schweiz</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const projects = [
+    {
+      title: "Mit techno-rechtlichen Werkzeugen die systemischen Risiken von Online-Plattformen eindämmen.",
+      how: `Wir entwickeln techno-rechtliche Werkzeuge, die systemische Risiken in digitalen Ökosystemen sichtbar machen und ihnen entgegenwirken — eingebettet in das vom Schweizerischen Nationalfonds geförderte <a href="https://snsf-cocoda.github.io/" target="_blank" rel="noopener">Projekt CoCoDa</a>.`
+    },
+    {
+      title: "Behörden und Organisationen zur Governance von Plattformen und KI beraten.",
+      how: `Wir beraten Regulierungsbehörden und Politik im Umgang mit den Risiken neuer Technologien und liefern wissenschaftlich fundierte Orientierung zu KI-Governance-Rahmen.`
+    },
+    {
+      title: "Künftig gefragte Kompetenzen und Bildungswege antizipieren.",
+      how: `Wir untersuchen, wie neue Technologien Bildung und Berufsfelder verändern, und begleiten die Gestaltung von Lehrplänen. Gemeinsam mit Forschenden aus der Schweiz und der EU schätzen wir die Folgen von KI für individuelle Kompetenzen ab — etwa in <a href="https://www.ta-swiss.ch/en/large-language-models" target="_blank" rel="noopener">einer Studie für TA-Swiss</a>.`
+    },
+    {
+      title: "Die digitalen Infrastrukturen von morgen mitgestalten.",
+      how: `Wir arbeiten an der Architektur zukünftiger digitaler Infrastrukturen — darunter, wie sie autonome Agenten in weltweiten Multi-Agenten-Systemen und dezentrale Datenarchitekturen tragen können.`
+    },
+    {
+      title: "Schulen vor Ort beim Umgang mit schädlichen Inhalten in sozialen Medien begleiten.",
+      how: `Gemeinsam mit Schulen und Schüler:innen entwickeln wir praktische Werkzeuge, die jungen Menschen helfen, schädliche Inhalte in sozialen Medien zu erkennen, einzuordnen und damit umzugehen. Sie eröffnen geschützte Gespräche, stärken das Selbstvertrauen und vermitteln Strategien für schwierige digitale Erfahrungen. Mehr dazu in unserem Projekt <a href="https://www.flag-safe.ch" target="_blank" rel="noopener">Flag&Safe</a>.`
+    },
+    {
+      title: "Die Handlungsfähigkeit von Institutionen mit KI stärken.",
+      how: `Mit NGOs und interessierten Laien gestalten wir Access-to-Justice-Technologien, die Rechtsinstitutionen und Bürger:innen durch die komplexe Schweizer Rechtslandschaft helfen. Unser Ziel: eine zugängliche, verlässliche und kollaborative Legal AI, die gerade dort ankommt, wo sie heute fehlt.`
+    },
+    {
+      title: "Ein starkes Netzwerk zwischen den Kerndisziplinen von FuSo knüpfen: Informatik &amp; Recht!",
+      how: `Wir tragen laufende Initiativen wie das <a href="https://cslaweurope.org/" target="_blank" rel="noopener">CS &amp; Law Europe Network</a> mit, das Nachwuchsforschenden Raum gibt, Ideen zu teilen, Feedback einzuholen, Kooperationen zu knüpfen und in einem geschützten Rahmen über die typischen Reibungspunkte disziplinübergreifender Arbeit zu diskutieren.`
+    },
+    {
+      title: "Untersuchen, was allgegenwärtige Personalisierung mit der Gesellschaft macht.",
+      how: `Mixed Reality und Ubiquitous Computing tragen die Personalisierung von Online-Plattformen in unsere physische Umgebung. Wir fragen, was das gesellschaftlich bedeutet — vom Verlust gemeinsamer Wirklichkeit bis zu perzeptiven Filterblasen — und entwickeln Konzepte und Designprinzipien für verantwortungsvolle <a href="https://doi.org/10.1145/3715336.3735709" target="_blank" rel="noopener">Personalized Realities</a>, die Einzelnen und der Gesellschaft zugutekommen.`
+    },
+    {
+      title: "Systeme entwickeln, die die Gesundheit auf Bevölkerungsebene verbessern.",
+      how: `Wir entwickeln digitale Gesundheitsinterventionen, setzen sie auf Bevölkerungsebene ein und prüfen ihre Wirkung in der Praxis — gemeinsam mit Gesundheitsbehörden und mit fundierten sozio-technischen Evaluationsmethoden.`
+    },
+    {
+      title: "Regulatorische und technische Expertise zu neuen Technologien bereitstellen.",
+      how: `Wir bilden Organisationen weiter und beraten sie zu technischen und rechtlichen Entwicklungen, die ihre Arbeit treffen können — und helfen ihnen, Governance-Strategien zu entwickeln, mit denen sie kommenden Regulierungen begegnen. Etwa über <a href="https://www.formation-continue-unil-epfl.ch/en/formation/ai-governance-regulatory-frameworks/" target="_blank" rel="noopener">Weiterbildungsprogramme</a> an der Universität Lausanne/EPFL und der Universität St.Gallen.`
+    }
+  ];
+
+  function renderProjects() {
+    const list = document.getElementById('projectsList');
+    list.innerHTML = projects.map((p, i) => `
+      <div class="project-item" data-index="${i}">
+        <div class="project-header" onclick="toggleProject(${i})">
+          <span class="project-num">${String(i + 1).padStart(2, '0')}</span>
+          <p class="project-title">${p.title}</p>
+          <span class="project-toggle">+</span>
+        </div>
+        <div class="project-body">
+          <div class="project-body-inner">${p.how}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function toggleProject(index) {
+    document.querySelectorAll('.project-item').forEach((item, i) => {
+      if (i === index) item.classList.toggle('open');
+      else item.classList.remove('open');
+    });
+  }
+
+  renderProjects();
+
+  function toggleBio(btn) {
+    const bio = btn.nextElementSibling;
+    const isOpen = bio.classList.contains('open');
+    bio.classList.toggle('open', !isOpen);
+    btn.textContent = isOpen ? 'Mehr erfahren' : 'Weniger anzeigen';
+  }
+</script>
+
+</body>
+</html>
