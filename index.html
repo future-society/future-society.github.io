@@ -70,7 +70,7 @@
       color: var(--black);
     }
 
-    .nav-logo img { width: 32px; height: 32px; object-fit: contain; }
+    .nav-logo img { width: 32px; height: 32px; object-fit: contain; background: var(--accent); border-radius: 50%; padding: 3px; box-sizing: content-box; }
 
     .nav-wordmark {
       font-size: 0.9rem;
@@ -111,7 +111,7 @@
       margin-top: 56px;
       min-height: calc(100vh - 56px);
       display: grid;
-      grid-template-columns: repeat(12, 1fr);
+      grid-template-columns: 0.3fr repeat(11, 1fr);
       gap: var(--gap);
       padding: 0 2rem;
       max-width: var(--max);
@@ -120,10 +120,7 @@
       align-items: center;
     }
 
-    /* compensate for fixed nav */
-    #hero { margin-top: 56px; }
-
-    .hero-text { grid-column: 1 / 8; }
+    .hero-text { grid-column: 3 / 9; }
 
     .hero-label {
       font-size: 0.7rem;
@@ -169,13 +166,13 @@
     }
 
     .hero-image {
-      grid-column: 8 / 13;
+      grid-column: 9 / 13;
       display: flex;
       align-items: center;
       justify-content: flex-start;
     }
 
-    .hero-image img { width: 100%; max-width: 360px; }
+    .hero-image img { width: 100%; max-width: 360px; background: var(--accent); border-radius: 50%; padding: 2rem; box-sizing: border-box; }
 
     .accent-text { color: var(--accent); }
 
@@ -227,6 +224,7 @@
     .about-body p + p { margin-top: 1rem; }
     .about-body a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); transition: opacity 0.15s; }
     .about-body a:hover { opacity: 0.7; }
+    .about-fullstack { grid-column: 3 / 13; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--black); }
 
     /* ─── GET CONCRETE ─── */
     #concrete { background: var(--gray); }
@@ -328,15 +326,6 @@
 
     .project-body-inner a:hover { opacity: 0.7; }
 
-    /* ─── APPROACH ─── */
-    #approach .grid { align-items: center; }
-    .approach-label { grid-column: 1 / 3; }
-    .approach-text { grid-column: 3 / 7; }
-    .approach-text h2 { margin-bottom: 1.5rem; }
-    .approach-text p { margin-bottom: 1rem; }
-    .approach-image { grid-column: 7 / 13; }
-    .approach-image img { width: 100%; border: 1px solid var(--black); }
-
     .toolbox {
       grid-column: 3 / 13;
       margin-top: 1rem;
@@ -435,9 +424,14 @@
 
     /* ─── EVENTS ─── */
     #events { background: var(--white); }
+    .events-label { grid-column: 1 / 3; }
+    .events-header { grid-column: 3 / 13; }
+    .events-body { grid-column: 3 / 13; margin-top: 2rem; }
 
     /* ─── PARTICIPATE ─── */
     #participate { background: var(--gray); }
+    .participate-label { grid-column: 1 / 3; }
+    .participate-body { grid-column: 3 / 13; }
 
     /* ─── TEAM ─── */
     #team { background: var(--white); }
@@ -514,101 +508,6 @@
       color: var(--white);
     }
 
-    /* ─── DIRECTORS ─── */
-    #directors {
-      background: var(--white);
-      color: var(--black);
-    }
-
-    #directors .section-label { color: var(--mid); border-color: var(--black); }
-    #directors h2 { color: var(--black); }
-    #directors p { color: #333; }
-
-    .directors-label { grid-column: 1 / 3; }
-    .directors-intro { grid-column: 3 / 13; margin-bottom: 3rem; }
-    .directors-intro h2 { margin-bottom: 1rem; }
-
-    .director-cards {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: rgba(0,0,0,0.1);
-    }
-
-    .director {
-      background: var(--white);
-      padding: 3rem;
-    }
-
-    .director-title {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1rem;
-    }
-
-    .director .name {
-      font-size: 1.75rem;
-      font-weight: 800;
-      color: var(--black);
-      letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
-    }
-
-    .director .position {
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: #666;
-      margin-bottom: 1.25rem;
-      line-height: 1.5;
-    }
-
-    .director .bio {
-      font-size: 0.95rem;
-      color: #333;
-      line-height: 1.7;
-    }
-
-    .director-link {
-      display: inline-block;
-      margin-top: 1.5rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      text-decoration: none;
-      border-bottom: 1px solid var(--accent);
-      padding-bottom: 2px;
-      transition: opacity 0.15s;
-    }
-
-    .director-link:hover { opacity: 0.7; }
-
-    .partners {
-      grid-column: 1 / -1;
-      margin-top: 3rem;
-      border-top: 1px solid rgba(0,0,0,0.1);
-      padding-top: 1.5rem;
-    }
-
-    .partners-label {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--mid);
-      margin-bottom: 0.5rem;
-    }
-
-    .partners p {
-      font-size: 0.9rem;
-      color: #666;
-    }
-
     /* ─── CONTACT ─── */
     #contact { background: var(--white); }
     #contact .section-label { color: var(--mid); border-color: var(--black); }
@@ -667,20 +566,21 @@
       .hero-text { grid-column: 1 / -1; }
       .hero-image { display: none; }
 
-      .about-label, .approach-label, .focus-label,
-      .directors-label, .team-label, .contact-label,
-      .concrete-label { display: none; }
+      .about-label, .focus-label,
+      .team-label, .contact-label,
+      .concrete-label, .events-label, .participate-label { display: none; }
 
-      .about-headline, .about-body,
-      .approach-text, .approach-image, .toolbox,
+      .about-headline, .about-body, .about-fullstack,
+      .toolbox,
       .focus-intro,
       .concrete-header, .projects-container,
       .team-intro, .team-bricks-wrap,
-      .directors-intro, .contact-body { grid-column: 1 / -1; }
+      .contact-body,
+      .events-header, .events-body,
+      .participate-body { grid-column: 1 / -1; }
 
       .projects-container { grid-template-columns: 1fr; }
       .focus-grid { grid-template-columns: 1fr; }
-      .director-cards { grid-template-columns: 1fr; }
       .team-bricks { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
 
       footer .container { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
@@ -743,7 +643,7 @@
         <p>FuSo is a hub and point of contact that addresses the opportunities and risks of technology from start to end, grounded on the newest scientific insights.</p>
         <p>Based at University of St.Gallen, we link expertise from the <a href="https://scs.unisg.ch" target="_blank" rel="noopener">School of Computer Science</a> and <a href="https://www.unisg.ch/de/universitaet/schools/law/" target="_blank" rel="noopener">School of Law</a> to deliver evidence-informed, full-stack solutions for academics, public administrations, NGOs, and industry.</p>
       </div>
-      <div style="grid-column: 3 / 13; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--black);">
+      <div class="about-fullstack">
         <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">Full-Stack: From Insight to Impact</h3>
         <p style="margin-bottom: 1.5rem;">Where other hubs stop at research, FuSo accompanies stakeholders across the entire journey — ideating, co-creating, mitigating risks, implementing, and evaluating in the real world.</p>
       </div>
@@ -829,13 +729,13 @@
 <section id="events">
   <div class="container">
     <div class="grid">
-      <div style="grid-column: 1 / 3;">
+      <div class="events-label">
         <p class="section-label">Events</p>
       </div>
-      <div style="grid-column: 3 / 13;">
+      <div class="events-header">
         <h2>Fu<span class="accent-text">So</span> Events Tracker</h2>
       </div>
-      <div style="grid-column: 3 / 13; margin-top: 2rem;">
+      <div class="events-body">
         <div style="display: grid; gap: 1.5rem;">
           <div style="padding-bottom: 1rem; border-bottom: 1px solid #ddd;">
             <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;"><a href="https://www.kek-online.de/kek-workshop-2026-meinungsmarkt-oder-meinungsmacht/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">KEK Workshop "Meinungsmarkt oder Meinungsmacht?!"</a></p>
@@ -1005,10 +905,10 @@
 <section id="participate">
   <div class="container">
     <div class="grid">
-      <div style="grid-column: 1 / 3;">
+      <div class="participate-label">
         <p class="section-label">Participate</p>
       </div>
-      <div style="grid-column: 3 / 13;">
+      <div class="participate-body">
         <h2>Participate in Fu<span class="accent-text">So</span> Activities</h2>
         <div style="margin-top: 2rem; font-size: 0.95rem; line-height: 1.7; color: #333;">
           <p style="margin-bottom: 1.5rem;">FuSo is built on <strong>collaboration and engagement</strong>. We foster <strong>internal cohesion</strong> through <strong>bi-weekly topic lunches, speed dating events</strong> where researchers can connect across disciplines, and <strong>yearly retreats</strong> that bring our community together. Beyond our core team, we actively communicate our work through <strong>newsletters, policy briefs, and podcasts</strong> to reach a broader audience.</p>

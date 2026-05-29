@@ -33,7 +33,7 @@
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--black); }
     nav .container { display: flex; align-items: center; justify-content: space-between; height: 56px; }
     .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--black); }
-    .nav-logo img { width: 32px; height: 32px; object-fit: contain; }
+    .nav-logo img { width: 32px; height: 32px; object-fit: contain; background: var(--accent); border-radius: 50%; padding: 3px; box-sizing: content-box; }
     .nav-wordmark { font-size: 0.9rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
     nav ul { list-style: none; display: flex; gap: 2rem; }
     nav a { text-decoration: none; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); transition: color 0.15s; }
@@ -43,16 +43,15 @@
     .lang-switch a { font-size: 0.7rem; letter-spacing: 0.08em; }
     .lang-switch a.active { color: var(--accent); }
 
-    #hero { margin-top: 56px; min-height: calc(100vh - 56px); display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--gap); padding: 0 2rem; max-width: var(--max); margin-left: auto; margin-right: auto; align-items: center; }
-    #hero { margin-top: 56px; }
-    .hero-text { grid-column: 1 / 8; }
+    #hero { margin-top: 56px; min-height: calc(100vh - 56px); display: grid; grid-template-columns: 0.3fr repeat(11, 1fr); gap: var(--gap); padding: 0 2rem; max-width: var(--max); margin-left: auto; margin-right: auto; align-items: center; }
+    .hero-text { grid-column: 3 / 9; }
     .hero-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
     h1 { font-size: clamp(4.5rem, 10vw, 8.5rem); font-weight: 900; line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 1rem; }
     .hero-slogan { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 300; font-style: italic; color: var(--accent); margin-bottom: 2rem; letter-spacing: -0.01em; }
     .hero-sub { font-size: 1.3rem; font-weight: 300; line-height: 1.5; max-width: 540px; color: #333; margin-bottom: 2.5rem; }
     .hero-meta { font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--black); }
-    .hero-image { grid-column: 8 / 13; display: flex; align-items: center; justify-content: flex-start; }
-    .hero-image img { width: 100%; max-width: 360px; }
+    .hero-image { grid-column: 9 / 13; display: flex; align-items: center; justify-content: flex-start; }
+    .hero-image img { width: 100%; max-width: 360px; background: var(--accent); border-radius: 50%; padding: 2rem; box-sizing: border-box; }
     .accent-text { color: var(--accent); }
 
     section { padding: 6rem 0; border-bottom: 1px solid var(--black); }
@@ -69,6 +68,7 @@
     .about-body p + p { margin-top: 1rem; }
     .about-body a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); transition: opacity 0.15s; }
     .about-body a:hover { opacity: 0.7; }
+    .about-fullstack { grid-column: 3 / 13; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--black); }
 
     #concrete { background: var(--gray); }
     #concrete .section-label { color: var(--mid); border-color: var(--black); }
@@ -93,14 +93,6 @@
     .project-body-inner a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); }
     .project-body-inner a:hover { opacity: 0.7; }
 
-    #approach .grid { align-items: center; }
-    .approach-label { grid-column: 1 / 3; }
-    .approach-text { grid-column: 3 / 7; }
-    .approach-text h2 { margin-bottom: 1.5rem; }
-    .approach-text p { margin-bottom: 1rem; }
-    .approach-image { grid-column: 7 / 13; }
-    .approach-image img { width: 100%; border: 1px solid var(--black); }
-
     .toolbox { grid-column: 3 / 13; margin-top: 1rem; display: flex; flex-direction: row; gap: 0.75rem; padding: 0; border: none; border-radius: 0; background: transparent; position: relative; justify-content: flex-start; align-items: center; flex-wrap: wrap; }
     .chain-label { display: flex; align-items: center; justify-content: center; padding: 0 0.5rem; color: var(--mid); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; min-height: 45px; white-space: nowrap; flex-shrink: 0; }
     .block-item { display: flex; align-items: center; justify-content: center; padding: 0.75rem 0.6rem; background: var(--accent); color: var(--white); font-size: 0.48rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; cursor: default; clip-path: none; border-radius: 4px; transition: background 0.15s, filter 0.15s; min-height: 45px; min-width: 90px; position: relative; flex-shrink: 0; }
@@ -117,7 +109,12 @@
     .focus-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
 
     #events { background: var(--white); }
+    .events-label { grid-column: 1 / 3; }
+    .events-header { grid-column: 3 / 13; }
+    .events-body { grid-column: 3 / 13; margin-top: 2rem; }
     #participate { background: var(--gray); }
+    .participate-label { grid-column: 1 / 3; }
+    .participate-body { grid-column: 3 / 13; }
 
     #team { background: var(--white); }
     .team-label { grid-column: 1 / 3; }
@@ -134,25 +131,6 @@
     .brick-bio.open { display: block; }
     .learn-more-btn { display: inline-block; margin-top: 0.75rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); background: none; border: 1px solid var(--accent); padding: 0.4rem 0.8rem; cursor: pointer; transition: background 0.15s, color 0.15s; font-family: var(--font); }
     .learn-more-btn:hover { background: var(--accent); color: var(--white); }
-
-    #directors { background: var(--white); color: var(--black); }
-    #directors .section-label { color: var(--mid); border-color: var(--black); }
-    #directors h2 { color: var(--black); }
-    #directors p { color: #333; }
-    .directors-label { grid-column: 1 / 3; }
-    .directors-intro { grid-column: 3 / 13; margin-bottom: 3rem; }
-    .directors-intro h2 { margin-bottom: 1rem; }
-    .director-cards { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(0,0,0,0.1); }
-    .director { background: var(--white); padding: 3rem; }
-    .director-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
-    .director .name { font-size: 1.75rem; font-weight: 800; color: var(--black); letter-spacing: -0.02em; margin-bottom: 0.75rem; }
-    .director .position { font-size: 0.85rem; font-weight: 500; color: #666; margin-bottom: 1.25rem; line-height: 1.5; }
-    .director .bio { font-size: 0.95rem; color: #333; line-height: 1.7; }
-    .director-link { display: inline-block; margin-top: 1.5rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 2px; transition: opacity 0.15s; }
-    .director-link:hover { opacity: 0.7; }
-    .partners { grid-column: 1 / -1; margin-top: 3rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 1.5rem; }
-    .partners-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); margin-bottom: 0.5rem; }
-    .partners p { font-size: 0.9rem; color: #666; }
 
     #contact { background: var(--white); }
     #contact .section-label { color: var(--mid); border-color: var(--black); }
@@ -175,11 +153,10 @@
       #hero { grid-template-columns: 1fr; padding-top: 4rem; min-height: auto; }
       .hero-text { grid-column: 1 / -1; }
       .hero-image { display: none; }
-      .about-label, .approach-label, .focus-label, .directors-label, .team-label, .contact-label, .concrete-label { display: none; }
-      .about-headline, .about-body, .approach-text, .approach-image, .toolbox, .focus-intro, .concrete-header, .projects-container, .team-intro, .team-bricks-wrap, .directors-intro, .contact-body { grid-column: 1 / -1; }
+      .about-label, .focus-label, .team-label, .contact-label, .concrete-label, .events-label, .participate-label { display: none; }
+      .about-headline, .about-body, .about-fullstack, .toolbox, .focus-intro, .concrete-header, .projects-container, .team-intro, .team-bricks-wrap, .contact-body, .events-header, .events-body, .participate-body { grid-column: 1 / -1; }
       .projects-container { grid-template-columns: 1fr; }
       .focus-grid { grid-template-columns: 1fr; }
-      .director-cards { grid-template-columns: 1fr; }
       .team-bricks { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
       footer .container { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
       .footer-right { text-align: left; }
@@ -241,7 +218,7 @@
         <p>FuSo est à la fois un hub et un point de contact. Nous examinons les opportunités et les risques des nouvelles technologies de bout en bout, en nous appuyant sur les connaissances scientifiques les plus récentes.</p>
         <p>Implantés à l'Université de Saint-Gall, nous réunissons les expertises de la <a href="https://scs.unisg.ch" target="_blank" rel="noopener">School of Computer Science</a> et de la <a href="https://www.unisg.ch/de/universitaet/schools/law/" target="_blank" rel="noopener">School of Law</a> pour livrer des solutions full-stack, ancrées dans la recherche, à la communauté académique, aux administrations publiques, aux ONG et au secteur privé.</p>
       </div>
-      <div style="grid-column: 3 / 13; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--black);">
+      <div class="about-fullstack">
         <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">Full-Stack : de la connaissance à l'impact</h3>
         <p style="margin-bottom: 1.5rem;">Là où d'autres hubs s'arrêtent à la recherche, FuSo fait tout le chemin avec ses partenaires : de la première idée à la co-création, en passant par l'évaluation des risques, la mise en œuvre et l'évaluation sur le terrain.</p>
       </div>
@@ -327,13 +304,13 @@
 <section id="events">
   <div class="container">
     <div class="grid">
-      <div style="grid-column: 1 / 3;">
+      <div class="events-label">
         <p class="section-label">Événements</p>
       </div>
-      <div style="grid-column: 3 / 13;">
+      <div class="events-header">
         <h2>Agenda Fu<span class="accent-text">So</span></h2>
       </div>
-      <div style="grid-column: 3 / 13; margin-top: 2rem;">
+      <div class="events-body">
         <div style="display: grid; gap: 1.5rem;">
           <div style="padding-bottom: 1rem; border-bottom: 1px solid #ddd;">
             <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;"><a href="https://www.kek-online.de/kek-workshop-2026-meinungsmarkt-oder-meinungsmacht/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">KEK Workshop «&nbsp;Meinungsmarkt oder Meinungsmacht?!&nbsp;»</a></p>
@@ -503,10 +480,10 @@
 <section id="participate">
   <div class="container">
     <div class="grid">
-      <div style="grid-column: 1 / 3;">
+      <div class="participate-label">
         <p class="section-label">Participer</p>
       </div>
-      <div style="grid-column: 3 / 13;">
+      <div class="participate-body">
         <h2>Rejoindre Fu<span class="accent-text">So</span></h2>
         <div style="margin-top: 2rem; font-size: 0.95rem; line-height: 1.7; color: #333;">
           <p style="margin-bottom: 1.5rem;">FuSo vit de la <strong>collaboration et de l'engagement</strong>. Nous entretenons la <strong>cohésion en interne</strong> à travers des <strong>déjeuners thématiques bimensuels</strong>, des <strong>speed-datings</strong> qui font dialoguer les disciplines, et des <strong>retraites annuelles</strong> qui rassemblent notre communauté. Vers l'extérieur, nos <strong>newsletters, policy briefs et podcasts</strong> font circuler nos travaux auprès d'un public plus large.</p>
