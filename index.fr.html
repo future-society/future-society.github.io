@@ -144,6 +144,15 @@
     .directors-intro h2 { margin-bottom: 1rem; }
     .director-cards { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(0,0,0,0.1); }
     .director { background: var(--white); padding: 3rem; }
+    .director-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .director .name { font-size: 1.75rem; font-weight: 800; color: var(--black); letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .director .position { font-size: 0.85rem; font-weight: 500; color: #666; margin-bottom: 1.25rem; line-height: 1.5; }
+    .director .bio { font-size: 0.95rem; color: #333; line-height: 1.7; }
+    .director-link { display: inline-block; margin-top: 1.5rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 2px; transition: opacity 0.15s; }
+    .director-link:hover { opacity: 0.7; }
+    .partners { grid-column: 1 / -1; margin-top: 3rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 1.5rem; }
+    .partners-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); margin-bottom: 0.5rem; }
+    .partners p { font-size: 0.9rem; color: #666; }
 
     #contact { background: var(--white); }
     #contact .section-label { color: var(--mid); border-color: var(--black); }
@@ -213,9 +222,10 @@
     <p class="hero-meta">Technologie &nbsp;&times;&nbsp; Société</p>
   </div>
   <div class="hero-image">
-    <img src="assets/fuso-logo.svg" alt="Logo FuSo">
+    <img id="heroLogo" src="assets/fuso-logo.svg" alt="Logo FuSo" title="Double-clique-moi…">
   </div>
 </div>
+<audio id="fuseSong" src="assets/CanYouFuseIt.mp3" preload="none"></audio>
 
 <!-- ABOUT -->
 <section id="about">
@@ -326,7 +336,7 @@
       <div style="grid-column: 3 / 13; margin-top: 2rem;">
         <div style="display: grid; gap: 1.5rem;">
           <div style="padding-bottom: 1rem; border-bottom: 1px solid #ddd;">
-            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;">KEK Workshop «&nbsp;Meinungsmarkt oder Meinungsmacht?!&nbsp;»</p>
+            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;"><a href="https://www.kek-online.de/kek-workshop-2026-meinungsmarkt-oder-meinungsmacht/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">KEK Workshop «&nbsp;Meinungsmarkt oder Meinungsmacht?!&nbsp;»</a></p>
             <p style="font-size: 0.85rem; color: #666;">9 juin 2026 — Berlin</p>
           </div>
           <div style="padding-bottom: 1rem; border-bottom: 1px solid #ddd;">
@@ -334,24 +344,20 @@
             <p style="font-size: 0.85rem; color: #666;">6–7 juillet 2026 — Lausanne</p>
           </div>
           <div style="padding-bottom: 1rem; border-bottom: 1px solid #ddd;">
-            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;">AI+Social Media Track <span style="font-weight: 400; color: #999;">(AI+X Summit)</span></p>
-            <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">1<sup>er</sup> octobre 2026 — Zurich</p>
-            <a href="https://www.plusx.ai/" target="_blank" rel="noopener" style="font-size: 0.8rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">www.plusx.ai</a>
+            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;"><a href="https://www.plusx.ai/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">AI+Social Media Track <span style="font-weight: 400; color: #999;">(AI+X Summit)</span></a></p>
+            <p style="font-size: 0.85rem; color: #666;">1<sup>er</sup> octobre 2026 — Zurich</p>
           </div>
           <div style="padding-bottom: 1rem; border-bottom: 1px solid #ddd;">
-            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;">Legal Design Workshop</p>
-            <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">4 novembre 2026 — Saint-Gall</p>
-            <a href="https://www.legaldesignworkshop.org/" target="_blank" rel="noopener" style="font-size: 0.8rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">www.legaldesignworkshop.org</a>
+            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;"><a href="https://www.legaldesignworkshop.org/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Legal Design Workshop</a></p>
+            <p style="font-size: 0.85rem; color: #666;">4 novembre 2026 — Saint-Gall</p>
           </div>
           <div style="padding-bottom: 1rem; border-bottom: 1px solid #ddd;">
-            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;">Legal Hackathons</p>
-            <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">7–8 novembre 2026 — Saint-Gall</p>
-            <a href="https://www.legalhackathons.org/" target="_blank" rel="noopener" style="font-size: 0.8rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">www.legalhackathons.org</a>
+            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;"><a href="https://www.legalhackathons.org/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Legal Hackathons</a></p>
+            <p style="font-size: 0.85rem; color: #666;">7–8 novembre 2026 — Saint-Gall</p>
           </div>
           <div style="padding-bottom: 1rem;">
-            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;">Solid Symposium 2027</p>
-            <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">29–30 avril 2027 — Saint-Gall</p>
-            <a href="https://sosy2027.eu" target="_blank" rel="noopener" style="font-size: 0.8rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">sosy2027.eu</a>
+            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;"><a href="https://sosy2027.eu" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Solid Symposium 2027</a></p>
+            <p style="font-size: 0.85rem; color: #666;">29–30 avril 2027 — Saint-Gall</p>
           </div>
           <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ddd;">
             <p style="font-size: 0.9rem; color: #666;">Pour les événements passés, consultez notre <a href="#" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">flux LinkedIn</a>.</p>
@@ -632,6 +638,21 @@
     bio.classList.toggle('open', !isOpen);
     btn.textContent = isOpen ? 'En savoir plus' : 'Réduire';
   }
+
+  // Easter egg: double-click the main logo to play "Can You Fuse It"
+  (function () {
+    const logo = document.getElementById('heroLogo');
+    const song = document.getElementById('fuseSong');
+    if (!logo || !song) return;
+    logo.addEventListener('dblclick', function () {
+      if (song.paused) {
+        song.currentTime = 0;
+        song.play();
+      } else {
+        song.pause();
+      }
+    });
+  })();
 </script>
 
 </body>

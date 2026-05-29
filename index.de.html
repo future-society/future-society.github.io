@@ -230,9 +230,10 @@
     <p class="hero-meta">Technologie &nbsp;&times;&nbsp; Gesellschaft</p>
   </div>
   <div class="hero-image">
-    <img src="assets/fuso-logo.svg" alt="FuSo Logo">
+    <img id="heroLogo" src="assets/fuso-logo.svg" alt="FuSo Logo" title="Doppelklick mich…">
   </div>
 </div>
+<audio id="fuseSong" src="assets/CanYouFuseIt.mp3" preload="none"></audio>
 
 <!-- ABOUT -->
 <section id="about">
@@ -343,7 +344,7 @@
       <div style="grid-column: 3 / 13; margin-top: 2rem;">
         <div style="display: grid; gap: 1.5rem;">
           <div style="padding-bottom: 1rem; border-bottom: 1px solid #ddd;">
-            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;">KEK Workshop „Meinungsmarkt oder Meinungsmacht?!"</p>
+            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;"><a href="https://www.kek-online.de/kek-workshop-2026-meinungsmarkt-oder-meinungsmacht/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">KEK Workshop „Meinungsmarkt oder Meinungsmacht?!"</a></p>
             <p style="font-size: 0.85rem; color: #666;">9. Juni 2026 — Berlin</p>
           </div>
           <div style="padding-bottom: 1rem; border-bottom: 1px solid #ddd;">
@@ -351,24 +352,20 @@
             <p style="font-size: 0.85rem; color: #666;">6.–7. Juli 2026 — Lausanne</p>
           </div>
           <div style="padding-bottom: 1rem; border-bottom: 1px solid #ddd;">
-            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;">AI+Social Media Track <span style="font-weight: 400; color: #999;">(AI+X Summit)</span></p>
-            <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">1. Oktober 2026 — Zürich</p>
-            <a href="https://www.plusx.ai/" target="_blank" rel="noopener" style="font-size: 0.8rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">www.plusx.ai</a>
+            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;"><a href="https://www.plusx.ai/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">AI+Social Media Track <span style="font-weight: 400; color: #999;">(AI+X Summit)</span></a></p>
+            <p style="font-size: 0.85rem; color: #666;">1. Oktober 2026 — Zürich</p>
           </div>
           <div style="padding-bottom: 1rem; border-bottom: 1px solid #ddd;">
-            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;">Legal Design Workshop</p>
-            <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">4. November 2026 — St.Gallen</p>
-            <a href="https://www.legaldesignworkshop.org/" target="_blank" rel="noopener" style="font-size: 0.8rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">www.legaldesignworkshop.org</a>
+            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;"><a href="https://www.legaldesignworkshop.org/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Legal Design Workshop</a></p>
+            <p style="font-size: 0.85rem; color: #666;">4. November 2026 — St.Gallen</p>
           </div>
           <div style="padding-bottom: 1rem; border-bottom: 1px solid #ddd;">
-            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;">Legal Hackathons</p>
-            <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">7.–8. November 2026 — St.Gallen</p>
-            <a href="https://www.legalhackathons.org/" target="_blank" rel="noopener" style="font-size: 0.8rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">www.legalhackathons.org</a>
+            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;"><a href="https://www.legalhackathons.org/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Legal Hackathons</a></p>
+            <p style="font-size: 0.85rem; color: #666;">7.–8. November 2026 — St.Gallen</p>
           </div>
           <div style="padding-bottom: 1rem;">
-            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;">Solid Symposium 2027</p>
-            <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">29.–30. April 2027 — St.Gallen</p>
-            <a href="https://sosy2027.eu" target="_blank" rel="noopener" style="font-size: 0.8rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">sosy2027.eu</a>
+            <p style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;"><a href="https://sosy2027.eu" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Solid Symposium 2027</a></p>
+            <p style="font-size: 0.85rem; color: #666;">29.–30. April 2027 — St.Gallen</p>
           </div>
           <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ddd;">
             <p style="font-size: 0.9rem; color: #666;">Vergangene Veranstaltungen finden Sie auf unserem <a href="#" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">LinkedIn-Feed</a>.</p>
@@ -649,6 +646,21 @@
     bio.classList.toggle('open', !isOpen);
     btn.textContent = isOpen ? 'Mehr erfahren' : 'Weniger anzeigen';
   }
+
+  // Easter egg: double-click the main logo to play "Can You Fuse It"
+  (function () {
+    const logo = document.getElementById('heroLogo');
+    const song = document.getElementById('fuseSong');
+    if (!logo || !song) return;
+    logo.addEventListener('dblclick', function () {
+      if (song.paused) {
+        song.currentTime = 0;
+        song.play();
+      } else {
+        song.pause();
+      }
+    });
+  })();
 </script>
 
 </body>
