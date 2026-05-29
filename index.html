@@ -724,9 +724,10 @@
     <p class="hero-meta">Technology &nbsp;&times;&nbsp; Society</p>
   </div>
   <div class="hero-image">
-    <img src="assets/fuso-logo.svg" alt="FuSo logo">
+    <img id="heroLogo" src="assets/fuso-logo.svg" alt="FuSo logo" title="Double-click me…">
   </div>
 </div>
+<audio id="fuseSong" src="assets/CanYouFuseIt.mp3" preload="none"></audio>
 
 <!-- ABOUT -->
 <section id="about">
@@ -1139,6 +1140,21 @@
     bio.classList.toggle('open', !isOpen);
     btn.textContent = isOpen ? 'Learn More' : 'Show Less';
   }
+
+  // Easter egg: double-click the main logo to play "Can You Fuse It"
+  (function () {
+    const logo = document.getElementById('heroLogo');
+    const song = document.getElementById('fuseSong');
+    if (!logo || !song) return;
+    logo.addEventListener('dblclick', function () {
+      if (song.paused) {
+        song.currentTime = 0;
+        song.play();
+      } else {
+        song.pause();
+      }
+    });
+  })();
 </script>
 
 </body>
