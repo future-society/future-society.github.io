@@ -127,6 +127,7 @@
     .brick-role { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
     .brick-name { font-size: 1rem; font-weight: 700; color: var(--black); line-height: 1.2; letter-spacing: -0.01em; }
     .brick-detail { font-size: 0.75rem; font-weight: 400; color: var(--mid); margin-top: 0.25rem; }
+    .brick-avatar { display: block; width: calc(100% + 2.5rem); margin: -1.5rem -1.25rem 1rem; height: 180px; object-fit: cover; object-position: top; }
     .brick-bio { display: none; }
     .brick-bio.open { display: block; }
     .learn-more-btn { display: inline-block; margin-top: 0.75rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); background: none; border: 1px solid var(--accent); padding: 0.4rem 0.8rem; cursor: pointer; transition: background 0.15s, color 0.15s; font-family: var(--font); }
@@ -359,35 +360,47 @@
         <div class="team-bricks">
 
           <div class="team-brick">
+            <img class="brick-avatar" src="https://storage.inrupt.com/f531f8ef-cd9d-474a-9fa6-70026b37c847/public/publicPortrait-square.jpg" alt="Simon Mayer">
             <p class="brick-role">Co-directeur</p>
             <p class="brick-name">Simon Mayer</p>
             <p class="brick-detail">Prof. Dr., ICS-HSG</p>
             <button class="learn-more-btn" onclick="toggleBio(this)">En savoir plus</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Simon Mayer dirige l'Interactions Research Group à l'ICS-HSG, où il étudie les interactions médiées par la technologie dans les systèmes socio-techniques complexes. Ses travaux couvrent le Web of Things, les systèmes multi-agents autonomes, l'interaction humain-robot et l'informatique ubiquitaire.</p>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">J'étudie comment la technologie transforme les interactions entre les personnes et leur environnement — du Web of Things aux agents autonomes en passant par la robotique.</p>
           </div>
 
           <div class="team-brick">
+            <img class="brick-avatar" src="https://www.sectorplandls.nl/wordpress/wp-content/uploads/elementor/thumbs/at-scaled-e1667747586811-pxbhxlwz04n8sysm54fadyobe105o6hzjq0aotqw8o.jpg" alt="Aurelia Tamò-Larrieux">
             <p class="brick-role">Co-directrice</p>
             <p class="brick-name">Aurelia Tamò-Larrieux</p>
             <p class="brick-detail">Prof. Dr., ILE-HSG</p>
             <button class="learn-more-btn" onclick="toggleBio(this)">En savoir plus</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Aurelia Tamò-Larrieux dirige le Legal Design &amp; Code Lab et est spécialisée en privacy-by-design, transparence de l'IA, droit computationnel et gouvernance des décisions automatisées.</p>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Je m'intéresse à la rencontre entre droit et technologie — notamment autour de la privacy-by-design, de la transparence de l'IA et de la gouvernance des décisions automatisées.</p>
           </div>
 
           <div class="team-brick">
+            <img class="brick-avatar" src="https://academia.jrstrecker.de/images/profile.jpg" alt="Jannis Strecker-Bischoff">
             <p class="brick-role">Responsable du hub</p>
-            <p class="brick-name">Jannis</p>
+            <p class="brick-name">Jannis Strecker-Bischoff</p>
             <p class="brick-detail">Doctorant</p>
             <button class="learn-more-btn" onclick="toggleBio(this)">En savoir plus</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">J'étudie comment les systèmes de personnalisation façonnent notre quotidien — et comment les concevoir pour qu'ils rapprochent les gens plutôt que de les isoler.</p>
           </div>
 
           <div class="team-brick">
+            <img class="brick-avatar" src="assets/images/vlada.jpg" alt="Vlada Druta">
             <p class="brick-role">Responsable du hub</p>
-            <p class="brick-name">Vlada</p>
+            <p class="brick-name">Vlada Druta</p>
             <p class="brick-detail">Doctorante</p>
             <button class="learn-more-btn" onclick="toggleBio(this)">En savoir plus</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Je suis doctorante à l'Université de Lausanne et je m'intéresse à la place de l'IA dans la justice — et à ce que cela implique pour la dignité humaine.</p>
+          </div>
+
+          <div class="team-brick">
+            <img class="brick-avatar" src="assets/images/JD.jpeg" alt="Johannes David">
+            <p class="brick-role">Chercheur·euse</p>
+            <p class="brick-name"><a href="https://www.linkedin.com/in/johannes-david/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Johannes David</a></p>
+            <button class="learn-more-btn" onclick="toggleBio(this)">En savoir plus</button>
+            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">J'aime créer des technologies utiles et innovantes.</p>
           </div>
 
           <div class="team-brick">
