@@ -7,171 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --black:   #111111;
-      --white:   #ffffff;
-      --gray:    #f4f4f4;
-      --mid:     #999999;
-      --accent:  #00802F;
-      --font:    'Inter', system-ui, sans-serif;
-      --gap: 2rem;
-      --max: 1280px;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--font);
-      font-size: 16px;
-      line-height: 1.6;
-      color: var(--black);
-      background: var(--white);
-      -webkit-font-smoothing: antialiased;
-    }
-
-    #about { background: var(--gray); }
-
-    .container { max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
-
-    .grid { display: grid; grid-template-columns: 0.3fr repeat(11, 1fr); gap: var(--gap); }
-
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--black); }
-    nav .container { display: flex; align-items: center; justify-content: space-between; height: 56px; }
-    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--black); }
-    .nav-logo img { width: 32px; height: 32px; object-fit: contain; }
-    .nav-wordmark { font-size: 0.9rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
-    nav ul { list-style: none; display: flex; gap: 2rem; }
-    nav a { text-decoration: none; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); transition: color 0.15s; }
-    nav a:hover { color: var(--accent); }
-
-    .lang-switch { display: flex; gap: 0.5rem; margin-left: 1.5rem; padding-left: 1.5rem; border-left: 1px solid #ddd; }
-    .lang-switch a { font-size: 0.7rem; letter-spacing: 0.08em; }
-    .lang-switch a.active { color: var(--accent); }
-
-    #hero { margin-top: 56px; min-height: calc(100vh - 56px); display: grid; grid-template-columns: 0.3fr repeat(11, 1fr); gap: var(--gap); padding: 0 2rem; max-width: var(--max); margin-left: auto; margin-right: auto; align-items: center; }
-    .hero-text { grid-column: 3 / 9; }
-    .hero-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
-    h1 { font-size: clamp(4.5rem, 10vw, 8.5rem); font-weight: 900; line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 1rem; }
-    .hero-slogan { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 300; font-style: italic; color: var(--accent); margin-bottom: 2rem; letter-spacing: -0.01em; }
-    .hero-sub { font-size: 1.3rem; font-weight: 300; line-height: 1.5; max-width: 540px; color: #333; margin-bottom: 2.5rem; }
-    .hero-meta { font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--black); }
-    .hero-image { grid-column: 9 / 13; display: flex; align-items: center; justify-content: flex-start; }
-    .hero-image img { width: 100%; max-width: 360px; }
-    .accent-text { color: var(--accent); }
-
-    section { padding: 6rem 0; border-bottom: 1px solid var(--black); }
-    section:last-of-type { border-bottom: none; }
-    .section-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid); margin-bottom: 3rem; padding-top: 0.25rem; border-top: 2px solid var(--black); }
-    h2 { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; }
-    h3 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 0.5rem; }
-    p { font-size: 1rem; font-weight: 300; line-height: 1.7; color: #333; }
-
-    .about-label { grid-column: 1 / 3; }
-    .about-headline { grid-column: 3 / 9; }
-    .about-headline h2 { margin-bottom: 1.5rem; }
-    .about-body { grid-column: 9 / 13; padding-top: 0.5rem; }
-    .about-body p + p { margin-top: 1rem; }
-    .about-body a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); transition: opacity 0.15s; }
-    .about-body a:hover { opacity: 0.7; }
-    .about-fullstack { grid-column: 3 / 13; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--black); }
-
-    #concrete { background: var(--gray); }
-    #concrete .section-label { color: var(--mid); border-color: var(--black); }
-    .concrete-label { grid-column: 1 / 3; }
-    .concrete-header { grid-column: 3 / 13; margin-bottom: 3rem; }
-    .concrete-header h2 { margin-bottom: 0.75rem; }
-    .concrete-header p { color: #333; }
-    .projects-container { grid-column: 3 / -1; margin-top: 2rem; }
-    .projects-list { display: flex; flex-direction: column; border-top: 1px solid #e0e0e0; }
-    .project-item { border-bottom: 1px solid #e0e0e0; }
-    .project-header { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 0.25rem; cursor: pointer; transition: color 0.15s; }
-    .project-header:hover .project-title { color: var(--accent); }
-    .project-header:hover .project-toggle { color: var(--accent); }
-    .project-num { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; color: var(--mid); min-width: 2.25rem; padding-top: 0.15rem; }
-    .project-title { flex: 1; font-size: 0.95rem; font-weight: 600; line-height: 1.4; color: var(--black); margin: 0; transition: color 0.15s; }
-    .project-toggle { font-size: 1.25rem; font-weight: 300; line-height: 1; color: var(--mid); transition: transform 0.25s, color 0.15s; padding-top: 0.1rem; flex-shrink: 0; }
-    .project-item.open .project-toggle { transform: rotate(45deg); color: var(--accent); }
-    .project-item.open .project-title { color: var(--accent); }
-    .project-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-    .project-item.open .project-body { max-height: 600px; }
-    .project-body-inner { padding: 0 0 1.25rem calc(2.25rem + 1rem); font-size: 0.9rem; line-height: 1.65; color: #444; max-width: 720px; }
-    .project-body-inner a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); }
-    .project-body-inner a:hover { opacity: 0.7; }
-
-    .toolbox { grid-column: 3 / 13; margin-top: 1rem; display: flex; flex-direction: row; gap: 0.75rem; padding: 0; border: none; border-radius: 0; background: transparent; position: relative; justify-content: flex-start; align-items: center; flex-wrap: wrap; }
-    .chain-label { display: flex; align-items: center; justify-content: center; padding: 0 0.5rem; color: var(--mid); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; min-height: 45px; white-space: nowrap; flex-shrink: 0; }
-    .block-item { display: flex; align-items: center; justify-content: center; padding: 0.75rem 0.6rem; background: var(--accent); color: var(--white); font-size: 0.48rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; cursor: default; clip-path: none; border-radius: 4px; transition: background 0.15s, filter 0.15s; min-height: 45px; min-width: 90px; position: relative; flex-shrink: 0; }
-    .block-item::after { display: none; }
-    .block-item:hover { filter: brightness(1.2); }
-
-    #focus { background: var(--white); }
-    .focus-label { grid-column: 1 / 3; }
-    .focus-intro { grid-column: 3 / 13; }
-    .focus-intro h2 { margin-bottom: 1rem; }
-    .focus-grid { grid-column: 3 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--black); margin-top: 3rem; }
-    .focus-card { background: var(--gray); padding: 2rem; }
-    .focus-num { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
-    .focus-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
-
-    #events { background: var(--white); }
-    .events-label { grid-column: 1 / 3; }
-    .events-header { grid-column: 3 / 13; }
-    .events-body { grid-column: 3 / 13; margin-top: 2rem; }
-    #participate { background: var(--gray); }
-    .participate-label { grid-column: 1 / 3; }
-    .participate-body { grid-column: 3 / 13; }
-
-    #team { background: var(--white); }
-    .team-label { grid-column: 1 / 3; }
-    .team-intro { grid-column: 3 / 13; margin-bottom: 3rem; }
-    .team-intro h2 { margin-bottom: 0.75rem; }
-    .team-bricks-wrap { grid-column: 3 / -1; }
-    .team-bricks { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1px; background: var(--black); }
-    .team-brick { background: var(--white); padding: 1.5rem 1.25rem; transition: background 0.15s; }
-    .team-brick:hover { background: var(--gray); }
-    .brick-role { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
-    .brick-name { font-size: 1rem; font-weight: 700; color: var(--black); line-height: 1.2; letter-spacing: -0.01em; }
-    .brick-detail { font-size: 0.75rem; font-weight: 400; color: var(--mid); margin-top: 0.25rem; }
-    .brick-avatar { display: block; width: calc(100% + 2.5rem); margin: -1.5rem -1.25rem 1rem; height: 180px; object-fit: cover; object-position: top; }
-    .brick-bio { display: none; }
-    .brick-bio.open { display: block; }
-    .learn-more-btn { display: inline-block; margin-top: 0.75rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); background: none; border: 1px solid var(--accent); padding: 0.4rem 0.8rem; cursor: pointer; transition: background 0.15s, color 0.15s; font-family: var(--font); }
-    .learn-more-btn:hover { background: var(--accent); color: var(--white); }
-
-    #contact { background: var(--white); }
-    #contact .section-label { color: var(--mid); border-color: var(--black); }
-    .contact-label { grid-column: 1 / 3; }
-    .contact-body { grid-column: 3 / 9; }
-    .contact-body h2 { margin-bottom: 1.5rem; }
-
-    footer { background: var(--black); color: var(--white); padding: 3rem 0; }
-    footer .container { display: flex; align-items: center; justify-content: space-between; }
-    .footer-logo { display: flex; align-items: center; gap: 1rem; }
-    .footer-logo img { width: 36px; height: 36px; object-fit: contain; }
-    .footer-wordmark { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); }
-    .footer-sub { font-size: 0.75rem; color: rgba(255,255,255,0.4); letter-spacing: 0.05em; }
-    .footer-right { text-align: right; }
-    .footer-right p { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
-
-    @media (max-width: 900px) {
-      :root { --gap: 1.5rem; }
-      nav ul { display: none; }
-      #hero { grid-template-columns: 1fr; padding-top: 4rem; min-height: auto; }
-      .hero-text { grid-column: 1 / -1; }
-      .hero-image { display: none; }
-      .about-label, .focus-label, .team-label, .contact-label, .concrete-label, .events-label, .participate-label { display: none; }
-      .about-headline, .about-body, .about-fullstack, .toolbox, .focus-intro, .concrete-header, .projects-container, .team-intro, .team-bricks-wrap, .contact-body, .events-header, .events-body, .participate-body { grid-column: 1 / -1; }
-      .projects-container { grid-template-columns: 1fr; }
-      .focus-grid { grid-template-columns: 1fr; }
-      .director-cards { grid-template-columns: 1fr; }
-      .team-bricks { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-      footer .container { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
-      .footer-right { text-align: left; }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
@@ -366,133 +202,7 @@
         <h2>Das <span class="accent-text">Team</span></h2>
       </div>
       <div class="team-bricks-wrap">
-        <div class="team-bricks">
-
-          <div class="team-brick">
-            <img class="brick-avatar" src="https://storage.inrupt.com/f531f8ef-cd9d-474a-9fa6-70026b37c847/public/publicPortrait-square.jpg" alt="Simon Mayer">
-            <p class="brick-role">Co-Direktor</p>
-            <p class="brick-name">Simon Mayer</p>
-            <p class="brick-detail">Prof. Dr., ICS-HSG</p>
-            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Ich erforsche, wie Technologie die Interaktion zwischen Menschen und ihrer Umgebung verändert — vom Web of Things über autonome Agenten bis zur Mensch-Roboter-Interaktion.</p>
-          </div>
-
-          <div class="team-brick">
-            <img class="brick-avatar" src="https://www.sectorplandls.nl/wordpress/wp-content/uploads/elementor/thumbs/at-scaled-e1667747586811-pxbhxlwz04n8sysm54fadyobe105o6hzjq0aotqw8o.jpg" alt="Aurelia Tamò-Larrieux">
-            <p class="brick-role">Co-Direktorin</p>
-            <p class="brick-name">Aurelia Tamò-Larrieux</p>
-            <p class="brick-detail">Prof. Dr., ILE-HSG</p>
-            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Ich beschäftige mich mit der Frage, wie Recht und Technologie zusammenwachsen — mit Schwerpunkten auf Privacy-by-Design, KI-Transparenz und der Governance automatisierter Entscheidungen.</p>
-          </div>
-
-          <div class="team-brick">
-            <img class="brick-avatar" src="https://academia.jrstrecker.de/images/profile.jpg" alt="Jannis Strecker-Bischoff">
-            <p class="brick-role">Hub-Leitung</p>
-            <p class="brick-name">Jannis Strecker-Bischoff</p>
-            <p class="brick-detail">Doktorand</p>
-            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Ich erforsche, wie Personalisierungstechnologien unseren Alltag prägen — und wie wir sie so gestalten können, dass sie Menschen verbinden statt trennen.</p>
-          </div>
-
-          <div class="team-brick">
-            <img class="brick-avatar" src="assets/images/vlada.jpg" alt="Vlada Druta">
-            <p class="brick-role">Hub-Leitung</p>
-            <p class="brick-name">Vlada Druta</p>
-            <p class="brick-detail">Doktorandin</p>
-            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Ich bin Doktorandin an der Universität Lausanne und beschäftige mich damit, wie KI in der Justiz eingesetzt wird — und was das für die Menschenwürde bedeutet.</p>
-          </div>
-
-          <div class="team-brick">
-            <img class="brick-avatar" src="assets/images/JD.jpeg" alt="Johannes David">
-            <p class="brick-role">Forschung</p>
-            <p class="brick-name"><a href="https://www.linkedin.com/in/johannes-david/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Johannes David</a></p>
-            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Ich baue gerne coole und nützliche Technologien.</p>
-          </div>
-
-          <div class="team-brick">
-            <p class="brick-role">Forschung</p>
-            <p class="brick-name">Team Member 1</p>
-            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-          </div>
-
-          <div class="team-brick">
-            <p class="brick-role">Forschung</p>
-            <p class="brick-name">Team Member 2</p>
-            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          </div>
-
-          <div class="team-brick">
-            <p class="brick-role">Forschung</p>
-            <p class="brick-name">Team Member 3</p>
-            <p class="brick-detail">2026–2028</p>
-            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
-          </div>
-
-          <div class="team-brick">
-            <p class="brick-role">Bridge PhD</p>
-            <p class="brick-name">Team Member 4</p>
-            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-          </div>
-
-          <div class="team-brick">
-            <p class="brick-role">Forschung</p>
-            <p class="brick-name">Team Member 5</p>
-            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores.</p>
-          </div>
-
-          <div class="team-brick">
-            <p class="brick-role">Forschung</p>
-            <p class="brick-name">Team Member 6</p>
-            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.</p>
-          </div>
-
-          <div class="team-brick">
-            <p class="brick-role">Forschung</p>
-            <p class="brick-name">Team Member 7</p>
-            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-          </div>
-
-          <div class="team-brick">
-            <p class="brick-role">Forschung</p>
-            <p class="brick-name">Team Member 8</p>
-            <p class="brick-detail">Bridge, 2026–2027</p>
-            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.</p>
-          </div>
-
-          <div class="team-brick">
-            <p class="brick-role">Forschung</p>
-            <p class="brick-name">Team Member 9</p>
-            <p class="brick-detail">Medical Ubicomp</p>
-            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti.</p>
-          </div>
-
-          <div class="team-brick">
-            <p class="brick-role">Forschung</p>
-            <p class="brick-name">Team Member 10</p>
-            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Et harum quidem rerum facilis est et expedita distinctio nam libero tempore, cum soluta nobis.</p>
-          </div>
-
-          <div class="team-brick">
-            <p class="brick-role">Forschung</p>
-            <p class="brick-name">Team Member 11</p>
-            <button class="learn-more-btn" onclick="toggleBio(this)">Mehr erfahren</button>
-            <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias.</p>
-          </div>
-
-        </div>
+        <div class="team-bricks" id="teamBricks"></div>
       </div>
     </div>
   </div>
@@ -562,7 +272,10 @@
   </div>
 </footer>
 
+<script src="assets/team.js"></script>
 <script>
+  renderTeam('de');
+
   const projects = [
     {
       title: "Mit techno-rechtlichen Werkzeugen die systemischen Risiken von Online-Plattformen eindämmen.",
@@ -630,13 +343,6 @@
   }
 
   renderProjects();
-
-  function toggleBio(btn) {
-    const bio = btn.nextElementSibling;
-    const isOpen = bio.classList.contains('open');
-    bio.classList.toggle('open', !isOpen);
-    btn.textContent = isOpen ? 'Mehr erfahren' : 'Weniger anzeigen';
-  }
 
   // Easter egg: double-click the main logo to play "Can You Fuse It"
   (function () {
