@@ -22,7 +22,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-#about { background: var(--gray); }
 
 .container {
   max-width: var(--max);
@@ -174,6 +173,10 @@ section {
 
 section:last-of-type { border-bottom: none; }
 
+/* Alternating backgrounds — automatic, so reordering sections never breaks the pattern */
+section:nth-of-type(odd)  { background: var(--gray); }
+section:nth-of-type(even) { background: var(--white); }
+
 .section-label {
   font-size: 0.65rem;
   font-weight: 700;
@@ -217,7 +220,6 @@ p {
 .about-fullstack { grid-column: 3 / 13; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--black); }
 
 /* ─── GET CONCRETE ─── */
-#concrete { background: var(--white); }
 #concrete .section-label { color: var(--mid); border-color: var(--black); }
 
 .concrete-label { grid-column: 1 / 3; }
@@ -375,7 +377,6 @@ p {
 .block-item:hover { filter: brightness(1.2); }
 
 /* ─── FOCUS AREAS ─── */
-#focus { background: var(--white); }
 
 .focus-label { grid-column: 1 / 3; }
 .focus-intro { grid-column: 3 / 13; }
@@ -407,18 +408,15 @@ p {
 .focus-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
 
 /* ─── EVENTS ─── */
-#events { background: var(--gray); }
 .events-label { grid-column: 1 / 3; }
 .events-header { grid-column: 3 / 13; }
 .events-body { grid-column: 3 / 13; margin-top: 2rem; }
 
 /* ─── PARTICIPATE ─── */
-#participate { background: var(--gray); }
 .participate-label { grid-column: 1 / 3; }
 .participate-body { grid-column: 3 / 13; }
 
 /* ─── TEAM ─── */
-#team { background: var(--white); }
 .team-label { grid-column: 1 / 3; }
 .team-intro { grid-column: 3 / 13; margin-bottom: 3rem; }
 .team-intro h2 { margin-bottom: 0.75rem; }
@@ -498,7 +496,6 @@ p {
 }
 
 /* ─── CONTACT ─── */
-#contact { background: var(--gray); }
 #contact .section-label { color: var(--mid); border-color: var(--black); }
 .contact-label { grid-column: 1 / 3; }
 .contact-body { grid-column: 3 / 9; }
