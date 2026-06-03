@@ -82,6 +82,17 @@ const teamMembers = [
       fr: 'J\'étudie comment les systèmes algorithmiques façonnent notre environnement informationnel — bulles de filtre, audit des réseaux sociaux et transparence des plateformes — en construisant des outils pour rendre les systèmes de recommandation lisibles pour chercheur·euses, régulateur·rices et utilisateur·rices.',
     }
   },
+  {
+    name: 'Alice Palmieri',
+    link: 'https://scholar.google.com/citations?user=4etKDf4AAAAJ&hl=en',
+    photo: 'https://alicepal.solidcommunity.net/public/picture/alice-fuso.jpg',
+    role: 'researcher',
+    bio: {
+      en: 'I research the governance of dominant online platforms, with a focus on the systemic risks they pose to users and the wider digital ecosystem. My work examines how regulation and accountability mechanisms can address the concentrated power of large platforms.',
+      de: 'Ich erforsche die Governance dominanter Online-Plattformen — insbesondere die systemischen Risiken, die sie für Nutzende und das digitale Ökosystem mit sich bringen, und wie Regulierung und Rechenschaftspflicht ihrer konzentrierten Macht begegnen können.',
+      fr: 'J\'étudie la gouvernance des plateformes en ligne dominantes — en particulier les risques systémiques qu\'elles font peser sur les utilisateur·rices et l\'écosystème numérique, et comment la régulation et la responsabilité peuvent encadrer leur pouvoir concentré.',
+    }
+  },
   { name: 'Team Member 1',  role: 'researcher',  bio: { en: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' } },
   { name: 'Team Member 2',  role: 'researcher',  bio: { en: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' } },
   { name: 'Team Member 3',  role: 'researcher',  detail: '2026–2028',       bio: { en: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.' } },

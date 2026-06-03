@@ -375,7 +375,7 @@ p {
 .block-item:hover { filter: brightness(1.2); }
 
 /* ─── FOCUS AREAS ─── */
-#focus { background: var(--gray); }
+#focus { background: var(--white); }
 
 .focus-label { grid-column: 1 / 3; }
 .focus-intro { grid-column: 3 / 13; }
@@ -413,7 +413,7 @@ p {
 .events-body { grid-column: 3 / 13; margin-top: 2rem; }
 
 /* ─── PARTICIPATE ─── */
-#participate { background: var(--white); }
+#participate { background: var(--gray); }
 .participate-label { grid-column: 1 / 3; }
 .participate-body { grid-column: 3 / 13; }
 
