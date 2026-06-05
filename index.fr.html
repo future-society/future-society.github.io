@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Future Society Hub | FuSo</title>
   <link rel="icon" href="assets/fuso-logo.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/style.css?v=2">
+  <link rel="stylesheet" href="assets/style.css?v=3">
 </head>
 <body>
 
@@ -16,7 +16,10 @@
       <img src="assets/fuso-logo.svg" alt="Logo FuSo">
       <span class="nav-wordmark">Fu<span class="accent-text">So</span></span>
     </a>
-    <ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Basculer le menu" aria-expanded="false" aria-controls="navMenu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul id="navMenu">
       <li><a href="#about">À propos</a></li>
       <li><a href="#concrete">Projets</a></li>
       <li><a href="#events">Événements</a></li>
@@ -342,18 +345,47 @@
 
   renderProjects();
 
-  // Easter egg: double-click the main logo to play "Can You Fuse It"
+  // Mobile nav: toggle the dropdown menu
+  (function () {
+    const toggle = document.getElementById('navToggle');
+    const menu = document.getElementById('navMenu');
+    if (!toggle || !menu) return;
+    const close = () => {
+      menu.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    };
+    toggle.addEventListener('click', function () {
+      const open = menu.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+  })();
+
+  // Easter egg: double-click / double-tap the main logo to play "Can You Fuse It"
   (function () {
     const logo = document.getElementById('heroLogo');
     const song = document.getElementById('fuseSong');
     if (!logo || !song) return;
-    logo.addEventListener('dblclick', function () {
+    function toggleSong() {
       if (song.paused) {
         song.currentTime = 0;
         song.play();
       } else {
         song.pause();
       }
+    }
+    logo.addEventListener('dblclick', toggleSong);
+    // Touch: dblclick is unreliable on mobile, so detect a double-tap within 300ms
+    let lastTap = 0;
+    logo.addEventListener('touchend', function (e) {
+      const now = Date.now();
+      if (now - lastTap < 300) {
+        e.preventDefault();
+        toggleSong();
+      }
+      lastTap = now;
     });
   })();
 </script>
