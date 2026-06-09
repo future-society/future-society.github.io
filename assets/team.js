@@ -19,7 +19,7 @@ const teamMembers = [
   {
     name: 'Simon Mayer',
     photo: 'https://storage.inrupt.com/f531f8ef-cd9d-474a-9fa6-70026b37c847/public/publicPortrait-square.jpg',
-    detail: 'Prof. Dr., ICS-HSG',
+    detail: 'Prof. Dr., Institute of Computer Science',
     role: 'co-director-m',
     bio: {
       en: 'I lead the Interactions Research Group at ICS-HSG, investigating technology-mediated interactions in complex socio-technical systems. My work spans the Web of Things, autonomous multi-agent systems, human-robot interaction, and pervasive computing.',
@@ -30,7 +30,7 @@ const teamMembers = [
   {
     name: 'Aurelia Tamò-Larrieux',
     photo: 'https://www.sectorplandls.nl/wordpress/wp-content/uploads/elementor/thumbs/at-scaled-e1667747586811-pxbhxlwz04n8sysm54fadyobe105o6hzjq0aotqw8o.jpg',
-    detail: 'Prof. Dr., ILE-HSG',
+    detail: 'Prof. Dr., Institute of Law and Economics',
     role: 'co-director-f',
     bio: {
       en: 'I head the Legal Design &amp; Code Lab and specialize in privacy-by-design, AI transparency, computational law, and the governance of automated decision-making.',
@@ -93,17 +93,38 @@ const teamMembers = [
       fr: 'J\'étudie la gouvernance des plateformes en ligne dominantes — en particulier les risques systémiques qu\'elles font peser sur les utilisateur·rices et l\'écosystème numérique, et comment la régulation et la responsabilité peuvent encadrer leur pouvoir concentré.',
     }
   },
-  { name: 'Team Member 1',  role: 'researcher',  bio: { en: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' } },
-  { name: 'Team Member 2',  role: 'researcher',  bio: { en: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' } },
-  { name: 'Team Member 3',  role: 'researcher',  detail: '2026–2028',       bio: { en: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.' } },
-  { name: 'Team Member 4',  role: 'bridge-phd',  bio: { en: 'Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.' } },
-  { name: 'Team Member 5',  role: 'researcher',  bio: { en: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores.' } },
-  { name: 'Team Member 6',  role: 'researcher',  bio: { en: 'Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.' } },
-  { name: 'Team Member 7',  role: 'researcher',  bio: { en: 'Sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.' } },
-  { name: 'Team Member 8',  role: 'researcher',  detail: 'Bridge, 2026–2027', bio: { en: 'Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.' } },
-  { name: 'Team Member 9',  role: 'researcher',  detail: 'Medical Ubicomp',   bio: { en: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti.' } },
-  { name: 'Team Member 10', role: 'researcher',  bio: { en: 'Et harum quidem rerum facilis est et expedita distinctio nam libero tempore, cum soluta nobis.' } },
-  { name: 'Team Member 11', role: 'researcher',  bio: { en: 'Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias.' } },
+  {
+    name: 'Haroon Khan',
+    link: 'https://axolotlintelligence.com/',
+    role: 'bridge-phd',
+    bio: {
+      en: 'My doctoral research examines the subjectivity of trustworthiness in artificially intelligent systems, spanning AI governance, human rights, and technology security. I have studied algorithmic radicalization and the right-wing social media pipeline, and contributed research to bodies including EUROPOL and the IAEA. Through Axolotl Intelligence, I work to demystify AI from the boardroom to the classroom.',
+      de: 'In meiner Doktorarbeit untersuche ich die Subjektivität von Vertrauenswürdigkeit in KI-Systemen — an der Schnittstelle von KI-Governance, Menschenrechten und Technologiesicherheit. Ich habe zu algorithmischer Radikalisierung geforscht und Beiträge für Institutionen wie EUROPOL und die IAEA geleistet. Mit Axolotl Intelligence mache ich KI verständlich — vom Klassenzimmer bis in die Chefetage.',
+      fr: 'Ma thèse porte sur la subjectivité de la confiance dans les systèmes d\'intelligence artificielle, à la croisée de la gouvernance de l\'IA, des droits humains et de la sécurité technologique. J\'ai étudié la radicalisation algorithmique et contribué à des travaux pour des organismes tels qu\'EUROPOL et l\'AIEA. À travers Axolotl Intelligence, je m\'attache à démystifier l\'IA, de la salle de classe aux conseils d\'administration.',
+    }
+  },
+  {
+    name: 'Jan Grau',
+    link: 'https://scholar.google.com/citations?user=XkY6KSIAAAAJ',
+    role: 'researcher',
+    bio: {
+      en: 'I am a researcher at Empa (the Swiss Federal Laboratories for Materials Science and Technology) and at the University of St.Gallen, working at the intersection of the Solid protocol, web development, and security and privacy. My work builds decentralized, privacy-preserving systems — from gaze-based human-agent collaboration to secure multi-party computation that lets companies share supply-chain data for a circular economy without giving up control over it.',
+      de: 'Ich bin Forscher an der Empa (Eidgenössische Materialprüfungs- und Forschungsanstalt) und an der Universität St.Gallen und arbeite an der Schnittstelle von Solid-Protokoll, Webentwicklung sowie Sicherheit und Datenschutz. Ich entwickle dezentrale, datenschutzfreundliche Systeme — von blickbasierter Mensch-Agent-Kollaboration bis zu Secure Multi-Party Computation, mit der Unternehmen Lieferkettendaten für eine Kreislaufwirtschaft teilen können, ohne die Kontrolle darüber abzugeben.',
+      fr: 'Je suis chercheur à l\'Empa (Laboratoire fédéral d\'essai des matériaux et de recherche) et à l\'Université de Saint-Gall, à la croisée du protocole Solid, du développement web et de la sécurité et de la vie privée. Je conçois des systèmes décentralisés et respectueux de la vie privée — de la collaboration humain-agent fondée sur le regard au calcul multipartite sécurisé, qui permet aux entreprises de partager des données de chaîne d\'approvisionnement pour une économie circulaire sans en perdre le contrôle.',
+    }
+  },
+  // --- Placeholder tiles (commented out until real members are added) ---
+  // { name: 'Team Member 1',  role: 'researcher',  bio: { en: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' } },
+  // { name: 'Team Member 2',  role: 'researcher',  bio: { en: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' } },
+  // { name: 'Team Member 3',  role: 'researcher',  detail: '2026–2028',       bio: { en: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.' } },
+  // { name: 'Team Member 4',  role: 'bridge-phd',  bio: { en: 'Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.' } },
+  // { name: 'Team Member 5',  role: 'researcher',  bio: { en: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores.' } },
+  // { name: 'Team Member 6',  role: 'researcher',  bio: { en: 'Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.' } },
+  // { name: 'Team Member 7',  role: 'researcher',  bio: { en: 'Sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.' } },
+  // { name: 'Team Member 8',  role: 'researcher',  detail: 'Bridge, 2026–2027', bio: { en: 'Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.' } },
+  // { name: 'Team Member 9',  role: 'researcher',  detail: 'Medical Ubicomp',   bio: { en: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti.' } },
+  // { name: 'Team Member 10', role: 'researcher',  bio: { en: 'Et harum quidem rerum facilis est et expedita distinctio nam libero tempore, cum soluta nobis.' } },
+  // { name: 'Team Member 11', role: 'researcher',  bio: { en: 'Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias.' } },
 ];
 
 function renderTeam(lang) {
