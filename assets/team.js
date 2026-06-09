@@ -113,6 +113,16 @@ const teamMembers = [
       fr: 'Je suis chercheur à l\'Empa (Laboratoire fédéral d\'essai des matériaux et de recherche) et à l\'Université de Saint-Gall, à la croisée du protocole Solid, du développement web et de la sécurité et de la vie privée. Je conçois des systèmes décentralisés et respectueux de la vie privée — de la collaboration humain-agent fondée sur le regard au calcul multipartite sécurisé, qui permet aux entreprises de partager des données de chaîne d\'approvisionnement pour une économie circulaire sans en perdre le contrôle.',
     }
   },
+  {
+    name: 'Giovanni De Toni',
+    link: 'https://detoni.me/',
+    role: 'researcher',
+    bio: {
+      en: 'I study the algorithmic challenges of keeping AI systems under meaningful human oversight and understanding their effects once deployed in society — spanning algorithmic recourse, fairness, human-AI complementarity, and risk-controlling machine learning. I earned my PhD at the University of Trento as part of the ELLIS network, with research at the Max Planck Institute for Software Systems, and received a Best Full Paper Award at ACM RecSys 2025. In September 2026 I begin a postdoctoral position at the ETH AI Center.',
+      de: 'Ich erforsche, wie sich KI-Systeme unter sinnvoller menschlicher Aufsicht halten lassen und welche Wirkung sie im gesellschaftlichen Einsatz entfalten — von algorithmischem Recourse über Fairness und Mensch-KI-Komplementarität bis zu risikokontrolliertem maschinellem Lernen. Ich habe an der Universität Trento im ELLIS-Netzwerk promoviert, mit Forschungsaufenthalten am Max-Planck-Institut für Softwaresysteme, und einen Best Full Paper Award auf der ACM RecSys 2025 erhalten. Im September 2026 beginne ich eine Postdoc-Stelle am ETH AI Center.',
+      fr: 'J\'étudie les défis algorithmiques liés au maintien d\'une supervision humaine effective des systèmes d\'IA et à la compréhension de leurs effets une fois déployés dans la société — du recours algorithmique à l\'équité, en passant par la complémentarité humain-IA et l\'apprentissage automatique sous contrôle du risque. J\'ai obtenu mon doctorat à l\'Université de Trente au sein du réseau ELLIS, avec des travaux à l\'Institut Max Planck pour les systèmes logiciels, et reçu un Best Full Paper Award à l\'ACM RecSys 2025. En septembre 2026, je débute un postdoctorat au ETH AI Center.',
+    }
+  },
   // --- Placeholder tiles (commented out until real members are added) ---
   // { name: 'Team Member 1',  role: 'researcher',  bio: { en: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' } },
   // { name: 'Team Member 2',  role: 'researcher',  bio: { en: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' } },
