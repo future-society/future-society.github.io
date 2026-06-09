@@ -61,30 +61,6 @@ const teamMembers = [
     }
   },
   {
-    name: 'Johannes David',
-    link: 'https://www.linkedin.com/in/johannes-david/',
-    photo: 'assets/images/JD.jpeg',
-    detail: 'PhD candidate',
-    role: 'researcher',
-    bio: {
-      en: 'I love building cool and useful tech.',
-      de: 'Ich baue gerne coole und nützliche Technologien.',
-      fr: 'J\'aime créer des technologies utiles et innovantes.',
-    }
-  },
-  {
-    name: 'Luka Bekavac',
-    link: 'https://scholar.google.com/citations?user=sLRhupsAAAAJ&hl=en&oi=ao',
-    photo: 'https://bridgingworlds.solidcommunity.net/public/fuso-photo.jpg',
-    detail: 'PhD candidate',
-    role: 'researcher',
-    bio: {
-      en: 'I study how algorithmic systems shape our information environment. My work focuses on filter bubbles, social media auditing, and platform transparency — building tools and methods that make recommender systems legible to researchers, regulators, and users alike.',
-      de: 'Ich untersuche, wie algorithmische Systeme unsere Informationsumgebung prägen — mit Schwerpunkten auf Filterblasen, Social-Media-Auditing und Plattformtransparenz, um Empfehlungssysteme für Forschende, Regulierer und Nutzende nachvollziehbar zu machen.',
-      fr: 'J\'étudie comment les systèmes algorithmiques façonnent notre environnement informationnel — bulles de filtre, audit des réseaux sociaux et transparence des plateformes — en construisant des outils pour rendre les systèmes de recommandation lisibles pour chercheur·euses, régulateur·rices et utilisateur·rices.',
-    }
-  },
-  {
     name: 'Alice Palmieri',
     link: 'https://scholar.google.com/citations?user=4etKDf4AAAAJ&hl=en',
     photo: 'https://alicepal.solidcommunity.net/public/picture/alice-fuso.jpg',
@@ -94,6 +70,17 @@ const teamMembers = [
       en: 'I research the governance of dominant online platforms, with a focus on the systemic risks they pose to users and the wider digital ecosystem. My work examines how regulation and accountability mechanisms can address the concentrated power of large platforms.',
       de: 'Ich erforsche die Governance dominanter Online-Plattformen — insbesondere die systemischen Risiken, die sie für Nutzende und das digitale Ökosystem mit sich bringen, und wie Regulierung und Rechenschaftspflicht ihrer konzentrierten Macht begegnen können.',
       fr: 'J\'étudie la gouvernance des plateformes en ligne dominantes — en particulier les risques systémiques qu\'elles font peser sur les utilisateur·rices et l\'écosystème numérique, et comment la régulation et la responsabilité peuvent encadrer leur pouvoir concentré.',
+    }
+  },
+  {
+    name: 'Giovanni De Toni',
+    link: 'https://detoni.me/',
+    detail: 'Postdoctoral Researcher',
+    role: 'researcher',
+    bio: {
+      en: 'I study the algorithmic challenges of keeping AI systems under meaningful human oversight and understanding their effects once deployed in society — spanning algorithmic recourse, fairness, human-AI complementarity, and risk-controlling machine learning. I earned my PhD at the University of Trento as part of the ELLIS network, with research at the Max Planck Institute for Software Systems, and received a Best Full Paper Award at ACM RecSys 2025. In September 2026 I begin a postdoctoral position at the ETH AI Center.',
+      de: 'Ich erforsche, wie sich KI-Systeme unter sinnvoller menschlicher Aufsicht halten lassen und welche Wirkung sie im gesellschaftlichen Einsatz entfalten — von algorithmischem Recourse über Fairness und Mensch-KI-Komplementarität bis zu risikokontrolliertem maschinellem Lernen. Ich habe an der Universität Trento im ELLIS-Netzwerk promoviert, mit Forschungsaufenthalten am Max-Planck-Institut für Softwaresysteme, und einen Best Full Paper Award auf der ACM RecSys 2025 erhalten. Im September 2026 beginne ich eine Postdoc-Stelle am ETH AI Center.',
+      fr: 'J\'étudie les défis algorithmiques liés au maintien d\'une supervision humaine effective des systèmes d\'IA et à la compréhension de leurs effets une fois déployés dans la société — du recours algorithmique à l\'équité, en passant par la complémentarité humain-IA et l\'apprentissage automatique sous contrôle du risque. J\'ai obtenu mon doctorat à l\'Université de Trente au sein du réseau ELLIS, avec des travaux à l\'Institut Max Planck pour les systèmes logiciels, et reçu un Best Full Paper Award à l\'ACM RecSys 2025. En septembre 2026, je débute un postdoctorat au ETH AI Center.',
     }
   },
   {
@@ -119,14 +106,27 @@ const teamMembers = [
     }
   },
   {
-    name: 'Giovanni De Toni',
-    link: 'https://detoni.me/',
-    detail: 'Postdoctoral Researcher',
+    name: 'Johannes David',
+    link: 'https://www.linkedin.com/in/johannes-david/',
+    photo: 'assets/images/JD.jpeg',
+    detail: 'PhD candidate',
     role: 'researcher',
     bio: {
-      en: 'I study the algorithmic challenges of keeping AI systems under meaningful human oversight and understanding their effects once deployed in society — spanning algorithmic recourse, fairness, human-AI complementarity, and risk-controlling machine learning. I earned my PhD at the University of Trento as part of the ELLIS network, with research at the Max Planck Institute for Software Systems, and received a Best Full Paper Award at ACM RecSys 2025. In September 2026 I begin a postdoctoral position at the ETH AI Center.',
-      de: 'Ich erforsche, wie sich KI-Systeme unter sinnvoller menschlicher Aufsicht halten lassen und welche Wirkung sie im gesellschaftlichen Einsatz entfalten — von algorithmischem Recourse über Fairness und Mensch-KI-Komplementarität bis zu risikokontrolliertem maschinellem Lernen. Ich habe an der Universität Trento im ELLIS-Netzwerk promoviert, mit Forschungsaufenthalten am Max-Planck-Institut für Softwaresysteme, und einen Best Full Paper Award auf der ACM RecSys 2025 erhalten. Im September 2026 beginne ich eine Postdoc-Stelle am ETH AI Center.',
-      fr: 'J\'étudie les défis algorithmiques liés au maintien d\'une supervision humaine effective des systèmes d\'IA et à la compréhension de leurs effets une fois déployés dans la société — du recours algorithmique à l\'équité, en passant par la complémentarité humain-IA et l\'apprentissage automatique sous contrôle du risque. J\'ai obtenu mon doctorat à l\'Université de Trente au sein du réseau ELLIS, avec des travaux à l\'Institut Max Planck pour les systèmes logiciels, et reçu un Best Full Paper Award à l\'ACM RecSys 2025. En septembre 2026, je débute un postdoctorat au ETH AI Center.',
+      en: 'I love building cool and useful tech.',
+      de: 'Ich baue gerne coole und nützliche Technologien.',
+      fr: 'J\'aime créer des technologies utiles et innovantes.',
+    }
+  },
+  {
+    name: 'Luka Bekavac',
+    link: 'https://scholar.google.com/citations?user=sLRhupsAAAAJ&hl=en&oi=ao',
+    photo: 'https://bridgingworlds.solidcommunity.net/public/fuso-photo.jpg',
+    detail: 'PhD candidate',
+    role: 'researcher',
+    bio: {
+      en: 'I study how algorithmic systems shape our information environment. My work focuses on filter bubbles, social media auditing, and platform transparency — building tools and methods that make recommender systems legible to researchers, regulators, and users alike.',
+      de: 'Ich untersuche, wie algorithmische Systeme unsere Informationsumgebung prägen — mit Schwerpunkten auf Filterblasen, Social-Media-Auditing und Plattformtransparenz, um Empfehlungssysteme für Forschende, Regulierer und Nutzende nachvollziehbar zu machen.',
+      fr: 'J\'étudie comment les systèmes algorithmiques façonnent notre environnement informationnel — bulles de filtre, audit des réseaux sociaux et transparence des plateformes — en construisant des outils pour rendre les systèmes de recommandation lisibles pour chercheur·euses, régulateur·rices et utilisateur·rices.',
     }
   },
 ];
