@@ -208,8 +208,11 @@ section:nth-of-type(even) { background: var(--white); }
   text-transform: uppercase;
   color: var(--mid);
   margin-bottom: 3rem;
-  padding-top: 0.25rem;
-  border-top: 2px solid var(--black);
+  padding-top: 1.5rem;
+  background-image: url('circuit-line-black.svg');
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-size: 100% auto;
 }
 
 h2 {
