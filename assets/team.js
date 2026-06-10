@@ -87,6 +87,7 @@ const teamMembers = [
   {
     name: 'Haroon Khan',
     link: 'https://axolotlintelligence.com/',
+    photo: 'assets/haroon.jpg',
     detail: 'PhD candidate',
     role: 'researcher',
     bio: {
