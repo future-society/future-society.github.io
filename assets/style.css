@@ -197,6 +197,8 @@ section {
 
 section:last-of-type { border-bottom: none; }
 
+#about { border-top: 1px solid var(--black); }
+
 /* Alternating backgrounds — automatic, so reordering sections never breaks the pattern */
 section:nth-of-type(odd)  { background: var(--gray); }
 section:nth-of-type(even) { background: var(--white); }
