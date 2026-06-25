@@ -114,9 +114,9 @@ const teamMembers = [
     detail: 'PhD candidate',
     role: 'researcher',
     bio: {
-      en: 'I love building cool and useful tech.',
-      de: 'Ich baue gerne coole und nützliche Technologien.',
-      fr: 'J\'aime créer des technologies utiles et innovantes.',
+      en: 'My research focuses on the real-world utility of legal AI, examining the practical barriers to its adoption and exploring how it can improve access to justice. I put this research into practice at Caritas, developing AI tools designed to address concrete needs in legal aid.',
+      de: 'Meine Forschung beschäftigt sich mit dem praktischen Nutzen von KI im Rechtsbereich — ich untersuche die realen Hindernisse bei ihrer Einführung und erforsche, wie sie den Zugang zur Justiz verbessern kann. Diese Erkenntnisse setze ich bei der Caritas in die Praxis um, wo ich KI-Tools entwickle, die konkrete Bedürfnisse in der Rechtsberatung adressieren.',
+      fr: 'Mes recherches portent sur l\'utilité concrète de l\'IA juridique, en examinant les obstacles pratiques à son adoption et en explorant comment elle peut améliorer l\'accès à la justice. Je mets ces recherches en pratique à la Caritas, en développant des outils d\'IA conçus pour répondre à des besoins concrets en matière d\'aide juridique.',
     }
   },
   {
