@@ -74,6 +74,17 @@ const teamMembers = [
     }
   },
   {
+    name: 'Dick Blankvoort',
+    photo: 'https://dblankvoort.datapod.igrant.io/public/dickblankvoort.jpg',
+    detail: 'PhD candidate',
+    role: 'researcher',
+    bio: {
+      en: 'I explore the applications of (generative) AI services and their broader technological and regulatory ecosystem, as well as user privacy through privacy policy evaluation. My current work consists of delineating and scrutinizing current practices in open-source AI, supporting research on AI companions, evaluating compliance with the EU AI Act, and exploring the data sharing ecosystem through privacy policies.',
+      de: 'Ich erforsche die Anwendungen (generativer) KI-Dienste und ihr breiteres technologisches und regulatorisches Ökosystem sowie den Datenschutz von Nutzenden durch die Bewertung von Datenschutzerklärungen. Meine aktuelle Arbeit umfasst die Untersuchung aktueller Praktiken in der Open-Source-KI, die Unterstützung von Forschung zu KI-Begleitern, die Bewertung der Konformität mit dem EU AI Act sowie die Erkundung des Datenaustausch-Ökosystems anhand von Datenschutzrichtlinien.',
+      fr: 'J\'explore les applications des services d\'IA (générative) et leur écosystème technologique et réglementaire, ainsi que la vie privée des utilisateur·rices à travers l\'évaluation des politiques de confidentialité. Mon travail actuel consiste à délimiter et examiner les pratiques actuelles en matière d\'IA open source, à soutenir la recherche sur les compagnons IA, à évaluer la conformité avec l\'AI Act européen, et à explorer l\'écosystème de partage de données à travers les politiques de confidentialité.',
+    }
+  },
+  {
     name: 'Giovanni De Toni',
     link: 'https://detoni.me/',
     detail: 'Postdoctoral Researcher',
