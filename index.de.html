@@ -53,6 +53,7 @@
   </div>
 </div>
 <audio id="fuseSong" src="assets/CanYouFuseIt.mp3" preload="none"></audio>
+<audio id="amplifySong" src="assets/AMPLIFY.mp3" preload="none"></audio>
 
 <!-- ABOUT -->
 <section id="about">
@@ -291,7 +292,7 @@
     },
     {
       title: "Künftig gefragte Kompetenzen und Bildungswege antizipieren.",
-      how: `Wir untersuchen, wie neue Technologien Bildung und Berufsfelder verändern, und begleiten die Gestaltung von Lehrplänen. Gemeinsam mit Forschenden aus der Schweiz und der EU schätzen wir die Folgen von KI für individuelle Kompetenzen ab — etwa in <a href="https://www.ta-swiss.ch/en/large-language-models" target="_blank" rel="noopener">einer Studie für TA-Swiss</a>.`
+      how: `Wir untersuchen, wie neue Technologien Bildung und Berufsfelder verändern, und begleiten die Gestaltung von Lehrplänen. Gemeinsam mit Forschenden aus der Schweiz und der EU schätzen wir die Folgen von KI für individuelle Kompetenzen ab — etwa in <a href="https://www.ta-swiss.ch/en/large-language-models" target="_blank" rel="noopener">einer Studie für TA-Swiss</a>. Es gibt auch einen <span id="amplifyTrigger" class="amplify-trigger" title="Doppelklick mich…">Song</span> über unsere Erkenntnisse.`
     },
     {
       title: "Die digitalen Infrastrukturen von morgen mitgestalten.",
@@ -383,6 +384,32 @@
     // Touch: dblclick is unreliable on mobile, so detect a double-tap within 300ms
     let lastTap = 0;
     logo.addEventListener('touchend', function (e) {
+      const now = Date.now();
+      if (now - lastTap < 300) {
+        e.preventDefault();
+        toggleSong();
+      }
+      lastTap = now;
+    });
+  })();
+
+  // Easter egg: double-click / double-tap the "Song" text to play AMPLIFY
+  (function () {
+    const trigger = document.getElementById('amplifyTrigger');
+    const song = document.getElementById('amplifySong');
+    if (!trigger || !song) return;
+    function toggleSong() {
+      if (song.paused) {
+        song.currentTime = 0;
+        song.play();
+      } else {
+        song.pause();
+      }
+    }
+    trigger.addEventListener('dblclick', toggleSong);
+    // Touch: dblclick is unreliable on mobile, so detect a double-tap within 300ms
+    let lastTap = 0;
+    trigger.addEventListener('touchend', function (e) {
       const now = Date.now();
       if (now - lastTap < 300) {
         e.preventDefault();
