@@ -444,10 +444,34 @@ p {
 .events-label { grid-column: 1 / 3; }
 .events-header { grid-column: 3 / 13; }
 .events-body { grid-column: 3 / 13; margin-top: 2rem; }
-/* The inner list is an inline display:grid with no column template, so its
-   auto track sizes to max-content and can overflow narrow viewports — pin it
-   to a shrinkable single column */
-.events-body > div { grid-template-columns: minmax(0, 1fr); }
+
+/* Two side-by-side boxes: the dated events list and the Brown Bag series.
+   align-items: start lets each box size to its own content height. */
+.events-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+.event-box { background: var(--white); padding: 2rem; }
+
+.event-list { display: grid; gap: 1.5rem; }
+.event-item { padding-bottom: 1rem; border-bottom: 1px solid #ddd; }
+.event-list .event-item:last-child { padding-bottom: 0; border-bottom: none; }
+
+.event-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem; }
+.event-title a { color: inherit; text-decoration: underline; }
+.event-tag { font-weight: 400; color: #999; }
+
+.event-meta { font-size: 0.85rem; color: #666; }
+.event-desc { font-size: 0.85rem; color: #666; margin-bottom: 0.5rem; }
+.event-date { font-size: 0.85rem; color: #666; margin: 0 0 0.3rem; }
+.event-date strong { font-weight: 600; color: #444; }
+
+.event-note { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ddd; }
+.event-note p, .event-contact { font-size: 0.9rem; color: #666; }
+.event-contact { margin-top: 0.6rem; }
+.event-link { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); }
 
 /* ─── PARTICIPATE ─── */
 .participate-label { grid-column: 1 / 3; }
@@ -649,6 +673,7 @@ footer .container {
   .events-header, .events-body,
   .participate-body { grid-column: 1 / -1; }
 
+  .events-columns { grid-template-columns: 1fr; }
   .projects-container { grid-template-columns: 1fr; }
   .focus-grid { grid-template-columns: 1fr; }
   .director-cards { grid-template-columns: 1fr; }
