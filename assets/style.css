@@ -334,17 +334,23 @@ p {
   color: var(--accent);
 }
 
+/* Smooth reveal: animate the grid track from 0fr to 1fr so it eases to the
+   body's natural height without a hard-coded max-height. The inner wrapper
+   clips the content while the row collapses. */
 .project-body {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.3s ease, opacity 0.3s ease;
 }
 
 .project-item.open .project-body {
-  max-height: 600px;
+  grid-template-rows: 1fr;
+  opacity: 1;
 }
 
 .project-body-inner {
+  overflow: hidden;
   padding: 0 0 1.25rem calc(2.25rem + 1rem);
   font-size: 0.9rem;
   line-height: 1.65;
@@ -619,8 +625,28 @@ a.meta:hover { color: var(--accent); }
   letter-spacing: 0.05em;
 }
 
-.brick-bio { display: none; }
-.brick-bio.open { display: block; }
+/* Smooth reveal: animate the grid track from 0fr to 1fr so it eases to the
+   bio's natural height without a hard-coded max-height. The inner wrapper
+   clips the text while the row collapses. */
+.brick-bio {
+  display: grid;
+  grid-template-rows: 0fr;
+  margin-top: 0;
+  opacity: 0;
+  transition: grid-template-rows 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+}
+.brick-bio.open {
+  grid-template-rows: 1fr;
+  margin-top: 0.75rem;
+  opacity: 1;
+}
+.brick-bio-inner {
+  overflow: hidden;
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: #666;
+  line-height: 1.5;
+}
 
 .learn-more-btn {
   display: inline-block;

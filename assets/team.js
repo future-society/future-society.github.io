@@ -167,7 +167,7 @@ function renderTeam(lang) {
       <p class="brick-name">${nameHtml}</p>
       ${detailHtml}
       <button class="learn-more-btn" data-lang="${lang}" onclick="toggleBio(this)">${learnMore}</button>
-      <p class="brick-bio" style="margin-top:0.75rem; font-size:0.7rem; font-weight:300; color:#666; line-height:1.5;">${bio}</p>
+      <div class="brick-bio"><div class="brick-bio-inner">${bio}</div></div>
     </div>`;
   }).join('');
 }
