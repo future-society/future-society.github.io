@@ -154,7 +154,11 @@ function renderTeam(lang) {
     const nameHtml   = m.link
       ? `<a href="${m.link}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">${m.name}</a>`
       : m.name;
-    const photoHtml  = m.photo  ? `<img class="brick-avatar" src="${m.photo}" alt="${m.name}">` : '';
+    const words      = m.name.split(/\s+/).filter(Boolean);
+    const initials   = (words[0]?.[0] || '') + (words.length > 1 ? words[words.length - 1][0] : '');
+    const photoHtml  = m.photo
+      ? `<img class="brick-avatar" src="${m.photo}" alt="${m.name}">`
+      : `<div class="brick-avatar brick-avatar--placeholder" aria-hidden="true">${initials.toUpperCase()}</div>`;
     const detailHtml = detail   ? `<p class="brick-detail">${detail}</p>` : '';
     const learnMore  = TEAM_UI.learnMore[lang] || TEAM_UI.learnMore.en;
     return `<div class="team-brick">
