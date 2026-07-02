@@ -771,9 +771,15 @@ footer .container {
   }
   .hero-image img { width: 60%; max-width: 240px; }
 
-  .about-label, .focus-label,
-  .team-label, .contact-label,
-  .concrete-label, .events-label, .participate-label { display: none; }
+  .about-label { display: none; }
+
+  .concrete-label, .events-label,
+  .focus-label, .participate-label,
+  .team-label, .contact-label {
+    display: block;
+    justify-self: start;
+    width: 5.5rem;
+  }
 
   .about-headline, .about-body, .about-fullstack,
   .toolbox,
@@ -790,6 +796,8 @@ footer .container {
   .director-cards { grid-template-columns: 1fr; }
   .team-bricks { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
 
+  .section-label { margin-bottom: 0; }
+
   footer .container { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
   .footer-right { text-align: left; }
 }
@@ -801,8 +809,6 @@ footer .container {
   #hero { padding-left: 1.25rem; padding-right: 1.25rem; }
 
   section { padding: 4rem 0; }
-  .section-label { margin-bottom: 2rem; }
-
   .hero-sub { font-size: 1.1rem; }
 
   .about-fullstack { margin-top: 2rem; padding-top: 2rem; }
