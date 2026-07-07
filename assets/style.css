@@ -748,7 +748,11 @@ a.meta:hover { color: var(--accent); }
 .way-link::after { content: " \2192"; }
 .way-link:hover { opacity: 0.65; }
 
-.participate-contact { margin-top: 1.5rem; font-size: 0.95rem; }
+.participate-contact {
+  margin-top: 1.75rem;
+  padding: 0.6rem 0 0.6rem 1rem;
+  border-left: 2px solid var(--accent);
+}
 .participate-contact a {
   color: var(--accent);
   text-decoration: none;
