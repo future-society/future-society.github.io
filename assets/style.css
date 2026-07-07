@@ -696,6 +696,40 @@ a.meta:hover { color: var(--accent); }
   color: var(--white);
 }
 
+/* ─── PARTICIPATE PATHWAYS ─── */
+.participate-intro { margin-bottom: 1.25rem; }
+
+.participate-ways { display: grid; gap: 0.65rem; }
+.way {
+  display: flex;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.way::before {
+  content: "\203A";
+  color: var(--accent);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.way p { margin: 0; }
+.way-link {
+  white-space: nowrap;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  transition: opacity 0.15s;
+}
+.way-link::after { content: " \2192"; }
+.way-link:hover { opacity: 0.65; }
+
+.participate-contact { margin-top: 1.5rem; font-size: 0.95rem; }
+.participate-contact a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+}
+
 /* ─── CONTACT ─── */
 #contact .section-label { color: var(--mid); border-color: var(--black); }
 .contact-label { grid-column: 1 / 3; }
