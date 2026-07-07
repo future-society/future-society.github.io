@@ -19,4 +19,4 @@ Allow: /
 User-agent: Amazonbot
 Allow: /
 
-Sitemap: https://future-society.github.io/sitemap.xml
+Sitemap: https://futuresociety.ch/sitemap.xml

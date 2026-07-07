@@ -88,16 +88,22 @@ FuSo collaborates with:
 
 ## Upcoming Events
 
-- June 9, 2026 — KEK Workshop "Meinungsmarkt oder Meinungsmacht?!", Berlin
-- July 6–7, 2026 — Everyday Law Workshop, Lausanne
+- September 21–23, 2026 — Strategic AI Governance (Executive Education), Zurich
+- September 24, 2026 — Webinar "Wenn der Feed die Welt erklärt" (Smartfeld), online
+- September 29, 2026 — FuSo Retreat, St.Gallen
 - October 1, 2026 — AI+Social Media Track (AI+X Summit), Zurich
 - November 4, 2026 — Legal Design Workshop, St.Gallen
 - November 7–8, 2026 — Legal Hackathons, St.Gallen
 - April 29–30, 2027 — Solid Symposium 2027, St.Gallen
 
+FuSo also runs a bi-weekly Brown Bag Lunch series (September–November 2026) with invited speakers; contact fuso@unisg.ch for details.
+
 ## Contact
 
-**Email**: simon.mayer@unisg.ch
+**Email**: fuso@unisg.ch
 **Address**: University of St.Gallen, Rosenbergstrasse 30, St. Gallen, Switzerland
-**Web**: https://future-society.github.io
+**Web**: https://futuresociety.ch
 **Languages**: English, German, French
+
+---
+Last updated: 2026-07-07
