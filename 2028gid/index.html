@@ -1,0 +1,1025 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 2028 Global Intelligence Dividend — FuSo Hub</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌅</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:  #111111;
+  --white:  #ffffff;
+  --gray:   #f4f4f4;
+  --mid:    #999999;
+  --accent: #00802F;
+  --font:   'Inter', system-ui, sans-serif;
+  --gap: 2rem;
+  --max: 1280px;
+}
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){ html { scroll-behavior: auto; } }
+
+body {
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--black);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
+
+.grid {
+  display: grid;
+  grid-template-columns: 0.3fr repeat(11, 1fr);
+  gap: var(--gap);
+}
+h1, h2, h3, p { overflow-wrap: break-word; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+::selection { background: rgba(0,128,47,.18); }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid var(--black);
+}
+nav .container {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px;
+}
+.nav-logo { text-decoration: none; color: var(--black); }
+.nav-wordmark {
+  font-size: 0.9rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.accent-text { color: var(--accent); }
+nav ul { list-style: none; display: flex; align-items: center; gap: 2rem; }
+nav ul a {
+  text-decoration: none; font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--black);
+  transition: color 0.15s;
+}
+nav ul a:hover { color: var(--accent); }
+
+.nav-toggle {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  width: 40px; height: 40px; padding: 8px;
+  background: none; border: none; cursor: pointer;
+}
+.nav-toggle span {
+  display: block; width: 100%; height: 2px; background: var(--black);
+  transition: transform 0.25s, opacity 0.25s;
+}
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ─── HERO ─── */
+#hero {
+  margin-top: 56px;
+  min-height: calc(92vh - 56px);
+  display: grid; align-content: center;
+  padding: 5rem 2rem;
+  max-width: var(--max);
+  margin-left: auto; margin-right: auto;
+}
+.hero-inner { max-width: 900px; }
+.hero-label {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem;
+}
+h1 {
+  font-size: clamp(2.8rem, 7vw, 5.6rem);
+  font-weight: 900; line-height: 0.97; letter-spacing: -0.03em;
+  margin-bottom: 1.25rem;
+}
+.hero-slogan {
+  font-size: clamp(1.3rem, 2.6vw, 1.85rem);
+  font-weight: 300; font-style: italic; color: var(--accent);
+  letter-spacing: -0.01em; margin-bottom: 1.75rem;
+}
+.hero-sub {
+  font-size: 1.25rem; font-weight: 300; line-height: 1.55;
+  max-width: 620px; color: #333; margin-bottom: 2.5rem;
+}
+.hero-meta {
+  font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--black);
+}
+.hero-meta .sep { color: var(--mid); padding: 0 .4rem; }
+
+/* ─── SECTIONS ─── */
+section { padding: 5.5rem 0; border-bottom: 1px solid var(--black); }
+section:first-of-type { border-top: 1px solid var(--black); }
+section:nth-of-type(odd)  { background: var(--gray); }
+section:nth-of-type(even) { background: var(--white); }
+section:last-of-type { border-bottom: none; }
+
+.side-label { grid-column: 1 / 3; align-self: start; padding-top: 1.1rem; }
+.circuit {
+  display: block; width: 100%; max-width: 110px; height: 13px;
+  background-color: var(--black);
+  -webkit-mask: var(--circuit) left center / contain no-repeat;
+  mask: var(--circuit) left center / contain no-repeat;
+  --circuit: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 101.46 13.01'%3E%3Crect x='0' y='5.53' width='88.52' height='1.95'/%3E%3Cpath d='M95.19,13.01c3.4-.12,6.21-2.99,6.27-6.39.03-1.76-.63-3.42-1.87-4.67-1.23-1.25-2.88-1.94-4.64-1.94-3.21,0-5.95,2.39-6.43,5.53.48,3.79,3.38,6.03,6.67,5.53ZM91.73,3.29c.86-.86,2-1.33,3.22-1.33s2.36.47,3.22,1.33c.86.86,1.33,2,1.33,3.22s-.47,2.36-1.33,3.22c-.86.86-2,1.33-3.22,1.33s-2.36-.47-3.22-1.33c-.86-.86-1.33-2-1.33-3.22s.47-2.36,1.33-3.22Z'/%3E%3C/svg%3E");
+}
+.side-label .side-word {
+  display: block; margin-top: 0.6rem;
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--mid);
+}
+
+.sec-body { grid-column: 3 / 13; min-width: 0; }
+.sec-kicker {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+}
+h2 {
+  font-size: clamp(1.9rem, 3.6vw, 3.1rem);
+  font-weight: 800; line-height: 1.05; letter-spacing: -0.02em;
+  margin-bottom: 1.75rem; max-width: 820px;
+}
+h3 {
+  font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em;
+  margin: 2.4rem 0 0.6rem; max-width: 660px;
+}
+.sec-body > p, .sec-body ul { max-width: 660px; }
+p { font-size: 1rem; font-weight: 300; line-height: 1.7; color: #333; }
+.sec-body p + p, .sec-body p + h3 + p { margin-top: 1.1rem; }
+.sec-body p + figure, .sec-body figure + p,
+.sec-body p + .tablewrap, .sec-body .tablewrap + p,
+.sec-body p + blockquote, .sec-body blockquote + p,
+.sec-body p + ul, .sec-body ul + p,
+.sec-body p + .stat-grid, .sec-body .stat-grid + p { margin-top: 1.6rem; }
+strong { font-weight: 600; color: var(--black); }
+
+a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); transition: opacity 0.15s; }
+a:hover { opacity: 0.7; }
+
+/* lead / note */
+.lead { font-size: 1.15rem; }
+.scenario-note {
+  background: var(--white); border: 1px solid var(--black);
+  padding: 1.5rem 1.75rem; max-width: 820px;
+  font-size: 0.9rem; line-height: 1.65; color: #444; font-weight: 300;
+}
+.scenario-note strong { font-weight: 700; }
+
+/* pull quotes — hero-slogan voice */
+blockquote {
+  margin: 2.6rem 0; max-width: 780px;
+}
+blockquote .q {
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  font-weight: 300; font-style: italic; line-height: 1.4;
+  letter-spacing: -0.01em; color: var(--accent);
+}
+blockquote footer {
+  margin-top: 0.8rem;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--mid);
+}
+
+/* ─── STAT GRID (focus-card pattern) ─── */
+.stat-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--black); border: 1px solid var(--black);
+  margin: 2.2rem 0;
+}
+.stat-card { background: var(--white); padding: 1.75rem; min-width: 0; }
+.stat-num {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem;
+}
+.stat-val {
+  font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1;
+  font-variant-numeric: tabular-nums; color: var(--black);
+}
+.stat-sub { font-size: 0.75rem; font-weight: 400; color: var(--mid); margin-top: 0.6rem; line-height: 1.5; }
+
+/* ─── FIGURES / CHARTS ─── */
+figure.chart {
+  background: var(--white); border: 1px solid var(--black);
+  padding: 1.75rem; margin: 2.2rem 0; max-width: 900px;
+}
+figure.chart figcaption { margin-bottom: 1.25rem; }
+.f-title {
+  font-size: 1rem; font-weight: 700; letter-spacing: -0.01em;
+  padding-bottom: 0.75rem; margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--black);
+}
+.f-sub { font-size: 0.8rem; font-weight: 400; color: var(--mid); }
+.legend {
+  display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: #444;
+}
+.legend .sw {
+  display: inline-block; width: 16px; height: 3px;
+  vertical-align: 0.22em; margin-right: 0.45rem;
+}
+.plot { position: relative; overflow-x: auto; }
+.plot svg { display: block; width: 100%; height: auto; min-width: 520px; }
+.axis-t { font-family: var(--font); font-size: 10.5px; font-weight: 500; fill: var(--mid); letter-spacing: .04em; }
+.dlabel { font-family: var(--font); font-size: 11.5px; font-weight: 700; fill: var(--black); }
+.vlabel { font-family: var(--font); font-size: 11px; font-weight: 600; fill: var(--black); }
+.srcline {
+  margin-top: 1rem; font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid);
+}
+#tooltip {
+  position: fixed; pointer-events: none; z-index: 200; display: none;
+  background: var(--black); color: var(--white);
+  font-family: var(--font); font-size: 0.72rem; font-weight: 500;
+  line-height: 1.55; padding: 0.5rem 0.7rem; max-width: 16rem;
+}
+#tooltip b { color: #fff; font-weight: 700; }
+details.dtable { margin-top: 0.9rem; }
+details.dtable summary {
+  cursor: pointer; list-style: none;
+  font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+}
+details.dtable summary::-webkit-details-marker { display: none; }
+details.dtable summary::before { content: "+ "; }
+details.dtable[open] summary::before { content: "\2013 "; }
+details.dtable table { margin-top: 0.75rem; font-size: 0.8rem; }
+
+/* ─── TABLES ─── */
+.tablewrap { overflow-x: auto; margin: 2.2rem 0; max-width: 900px; background: var(--white); border: 1px solid var(--black); }
+table { border-collapse: collapse; width: 100%; }
+th {
+  text-align: left; font-size: 0.66rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid);
+  padding: 0.8rem 1rem; border-bottom: 1px solid var(--black);
+}
+td { padding: 0.7rem 1rem; border-bottom: 1px solid #e0e0e0; vertical-align: top; font-size: 0.88rem; font-weight: 300; color: #333; }
+tr:last-child td { border-bottom: none; }
+td.num {
+  font-weight: 700; color: var(--accent);
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+td:first-child { font-weight: 600; color: var(--black); }
+
+/* ─── LISTS (way pattern) ─── */
+ul.ways { list-style: none; display: grid; gap: 0.85rem; }
+ul.ways li { display: flex; gap: 0.6rem; font-size: 0.95rem; font-weight: 300; line-height: 1.6; color: #333; }
+ul.ways li::before { content: "\203A"; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+/* ─── FOOTER ─── */
+footer { background: var(--black); color: var(--white); padding: 3rem 0; }
+footer .container { display: flex; align-items: flex-start; justify-content: space-between; gap: 2rem; }
+.footer-wordmark {
+  font-size: 0.85rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--white);
+}
+.footer-sub { font-size: 0.75rem; color: rgba(255,255,255,0.4); letter-spacing: 0.05em; margin-top: 0.4rem; }
+.footer-right { text-align: right; max-width: 520px; }
+.footer-right p { font-size: 0.72rem; font-weight: 300; color: rgba(255,255,255,0.4); line-height: 1.7; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  :root { --gap: 1.5rem; }
+  .grid { grid-template-columns: 1fr; }
+  .grid > * { min-width: 0; }
+  .nav-toggle { display: flex; }
+  nav ul {
+    display: none; position: absolute; top: 56px; left: 0; right: 0;
+    flex-direction: column; gap: 0; padding: 0.5rem 2rem 1.25rem;
+    background: var(--white); border-bottom: 1px solid var(--black);
+  }
+  nav ul.open { display: flex; }
+  nav ul li { padding: 0.65rem 0; }
+  nav ul li a { font-size: 0.85rem; }
+  #hero { min-height: auto; padding: 4rem 2rem; }
+  .side-label { padding-top: 0; margin-bottom: 0.5rem; width: 6.5rem; }
+  .sec-body { grid-column: 1 / -1; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  footer .container { flex-direction: column; }
+  .footer-right { text-align: left; }
+}
+@media (max-width: 600px) {
+  .container { padding: 0 1.25rem; }
+  nav ul { padding: 0.5rem 1.25rem 1.25rem; }
+  #hero { padding: 3rem 1.25rem; }
+  section { padding: 4rem 0; }
+  .hero-sub { font-size: 1.1rem; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .stat-card { padding: 1.25rem; }
+  figure.chart { padding: 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a class="nav-logo" href="#hero">
+      <span class="nav-wordmark">Fu<span class="accent-text">So</span> Hub</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul id="navMenu">
+      <li><a href="#prologue">Prologue</a></li>
+      <li><a href="#phase-1">Phase I</a></li>
+      <li><a href="#phase-2">Phase II</a></li>
+      <li><a href="#phase-3">Phase III</a></li>
+      <li><a href="#flywheel">Flywheel</a></li>
+      <li><a href="#ledger">Ledger</a></li>
+      <li><a href="#positioning">Positioning</a></li>
+      <li><a href="#epilogue">Epilogue</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header id="hero">
+  <div class="hero-inner">
+    <div class="hero-label">FuSo Hub · Scenario Analysis Nº 7 · $2028GID</div>
+    <h1>The 2028 Global Intelligence <span class="accent-text">Dividend</span></h1>
+    <p class="hero-slogan">A letter from June 2028, on the crisis that never came.</p>
+    <p class="hero-sub">The boom that arrived instead of the collapse everyone
+    positioned for — written as a retrospective, against the same technological
+    assumptions as the crisis scenario it mirrors.</p>
+    <div class="hero-meta">Published February 2026 <span class="sep">·</span> Received June 2028 <span class="sep">·</span> 34 min read</div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── PROLOGUE ── -->
+<section id="prologue">
+  <div class="container grid">
+    <div class="side-label" aria-hidden="true"><span class="circuit"></span><span class="side-word">Prologue</span></div>
+    <div class="sec-body">
+      <div class="scenario-note">
+        <strong>What follows is a scenario, not a forecast.</strong> It is written as a
+        retrospective from June 2028, in the same spirit — and against the same
+        technological assumptions — as the widely circulated “Global Intelligence
+        Crisis” scenario. Every capability that breaks the economy in that letter
+        exists in this one. The dates are invented, the companies are real, the
+        numbers are illustrative, and the mechanism is the argument. Nothing here
+        is investment advice.
+      </div>
+
+      <p class="lead" style="margin-top:2.2rem">By June 2028 the strangest fact
+      about the American economy was how long everyone had waited for it to
+      collapse.</p>
+
+      <p>The short positions had been elegant. The scenario pieces had been
+      persuasive. Abundant machine intelligence would hollow out white-collar
+      payrolls, the top decile of earners would stop spending, private credit
+      would choke on software debt, and the whole edifice — annuities, mortgages,
+      the S&amp;P — would come down in the correct dramatic order. AI was
+      exceeding expectations, and the market was AI. Only problem, the argument
+      went: the economy was not.</p>
+
+      <p>The economists kept waiting for the demand hole to open. It never did —
+      because every dollar that stopped flowing to friction started flowing
+      somewhere else, usually within a quarter, usually to somebody with a higher
+      propensity to spend it. The pessimists modeled the destruction with great
+      precision and the redirection not at all. That asymmetry, more than any
+      single technology, is the story of the last thirty months.</p>
+
+      <blockquote>
+        <p class="q">AI was exceeding expectations, and the market was AI. The
+        surprise was that the economy became AI too — and the economy was bigger
+        than the market.</p>
+        <footer>FuSo Hub · Letter Nº 7 · June 2028</footer>
+      </blockquote>
+
+      <p>This is the tape as it stands today:</p>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-num">01 · Unemployment</div>
+          <div class="stat-val">3.4%</div>
+          <div class="stat-sub">June 2028 · participation 64.9%, highest since 2001</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">02 · Productivity</div>
+          <div class="stat-val">+4.7%</div>
+          <div class="stat-sub">annualized 2026–28 · fastest sustained run since 1948–73</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">03 · Real median income</div>
+          <div class="stat-val">+11.2%</div>
+          <div class="stat-sub">cumulative, 24 months · largest two-year gain on record</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">04 · CPI</div>
+          <div class="stat-val">0.8%</div>
+          <div class="stat-sub">y/y · the good kind, for once</div>
+        </div>
+      </div>
+
+      <p>How we got here happened in three phases. Each began exactly the way
+      the crisis scenario said it would. Each ended somewhere else.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── PHASE I ── -->
+<section id="phase-1">
+  <div class="container grid">
+    <div class="side-label" aria-hidden="true"><span class="circuit"></span><span class="side-word">Phase I</span></div>
+    <div class="sec-body">
+      <div class="sec-kicker">Phase I · 2026</div>
+      <h2>The Software Dividend</h2>
+
+      <p>The first act is not disputed by anyone, bull or bear. In early 2026, AI
+      coding agents made it feasible for a competent internal team to replace most
+      of an enterprise SaaS contract in a quarter. Procurement teams noticed.
+      Renewal negotiations at the large platforms turned into hostage exchanges,
+      and seat-based pricing — the load-bearing wall of a $1.2 trillion industry —
+      buckled. Enterprise software prices fell 40–60% in eighteen months.
+      ServiceNow's infamous “build-it-ourselves” renewal season happened on
+      schedule.</p>
+
+      <p>The crisis scenario ends the paragraph there: pricing power collapses,
+      layoffs ripple through the vendor ecosystem, the doom loop engages. What
+      actually happened next was less cinematic. The $310 billion a year that
+      corporate America had been spending on software seats did not vanish. It
+      sat, briefly, in CFO budgets — and CFOs in competitive industries cannot
+      sit on windfalls, because their competitors don't. Within three quarters
+      the savings had been marked to market as price cuts, capacity expansion,
+      and hiring in every function that touched a customer. Software deflation
+      turned out to be indistinguishable, at the macro level, from a corporate
+      tax cut — except that it recurred every year and no one had to pass it.</p>
+
+      <p>The platforms themselves split into two species. Those that clung to
+      seat pricing shrank with dignity. Those that switched to outcome pricing —
+      pay per resolved ticket, per closed book, per shipped release — discovered
+      that at one-fifth the price their addressable market was twenty times the
+      size. The software <em>industry's</em> revenue fell 22% from its 2025 peak.
+      The software <em>economy</em> — everything built, bought, and operated as
+      code — roughly tripled, because 4.1 million businesses that could never
+      have justified an enterprise contract were now running bespoke systems
+      written by agents and supervised by a new job title, deployment
+      engineering, that did not exist in 2025 and employed 900,000 people by the
+      end of 2027. The median displaced SaaS professional was re-employed in 4.5
+      months at a 6% pay cut. Sharp. Painful. Survivable.</p>
+
+      <blockquote>
+        <p class="q">Every dollar saved on friction flowed into demand that made
+        the next round of hiring possible.</p>
+        <footer>The loop, running in reverse</footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ── PHASE II ── -->
+<section id="phase-2">
+  <div class="container grid">
+    <div class="side-label" aria-hidden="true"><span class="circuit"></span><span class="side-word">Phase II</span></div>
+    <div class="sec-body">
+      <div class="sec-kicker">Phase II · 2026–2027</div>
+      <h2>The Great Fee Repeal</h2>
+
+      <p>The second phase was the one nobody priced correctly, because it didn't
+      show up in any company's earnings before it showed up in everyone's
+      checking account.</p>
+
+      <p>Consumer agents killed friction-based business models exactly as
+      advertised. Real estate commissions compressed from 2.7% to 0.9%. Travel
+      booking take rates went to zero as agents assembled itineraries directly
+      against airline and hotel APIs. Wealth management fees fell from 100 basis
+      points to fifteen. Agents routed a growing share of commerce over
+      stablecoin rails, and interchange — the 2% toll on essentially all American
+      consumption — began its long repricing. DoorDash's moat (“you're hungry,
+      this app is on your screen”) evaporated on schedule.</p>
+
+      <p>The crisis scenario read this as revenue destruction, and it was. But a
+      fee is a transfer, not value — and the destruction of a transfer has a
+      recipient. Add up the intermediation costs that agents repealed between
+      mid-2026 and the end of 2027 and you get roughly <strong>$740 billion a
+      year returned to households</strong>: the largest tax cut in American
+      history, passed by no Congress, signed by no president, effective
+      immediately and forever.</p>
+
+      <figure class="chart" id="fig-fees">
+        <figcaption>
+          <div class="f-title">The Fee Repeal — annual intermediation costs returned to households</div>
+          <div class="f-sub">$ billions per year, by source · scenario estimates as of Dec 2027</div>
+        </figcaption>
+        <div class="plot" id="feeChart"></div>
+        <div class="srcline">Source: FuSo scenario model · illustrative</div>
+        <details class="dtable"><summary>View as table</summary>
+          <table><thead><tr><th>Source</th><th>$B / yr</th></tr></thead><tbody id="feeTable"></tbody></table>
+        </details>
+      </figure>
+
+      <p>For the median household this was worth about $4,100 a year — invisible
+      as a line item, unmistakable as a balance. And because it accrued
+      disproportionately to the bottom eight deciles (who pay interchange,
+      commissions, and distribution fees on nearly everything, and own almost
+      none of the companies that collected them), it landed on the highest
+      marginal propensity to consume in the economy. The top 10% of earners
+      drive half of discretionary spending; the pessimists were right about
+      that. What they missed is that a broad-based windfall doesn't need the top
+      decile. Restaurant traffic, domestic travel, home improvement, youth
+      sports, live events — the entire “someone does something for you” economy
+      inflected upward through 2027 while the price of everything transacted
+      through a screen fell.</p>
+
+      <p>The intermediaries themselves were repriced, not destroyed. The card
+      networks kept the one thing agents couldn't replicate — a trust and
+      dispute layer with sixty years of legal scaffolding — and sold it at a
+      quarter of the old toll on three times the volume. Machines optimizing for
+      price did not care about your favorite app. It turned out consumers didn't
+      care either. They cared about the $4,100.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── PHASE III ── -->
+<section id="phase-3">
+  <div class="container grid">
+    <div class="side-label" aria-hidden="true"><span class="circuit"></span><span class="side-word">Phase III</span></div>
+    <div class="sec-body">
+      <div class="sec-kicker">Phase III · 2027</div>
+      <h2>The Great Rebalancing</h2>
+
+      <p>Here is where the two scenarios genuinely diverge, so it is worth being
+      precise about what the crisis version predicted: a 2% decline in
+      white-collar employment producing a 3–4% hit to discretionary spending,
+      displaced knowledge workers flooding into lower-wage sectors and
+      compressing them, a spiral with no natural brake.</p>
+
+      <p>The displacement happened. Routine white-collar employment —
+      coordination, reporting, first-drafting, the great middle of the org chart
+      — fell 8% between January 2026 and mid-2028, roughly 1.9 million
+      positions. Anyone who tells you this was painless is selling something.
+      What did not happen was the spiral, for three reasons the doom models
+      weighted at zero.</p>
+
+      <figure class="chart" id="fig-emp">
+        <figcaption>
+          <div class="f-title">Two labor markets, one economy</div>
+          <div class="f-sub">Employment, indexed · January 2026 = 100</div>
+        </figcaption>
+        <div class="legend">
+          <span><span class="sw" style="background:var(--black)"></span>Routine white-collar roles</span>
+          <span><span class="sw" style="background:var(--accent)"></span>Care, trades &amp; deployment roles</span>
+        </div>
+        <div class="plot" id="empChart"></div>
+        <div class="srcline">Source: FuSo scenario model · illustrative</div>
+        <details class="dtable"><summary>View as table</summary>
+          <table><thead><tr><th>Quarter</th><th>White-collar</th><th>Care / trades / deployment</th></tr></thead><tbody id="empTable"></tbody></table>
+        </details>
+      </figure>
+
+      <p><strong>First, the vacancies were already there.</strong> The United
+      States entered 2026 with 1.1 million unfilled healthcare positions,
+      600,000 open roles in the skilled trades, and an electrical grid buildout
+      — driven, with some irony, by AI datacenter demand — that needed every
+      electrician the country could certify. The crisis scenario treated
+      displaced workers as surplus. The labor market treated them as
+      inventory.</p>
+
+      <p><strong>Second, AI collapsed the cost of becoming someone else.</strong>
+      The same models that displaced the analysts retrained them. An AI
+      preceptor took a career-switcher to journeyman electrician in fourteen
+      months instead of four years; nursing programs built around individualized
+      AI instruction graduated cohorts in under two. The Occupational Mobility
+      Compact of March 2027 — forty-one states fast-tracking licensure
+      reciprocity — was arguably the single highest-ROI piece of legislation of
+      the decade, and it cost almost nothing. Companies caught on the wrong side
+      of the disruption borrowed to fund their way across it: “transformation
+      facilities” became the fastest-growing category in private credit, with
+      lenders underwriting the cost base a borrower would have after the
+      transition rather than the revenue line it had before.</p>
+
+      <p><strong>Third — and this is the one that broke the models — the wage
+      structure inverted.</strong> Compensation compressed at the top of the org
+      chart and exploded at the bottom of the hourly market, where all that
+      fee-repeal demand was landing on a limited supply of humans. Median
+      nominal wages grew 6.2% in 2027 against 0.9% inflation: the largest real
+      median wage gain since 1998. The consumption base broadened in exactly the
+      years the pessimists said it would narrow. A $180,000 strategy VP becoming
+      a $95,000 infrastructure project lead is a tragedy in one spreadsheet and
+      a rounding error in the national accounts — because three people earning
+      $52,000 became three people earning $71,000 over the same interval, and
+      they spent nearly all of it.</p>
+
+      <blockquote>
+        <p class="q">Deflation is only a crisis when incomes fall faster than
+        prices. Incomes won the race by four lengths.</p>
+        <footer>FuSo Hub · Letter Nº 5 · November 2027</footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ── FLYWHEEL ── -->
+<section id="flywheel">
+  <div class="container grid">
+    <div class="side-label" aria-hidden="true"><span class="circuit"></span><span class="side-word">Flywheel</span></div>
+    <div class="sec-body">
+      <h2>The Flywheel: How Finance Amplified It</h2>
+
+      <h3>Private credit, the dog that didn't default</h3>
+      <p>Zendesk's $5 billion ARR-backed facility — the largest of its kind ever
+      written, and Exhibit A in every crisis deck — was supposed to become the
+      largest software default in private credit history when autonomous
+      customer service ate its book. Instead it became the template. The company
+      repriced to resolution-based billing, tripled its customer count among
+      businesses that had never paid for support software, and refinanced in
+      March 2027 at 140 basis points inside the original spread. Direct lending
+      default rates for 2027 came in at 1.1% — a record low — because lenders
+      discovered that a borrower whose costs are collapsing faster than its
+      prices is, whatever its revenue line says, improving as a credit.</p>
+
+      <h3>The annuity machine finds its asset</h3>
+      <p>The alternative managers — Apollo, KKR, Blackstone — had spent a decade
+      funneling life-insurance annuity deposits into private credit, and the
+      crisis scenario cast this as the systemic fault line. It turned out to be
+      the transmission mechanism. Permanent capital is exactly the wrong funding
+      for a panic and exactly the right funding for a buildout, and 2026–28 was
+      the largest buildout in American history: $2.1 trillion of datacenters,
+      grid, robotics, and modular housing, matched against liabilities that
+      don't run. The “permanent capital” narrative was supposed to be tested by
+      a wave of redemptions. It was tested instead by a wave of demand, which is
+      a nicer exam.</p>
+
+      <h3>Mortgages: the crisis that required falling incomes</h3>
+      <p>The $13 trillion residential mortgage market assumes stable incomes for
+      thirty years, and the bears were right that no one had stress-tested it
+      for white-collar obsolescence. No one got to run the test. Serious
+      delinquencies ended 2027 at 47 basis points, the lowest ever recorded,
+      because the marginal mortgage holder is not a strategy VP — she is a nurse
+      married to an electrician, and both of them just got the two largest
+      raises of their lives. Meanwhile AI-driven permitting and factory-built
+      construction added 2.9 million units in three years; house prices drifted
+      4% lower while ownership rose two full points. The loans were good on day
+      one. The world just got better after they were written.</p>
+
+      <h3>The macro release valve</h3>
+      <p>Assemble the pieces: productivity compounding near 5%, unit labor costs
+      falling, CPI at 0.8%. The Fed, staring at the first supply-driven
+      disinflation since the 1990s, cut to 1.75% into an expanding economy — not
+      to rescue anything, but because holding real rates at 4% against a
+      productivity boom is how you cause the recession everyone had already
+      written up. Cheap capital met visible demand. Margins expanded, wages
+      rose, and prices fell all at the same time, which every textbook says is
+      picking three from a menu of two. Productivity paid for the third.</p>
+
+      <figure class="chart" id="fig-prod">
+        <figcaption>
+          <div class="f-title">The regime change nobody dared extrapolate</div>
+          <div class="f-sub">US nonfarm business productivity, y/y % · shaded region is the scenario</div>
+        </figcaption>
+        <div class="plot" id="prodChart"></div>
+        <div class="srcline">Source: BLS through 2025 · FuSo scenario model after · illustrative</div>
+        <details class="dtable"><summary>View as table</summary>
+          <table><thead><tr><th>Year</th><th>y/y %</th></tr></thead><tbody id="prodTable"></tbody></table>
+        </details>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ── LEDGER ── -->
+<section id="ledger">
+  <div class="container grid">
+    <div class="side-label" aria-hidden="true"><span class="circuit"></span><span class="side-word">Ledger</span></div>
+    <div class="sec-body">
+      <h2>The Ledger, June 2028</h2>
+
+      <div class="tablewrap">
+      <table>
+        <thead><tr><th>Metric</th><th>Reading</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>Labor share of GDP</td><td class="num">61.8%</td><td>Up from 59.1% in 2025 — the productivity windfall split toward wages, not against them</td></tr>
+          <tr><td>Unemployment</td><td class="num">3.4%</td><td>Participation 64.9%, a 27-year high; U-6 at a record low</td></tr>
+          <tr><td>Productivity growth</td><td class="num">+4.7% /yr</td><td>2026–28 annualized; fastest sustained run since the postwar golden age</td></tr>
+          <tr><td>Real median household income</td><td class="num">+11.2%</td><td>Two-year cumulative; the fee repeal alone worth ~$4,100/household/yr</td></tr>
+          <tr><td>S&amp;P 500</td><td class="num">9,400</td><td>+58% from Oct-2026; equal-weight outperformed cap-weight — breadth, not froth</td></tr>
+          <tr><td>CPI</td><td class="num">+0.8% y/y</td><td>Supply-driven; goods and intermediated services deflating, human services firm</td></tr>
+          <tr><td>Federal receipts</td><td class="num">+9% vs CBO</td><td>Deficit at 2.9% of GDP; capital gains and payroll receipts both above baseline</td></tr>
+          <tr><td>Private credit defaults</td><td class="num">1.1%</td><td>2027 vintage; “transformation facilities” the fastest-growing category</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3 style="margin-top:3rem">The Policy Dividend</h3>
+      <p>Congress, for once, legislated ahead of the loop instead of behind it —
+      largely because the crisis scenario was so widely read that hedging it
+      became bipartisan. Two acts mattered:</p>
+
+      <ul class="ways" style="margin-top:1.4rem">
+        <li><span><strong>The Abundance Dividend Act (2027)</strong> placed a 3%
+        levy on frontier inference compute and paid it straight back out: a $150
+        monthly dividend to every adult, plus wage insurance covering 80% of any
+        compensation gap for twenty-four months after an AI-attributed
+        displacement. Total cost, a rounding error against the receipts
+        windfall; total effect, the removal of the fear that had been
+        suppressing consumption more than any actual job loss.</span></li>
+        <li><span><strong>The American Compute Reserve (2027)</strong> took
+        warrant positions in frontier labs in exchange for fast-tracked federal
+        land, power, and water — a sovereign wealth fund assembled not by taxing
+        the boom but by owning a slice of it. First distributions are scheduled
+        for 2030. Norway, but for intelligence.</span></li>
+      </ul>
+
+      <p style="margin-top:1.6rem">Note what was <em>not</em> needed: no
+      emergency QE, no bailout of private credit, no mortgage forbearance
+      regime. The tools of 2008 and 2020 stayed in the drawer. When incomes rise
+      faster than prices, most policy problems turn out to be optional.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── POSITIONING ── -->
+<section id="positioning">
+  <div class="container grid">
+    <div class="side-label" aria-hidden="true"><span class="circuit"></span><span class="side-word">Positioning</span></div>
+    <div class="sec-body">
+      <h2>Positioning: What Worked</h2>
+
+      <p>We are not making recommendations; we are describing a scenario's
+      winners with the same license the crisis piece used to describe its
+      casualties.</p>
+
+      <ul class="ways" style="margin-top:1.6rem">
+        <li><span><strong>AI infrastructure, still.</strong> NVDA and TSM
+        performed through both scenarios — that is the point of picks and
+        shovels. The surprise was everything downstream of the electron: grid
+        equipment, transformers, electrical contractors, utilities with
+        datacenter exposure.</span></li>
+        <li><span><strong>The buildout complex.</strong> Homebuilders and
+        modular construction, robotics integrators, industrial REITs. Permanent
+        capital's new permanent assets.</span></li>
+        <li><span><strong>The human premium.</strong> Airlines, live events,
+        hospitality, restaurant groups — the entire experience economy, levered
+        to the broadest real income gain in fifty years.</span></li>
+        <li><span><strong>Main Street finance.</strong> Regional banks
+        rediscovered as lenders to four million new micro-businesses; staffing,
+        credentialing, and trades-training platforms as the tollbooths of the
+        Great Rebalancing.</span></li>
+        <li><span><strong>Repriced, not destroyed.</strong> Payments networks,
+        outcome-priced software, insurance distribution — bought in the panic of
+        the crisis narrative, at single-digit multiples, by whoever read the fee
+        repeal as volume rather than death.</span></li>
+      </ul>
+
+      <p style="margin-top:1.6rem">The casualty list is short and undramatic:
+      pure intermediation with no trust function, seat-priced software that
+      refused to reprice, and commercial office — which, to be fair, was already
+      a casualty.</p>
+
+      <blockquote>
+        <p class="q">The jobs were good on day one. The world just got better
+        after the offer letters were signed.</p>
+        <footer>On the class of 2027</footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ── EPILOGUE ── -->
+<section id="epilogue">
+  <div class="container grid">
+    <div class="side-label" aria-hidden="true"><span class="circuit"></span><span class="side-word">Epilogue</span></div>
+    <div class="sec-body">
+      <h2>Epilogue: February 2026</h2>
+
+      <p>Now the uncomfortable part, which you already suspected: you are not
+      reading this in June 2028. You are reading it in February 2026, and none
+      of the loops described above have engaged. The SaaS repricing is just
+      beginning. The fee repeal is a few procurement memos and a stablecoin
+      pilot. The Occupational Mobility Compact does not exist. Neither, yet,
+      does the spiral.</p>
+
+      <p>Here is what should bother you. This scenario and the crisis scenario
+      share every assumption about the technology: the same coding agents, the
+      same consumer agents, the same collapse of friction, the same displacement
+      of the org chart's middle. They run on identical inputs. They differ on
+      exactly one variable — what people do with a windfall — and on that
+      variable, the historical record is not ambiguous. Windfalls get spent.
+      Vacancies get filled. Prices that fall while incomes rise are called, in
+      every previous instance we can find, a boom.</p>
+
+      <p>The bearish scenario requires the $740 billion to disappear. This one
+      only requires it to move. We know which assumption needs the footnote.</p>
+
+      <p>Position for the dividend, not the crisis. Or at the very least — hedge
+      your pessimism. It has, historically, been the expensive tail.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div>
+      <div class="footer-wordmark">Fu<span style="color:#00b341">So</span> Hub</div>
+      <div class="footer-sub">Scenario Analyses · Nº 7 · $2028GID</div>
+    </div>
+    <div class="footer-right">
+      <p>This document is a work of scenario fiction, written as a stylistic
+      mirror to the “2028 Global Intelligence Crisis” genre of speculative
+      macro. Company names are used narratively; all forward-looking figures
+      are invented for illustration. Nothing herein is investment advice, and
+      the authors reserve the right to have been optimistic on purpose.
+      © 2026 FuSo Hub.</p>
+    </div>
+  </div>
+</footer>
+
+<div id="tooltip" role="status" aria-live="polite"></div>
+
+<script>
+/* ── mobile nav ─────────────────────────────────────────── */
+(function(){
+  const t = document.getElementById('navToggle'), m = document.getElementById('navMenu');
+  t.addEventListener('click', () => {
+    const open = m.classList.toggle('open');
+    t.classList.toggle('open', open);
+    t.setAttribute('aria-expanded', open);
+  });
+  m.addEventListener('click', ev => {
+    if (ev.target.tagName === 'A') { m.classList.remove('open'); t.classList.remove('open'); }
+  });
+})();
+
+/* ── shared chart helpers ───────────────────────────────── */
+const NS = 'http://www.w3.org/2000/svg';
+const tooltip = document.getElementById('tooltip');
+const ACCENT = '#00802F', INK = '#111111', GRID = '#e0e0e0', SHADE = 'rgba(0,128,47,.07)';
+function el(name, attrs, parent){
+  const n = document.createElementNS(NS, name);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(n);
+  return n;
+}
+function showTip(html, x, y){
+  tooltip.innerHTML = html;
+  tooltip.style.display = 'block';
+  const r = tooltip.getBoundingClientRect();
+  let left = x + 14, top = y - r.height - 10;
+  if (left + r.width > innerWidth - 8) left = x - r.width - 14;
+  if (top < 8) top = y + 16;
+  tooltip.style.left = left + 'px';
+  tooltip.style.top = top + 'px';
+}
+function hideTip(){ tooltip.style.display = 'none'; }
+
+/* ── line chart factory (crosshair + tooltip) ───────────── */
+function lineChart(mount, cfg){
+  const W = 720, H = 340, m = {t:18, r:120, b:34, l:44};
+  const iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const svg = el('svg', {viewBox:`0 0 ${W} ${H}`, role:'img',
+    'aria-label':cfg.aria}, document.getElementById(mount));
+  const n = cfg.labels.length;
+  const x = i => m.l + (i/(n-1)) * iw;
+  const y = v => m.t + ih - ((v - cfg.yMin)/(cfg.yMax - cfg.yMin)) * ih;
+
+  if (cfg.shadeFrom != null){
+    el('rect', {x:x(cfg.shadeFrom), y:m.t, width:x(n-1)-x(cfg.shadeFrom),
+      height:ih, fill:SHADE}, svg);
+    el('line', {x1:x(cfg.shadeFrom), x2:x(cfg.shadeFrom), y1:m.t, y2:m.t+ih,
+      stroke:ACCENT, 'stroke-width':1, 'stroke-dasharray':'3 4'}, svg);
+    const st = el('text', {x:x(cfg.shadeFrom)+6, y:m.t+12, class:'axis-t',
+      style:'fill:'+ACCENT}, svg);
+    st.textContent = 'SCENARIO →';
+  }
+  cfg.yTicks.forEach(t => {
+    el('line', {x1:m.l, x2:m.l+iw, y1:y(t), y2:y(t), stroke:GRID,
+      'stroke-width': t === 0 ? 1.4 : 1}, svg);
+    const tx = el('text', {x:m.l-8, y:y(t)+4, 'text-anchor':'end', class:'axis-t'}, svg);
+    tx.textContent = cfg.yFmt(t);
+  });
+  cfg.labels.forEach((lb, i) => {
+    if (i % (cfg.xEvery||1)) return;
+    const tx = el('text', {x:x(i), y:H-10, 'text-anchor':'middle', class:'axis-t'}, svg);
+    tx.textContent = lb;
+  });
+  cfg.series.forEach(s => {
+    const d = s.data.map((v,i) => (i?'L':'M') + x(i).toFixed(1) + ' ' + y(v).toFixed(1)).join(' ');
+    el('path', {d, fill:'none', stroke:s.color, 'stroke-width':2,
+      'stroke-linejoin':'round', 'stroke-linecap':'round'}, svg);
+    const last = s.data.length - 1;
+    el('circle', {cx:x(last), cy:y(s.data[last]), r:4, fill:s.color,
+      stroke:'#fff', 'stroke-width':2}, svg);
+    const dl = el('text', {x:x(last)+9, y:y(s.data[last])+4, class:'dlabel',
+      style:'fill:'+s.color}, svg);
+    dl.textContent = (s.short ? s.short + ' ' : '') + cfg.yFmt(s.data[last]);
+  });
+  const cross = el('line', {y1:m.t, y2:m.t+ih, stroke:'#bbb',
+    'stroke-width':1, 'stroke-dasharray':'2 3', opacity:0}, svg);
+  const dots = cfg.series.map(s =>
+    el('circle', {r:4.5, fill:s.color, stroke:'#fff', 'stroke-width':2, opacity:0}, svg));
+  const hit = el('rect', {x:m.l, y:m.t, width:iw, height:ih, fill:'transparent'}, svg);
+  hit.addEventListener('mousemove', ev => {
+    const r = svg.getBoundingClientRect();
+    const px = (ev.clientX - r.left) * (W / r.width);
+    const i = Math.max(0, Math.min(n-1, Math.round((px - m.l)/iw * (n-1))));
+    cross.setAttribute('x1', x(i)); cross.setAttribute('x2', x(i));
+    cross.setAttribute('opacity', .8);
+    let rows = '<b>' + cfg.labels[i] + '</b>';
+    cfg.series.forEach((s, k) => {
+      dots[k].setAttribute('cx', x(i)); dots[k].setAttribute('cy', y(s.data[i]));
+      dots[k].setAttribute('opacity', 1);
+      rows += '<br>' + s.name + ': ' + cfg.yFmt(s.data[i]);
+    });
+    showTip(rows, ev.clientX, ev.clientY);
+  });
+  hit.addEventListener('mouseleave', () => {
+    cross.setAttribute('opacity', 0);
+    dots.forEach(d => d.setAttribute('opacity', 0));
+    hideTip();
+  });
+}
+
+/* ── chart 1 · fee repeal bars ──────────────────────────── */
+(function(){
+  const data = [
+    ['Interchange & payment fees', 210],
+    ['Wealth-management fees', 148],
+    ['Insurance distribution', 96],
+    ['Tax prep & legal', 89],
+    ['Real-estate commissions', 74],
+    ['Other intermediation', 65],
+    ['Travel & booking', 58],
+  ];
+  const W = 720, rowH = 40, m = {t:6, r:64, b:26, l:210};
+  const H = m.t + data.length * rowH + m.b;
+  const iw = W - m.l - m.r;
+  const max = 220;
+  const svg = el('svg', {viewBox:`0 0 ${W} ${H}`, role:'img',
+    'aria-label':'Horizontal bar chart of annual intermediation costs returned to households, totaling 740 billion dollars'},
+    document.getElementById('feeChart'));
+  [0,50,100,150,200].forEach(t => {
+    const gx = m.l + t/max*iw;
+    el('line', {x1:gx, x2:gx, y1:m.t, y2:H-m.b, stroke:GRID}, svg);
+    const tx = el('text', {x:gx, y:H-8, 'text-anchor':'middle', class:'axis-t'}, svg);
+    tx.textContent = '$' + t + 'B';
+  });
+  data.forEach(([name, v], i) => {
+    const by = m.t + i*rowH + 8, bh = rowH - 16;
+    const bw = v/max*iw;
+    const bar = el('rect', {x:m.l, y:by, width:bw, height:bh, fill:ACCENT}, svg);
+    const lb = el('text', {x:m.l-10, y:by+bh/2+4, 'text-anchor':'end', class:'axis-t',
+      style:'fill:#111'}, svg);
+    lb.textContent = name;
+    const vl = el('text', {x:m.l+bw+8, y:by+bh/2+4, class:'vlabel'}, svg);
+    vl.textContent = '$' + v + 'B';
+    bar.addEventListener('mousemove', ev =>
+      showTip('<b>' + name + '</b><br>$' + v + 'B / yr returned to households', ev.clientX, ev.clientY));
+    bar.addEventListener('mouseleave', hideTip);
+  });
+  const tbody = document.getElementById('feeTable');
+  data.concat([['Total', 740]]).forEach(([n2, v]) => {
+    tbody.insertAdjacentHTML('beforeend',
+      '<tr><td>' + n2 + '</td><td class="num">$' + v + 'B</td></tr>');
+  });
+})();
+
+/* ── chart 2 · employment index ─────────────────────────── */
+(function(){
+  const labels = ["Q1'26","Q2'26","Q3'26","Q4'26","Q1'27","Q2'27","Q3'27","Q4'27","Q1'28","Q2'28"];
+  const wc = [100, 98.9, 97.6, 96.2, 94.8, 93.7, 92.8, 92.1, 91.6, 91.4];
+  const ct = [100, 101.2, 102.8, 104.9, 107.3, 109.8, 112.1, 114.0, 115.6, 116.8];
+  lineChart('empChart', {
+    aria:'Line chart: routine white-collar employment falls to 91 while care, trades and deployment employment rises to 117, indexed to January 2026',
+    labels, yMin:88, yMax:120, yTicks:[90,100,110,120],
+    yFmt:v => v.toFixed(v % 1 ? 1 : 0), xEvery:1,
+    series:[
+      {name:'Care, trades & deployment', short:'Care/trades', data:ct, color:ACCENT},
+      {name:'Routine white-collar', short:'White-collar', data:wc, color:INK},
+    ],
+  });
+  const tbody = document.getElementById('empTable');
+  labels.forEach((l,i) => tbody.insertAdjacentHTML('beforeend',
+    '<tr><td>' + l + '</td><td class="num">' + wc[i].toFixed(1) + '</td><td class="num">' + ct[i].toFixed(1) + '</td></tr>'));
+})();
+
+/* ── chart 3 · productivity ─────────────────────────────── */
+(function(){
+  const labels = ['2016','2017','2018','2019','2020','2021','2022','2023','2024','2025','2026','2027','2028'];
+  const vals = [0.3, 1.1, 1.5, 1.7, 2.5, 2.3, -0.8, 1.6, 2.3, 2.6, 3.4, 4.5, 4.9];
+  lineChart('prodChart', {
+    aria:'Line chart of US productivity growth: fluctuating between minus 1 and 2.6 percent from 2016 to 2025, then rising to 4.9 percent by 2028 in the scenario region',
+    labels, yMin:-2, yMax:6, yTicks:[-2,0,2,4,6],
+    yFmt:v => v.toFixed(1) + '%', xEvery:2, shadeFrom:10,
+    series:[{name:'Productivity y/y', short:'', data:vals, color:ACCENT}],
+  });
+  const tbody = document.getElementById('prodTable');
+  labels.forEach((l,i) => tbody.insertAdjacentHTML('beforeend',
+    '<tr><td>' + l + '</td><td class="num">' + vals[i].toFixed(1) + '%</td></tr>'));
+})();
+</script>
+</body>
+</html>
