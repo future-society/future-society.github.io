@@ -870,12 +870,13 @@ footer .container {
     min-height: auto;
   }
   .hero-text { grid-column: 1 / -1; }
-  /* Keep the logo visible on mobile, centered below the text */
+  /* Show the logo above the text on mobile, centered */
   .hero-image {
     grid-column: 1 / -1;
     display: flex;
     justify-content: center;
-    margin-top: 2.5rem;
+    order: -1;
+    margin-bottom: 2.5rem;
   }
   .hero-image img { width: 60%; max-width: 240px; }
 
