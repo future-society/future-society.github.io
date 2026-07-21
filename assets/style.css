@@ -136,24 +136,24 @@ nav a:hover { color: var(--accent); }
 .hero-text { grid-column: 3 / 9; }
 
 .hero-label {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--mid);
   margin-bottom: 1.5rem;
 }
 
 h1 {
-  font-size: clamp(4.5rem, 10vw, 8.5rem);
+  font-size: clamp(3rem, 6.5vw, 5.25rem);
   font-weight: 900;
-  line-height: 0.95;
+  line-height: 1;
   letter-spacing: -0.03em;
   margin-bottom: 1rem;
 }
 
 .hero-slogan {
-  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
   font-weight: 300;
   font-style: italic;
   color: var(--accent);
@@ -171,11 +171,11 @@ h1 {
 }
 
 .hero-meta {
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--black);
+  color: var(--mid);
 }
 
 .hero-image {
@@ -185,9 +185,14 @@ h1 {
   justify-content: flex-start;
 }
 
-.hero-image img { width: 100%; max-width: 360px; touch-action: manipulation; }
+.hero-image img { width: 100%; max-width: 360px; touch-action: manipulation; cursor: pointer; }
 
 .accent-text { color: var(--accent); }
+
+/* Above 900px: force "Future" / "Society Hub" onto two lines */
+@media (min-width: 901px) {
+  .hero-line { display: block; }
+}
 
 /* ─── SECTIONS ─── */
 section {
@@ -875,7 +880,7 @@ footer .container {
   .hero-image {
     grid-column: 1 / -1;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     order: -1;
     margin-bottom: 2.5rem;
   }
