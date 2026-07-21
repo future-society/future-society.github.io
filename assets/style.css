@@ -884,12 +884,17 @@ footer .container {
   .projects-container { grid-template-columns: 1fr; }
   .focus-grid { grid-template-columns: 1fr; }
   .director-cards { grid-template-columns: 1fr; }
-  .team-bricks { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .team-bricks { grid-template-columns: repeat(4, 1fr); }
 
   .section-label { margin-bottom: 0; }
 
   footer .container { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
   .footer-right { text-align: left; }
+}
+
+/* ─── TABLET: three-up team grid ─── */
+@media (max-width: 730px) {
+  .team-bricks { grid-template-columns: repeat(3, 1fr); }
 }
 
 /* ─── SMALL PHONES ─── */
@@ -905,11 +910,14 @@ footer .container {
 
   .focus-card { padding: 1.5rem; }
 
-  /* Two-up team grid that never overflows its column */
-  .team-bricks { grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); }
   .team-brick { padding: 1.25rem 1rem; }
   .brick-avatar { width: 90px; height: 90px; }
 
   /* Project rows: tighten the number gutter */
   .project-body-inner { padding-left: calc(1.75rem + 0.75rem); }
+}
+
+/* ─── SMALL PHONES: two-up team grid ─── */
+@media (max-width: 540px) {
+  .team-bricks { grid-template-columns: repeat(2, 1fr); }
 }
