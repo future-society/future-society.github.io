@@ -733,6 +733,13 @@ a.meta:hover { color: var(--accent); }
   flex-shrink: 0;
 }
 .way p { margin: 0; }
+.way p a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  transition: opacity 0.15s;
+}
+.way p a:hover { opacity: 0.7; }
 .way-link {
   white-space: nowrap;
   color: var(--accent);
@@ -829,7 +836,7 @@ footer .container {
     gap: 0;
     padding: 0.5rem 2rem 1.25rem;
     background: var(--white);
-    border-bottom: 1px solid var(--black);
+    border-bottom: 2px solid var(--gray);
   }
   nav ul.open { display: flex; }
   nav ul li { padding: 0.65rem 0; }
