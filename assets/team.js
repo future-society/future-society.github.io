@@ -145,6 +145,7 @@ const teamMembers = [
   },
   {
     name: 'Leonard Gardies',
+    photo: 'assets/images/LG.jpg',
     detail: { en: 'Grant recipient / Scholarship holder', de: 'Stipendiant', fr: 'Boursier' },
     role: 'fellow',
     bio: {
