@@ -767,15 +767,21 @@ a.meta:hover { color: var(--accent); }
 
 /* ─── FOOTER ─── */
 footer {
-  background: var(--black);
-  color: var(--white);
+  /* Continues the section odd/gray, even/white alternation. Contact is the
+     last section (even → white), so the footer takes gray. Flip this if the
+     number of sections above changes. */
+  background: var(--gray);
+  color: var(--black);
+  border-top: 1px solid var(--black);
   padding: 3rem 0;
 }
 
 footer .container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2.5rem 4.5rem;
 }
 
 .footer-logo {
@@ -784,24 +790,34 @@ footer .container {
   gap: 1rem;
 }
 
-.footer-logo img { width: 36px; height: 36px; object-fit: contain; }
+.footer-logo img { width: 84px; height: 84px; object-fit: contain; }
 
 .footer-wordmark {
-  font-size: 0.85rem;
+  font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--black);
 }
 
 .footer-sub {
   font-size: 0.75rem;
-  color: rgba(255,255,255,0.4);
+  color: var(--mid);
   letter-spacing: 0.05em;
 }
 
-.footer-right { text-align: right; }
-.footer-right p { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+.footer-tagline {
+  font-size: 0.95rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--accent);
+  margin-top: 0.2rem;
+}
+
+.footer-hsg {
+  height: 48px;
+  width: auto;
+}
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
@@ -888,8 +904,6 @@ footer .container {
 
   .section-label { margin-bottom: 0; }
 
-  footer .container { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
-  .footer-right { text-align: left; }
 }
 
 /* ─── TABLET: three-up team grid ─── */
