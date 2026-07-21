@@ -49,6 +49,7 @@ nav .container {
   align-items: center;
   justify-content: space-between;
   height: 56px;
+  padding-left: 0;
 }
 
 .nav-logo {
@@ -57,9 +58,13 @@ nav .container {
   gap: 0.75rem;
   text-decoration: none;
   color: var(--black);
+  /* Beyond --max the container is centered; pull just the logo back to the
+     true screen edge so the circuit lines start flush with the viewport.
+     Below --max this resolves to 0 (min with 0px), so nothing shifts. */
+  margin-left: min(0px, calc((var(--max) - 100vw) / 2));
 }
 
-.nav-logo img { width: 32px; height: 32px; object-fit: contain; }
+.nav-logo img { height: 32px; width: auto; display: block; }
 
 .nav-wordmark {
   font-size: 0.9rem;
