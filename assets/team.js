@@ -4,6 +4,7 @@ const TEAM_ROLES = {
   'co-director-f': 'Co-Director',
   'hub-leader':    'Hub Leader',
   'researcher':    'Researcher',
+  'fellow':        'Fellow',
 };
 
 const TEAM_UI = {
@@ -13,7 +14,7 @@ const TEAM_UI = {
 
 // To add a team member: add one entry here. It appears in all three languages automatically.
 // - role: key from TEAM_ROLES above (label shown in English across all languages)
-// - detail: English string shown below the name (kept English across all languages)
+// - detail: string shown below the name (kept English across all languages), or { en, de, fr } to translate it
 // - bio: { en, de, fr } — write all three, or just 'en' and the others fall back to English
 const teamMembers = [
   {
@@ -142,6 +143,16 @@ const teamMembers = [
       fr: 'J\'étudie comment les systèmes algorithmiques façonnent notre environnement informationnel — bulles de filtre, audit des réseaux sociaux et transparence des plateformes — en construisant des outils pour rendre les systèmes de recommandation lisibles pour chercheur·euses, régulateur·rices et utilisateur·rices.',
     }
   },
+  {
+    name: 'Leonard Gardies',
+    detail: { en: 'Grant recipient / Scholarship holder', de: 'Stipendiant', fr: 'Boursier' },
+    role: 'fellow',
+    bio: {
+      en: 'I work on project adaptation, with the goal of refining every aspect of the work — from design and the implementation of new ideas to the technical configuration of the code. My key strength lies in my language skills: I am fluent in French, German, English, and a little bit of Spanish, which allows me to collaborate effectively in multicultural environments.',
+      de: 'Ich arbeite an der Anpassung von Projekten mit dem Ziel, jeden Aspekt der Arbeit zu perfektionieren – vom Design über die Umsetzung neuer Ideen bis hin zur technischen Konfiguration des Codes. Meine größte Stärke liegt in meinen Sprachkenntnissen: Ich beherrsche Französisch, Deutsch, Englisch und ein bisschen Spanisch, was mir eine effektive Zusammenarbeit in multikulturellen Umgebungen ermöglicht.',
+      fr: 'Je travaille sur l\'adaptation de projets, avec pour objectif de perfectionner chaque aspect du travail : le design, la mise en œuvre de nouvelles idées ainsi que la configuration technique du code. Mon principal atout réside dans mes compétences linguistiques : je maîtrise le français, l\'allemand, l\'anglais et aussi un peu l\'espagnol, ce qui me permet de collaborer efficacement dans des environnements multiculturels.',
+    }
+  },
 ];
 
 function renderTeam(lang) {
@@ -150,7 +161,7 @@ function renderTeam(lang) {
   wrap.innerHTML = teamMembers.map(m => {
     const role   = TEAM_ROLES[m.role] || m.role;
     const bio    = (m.bio || {})[lang] || (m.bio || {}).en || '';
-    const detail = m.detail || '';
+    const detail = typeof m.detail === 'object' ? (m.detail[lang] || m.detail.en || '') : (m.detail || '');
     const nameHtml   = m.link
       ? `<a href="${m.link}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">${m.name}</a>`
       : m.name;
