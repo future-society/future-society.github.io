@@ -41,7 +41,7 @@ nav {
   top: 0; left: 0; right: 0;
   z-index: 100;
   background: var(--white);
-  border-bottom: 1px solid var(--black);
+  border-bottom: 2px solid var(--gray);
 }
 
 nav .container {
@@ -192,12 +192,7 @@ h1 {
 /* ─── SECTIONS ─── */
 section {
   padding: 6rem 0;
-  border-bottom: 1px solid var(--black);
 }
-
-section:last-of-type { border-bottom: none; }
-
-#about { border-top: 1px solid var(--black); }
 
 /* Alternating backgrounds — automatic, so reordering sections never breaks the pattern */
 section:nth-of-type(odd)  { background: var(--gray); }
@@ -772,7 +767,6 @@ footer {
      number of sections above changes. */
   background: var(--gray);
   color: var(--black);
-  border-top: 1px solid var(--black);
   padding: 3rem 0;
 }
 
