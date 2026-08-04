@@ -256,6 +256,16 @@ p {
 }
 
 /* ─── ABOUT ─── */
+.about-intro {
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: rgba(0, 128, 47, 0.05);
+  padding: 1.5rem 2rem;
+  margin-bottom: 3rem;
+}
+.about-intro p { color: var(--black); }
+.about-intro p + p { margin-top: 1rem; }
+
 .about-label { grid-column: 1 / 3; align-self: start; }
 /* About's heading is multi-line; line up the circuit line with the first line */
 .about-label .section-label { top: 1.7rem; }
