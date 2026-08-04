@@ -266,6 +266,8 @@ p {
 .about-intro p { color: var(--black); }
 .about-intro p + p { margin-top: 1rem; }
 
+#about .grid { border-top: 1px solid var(--black); padding-top: 3rem; }
+
 .about-label { grid-column: 1 / 3; align-self: start; }
 /* About's heading is multi-line; line up the circuit line with the first line */
 .about-label .section-label { top: 1.7rem; }
