@@ -261,7 +261,7 @@ p {
   border-radius: 8px;
   background: rgba(0, 128, 47, 0.05);
   padding: 1.5rem 2rem;
-  margin-bottom: 3rem;
+  margin-bottom: 4.5rem;
 }
 .about-intro p { color: var(--black); }
 .about-intro p + p { margin-top: 1rem; }
