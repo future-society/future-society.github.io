@@ -346,23 +346,7 @@
       <div class="participate-body">
         <p class="participate-intro">FuSo lebt von Zusammenarbeit und Engagement. Ob als Forschende:r, Studierende:r oder politische:r Entscheidungsträger:in — oder einfach aus Begeisterung für Technologie und Gesellschaft: Beteiligen Sie sich an unseren Aktivitäten und werden Sie Teil der FuSo-Community. Hier einige Wege, mitzumachen:</p>
 
-        <div class="participate-ways">
-          <div class="way"><p>Den Zusammenhalt im Team pflegen wir mit zweiwöchigen Themen-Lunches, mit Speed-Datings, die Forschende über Disziplinen hinweg zusammenbringen, und mit jährlichen Retreats.</p></div>
-
-          <div class="way"><p>Nach aussen sprechen wir über Newsletter, Policy Briefs und Podcasts ein breiteres Publikum an.</p></div>
-
-          <div class="way"><p>Wir vergeben <span class="accent-text">Fellowships</span> an Forschende nach ihrem Masterabschluss, die für mehrere Wochen oder Monate zu uns kommen und sich in unsere Gruppe integrieren.</p></div>
-
-          <div class="way"><p>Zudem betreuen wir Masterarbeiten, Bachelorarbeiten und studentische Projekte für Studierende der Universität St.Gallen sowie für Incoming-Studierende.</p></div>
-
-          <div class="way"><p>In Arbeitsgruppen zu Themen wie Plattform-Auditing oder Dezentralisierung arbeiten wir gemeinsam tief in aktuelle Fragen hinein.</p></div>
-
-          <div class="way"><p>Über FuSo hinaus gestalten wir mit anderen Institutionen Veranstaltungen, die etwas bewegen — von Auseinandersetzungen mit datenschutzkritischen Räumen bis hin zu Round Tables mit politischen Akteur:innen zu Fragen wie der KI-Regulierung.</p></div>
-
-          <div class="way"><p>Wir fördern Sozialunternehmertum und Start-up-Initiativen und arbeiten dafür mit Partnern wie <a href="https://innovationspark-ost.ch/start-ups/" target="_blank" rel="noopener">Startfeld</a> zusammen, damit aus Ideen Wirkung wird.</p></div>
-
-          <div class="way"><p>Im Lehrangebot bieten wir zudem einen gemeinsamen Kurs in Contextual Studies, der technische und juristische Forschung im gesellschaftlichen Kontext verortet.</p></div>
-        </div>
+        <div class="participate-ways" id="waysList"></div>
 
         <p class="participate-contact">Melden Sie sich, um mehr über die Möglichkeiten zur Teilnahme zu erfahren: <a href="mailto:fuso@unisg.ch?subject=Mitmachen%20bei%20FuSo">fuso@unisg.ch</a></p>
       </div>
@@ -522,6 +506,66 @@
   }
 
   renderProjects();
+
+  const ways = [
+    {
+      title: "Gemeinschaft: Themen-Lunches, Speed-Dating &amp; Retreats.",
+      how: `Den Zusammenhalt im Team pflegen wir mit zweiwöchigen Themen-Lunches, mit Speed-Datings, die Forschende über Disziplinen hinweg zusammenbringen, und mit jährlichen Retreats.`
+    },
+    {
+      title: "Öffentlichkeitsarbeit: Newsletter, Policy Briefs &amp; Podcasts.",
+      how: `Nach aussen sprechen wir über Newsletter, Policy Briefs und Podcasts ein breiteres Publikum an.`
+    },
+    {
+      title: "Fellowships für Nachwuchsforschende.",
+      how: `Wir vergeben <span class="accent-text">Fellowships</span> an Forschende nach ihrem Masterabschluss, die für mehrere Wochen oder Monate zu uns kommen und sich in unsere Gruppe integrieren.`
+    },
+    {
+      title: "Betreuung von Abschluss- und Studienarbeiten.",
+      how: `Zudem betreuen wir Masterarbeiten, Bachelorarbeiten und studentische Projekte für Studierende der Universität St.Gallen sowie für Incoming-Studierende.`
+    },
+    {
+      title: "Arbeitsgruppen zu aktuellen Themen.",
+      how: `In Arbeitsgruppen zu Themen wie Plattform-Auditing oder Dezentralisierung arbeiten wir gemeinsam tief in aktuelle Fragen hinein.`
+    },
+    {
+      title: "Gemeinsame Veranstaltungen mit Partnerinstitutionen.",
+      how: `Über FuSo hinaus gestalten wir mit anderen Institutionen Veranstaltungen, die etwas bewegen — von Auseinandersetzungen mit datenschutzkritischen Räumen bis hin zu Round Tables mit politischen Akteur:innen zu Fragen wie der KI-Regulierung.`
+    },
+    {
+      title: "Förderung von Sozialunternehmertum &amp; Start-ups.",
+      how: `Wir fördern Sozialunternehmertum und Start-up-Initiativen und arbeiten dafür mit Partnern wie <a href="https://innovationspark-ost.ch/start-ups/" target="_blank" rel="noopener">Startfeld</a> zusammen, damit aus Ideen Wirkung wird.`
+    },
+    {
+      title: "Gemeinsamer Kurs in Contextual Studies.",
+      how: `Im Lehrangebot bieten wir zudem einen gemeinsamen Kurs in Contextual Studies, der technische und juristische Forschung im gesellschaftlichen Kontext verortet.`
+    }
+  ];
+
+  function renderWays() {
+    const list = document.getElementById('waysList');
+    list.innerHTML = ways.map((w, i) => `
+      <div class="way-item" data-index="${i}">
+        <div class="way-header" onclick="toggleWay(${i})">
+          <span class="way-num">${String(i + 1).padStart(2, '0')}</span>
+          <p class="way-title">${w.title}</p>
+          <span class="way-toggle">+</span>
+        </div>
+        <div class="way-body">
+          <div class="way-body-inner">${w.how}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function toggleWay(index) {
+    document.querySelectorAll('.way-item').forEach((item, i) => {
+      if (i === index) item.classList.toggle('open');
+      else item.classList.remove('open');
+    });
+  }
+
+  renderWays();
 
   // Mobile nav: toggle the dropdown menu
   (function () {

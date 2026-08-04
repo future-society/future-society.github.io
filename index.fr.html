@@ -346,23 +346,7 @@
       <div class="participate-body">
         <p class="participate-intro">FuSo vit de la collaboration et de l'engagement. Que vous soyez chercheur·euse, étudiant·e ou décideur·euse politique — ou simplement passionné·e par les liens entre technologie et société — venez participer à nos activités et rejoignez la communauté FuSo. Voici quelques façons de vous impliquer :</p>
 
-        <div class="participate-ways">
-          <div class="way"><p>Nous entretenons la cohésion en interne à travers des déjeuners thématiques bimensuels, des speed-datings qui font dialoguer les disciplines, et des retraites annuelles qui rassemblent notre communauté.</p></div>
-
-          <div class="way"><p>Vers l'extérieur, nos newsletters, policy briefs et podcasts font circuler nos travaux auprès d'un public plus large.</p></div>
-
-          <div class="way"><p>Nous accueillons des <span class="accent-text">fellowships</span> pour des chercheur·euse·s après leur master, qui rejoignent notre groupe et s'y intègrent pendant plusieurs semaines ou mois.</p></div>
-
-          <div class="way"><p>Nous encadrons aussi des mémoires de master, des travaux de bachelor et des projets étudiants pour les étudiant·e·s de l'Université de Saint-Gall ainsi que pour les étudiant·e·s en mobilité entrante.</p></div>
-
-          <div class="way"><p>Nous animons des groupes de travail thématiques — sur l'audit des plateformes ou la décentralisation, par exemple — où chacun·e peut creuser en profondeur les questions émergentes.</p></div>
-
-          <div class="way"><p>Au-delà de FuSo, nous co-créons avec d'autres institutions des événements qui comptent : explorations des espaces où la vie privée s'efface, tables rondes avec le monde politique sur des sujets sensibles comme la régulation de l'IA.</p></div>
-
-          <div class="way"><p>Nous soutenons l'entrepreneuriat social et l'écosystème des start-ups, avec des partenaires comme <a href="https://innovationspark-ost.ch/start-ups/" target="_blank" rel="noopener">Startfeld</a>, pour transformer les idées en impact concret.</p></div>
-
-          <div class="way"><p>Nous co-animons aussi un cours conjoint en Contextual Studies, qui replace la recherche technique et juridique dans son contexte social plus large.</p></div>
-        </div>
+        <div class="participate-ways" id="waysList"></div>
 
         <p class="participate-contact">Écrivez-nous pour en savoir plus sur les façons de participer : <a href="mailto:fuso@unisg.ch?subject=Rejoindre%20FuSo">fuso@unisg.ch</a></p>
       </div>
@@ -522,6 +506,66 @@
   }
 
   renderProjects();
+
+  const ways = [
+    {
+      title: "Cohésion d'équipe : déjeuners, speed-dating &amp; retraites.",
+      how: `Nous entretenons la cohésion en interne à travers des déjeuners thématiques bimensuels, des speed-datings qui font dialoguer les disciplines, et des retraites annuelles qui rassemblent notre communauté.`
+    },
+    {
+      title: "Rayonnement : newsletters, policy briefs &amp; podcasts.",
+      how: `Vers l'extérieur, nos newsletters, policy briefs et podcasts font circuler nos travaux auprès d'un public plus large.`
+    },
+    {
+      title: "Fellowships pour jeunes chercheur·euse·s.",
+      how: `Nous accueillons des <span class="accent-text">fellowships</span> pour des chercheur·euse·s après leur master, qui rejoignent notre groupe et s'y intègrent pendant plusieurs semaines ou mois.`
+    },
+    {
+      title: "Encadrement de mémoires et projets étudiants.",
+      how: `Nous encadrons aussi des mémoires de master, des travaux de bachelor et des projets étudiants pour les étudiant·e·s de l'Université de Saint-Gall ainsi que pour les étudiant·e·s en mobilité entrante.`
+    },
+    {
+      title: "Groupes de travail sur des enjeux émergents.",
+      how: `Nous animons des groupes de travail thématiques — sur l'audit des plateformes ou la décentralisation, par exemple — où chacun·e peut creuser en profondeur les questions émergentes.`
+    },
+    {
+      title: "Événements co-créés avec des institutions partenaires.",
+      how: `Au-delà de FuSo, nous co-créons avec d'autres institutions des événements qui comptent : explorations des espaces où la vie privée s'efface, tables rondes avec le monde politique sur des sujets sensibles comme la régulation de l'IA.`
+    },
+    {
+      title: "Soutien à l'entrepreneuriat social &amp; aux start-ups.",
+      how: `Nous soutenons l'entrepreneuriat social et l'écosystème des start-ups, avec des partenaires comme <a href="https://innovationspark-ost.ch/start-ups/" target="_blank" rel="noopener">Startfeld</a>, pour transformer les idées en impact concret.`
+    },
+    {
+      title: "Cours conjoint en Contextual Studies.",
+      how: `Nous co-animons aussi un cours conjoint en Contextual Studies, qui replace la recherche technique et juridique dans son contexte social plus large.`
+    }
+  ];
+
+  function renderWays() {
+    const list = document.getElementById('waysList');
+    list.innerHTML = ways.map((w, i) => `
+      <div class="way-item" data-index="${i}">
+        <div class="way-header" onclick="toggleWay(${i})">
+          <span class="way-num">${String(i + 1).padStart(2, '0')}</span>
+          <p class="way-title">${w.title}</p>
+          <span class="way-toggle">+</span>
+        </div>
+        <div class="way-body">
+          <div class="way-body-inner">${w.how}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function toggleWay(index) {
+    document.querySelectorAll('.way-item').forEach((item, i) => {
+      if (i === index) item.classList.toggle('open');
+      else item.classList.remove('open');
+    });
+  }
+
+  renderWays();
 
   // Mobile nav: toggle the dropdown menu
   (function () {

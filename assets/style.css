@@ -729,36 +729,95 @@ a.meta:hover { color: var(--accent); }
 /* ─── PARTICIPATE PATHWAYS ─── */
 .participate-intro { margin-bottom: 1.25rem; }
 
-.participate-ways { display: grid; gap: 0.65rem; }
-.way {
+/* Mirrors the "Get concrete" expandable project list */
+.participate-ways {
   display: flex;
-  gap: 0.6rem;
-  font-size: 0.95rem;
-  line-height: 1.55;
+  flex-direction: column;
+  border-top: 1px solid #e0e0e0;
 }
-.way::before {
-  content: "\203A";
-  color: var(--accent);
+
+.way-item {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.way-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 0.25rem;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.way-header:hover .way-title { color: var(--accent); }
+.way-header:hover .way-toggle { color: var(--accent); }
+
+.way-num {
+  font-size: 0.7rem;
   font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--mid);
+  min-width: 2.25rem;
+  padding-top: 0.15rem;
+}
+
+.way-title {
+  flex: 1;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--black);
+  margin: 0;
+  transition: color 0.15s;
+}
+
+.way-toggle {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--mid);
+  transition: transform 0.25s, color 0.15s;
+  padding-top: 0.1rem;
   flex-shrink: 0;
 }
-.way p { margin: 0; }
-.way p a {
+
+.way-item.open .way-toggle {
+  transform: rotate(45deg);
+  color: var(--accent);
+}
+
+.way-item.open .way-title {
+  color: var(--accent);
+}
+
+.way-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.3s ease, opacity 0.3s ease;
+}
+
+.way-item.open .way-body {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.way-body-inner {
+  overflow: hidden;
+  padding: 0 0 1.25rem calc(2.25rem + 1rem);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: #444;
+  max-width: 720px;
+}
+
+.way-body-inner a {
   color: var(--accent);
   text-decoration: none;
   border-bottom: 1px solid var(--accent);
-  transition: opacity 0.15s;
 }
-.way p a:hover { opacity: 0.7; }
-.way-link {
-  white-space: nowrap;
-  color: var(--accent);
-  text-decoration: none;
-  border-bottom: 1px solid var(--accent);
-  transition: opacity 0.15s;
-}
-.way-link::after { content: " \2192"; }
-.way-link:hover { opacity: 0.65; }
+
+.way-body-inner a:hover { opacity: 0.7; }
 
 .participate-contact {
   margin-top: 1.75rem;
@@ -942,7 +1001,7 @@ footer .container {
   .brick-avatar { width: 90px; height: 90px; }
 
   /* Project rows: tighten the number gutter */
-  .project-body-inner { padding-left: calc(1.75rem + 0.75rem); }
+  .project-body-inner, .way-body-inner { padding-left: calc(1.75rem + 0.75rem); }
 }
 
 /* ─── SMALL PHONES: two-up team grid ─── */
