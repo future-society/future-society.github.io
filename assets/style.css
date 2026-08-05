@@ -127,11 +127,12 @@ nav a:hover { color: var(--accent); }
 /* ─── HERO ─── */
 #hero {
   margin-top: 56px;
-  min-height: calc(100vh - 56px);
+  /* Sized to its content (not a full-viewport splash) so the mission box
+     right after it sits close on any screen height. */
+  padding: 3.5rem 2rem 1.5rem;
   display: grid;
   grid-template-columns: 0.3fr repeat(11, 1fr);
   gap: var(--gap);
-  padding: 0 2rem;
   max-width: var(--max);
   margin-left: auto;
   margin-right: auto;
@@ -198,6 +199,13 @@ h1 {
 @media (min-width: 901px) {
   .hero-line { display: block; }
 }
+
+/* Mission-statement box, sitting directly under the hero/logo, ahead of the
+   alternating section rhythm — not part of a <section> so it stays on the
+   plain white body background. Aligned to the same content columns as the
+   About heading below it (left edge under "Addressing"). */
+.intro-standalone { padding: 1rem 0 6rem; }
+.intro-standalone .about-intro { grid-column: 3 / 13; margin-bottom: 0; }
 
 /* ─── SECTIONS ─── */
 section {
@@ -282,8 +290,6 @@ p {
 }
 .about-intro::before { top: 14px; right: 20px; }
 .about-intro::after { bottom: 14px; left: 20px; transform: rotate(180deg); }
-
-#about .grid { border-top: 1px solid var(--black); padding-top: 3rem; }
 
 .about-label { grid-column: 1 / 3; align-self: start; }
 /* About's heading is multi-line; line up the circuit line with the first line */
@@ -428,6 +434,7 @@ p {
 .toolbox.process-flow {
   gap: 0.6rem;
   align-items: center;
+  justify-content: center;
 }
 
 .chain-label {
@@ -479,6 +486,20 @@ p {
   font-weight: 400;
   line-height: 1;
   flex-shrink: 0;
+}
+
+/* Two stacked block-items sharing one step in the flow, representing
+   parallel/concurrent work at that stage. */
+.block-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.block-group .block-item {
+  align-self: stretch;
 }
 
 .flow-arrow-endpoint {
@@ -966,7 +987,6 @@ footer .container {
     grid-template-columns: 1fr;
     padding-top: 3rem;
     padding-bottom: 3rem;
-    min-height: auto;
   }
   .hero-text { grid-column: 1 / -1; }
   /* Show the logo above the text on mobile, centered */
@@ -996,7 +1016,8 @@ footer .container {
   .team-intro, .team-bricks-wrap,
   .contact-head, .contact-body,
   .events-header, .events-body,
-  .participate-head, .participate-body { grid-column: 1 / -1; }
+  .participate-head, .participate-body,
+  .intro-standalone .about-intro { grid-column: 1 / -1; }
 
   .events-columns { grid-template-columns: 1fr; }
   .projects-container { grid-template-columns: 1fr; }
