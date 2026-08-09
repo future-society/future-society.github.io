@@ -31,7 +31,7 @@ const teamMembers = [
   {
     name: 'Aurelia Tamò-Larrieux',
     photo: 'https://www.sectorplandls.nl/wordpress/wp-content/uploads/elementor/thumbs/at-scaled-e1667747586811-pxbhxlwz04n8sysm54fadyobe105o6hzjq0aotqw8o.jpg',
-    detail: 'Prof. Dr., Chair for Law &amp; Technology',
+    detail: 'Prof. Dr., Institute for Law and Economics',
     role: 'co-director-f',
     bio: {
       en: 'I lead the Chair for Law &amp; Technology and the Legal Design &amp; Code Lab, specializing in privacy-by-design, AI transparency, computational law, and the governance of automated decision-making.',
