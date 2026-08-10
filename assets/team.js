@@ -111,6 +111,7 @@ const teamMembers = [
   {
     name: 'Jan Grau',
     link: 'https://scholar.google.com/citations?user=XkY6KSIAAAAJ',
+    photo: 'assets/images/JG.jpeg',
     detail: 'PhD candidate',
     role: 'researcher',
     bio: {
