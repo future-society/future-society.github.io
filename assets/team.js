@@ -88,6 +88,7 @@ const teamMembers = [
   {
     name: 'Giovanni De Toni',
     link: 'https://detoni.me/',
+    photo: 'assets/images/GD.jpg',
     detail: 'Postdoctoral Researcher',
     role: 'researcher',
     bio: {
