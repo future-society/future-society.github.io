@@ -27,3 +27,24 @@ document.addEventListener('click', function (e) {
 
   window.goatcounter.count({ path: name, title: title, event: true });
 });
+
+// Track the easter-egg songs. The toggles always restart playback from 0, so
+// every 'play' event is one deliberate trigger and never a resume-after-pause.
+// Media events do not bubble, hence the capture-phase listener on document.
+// Named after the audio file, so the language-specific hero songs stay apart
+// while AMPLIFY totals across all three language versions.
+document.addEventListener('play', function (e) {
+  var el = e.target;
+  if (!el || el.tagName !== 'AUDIO') return;
+  if (!window.goatcounter || typeof window.goatcounter.count !== 'function') return;
+
+  var song = (el.getAttribute('src') || '').split('/').pop().replace(/\.[^.]+$/, '');
+  if (!song) return;
+
+  window.goatcounter.count({
+    path: 'song-' + song,
+    title: 'Song played: ' + song,
+    event: true
+  });
+}, true);
+
