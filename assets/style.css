@@ -993,11 +993,11 @@ footer .container {
   .hero-image {
     grid-column: 1 / -1;
     display: flex;
-    justify-content: left;
+    justify-content: center;
     order: -1;
     margin-bottom: 2.5rem;
   }
-  .hero-image img { width: 60%; max-width: 240px; }
+  .hero-image img { width: 80%; max-width: 320px; }
 
   .about-label { display: none; }
 
