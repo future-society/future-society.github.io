@@ -939,6 +939,25 @@ footer .container {
   width: auto;
 }
 
+/* Analytics disclosure. Full-basis so it wraps onto its own line below the
+   logos, separated by the container's 2.5rem row gap. */
+.footer-privacy {
+  flex-basis: 100%;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--mid);
+}
+
+.footer-privacy a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.footer-privacy a:hover { color: var(--accent); }
+
 /* ─── RESPONSIVE ─── */
 /* Nav collapses to the hamburger earlier than the rest of the layout: the full
    horizontal menu gets cramped and wraps between ~1100px and 900px. */
