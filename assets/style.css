@@ -755,6 +755,50 @@ a.meta:hover { color: var(--accent); }
   line-height: 1.5;
 }
 
+/* Collapsible former-members list: same <details> pattern as the past-events
+   archive, kept deliberately compact — one line per person, no photo, no bio,
+   so it stays small as the list grows. Rendered by renderFormerTeam(). */
+.team-former { margin-top: 2rem; }
+.team-former > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 0.85rem 0;
+  border-top: 1px solid #ddd;
+}
+.team-former > summary::-webkit-details-marker { display: none; }
+.team-former > summary::before { content: "+"; font-size: 0.95rem; line-height: 1; width: 0.8em; text-align: center; }
+.team-former[open] > summary::before { content: "\2013"; }
+
+.former-list { list-style: none; margin: 0.25rem 0 0.5rem; }
+.former-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  opacity: 0.65;
+  transition: opacity 0.15s;
+}
+.former-item:hover { opacity: 1; }
+.former-item:last-child { border-bottom: 0; }
+.former-name { font-size: 0.85rem; font-weight: 600; }
+.former-name a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--mid); }
+.former-name a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.former-what { font-size: 0.7rem; font-weight: 300; color: #666; }
+.former-now { font-size: 0.7rem; font-weight: 300; color: #666; }
+.former-now::before { content: "\2192\00a0"; color: var(--mid); }
+.former-now a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--mid); }
+.former-now a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
 .learn-more-btn {
   display: inline-block;
   margin-top: 0.75rem;
