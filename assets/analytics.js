@@ -9,8 +9,23 @@
 // and which language they switch to. Sent as events, so they stay separate from
 // the pageview numbers in the dashboard.
 document.addEventListener('click', function (e) {
+  if (!window.goatcounter || typeof window.goatcounter.count !== 'function') return;
+
+  // Which audience visitors identify with, from the Participate filter chips.
+  // Useful on its own: it tells us who the section is actually reaching.
+  var chip = e.target.closest('.way-filter');
+  if (chip) {
+    var audience = chip.getAttribute('data-audience') || 'all';
+    window.goatcounter.count({
+      path: 'audience-' + audience,
+      title: 'Participate filter: ' + audience,
+      event: true
+    });
+    return;
+  }
+
   var link = e.target.closest('a');
-  if (!link || !window.goatcounter || typeof window.goatcounter.count !== 'function') return;
+  if (!link) return;
 
   var name, title;
   if (link.closest('.lang-switch')) {

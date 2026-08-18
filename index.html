@@ -482,7 +482,9 @@
         <h2>Participate in Fu<span class="accent-text">So</span> Activities</h2>
       </div>
       <div class="participate-body">
-        <p class="participate-intro">FuSo is built on collaboration and engagement. Whether you are a researcher, student, policymaker, or simply passionate about technology and society, we invite you to join our activities and become part of the FuSo community. Here are some of the ways to get involved:</p>
+        <p class="participate-intro">FuSo is built on collaboration and engagement — with students, researchers, policymakers, and practitioners alike. Pick the perspective that fits you, and the list below narrows to the ones meant for you. Several of them serve more than one audience, so they show up under each.</p>
+
+        <div class="participate-filters" id="waysFilters" role="group" aria-label="Filter the ways to participate by audience"></div>
 
         <div class="participate-ways" id="waysList"></div>
 
@@ -648,51 +650,99 @@
 
   renderProjects();
 
+  // Ways to participate. `audiences` lists every audience a pathway is meant
+  // for — an item may serve several, and then shows up under each filter chip.
   const ways = [
     {
+      audiences: ['researchers'],
       title: "Community building: topic lunches, speed dating &amp; retreats.",
       how: `We foster internal cohesion through bi-weekly topic lunches, speed dating events where researchers can connect across disciplines, and yearly retreats that bring our community together.`
     },
     {
+      audiences: ['policy', 'industry', 'researchers'],
+      title: "Outreach: newsletters, policy briefs &amp; podcasts.",
+      how: `Outward-facing, our newsletters, policy briefs, and podcasts carry our work to a wider audience.`
+    },
+    {
+      audiences: ['students', 'researchers'],
       title: "Fellowships for early-career researchers.",
       how: `We offer <span class="accent-text">fellowships</span> to researchers after their master's degree, who join and integrate into our group for several weeks or months.`
     },
     {
+      audiences: ['students'],
       title: "Supervision of theses and student projects.",
       how: `We also supervise master's theses, bachelor's theses, and student projects for students at the University of St.Gallen and for incoming students.`
     },
     {
+      audiences: ['researchers', 'industry', 'policy'],
       title: "Working groups on emerging challenges.",
       how: `We organize working groups on specific topics such as platform auditing and decentralization, where researchers can dive deep into emerging challenges.`
     },
     {
+      audiences: ['policy', 'industry', 'researchers'],
       title: "Co-created events with partner institutions.",
       how: `Beyond FuSo, we collaborate with other institutions to co-create events that matter, from exploring privacy-invasive spaces to hosting roundtable discussions with politicians on critical issues like AI regulation.`
     },
     {
+      audiences: ['industry', 'students'],
       title: "Support for social entrepreneurship &amp; startups.",
       how: `We support social entrepreneurship and startup initiatives, partnering with platforms like <a href="https://innovationspark-ost.ch/start-ups/" target="_blank" rel="noopener">Startfeld</a> to turn ideas into impact.`
     },
     {
+      audiences: ['students', 'researchers'],
       title: "Joint course in Contextual Studies.",
       how: `We are also planning a joint course in Contextual Studies, designed to ground technical and legal research in the broader social context.`
     }
   ];
 
+  // Audience labels for the participation pathways. Keys must match the
+  // `audiences` arrays above; `all` is the unfiltered default.
+  const WAY_AUDIENCES = {
+    students: "Students",
+    researchers: "Researchers",
+    policy: "Policy &amp; Government",
+    industry: "Industry &amp; Practice"
+  };
+  const WAY_ALL = "Everyone";
+
+  let wayFilter = 'all';
+
+  function renderWayFilters() {
+    const bar = document.getElementById('waysFilters');
+    if (!bar) return;
+    bar.innerHTML = ['all'].concat(Object.keys(WAY_AUDIENCES)).map(k => `
+      <button type="button" class="way-filter${k === wayFilter ? ' is-active' : ''}" data-audience="${k}" aria-pressed="${k === wayFilter}">${k === 'all' ? WAY_ALL : WAY_AUDIENCES[k]}</button>
+    `).join('');
+  }
+
+  function filterWays(audience) {
+    wayFilter = audience;
+    renderWayFilters();
+    renderWays();
+  }
+
   function renderWays() {
     const list = document.getElementById('waysList');
-    list.innerHTML = ways.map((w, i) => `
+    const shown = ways.filter(w => wayFilter === 'all' || (w.audiences || []).includes(wayFilter));
+    list.innerHTML = shown.map((w, i) => {
+      const tags = (w.audiences || []).map(a =>
+        `<span class="way-tag${a === wayFilter ? ' is-match' : ''}">${WAY_AUDIENCES[a] || a}</span>`
+      ).join('');
+      return `
       <div class="way-item" data-index="${i}">
         <div class="way-header" onclick="toggleWay(${i})">
           <span class="way-num">${String(i + 1).padStart(2, '0')}</span>
-          <p class="way-title">${w.title}</p>
+          <div class="way-titlewrap">
+            <p class="way-title">${w.title}</p>
+            <p class="way-tags">${tags}</p>
+          </div>
           <span class="way-toggle">+</span>
         </div>
         <div class="way-body">
           <div class="way-body-inner">${w.how}</div>
         </div>
-      </div>
-    `).join('');
+      </div>`;
+    }).join('');
   }
 
   function toggleWay(index) {
@@ -702,6 +752,17 @@
     });
   }
 
+  // Delegated, so the buttons survive every re-render of the filter bar.
+  (function () {
+    const bar = document.getElementById('waysFilters');
+    if (!bar) return;
+    bar.addEventListener('click', e => {
+      const btn = e.target.closest('.way-filter');
+      if (btn) filterWays(btn.dataset.audience);
+    });
+  })();
+
+  renderWayFilters();
   renderWays();
 
   // Mobile nav: toggle the dropdown menu

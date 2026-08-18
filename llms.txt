@@ -150,13 +150,19 @@ Contact fuso@unisg.ch for details.
 
 ## Ways to Participate
 
-- Community building: bi-weekly topic lunches, cross-disciplinary speed dating, yearly retreats
-- Fellowships for early-career researchers (post-master's, several weeks to months)
-- Supervision of bachelor's/master's theses and student projects
-- Working groups on emerging challenges (e.g. platform auditing, decentralisation)
-- Co-created events with partner institutions
-- Support for social entrepreneurship and startups
-- A planned joint course in Contextual Studies
+Each pathway is tagged with the audiences it is meant for. Several serve more
+than one, and the site lets visitors filter the list by audience.
+
+| Pathway | Students | Researchers | Policy & government | Industry & practice |
+|---|---|---|---|---|
+| Community building: bi-weekly topic lunches, cross-disciplinary speed dating, yearly retreats | | x | | |
+| Outreach: newsletters, policy briefs, podcasts | | x | x | x |
+| Fellowships for early-career researchers (post-master's, several weeks to months) | x | x | | |
+| Supervision of bachelor's/master's theses and student projects | x | | | |
+| Working groups on emerging challenges (e.g. platform auditing, decentralisation) | | x | x | x |
+| Co-created events with partner institutions (incl. roundtables with policymakers on AI regulation) | | x | x | x |
+| Support for social entrepreneurship and startups (with Startfeld) | x | | | x |
+| A planned joint course in Contextual Studies | x | x | | |
 
 ## Contact
 

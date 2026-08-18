@@ -823,6 +823,47 @@ a.meta:hover { color: var(--accent); }
 /* ─── PARTICIPATE PATHWAYS ─── */
 .participate-intro { margin-bottom: 1.25rem; }
 
+/* Audience filter. Each pathway is tagged with every audience it serves, so the
+   same item legitimately appears under more than one chip. Rendered by
+   renderWayFilters(); real <button>s, so keyboard and screen readers work. */
+.participate-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.way-filter {
+  font-family: inherit;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #666;
+  background: transparent;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.way-filter:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.way-filter.is-active {
+  color: var(--white);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.way-filter:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* Mirrors the "Get concrete" expandable project list */
 .participate-ways {
   display: flex;
@@ -856,7 +897,6 @@ a.meta:hover { color: var(--accent); }
 }
 
 .way-title {
-  flex: 1;
   font-size: 0.95rem;
   font-weight: 600;
   line-height: 1.4;
@@ -864,6 +904,30 @@ a.meta:hover { color: var(--accent); }
   margin: 0;
   transition: color 0.15s;
 }
+
+.way-titlewrap {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Which audiences a pathway is for, shown even when the item is collapsed. The
+   one matching the active filter is picked out in the accent colour. */
+.way-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  margin: 0.35rem 0 0;
+}
+
+.way-tag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mid);
+}
+
+.way-tag.is-match { color: var(--accent); }
 
 .way-toggle {
   font-size: 1.25rem;
