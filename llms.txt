@@ -156,7 +156,7 @@ than one, and the site lets visitors filter the list by audience.
 | Pathway | Students | Researchers | Policy & government | Industry & practice |
 |---|---|---|---|---|
 | Community building: bi-weekly topic lunches, cross-disciplinary speed dating, yearly retreats | | x | | |
-| Outreach: newsletters, policy briefs, podcasts | | x | x | x |
+| Outreach: newsletters, policy briefs, podcasts, and songs | | x | x | x |
 | Fellowships for early-career researchers (post-master's, several weeks to months) | x | x | | |
 | Supervision of bachelor's/master's theses and student projects | x | | | |
 | Working groups on emerging challenges (e.g. platform auditing, decentralisation) | | x | x | x |
@@ -170,6 +170,7 @@ than one, and the site lets visitors filter the list by audience.
 **Address**: University of St.Gallen, Institute of Computer Science and Institute of Law and Economics, Rosenbergstrasse 30, St. Gallen, Switzerland
 **Web**: https://futuresociety.ch
 **LinkedIn**: https://www.linkedin.com/company/future-society-hub/
+**SoundCloud**: https://soundcloud.com/interactions-research — many of our recent papers are also released as songs.
 **Languages**: English, German, French
 
 ---
