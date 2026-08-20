@@ -101,7 +101,7 @@ const teamMembers = [
   {
     name: 'Haroon Khan',
     link: 'https://axolotlintelligence.com/',
-    photo: 'assets/haroon.jpg',
+    photo: 'https://haroonbilalkhan.datapod.igrant.io/public/YAILC-26-0182.jpg',
     detail: 'PhD candidate',
     role: 'researcher',
     bio: {

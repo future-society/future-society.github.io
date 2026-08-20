@@ -44,7 +44,7 @@ We advise regulatory bodies, governments, and organisations on AI governance. We
 We build and deploy techno-legal tools that detect and counter systemic risks in digital ecosystems. Our CoCoDa project, funded by the Swiss National Science Foundation, is the leading European effort in this domain.
 
 **Computational Law & Access to Justice**
-We develop AI-driven legal tools in collaboration with NGOs and communities, targeting underserved populations. Our work combines legal design with state-of-the-art natural language processing, and is funded through an Innosuisse/SNSF BRIDGE Discovery grant with Caritas Switzerland.
+We develop AI-driven legal tools in collaboration with NGOs and communities, targeting underserved populations. Our work combines legal design with state-of-the-art natural language processing, and is funded through an Innosuisse/SNSF BRIDGE Discovery grant with Caritas Switzerland. Project website: https://arcl.unil.ch/
 
 **Privacy & AI Transparency**
 Privacy-by-design, GDPR compliance, governance of automated decision-making. We published the field-defining textbooks: *Designing for Privacy and its Legal Framework* (Springer, 2018) and *AI and Law* (Routledge, 2024).
@@ -94,7 +94,7 @@ Specialises in AI in the judiciary, risk assessment tools in legal systems, and 
 | AI Reg / AIA Readiness | AI governance advisory and EU AI Act compliance | Active |
 | TA Swiss LLM study | AI impact on skills, competencies, and education | Active |
 | flag&safe | Digital safety in schools | Active |
-| A2J | Access to justice, legal AI (BRIDGE Discovery, with Caritas Switzerland) | Active |
+| ARCL (Bridging Justice) | Access to justice, legal AI (BRIDGE Discovery, with Caritas Switzerland) — https://arcl.unil.ch/ | Active |
 | FUSE / CS & Law Europe Network | Pan-European CS & Law research network | Active |
 | MArgins / Personalized Realities | Societal impacts of ubiquitous personalisation | Active |
 | Automated Nutrition Counselling | Digital health at population scale (BRIDGE Proof of Concept) | Active |
