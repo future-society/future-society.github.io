@@ -544,10 +544,10 @@ p {
 
 .focus-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
 
-/* Collapsible publications list under Focus Areas: same <details> pattern as
-   the past-events archive, grouped by focus area. Pure <details>/<summary>,
-   no JS required. */
-.focus-more { grid-column: 3 / -1; margin-top: 1.5rem; }
+/* Collapsible publications list on each Focus Areas tile: same <details>
+   pattern as the past-events archive, one list per focus area. Pure
+   <details>/<summary>, no JS required. */
+.focus-publications { margin-top: 1rem; }
 .focus-publications > summary {
   list-style: none;
   cursor: pointer;
@@ -559,27 +559,13 @@ p {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent);
-  padding: 0.85rem 0;
+  padding: 0.6rem 0;
   border-top: 1px solid #ddd;
 }
 .focus-publications > summary::-webkit-details-marker { display: none; }
 .focus-publications > summary::before { content: "+"; font-size: 0.95rem; line-height: 1; width: 0.8em; text-align: center; }
 .focus-publications[open] > summary::before { content: "\2013"; }
-.focus-pub-groups {
-  margin-top: 0.75rem;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem 2rem;
-}
-.focus-pub-heading {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 0.5rem;
-}
-.focus-pub-list { list-style: none; margin: 0; padding: 0; }
+.focus-pub-list { list-style: none; margin: 0.5rem 0 0; padding: 0; }
 .focus-pub-list li { font-size: 0.85rem; line-height: 1.5; padding: 0.4rem 0; border-bottom: 1px solid #eee; }
 .focus-pub-list li:last-child { border-bottom: 0; }
 .focus-pub-list li a { color: var(--accent); white-space: nowrap; margin-left: 0.3em; }
@@ -1178,7 +1164,7 @@ footer .container {
 
   .about-headline, .about-body, .about-fullstack,
   .toolbox,
-  .focus-intro, .focus-grid, .focus-more,
+  .focus-intro, .focus-grid,
   .concrete-header, .projects-container,
   .team-intro, .team-bricks-wrap,
   .contact-head, .contact-body,
@@ -1189,7 +1175,6 @@ footer .container {
   .events-columns { grid-template-columns: 1fr; }
   .projects-container { grid-template-columns: 1fr; }
   .focus-grid { grid-template-columns: 1fr; }
-  .focus-pub-groups { grid-template-columns: 1fr; }
   .director-cards { grid-template-columns: 1fr; }
   .team-bricks { grid-template-columns: repeat(4, 1fr); }
 
