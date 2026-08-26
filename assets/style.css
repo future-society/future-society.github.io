@@ -568,7 +568,7 @@ p {
 .focus-pub-list { list-style: none; margin: 0.5rem 0 0; padding: 0; }
 .focus-pub-list li { font-size: 0.85rem; line-height: 1.5; padding: 0.4rem 0; border-bottom: 1px solid #eee; }
 .focus-pub-list li:last-child { border-bottom: 0; }
-.focus-pub-list li a { color: var(--accent); white-space: nowrap; margin-left: 0.3em; }
+.focus-pub-list li a { color: var(--accent); margin-left: 0.3em; }
 
 /* ─── EVENTS ─── */
 .events-label { grid-column: 1 / 3; }
