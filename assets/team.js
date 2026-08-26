@@ -149,14 +149,16 @@ const teamMembers = [
 ];
 
 // Former members. Rendered as a compact, collapsed-by-default list under the
-// team bricks — one line each, no photo and no bio, so the section stays small
-// as it grows. Leave the array empty and nothing is rendered at all.
+// team bricks — one line each, no bio, so the section stays small as it grows.
+// Leave the array empty and nothing is rendered at all.
 // - role: key from TEAM_ROLES (used when `detail` is absent)
 // - detail: what they did here — string, or { en, de, fr } to translate it
 // - now: optional, where they went — string, or { en, de, fr }; `nowLink` links it
+// - photo: optional, small thumbnail shown next to the name
 const formerMembers = [
   {
     name: 'Leonard Gardies',
+    photo: 'assets/images/LG.jpg',
     detail: { en: 'Scholarship Recipient', de: 'Stipendiant', fr: 'Boursier' },
     role: 'fellow',
     now: {
@@ -212,7 +214,11 @@ function renderFormerTeam(lang) {
     const nowHtml = now
       ? `<span class="former-now">${m.nowLink ? `<a href="${m.nowLink}" target="_blank" rel="noopener">${now}</a>` : now}</span>`
       : '';
+    const photoHtml = m.photo
+      ? `<img class="former-avatar" src="${m.photo}" alt="${m.name}">`
+      : '';
     return `<li class="former-item">
+      ${photoHtml}
       <span class="former-name">${nameHtml}</span>
       <span class="former-what">${what}</span>
       ${nowHtml}

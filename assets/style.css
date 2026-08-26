@@ -544,6 +544,32 @@ p {
 
 .focus-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
 
+/* Collapsible publications list on each Focus Areas tile: same <details>
+   pattern as the past-events archive, one list per focus area. Pure
+   <details>/<summary>, no JS required. */
+.focus-publications { margin-top: 1rem; }
+.focus-publications > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 0.6rem 0;
+  border-top: 1px solid #ddd;
+}
+.focus-publications > summary::-webkit-details-marker { display: none; }
+.focus-publications > summary::before { content: "+"; font-size: 0.95rem; line-height: 1; width: 0.8em; text-align: center; }
+.focus-publications[open] > summary::before { content: "\2013"; }
+.focus-pub-list { list-style: none; margin: 0.5rem 0 0; padding: 0; }
+.focus-pub-list li { font-size: 0.85rem; line-height: 1.5; padding: 0.4rem 0; border-bottom: 1px solid #eee; }
+.focus-pub-list li:last-child { border-bottom: 0; }
+.focus-pub-list li a { color: var(--accent); margin-left: 0.3em; }
+
 /* ─── EVENTS ─── */
 .events-label { grid-column: 1 / 3; }
 .events-header { grid-column: 3 / 13; }
@@ -756,8 +782,9 @@ a.meta:hover { color: var(--accent); }
 }
 
 /* Collapsible former-members list: same <details> pattern as the past-events
-   archive, kept deliberately compact — one line per person, no photo, no bio,
-   so it stays small as the list grows. Rendered by renderFormerTeam(). */
+   archive, kept deliberately compact — one line per person, no bio, so it
+   stays small as the list grows. A photo is optional and shown as a small
+   round thumbnail. Rendered by renderFormerTeam(). */
 .team-former { margin-top: 2rem; }
 .team-former > summary {
   list-style: none;
@@ -781,7 +808,7 @@ a.meta:hover { color: var(--accent); }
 .former-item {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   gap: 0.35rem 1rem;
   padding: 0.5rem 0;
   border-bottom: 1px solid #eee;
@@ -790,6 +817,13 @@ a.meta:hover { color: var(--accent); }
 }
 .former-item:hover { opacity: 1; }
 .former-item:last-child { border-bottom: 0; }
+.former-avatar {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+}
 .former-name { font-size: 0.85rem; font-weight: 600; }
 .former-name a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--mid); }
 .former-name a:hover { color: var(--accent); border-bottom-color: var(--accent); }
