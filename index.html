@@ -567,6 +567,31 @@
   </div>
 </section>
 
+<!-- FUNDERS -->
+<section id="funders">
+  <div class="container">
+    <div class="grid">
+      <div class="funders-label">
+        <p class="section-label">Supported By</p>
+      </div>
+      <div class="funders-intro">
+        <h2>Supported <span class="accent-text">By</span></h2>
+        <p>Our work is made possible by the funding agencies and programmes below.</p>
+      </div>
+      <div class="funders-wrap">
+        <div class="funders-grid">
+          <a class="funder-tile" href="https://www.snf.ch/en" target="_blank" rel="noopener"><img class="funder-logo funder-logo--snsf" src="assets/images/funders/snsf-en.svg" alt="Swiss National Science Foundation"></a>
+          <a class="funder-tile" href="https://www.innosuisse.admin.ch/en" target="_blank" rel="noopener"><img class="funder-logo funder-logo--innosuisse" src="assets/images/funders/innosuisse.svg" alt="Innosuisse"></a>
+          <a class="funder-tile" href="https://www.bridge.ch/en" target="_blank" rel="noopener"><img class="funder-logo funder-logo--bridge" src="assets/images/funders/bridge.svg" alt="BRIDGE"></a>
+          <a class="funder-tile" href="https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe_en" target="_blank" rel="noopener"><img class="funder-logo funder-logo--eu-funded" src="assets/images/funders/eu-funded-en.png" alt="Funded by the European Union (Horizon Europe)"></a>
+          <a class="funder-tile" href="https://www.chips-ju.europa.eu/" target="_blank" rel="noopener"><img class="funder-logo funder-logo--chips-ju" src="assets/images/funders/chips-ju.png" alt="Chips Joint Undertaking"></a>
+          <a class="funder-tile" href="https://www.palatin.ch/" target="_blank" rel="noopener"><img class="funder-logo funder-logo--palatin" src="assets/images/funders/palatin.svg" alt="Palatin Stiftung"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="container">
@@ -838,6 +863,20 @@
       lastTap = now;
     });
   })();
+
+  // Funder logos live in assets/images/funders/. A tile whose logo file is not
+  // there yet falls back to the alt text as a wordmark, so the grid never shows
+  // a broken image while logos are still being collected.
+  document.querySelectorAll('.funder-logo').forEach(img => {
+    const fallback = () => {
+      const span = document.createElement('span');
+      span.className = 'funder-wordmark';
+      span.textContent = img.alt;
+      img.replaceWith(span);
+    };
+    if (img.complete && !img.naturalWidth) fallback();
+    else img.addEventListener('error', fallback);
+  });
 </script>
 
 <!-- Analytics: GoatCounter (cookieless, no personal data stored) -->
