@@ -122,7 +122,6 @@ Practice partners:
 
 ## Upcoming Events
 
-- September 21–23, 2026 — Strategic AI Governance Course (Continuing Education), Zurich
 - September 24, 2026 — Webinar "Wenn der Feed die Welt erklärt" (Smartfeld), online
 - September 29, 2026 — FuSo Retreat, St.Gallen
 - October 1, 2026 — AI+Social Media Track (AI+X Summit), Zurich
@@ -130,6 +129,7 @@ Practice partners:
 - November 4, 2026 — Legal Design Workshop, St.Gallen
 - November 7–8, 2026 — Legal Hackathon, St.Gallen
 - December 8, 2026 — FuSo Xmas Lunch & Speed Dating, St.Gallen
+- January 26–28, 2027 — Strategic AI Governance Course (Continuing Education), Zurich
 - April 29–30, 2027 — Solid Symposium 2027, St.Gallen
 
 ### Brown Bag Lunch Series (bi-weekly, September–November 2026)

@@ -1074,6 +1074,7 @@ a.meta:hover { color: var(--accent); }
 .funder-logo--bridge     { max-height: 34px; }
 .funder-logo--chips-ju   { max-height: 58px; }
 .funder-logo--eu-funded  { max-height: 50px; }
+.funder-logo--ec         { max-height: 72px; }
 .funder-logo--palatin    { max-height: 58px; }
 
 /* Stand-in for a logo file that is not in assets/images/funders/ yet. */
