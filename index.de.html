@@ -76,7 +76,15 @@
       <li><a href="#concrete">Projekte</a></li>
       <li><a href="#events">Veranstaltungen</a></li>
       <li><a href="#focus">Schwerpunkte</a></li>
-      <li><a href="#participate">Mitmachen</a></li>
+      <li class="nav-has-sub">
+        <a href="#participate">Mitmachen</a>
+        <ul class="nav-sub" aria-label="Mitmachen nach Zielgruppe">
+          <li><a href="#participate-students">F&uuml;r Studierende</a></li>
+          <li><a href="#participate-researchers">F&uuml;r Forschende</a></li>
+          <li><a href="#participate-policy">F&uuml;r Politik &amp; Verwaltung</a></li>
+          <li><a href="#participate-industry">F&uuml;r Wirtschaft &amp; Praxis</a></li>
+        </ul>
+      </li>
       <li><a href="#team">Team</a></li>
       <li><a href="#contact">Kontakt</a></li>
     </ul>
@@ -111,7 +119,7 @@
 <div class="intro-standalone">
   <div class="container grid">
     <div class="about-intro">
-      <p>Menschen sollten den technologischen Wandel nicht passiv hinnehmen, sondern ihn aus gesellschaftlicher Perspektive <span class="accent-text">aktiv mitgestalten</span>. Genau das will der <span class="accent-text">Future Society Hub</span> ermöglichen und fördern. Wir sind ein dynamischer Raum für gemeinsame Problemlösung, in dem Forschende, Organisationen und Bürger:innen Technologie an menschlichen Werten ausrichten. Eine <span class="accent-text">proaktive</span> Haltung, die technologiebedingte gesellschaftliche Veränderungen antizipiert und Technologie aus gesellschaftlicher Perspektive mitgestaltet.
+      <p>Menschen sollten den technologischen Wandel nicht passiv hinnehmen, sondern ihn aus gesellschaftlicher Perspektive <span class="accent-text">aktiv mitgestalten</span>. Genau das will der <span class="accent-text">Future Society Hub</span> ermöglichen und fördern. Wir sind ein dynamischer Raum für gemeinsame Problemlösung, in dem Forschende, Organisationen und Bürger:innen Technologie an menschlichen Werten ausrichten. Eine <span class="accent-text">proaktive</span> Haltung, die technologiebedingte gesellschaftliche Veränderungen antizipiert und Technologie aus gesellschaftlicher Perspektive mitgestaltet.</p>
     </div>
   </div>
 </div>
@@ -262,7 +270,7 @@
                 <p class="event-name">Solid Symposium 2027</p>
                 <div class="event-meta-row">
                   <span class="meta"><span class="event-icon icon-pin"></span>St.Gallen</span>
-                  <a class="meta" href="https://sosy2027.eu" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Website</a>
+                  <a class="meta" href="https://sosy2027.org" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Website</a>
                 </div>
               </div>
             </div>
@@ -542,7 +550,7 @@
     },
     {
       title: "Die digitalen Infrastrukturen von morgen mitgestalten.",
-      how: `Wir arbeiten an der Architektur zukünftiger digitaler Infrastrukturen — darunter, wie sie autonome Agenten in weltweiten Multi-Agenten-Systemen und dezentrale Datenarchitekturen tragen können — und organisieren das <a href="https://sosy2027.eu" target="_blank" rel="noopener">Solid Symposium 2027</a>, um die Community zusammenzubringen, die diese Infrastrukturen gestaltet.`
+      how: `Wir arbeiten an der Architektur zukünftiger digitaler Infrastrukturen — darunter, wie sie autonome Agenten in weltweiten Multi-Agenten-Systemen und dezentrale Datenarchitekturen tragen können — und organisieren das <a href="https://sosy2027.org" target="_blank" rel="noopener">Solid Symposium 2027</a>, um die Community zusammenzubringen, die diese Infrastrukturen gestaltet.`
     },
     {
       title: "Schulen vor Ort beim Umgang mit schädlichen Inhalten in sozialen Medien begleiten.",
@@ -713,6 +721,31 @@
 
   renderWayFilters();
   renderWays();
+
+  // Audience deep links from the nav: #participate-students, -researchers,
+  // -policy, -industry (and -all). No element carries those ids, so the jump
+  // and the filter are both applied here rather than by the browser.
+  (function () {
+    const PREFIX = '#participate-';
+    function applyAudienceHash(hash) {
+      if (!hash || hash.indexOf(PREFIX) !== 0) return;
+      const key = hash.slice(PREFIX.length);
+      if (key !== 'all' && !WAY_AUDIENCES[key]) return;
+      filterWays(key);
+      const section = document.getElementById('participate');
+      // No options, so this honours the stylesheet's scroll-behavior — which
+      // the reduced-motion guard switches to auto.
+      if (section) section.scrollIntoView();
+    }
+    window.addEventListener('hashchange', () => applyAudienceHash(location.hash));
+    // Re-clicking the link for the audience already in the URL fires no
+    // hashchange, so that one case is handled directly.
+    document.addEventListener('click', e => {
+      const a = e.target.closest('.nav-sub a');
+      if (a && a.getAttribute('href') === location.hash) applyAudienceHash(location.hash);
+    });
+    applyAudienceHash(location.hash);
+  })();
 
   // Mobile nav: toggle the dropdown menu
   (function () {

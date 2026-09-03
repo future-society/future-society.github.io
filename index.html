@@ -131,7 +131,7 @@
             "@type": "ResearchProject",
             "name": "Solid Symposium 2027",
             "description": "International symposium on decentralized data architectures and the Solid protocol",
-            "url": "https://sosy2027.eu"
+            "url": "https://sosy2027.org"
           },
           {
             "@type": "ResearchProject",
@@ -200,7 +200,15 @@
       <li><a href="#concrete">Projects</a></li>
       <li><a href="#events">Events</a></li>
       <li><a href="#focus">Focus Areas</a></li>
-      <li><a href="#participate">Participate</a></li>
+      <li class="nav-has-sub">
+        <a href="#participate">Participate</a>
+        <ul class="nav-sub" aria-label="Participate by audience">
+          <li><a href="#participate-students">For Students</a></li>
+          <li><a href="#participate-researchers">For Researchers</a></li>
+          <li><a href="#participate-policy">For Policy &amp; Government</a></li>
+          <li><a href="#participate-industry">For Industry &amp; Practice</a></li>
+        </ul>
+      </li>
       <li><a href="#team">Team</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -235,7 +243,7 @@
 <div class="intro-standalone">
   <div class="container grid">
     <div class="about-intro">
-      <p>Humans should not be passive consumers of technological change, but should <span class="accent-text">actively architect it</span> from a societal perspective. This is what the  <span class="accent-text">Future Society Hub</span> sets out to enable and support. We serve as a dynamic problem-solving space where researchers, organizations, and citizens shape technology around human values. A <span class="accent-text">proactive</span> stance that anticipates technology-induced social shifts and shapes technology through a societal lens.
+      <p>Humans should not be passive consumers of technological change, but should <span class="accent-text">actively architect it</span> from a societal perspective. This is what the  <span class="accent-text">Future Society Hub</span> sets out to enable and support. We serve as a dynamic problem-solving space where researchers, organizations, and citizens shape technology around human values. A <span class="accent-text">proactive</span> stance that anticipates technology-induced social shifts and shapes technology through a societal lens.</p>
     </div>
   </div>
 </div>
@@ -386,7 +394,7 @@
                 <p class="event-name">Solid Symposium 2027</p>
                 <div class="event-meta-row">
                   <span class="meta"><span class="event-icon icon-pin"></span>St.Gallen</span>
-                  <a class="meta" href="https://sosy2027.eu" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Website</a>
+                  <a class="meta" href="https://sosy2027.org" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Website</a>
                 </div>
               </div>
             </div>
@@ -665,10 +673,10 @@
     },
     {
       title: "Architect Infrastructures for the Future.",
-      how: `We work on the architecture of future digital infrastructures, including their support for autonomous agents in world-wide multi-agent systems and decentralized data architectures, and we are organizing the <a href="https://sosy2027.eu" target="_blank" rel="noopener">Solid Symposium 2027</a> to bring together the community shaping these infrastructures.`
+      how: `We work on the architecture of future digital infrastructures, including their support for autonomous agents in world-wide multi-agent systems and decentralized data architectures, and we are organizing the <a href="https://sosy2027.org" target="_blank" rel="noopener">Solid Symposium 2027</a> to bring together the community shaping these infrastructures.`
     },
     {
-      title: "Support of local schools with how to discuss and deal with harmful social media content.",
+      title: "Support local schools in discussing and dealing with harmful social media content.",
       how: `We work with local schools and students to co-design and co-develop practical tools that help young people recognise, discuss, and respond to harmful social media content they encounter online. These tools aim to support safe conversations, build confidence, and equip students with strategies for dealing with challenging digital experiences. Check out our <a href="https://www.flag-safe.ch" target="_blank" rel="noopener">Flag&Safe project</a>.`
     },
     {
@@ -676,7 +684,7 @@
       how: `We co-design access to justice technologies together with NGOs and interested laypeople to help legal institutions and laypeople navigate a complex legal Swiss landscape. Our goals are to develop accessible, reliable, and collaborative legal AI specifically targeting underserved communities. This is the focus of our <a href="https://www.bridge.ch/en/2JhW2ZFO9e7sAImV/page/funding/discovery" target="_blank" rel="noopener">Bridge Discovery</a> project on <strong>Access to Justice</strong>, <a href="https://arcl.unil.ch/" target="_blank" rel="noopener">Bridging Justice (ARCL)</a>, which we are developing together with <a href="https://www.caritas.ch/en/" target="_blank" rel="noopener">Caritas Switzerland</a>.`
     },
     {
-      title: "Create a strong European network around key FuSo interests areas.",
+      title: "Create a strong European network around key FuSo interest areas.",
       how: `We support ongoing initiatives such as the <a href="https://cslaweurope.org/" target="_blank" rel="noopener">CS &amp; Law Europe Network</a> that provide a platform for young researchers to share research ideas, get input on research projects, find collaboration partners, and debate in a safe space key challenges that come along when disciplines fuse.`
     },
     {
@@ -836,6 +844,31 @@
 
   renderWayFilters();
   renderWays();
+
+  // Audience deep links from the nav: #participate-students, -researchers,
+  // -policy, -industry (and -all). No element carries those ids, so the jump
+  // and the filter are both applied here rather than by the browser.
+  (function () {
+    const PREFIX = '#participate-';
+    function applyAudienceHash(hash) {
+      if (!hash || hash.indexOf(PREFIX) !== 0) return;
+      const key = hash.slice(PREFIX.length);
+      if (key !== 'all' && !WAY_AUDIENCES[key]) return;
+      filterWays(key);
+      const section = document.getElementById('participate');
+      // No options, so this honours the stylesheet's scroll-behavior — which
+      // the reduced-motion guard switches to auto.
+      if (section) section.scrollIntoView();
+    }
+    window.addEventListener('hashchange', () => applyAudienceHash(location.hash));
+    // Re-clicking the link for the audience already in the URL fires no
+    // hashchange, so that one case is handled directly.
+    document.addEventListener('click', e => {
+      const a = e.target.closest('.nav-sub a');
+      if (a && a.getAttribute('href') === location.hash) applyAudienceHash(location.hash);
+    });
+    applyAudienceHash(location.hash);
+  })();
 
   // Mobile nav: toggle the dropdown menu
   (function () {

@@ -98,7 +98,7 @@ Specialises in AI in the judiciary, risk assessment tools in legal systems, and 
 | FUSE / CS & Law Europe Network | Pan-European CS & Law research network | Active |
 | MArgins / Personalized Realities | Societal impacts of ubiquitous personalisation | Active |
 | Automated Nutrition Counselling | Digital health at population scale (BRIDGE Proof of Concept) | Active |
-| Solid Symposium 2027 | Decentralised data infrastructure (sosy2027.eu) | Active |
+| Solid Symposium 2027 | Decentralised data infrastructure (sosy2027.org) | Active |
 
 ## Network & Partners
 
@@ -113,6 +113,18 @@ Practice partners:
 - Caritas Switzerland (access to justice)
 - Smartfeld and Startfeld, St.Gallen (education, social entrepreneurship)
 - TA Swiss (technology assessment)
+
+## Funding
+
+Our work is supported by the following funding agencies and programmes:
+
+- Swiss National Science Foundation (SNSF) — https://www.snf.ch/en
+- Innosuisse, the Swiss Innovation Agency — https://www.innosuisse.admin.ch/en
+- BRIDGE, the joint SNSF/Innosuisse programme — https://www.bridge.ch/en
+- Horizon Europe, funded by the European Union — https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe_en
+- Chips Joint Undertaking — https://www.chips-ju.europa.eu/
+- European Commission, Marie Skłodowska-Curie Actions Doctoral Networks — https://marie-sklodowska-curie-actions.ec.europa.eu/actions/doctoral-networks
+- Palatin Stiftung — https://www.palatin.ch/
 
 ## Publications (Selected)
 
@@ -174,4 +186,4 @@ than one, and the site lets visitors filter the list by audience.
 **Languages**: English, German, French
 
 ---
-Last updated: 2026-08-18
+Last updated: 2026-09-03

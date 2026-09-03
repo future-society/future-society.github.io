@@ -76,7 +76,15 @@
       <li><a href="#concrete">Projets</a></li>
       <li><a href="#events">Événements</a></li>
       <li><a href="#focus">Domaines</a></li>
-      <li><a href="#participate">Participer</a></li>
+      <li class="nav-has-sub">
+        <a href="#participate">Participer</a>
+        <ul class="nav-sub" aria-label="Participer par public">
+          <li><a href="#participate-students">Pour les &eacute;tudiant&middot;e&middot;s</a></li>
+          <li><a href="#participate-researchers">Pour les chercheur&middot;euse&middot;s</a></li>
+          <li><a href="#participate-policy">Pour la politique &amp; l'administration</a></li>
+          <li><a href="#participate-industry">Pour les entreprises &amp; la pratique</a></li>
+        </ul>
+      </li>
       <li><a href="#team">Équipe</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -111,7 +119,7 @@
 <div class="intro-standalone">
   <div class="container grid">
     <div class="about-intro">
-      <p>Les individus ne devraient pas être des consommateurs passifs du changement technologique, mais devraient <span class="accent-text">le façonner activement</span>, dans une perspective sociétale. C'est précisément ce que le <span class="accent-text">Future Society Hub</span> vise à permettre et à soutenir. Nous sommes un espace dynamique de résolution de problèmes où chercheur·euses, organisations et citoyen·nes façonnent la technologie autour de valeurs humaines. Une posture <span class="accent-text">proactive</span> qui anticipe les mutations sociales induites par la technologie et façonne la technologie à travers un prisme sociétal.
+      <p>Les individus ne devraient pas être des consommateurs passifs du changement technologique, mais devraient <span class="accent-text">le façonner activement</span>, dans une perspective sociétale. C'est précisément ce que le <span class="accent-text">Future Society Hub</span> vise à permettre et à soutenir. Nous sommes un espace dynamique de résolution de problèmes où chercheur·euses, organisations et citoyen·nes façonnent la technologie autour de valeurs humaines. Une posture <span class="accent-text">proactive</span> qui anticipe les mutations sociales induites par la technologie et façonne la technologie à travers un prisme sociétal.</p>
     </div>
   </div>
 </div>
@@ -262,7 +270,7 @@
                 <p class="event-name">Solid Symposium 2027</p>
                 <div class="event-meta-row">
                   <span class="meta"><span class="event-icon icon-pin"></span>Saint-Gall</span>
-                  <a class="meta" href="https://sosy2027.eu" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Site web</a>
+                  <a class="meta" href="https://sosy2027.org" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Site web</a>
                 </div>
               </div>
             </div>
@@ -542,7 +550,7 @@
     },
     {
       title: "Concevoir l'architecture des infrastructures de demain.",
-      how: `Nous travaillons sur l'architecture des futures infrastructures numériques — en particulier sur leur capacité à accueillir des agents autonomes dans des systèmes multi-agents à l'échelle mondiale et des architectures de données décentralisées — et nous organisons le <a href="https://sosy2027.eu" target="_blank" rel="noopener">Solid Symposium 2027</a> afin de réunir la communauté qui façonne ces infrastructures.`
+      how: `Nous travaillons sur l'architecture des futures infrastructures numériques — en particulier sur leur capacité à accueillir des agents autonomes dans des systèmes multi-agents à l'échelle mondiale et des architectures de données décentralisées — et nous organisons le <a href="https://sosy2027.org" target="_blank" rel="noopener">Solid Symposium 2027</a> afin de réunir la communauté qui façonne ces infrastructures.`
     },
     {
       title: "Aider les écoles près de chez nous à composer avec les contenus nuisibles sur les réseaux sociaux.",
@@ -713,6 +721,31 @@
 
   renderWayFilters();
   renderWays();
+
+  // Audience deep links from the nav: #participate-students, -researchers,
+  // -policy, -industry (and -all). No element carries those ids, so the jump
+  // and the filter are both applied here rather than by the browser.
+  (function () {
+    const PREFIX = '#participate-';
+    function applyAudienceHash(hash) {
+      if (!hash || hash.indexOf(PREFIX) !== 0) return;
+      const key = hash.slice(PREFIX.length);
+      if (key !== 'all' && !WAY_AUDIENCES[key]) return;
+      filterWays(key);
+      const section = document.getElementById('participate');
+      // No options, so this honours the stylesheet's scroll-behavior — which
+      // the reduced-motion guard switches to auto.
+      if (section) section.scrollIntoView();
+    }
+    window.addEventListener('hashchange', () => applyAudienceHash(location.hash));
+    // Re-clicking the link for the audience already in the URL fires no
+    // hashchange, so that one case is handled directly.
+    document.addEventListener('click', e => {
+      const a = e.target.closest('.nav-sub a');
+      if (a && a.getAttribute('href') === location.hash) applyAudienceHash(location.hash);
+    });
+    applyAudienceHash(location.hash);
+  })();
 
   // Mobile nav: toggle the dropdown menu
   (function () {
