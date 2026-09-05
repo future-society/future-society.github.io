@@ -203,7 +203,29 @@ h1 {
   line-height: 1.5;
   max-width: 540px;
   color: #333;
+  /* No gap: .hero-chain follows directly below and should read as the next
+     line of the same block, not as a separate paragraph. */
+  margin-bottom: 0;
+}
+
+/* The pipeline line under .hero-sub. It carries .hero-sub too, so it is the
+   same plain type as the sentence above it — no chips, no reuse of the
+   About chain's .block-item boxes. Only the separators and spacing differ. */
+.hero-chain {
   margin-bottom: 2.5rem;
+  /* No max-width (unlike .hero-sub's 540px): the longer German verbs need
+     the full column to stay on one line. */
+  max-width: none;
+}
+
+/* Each arrow stays glued to the step that follows it, so a wrap on a narrow
+   viewport starts the next line with "> Step" instead of stranding an arrow
+   at the end of the line above. */
+.chain-step { white-space: nowrap; }
+
+.chain-arrow {
+  color: var(--mid);
+  padding: 0 0.15rem;
 }
 
 .hero-meta {
