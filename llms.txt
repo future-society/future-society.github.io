@@ -50,7 +50,7 @@ We develop AI-driven legal tools in collaboration with NGOs and communities, tar
 Privacy-by-design, GDPR compliance, governance of automated decision-making. We published the field-defining textbooks: *Designing for Privacy and its Legal Framework* (Springer, 2018) and *AI and Law* (Routledge, 2024).
 
 **Web of Things & Digital Infrastructure**
-We architect next-generation digital infrastructure including autonomous multi-agent systems, decentralised data (Solid protocol), and W3C Web of Things standards. We are organising the Solid Symposium 2027 in St.Gallen.
+We architect next-generation digital infrastructure including autonomous multi-agent systems, decentralised data (Solid protocol), and W3C Web of Things standards. We are organising the Solid Symposium 2027 in St.Gallen. A concrete application is circular-economy supply chains, where ontology-based architectures and secure multi-party computation let companies jointly compute Life Cycle Assessments without exposing their own data.
 
 **Digital Safety & Education**
 We partner with local schools to help students handle harmful online content (flag&safe) and produce evidence-based forecasts of AI's impact on skills and education (TA Swiss study).
@@ -80,7 +80,7 @@ Specialises in AI in the judiciary, risk assessment tools in legal systems, and 
 - **Alice Palmieri** — PhD candidate. Governance of dominant online platforms and the systemic risks they pose.
 - **Dick Blankvoort** — PhD candidate. Generative AI services and their regulatory ecosystem, open-source AI practices, AI companions, EU AI Act compliance, privacy-policy evaluation.
 - **Haroon Khan** — PhD candidate. Subjectivity of trustworthiness in AI systems; AI governance, human rights, technology security; algorithmic radicalisation. Has contributed research to EUROPOL and the IAEA. https://axolotlintelligence.com/
-- **Jan Grau** — PhD candidate (Empa and University of St.Gallen). Solid protocol, web development, security and privacy, secure multi-party computation for circular-economy supply chains.
+- **Jan Grau** — PhD candidate (Empa and University of St.Gallen). Solid protocol, web development, security and privacy, secure multi-party computation for circular-economy supply chains (*Solid and Secure Multi-Party Computation for a Circular Economy*, Solid Symposium 2026 — https://openreview.net/forum?id=eaLD4ioB02).
 - **Johannes David** — PhD candidate. Real-world utility of legal AI and access to justice; develops AI tools at Caritas.
 - **Luka Bekavac** — PhD candidate. Filter bubbles, social media auditing, and platform transparency.
 
@@ -99,6 +99,7 @@ Specialises in AI in the judiciary, risk assessment tools in legal systems, and 
 | MArgins / Personalized Realities | Societal impacts of ubiquitous personalisation | Active |
 | Automated Nutrition Counselling | Digital health at population scale (BRIDGE Proof of Concept) | Active |
 | Solid Symposium 2027 | Decentralised data infrastructure (sosy2027.org) | Active |
+| Circular-economy data sharing | Solid + secure multi-party computation for supply-chain Life Cycle Assessment; Closing the Loop workshop with Circular Lab | Active |
 
 ## Network & Partners
 
@@ -124,6 +125,7 @@ Our work is supported by the following funding agencies and programmes:
 - Horizon Europe, funded by the European Union — https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe_en
 - Chips Joint Undertaking — https://www.chips-ju.europa.eu/
 - European Commission, Marie Skłodowska-Curie Actions Doctoral Networks — https://marie-sklodowska-curie-actions.ec.europa.eu/actions/doctoral-networks
+- Interreg Alpenrhein-Bodensee-Hochrhein, co-funded by the European Union — https://www.interreg.org
 - Palatin Stiftung — https://www.palatin.ch/
 
 ## Publications (Selected)
@@ -138,6 +140,7 @@ Our work is supported by the following funding agencies and programmes:
 - September 29, 2026 — FuSo Retreat, St.Gallen
 - October 1, 2026 — AI+Social Media Track (AI+X Summit), Zurich
 - October 12, 2026 — International Workshop on Reality Mediation (UbiComp/ISWC 2026), Shanghai
+- October 27, 2026 — Sustainability in Fashion and Textiles: Closing the Loop (Circular Lab), St.Gallen — https://sustainable-fashion.github.io/
 - November 4, 2026 — Legal Design Workshop, St.Gallen
 - November 7–8, 2026 — Legal Hackathon, St.Gallen
 - December 8, 2026 — FuSo Xmas Lunch & Speed Dating, St.Gallen

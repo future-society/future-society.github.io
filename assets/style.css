@@ -1139,6 +1139,7 @@ a.meta:hover { color: var(--accent); }
 .funder-logo--eu-funded  { max-height: 50px; }
 .funder-logo--ec         { max-height: 72px; }
 .funder-logo--palatin    { max-height: 58px; }
+.funder-logo--interreg   { max-height: 33px; }  /* native height of the bitmap */
 
 /* Stand-in for a logo file that is not in assets/images/funders/ yet. */
 .funder-wordmark {
