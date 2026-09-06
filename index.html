@@ -234,10 +234,25 @@
     <p class="hero-meta">Technology &nbsp;&times;&nbsp; Society</p>
   </div>
   <div class="hero-image">
-    <img id="heroLogo" src="assets/fuso-logo.svg" alt="FuSo logo" title="Double-click me…">
+    <!-- Easter egg: the note opens a picker for the four FuSo songs. Styling: .song-egg in assets/style.css. -->
+    <div class="hero-logo">
+      <img id="heroLogo" src="assets/fuso-logo.svg" alt="FuSo logo">
+      <div class="song-egg">
+        <button type="button" class="song-note" id="songNote"
+                aria-label="FuSo songs" aria-expanded="false" aria-controls="songMenu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
+        </button>
+        <div class="song-menu" id="songMenu" role="group" aria-label="Choose a language" hidden>
+          <button type="button" data-song="assets/audio/CanYouFuseIt.mp3">EN</button>
+          <button type="button" data-song="assets/audio/Ich-mach-FuSo.mp3">DE</button>
+          <button type="button" data-song="assets/audio/FuSo-Horaire.mp3">FR</button>
+          <button type="button" data-song="assets/audio/I-faccio-FuSo.mp3">IT</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<audio id="fuseSong" src="assets/audio/CanYouFuseIt.mp3" preload="none"></audio>
+<audio id="fuseSong" preload="none"></audio>
 <audio id="amplifySong" src="assets/audio/AMPLIFY.mp3" preload="none"></audio>
 
 <!-- MISSION INTRO -->
@@ -898,29 +913,81 @@
     menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
   })();
 
-  // Easter egg: double-click / double-tap the main logo to play "Can You Fuse It"
+  // Easter egg: the floating note in the hero corner opens a picker for the
+  // four FuSo songs (EN/DE/FR/IT). Picking one plays it; clicking the note
+  // again stops it. One <audio> element is reused for all four — its src is
+  // set on selection, which keeps preload="none" meaningful (nothing is
+  // fetched until a visitor actually picks a song) and keeps the analytics
+  // hook in assets/analytics.js working, since that reads the src at play time.
   (function () {
-    const logo = document.getElementById('heroLogo');
+    const note = document.getElementById('songNote');
+    const menu = document.getElementById('songMenu');
     const song = document.getElementById('fuseSong');
-    if (!logo || !song) return;
-    function toggleSong() {
-      if (song.paused) {
-        song.currentTime = 0;
-        song.play();
-      } else {
-        song.pause();
-      }
+    if (!note || !menu || !song) return;
+
+    const choices = Array.from(menu.querySelectorAll('button[data-song]'));
+
+    function openMenu(open) {
+      menu.hidden = !open;
+      note.setAttribute('aria-expanded', String(open));
     }
-    logo.addEventListener('dblclick', toggleSong);
-    // Touch: dblclick is unreliable on mobile, so detect a double-tap within 300ms
-    let lastTap = 0;
-    logo.addEventListener('touchend', function (e) {
-      const now = Date.now();
-      if (now - lastTap < 300) {
-        e.preventDefault();
-        toggleSong();
+
+    function stop() {
+      song.pause();
+      song.currentTime = 0;
+      // 'pause' fires for a genuine stop as well as when a new src is loaded,
+      // so the playing state is cleared here and in the 'ended'/'pause'
+      // handlers rather than being inferred from song.paused at read time.
+      markPlaying(null);
+    }
+
+    function markPlaying(src) {
+      note.classList.toggle('playing', Boolean(src));
+      choices.forEach(b => b.classList.toggle('playing', b.dataset.song === src));
+    }
+
+    note.addEventListener('click', function () {
+      // While something is playing the note is a stop button; otherwise it
+      // toggles the picker.
+      if (!song.paused) {
+        stop();
+        openMenu(false);
+        return;
       }
-      lastTap = now;
+      openMenu(menu.hidden);
+    });
+
+    choices.forEach(function (button) {
+      button.addEventListener('click', function () {
+        const src = button.dataset.song;
+        // First pick, or a different language than last time: point the shared
+        // <audio> at that file. Re-picking the same one just replays it.
+        if (song.getAttribute('src') !== src) song.setAttribute('src', src);
+        song.currentTime = 0;
+        const played = song.play();
+        // Autoplay policies reject play() only without a user gesture, which
+        // this is — but a missing/blocked file would leave the note stuck in
+        // its playing state, so clear it if the promise rejects.
+        if (played && typeof played.catch === 'function') {
+          played.catch(() => markPlaying(null));
+        }
+        markPlaying(src);
+        openMenu(false);
+      });
+    });
+
+    song.addEventListener('ended', () => markPlaying(null));
+
+    // Close the picker on Escape or a click elsewhere. Neither stops playback:
+    // only the note itself does that.
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !menu.hidden) {
+        openMenu(false);
+        note.focus();
+      }
+    });
+    document.addEventListener('click', function (e) {
+      if (!menu.hidden && !e.target.closest('.song-egg')) openMenu(false);
     });
   })();
 

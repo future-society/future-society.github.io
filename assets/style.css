@@ -157,9 +157,11 @@ nav a:hover { color: var(--accent); }
 /* ─── HERO ─── */
 #hero {
   margin-top: 56px;
+  /* Containing block for the floating .song-note easter egg in the corner. */
+  position: relative;
   /* Sized to its content (not a full-viewport splash) so the mission box
      right after it sits close on any screen height. */
-  padding: 3.5rem 2rem 1.5rem;
+  padding: 3.5rem 2rem 2.5rem;
   display: grid;
   grid-template-columns: 0.3fr repeat(11, 1fr);
   gap: var(--gap);
@@ -243,7 +245,116 @@ h1 {
   justify-content: flex-start;
 }
 
-.hero-image img { width: 100%; max-width: 360px; touch-action: manipulation; cursor: pointer; }
+/* Sized wrapper around the logo, so the .song-egg hanging off its bottom-right
+   corner tracks the logo at every viewport instead of the hero's corner. The
+   img's own sizing lives here for that reason — keep them together. */
+.hero-logo {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+}
+.hero-image img { display: block; width: 100%; touch-action: manipulation; }
+
+/* ─── HERO SONG EASTER EGG ─── */
+/* A small music note tucked just under the logo's bottom-right corner, drawn
+   in the logo's own green so it reads as part of the mark. Clicking it opens a
+   picker with the four FuSo songs (EN/DE/FR/IT); picking one plays it,
+   clicking the note again stops it. This replaced a double-click on the hero
+   logo, which was undiscoverable and could only ever reach the one song
+   matching the page's language.
+   It hangs off .hero-logo rather than #hero, so one rule places it at every
+   viewport: the logo is centred at the top on mobile and right-hand on
+   desktop, and the note follows it either way. Never move it to the hero's
+   top-right — there it lands under the nav's own EN/DE/FR switch and the open
+   picker reads as a second, competing language selector. Sitting below the
+   logo's box also keeps the leftward picker clear of the circle, which is
+   inscribed in that box: there is no artwork below its bottom edge. */
+/* Deliberately unpositioned: the note and the picker are placed against
+   .hero-logo independently, because they want different anchors — the note
+   hugs the circle, the picker has to clear it. */
+.song-egg { z-index: 5; }
+
+.song-note {
+  /* Parked on the circle's edge at the 4:30 position: the logo's circle is
+     inscribed in .hero-logo, so its centre is (50%, 50%) and its radius 50%
+     of the box. Stepping 1/root-2 of (radius + half the note + 8px) along both
+     axes puts the note just outside the arc, tangent to it, at every size. */
+  position: absolute;
+  left: calc(50% + 0.7071 * (50% + 25px));
+  top: calc(50% + 0.7071 * (50% + 25px));
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  /* The logo's green line-art, at the logo's own weight: the note should read
+     as one more node on the circuit board, not a UI chip stuck next to it.
+     Keep it var(--accent) — a grey or faded version detaches it from the mark. */
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--accent);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.song-note svg { display: block; width: 15px; height: 15px; fill: currentColor; }
+/* Hover/playing fill the circle instead of recolouring it, so the green stays
+   the logo's green in every state. */
+.song-note:hover,
+.song-note:focus-visible { background: var(--accent); color: var(--white); }
+.song-note.playing { background: var(--accent); color: var(--white); }
+.song-note.playing::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  animation: song-pulse 1.8s ease-out infinite;
+}
+@keyframes song-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(0, 128, 47, 0.35); }
+  100% { box-shadow: 0 0 0 10px rgba(0, 128, 47, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .song-note.playing::after { animation: none; }
+}
+
+.song-menu {
+  /* Anchored to .hero-logo, not to the note: it drops into the clear band
+     just below the logo's box. The circle is inscribed in that box, so there
+     is no artwork below its bottom edge — anywhere nearer, a picker this wide
+     crosses the circuit lines. */
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  display: flex;
+  gap: 0.1rem;
+  padding: 0.3rem;
+  background: var(--white);
+  border: 1px solid #e5e5e5;
+  border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+/* .song-menu sets display:flex, which would otherwise beat the [hidden]
+   attribute's UA display:none — the JS toggles .hidden via the attribute. */
+.song-menu[hidden] { display: none; }
+
+.song-menu button {
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.55rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--mid);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+.song-menu button:hover,
+.song-menu button:focus-visible { color: var(--accent); background: var(--gray); }
+.song-menu button.playing { color: var(--accent); background: var(--gray); }
 
 .accent-text { color: var(--accent); }
 
@@ -1305,9 +1416,11 @@ footer .container {
     display: flex;
     justify-content: center;
     order: -1;
-    margin-bottom: 2.5rem;
+    /* Room under the logo for the .song-egg that hangs off it, so its picker
+       cannot reach the "University of St.Gallen" line below. */
+    margin-bottom: 3.5rem;
   }
-  .hero-image img { width: 80%; max-width: 320px; }
+  .hero-logo { width: 80%; max-width: 320px; }
 
   .about-label { display: none; }
 
