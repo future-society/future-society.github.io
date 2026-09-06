@@ -182,7 +182,7 @@ function renderTeam(lang) {
     const words      = m.name.split(/\s+/).filter(Boolean);
     const initials   = (words[0]?.[0] || '') + (words.length > 1 ? words[words.length - 1][0] : '');
     const photoHtml  = m.photo
-      ? `<img class="brick-avatar" src="${m.photo}" alt="${m.name}">`
+      ? `<img class="brick-avatar" loading="lazy" src="${m.photo}" alt="${m.name}">`
       : `<div class="brick-avatar brick-avatar--placeholder" aria-hidden="true">${initials.toUpperCase()}</div>`;
     const detailHtml = detail   ? `<p class="brick-detail">${detail}</p>` : '';
     const learnMore  = TEAM_UI.learnMore[lang] || TEAM_UI.learnMore.en;
@@ -215,7 +215,7 @@ function renderFormerTeam(lang) {
       ? `<span class="former-now">${m.nowLink ? `<a href="${m.nowLink}" target="_blank" rel="noopener">${now}</a>` : now}</span>`
       : '';
     const photoHtml = m.photo
-      ? `<img class="former-avatar" src="${m.photo}" alt="${m.name}">`
+      ? `<img class="former-avatar" loading="lazy" src="${m.photo}" alt="${m.name}">`
       : '';
     return `<li class="former-item">
       ${photoHtml}

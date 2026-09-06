@@ -1,0 +1,6 @@
+# WSL/Windows download metadata streams
+*:Zone.Identifier
+
+# OS cruft
+.DS_Store
+Thumbs.db
