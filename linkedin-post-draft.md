@@ -1,46 +1,46 @@
-# LinkedIn post draft — EU AI Act enforcement (Sept 2026)
+# LinkedIn post draft — FuSo x AI Act enforcement (Sept 2026)
 
-Prepared per email request: check futuresociety.ch, check FuSo's LinkedIn
-(https://www.linkedin.com/company/128604204/), match a current world-news
-topic to FuSo's focus areas, and draft a LinkedIn post text.
+**Context (why this topic):** As of early September 2026, global AI regulation is
+turning from paperwork into practice: on 29 August the EU AI Office sent its
+first formal Requests for Information under the AI Act to major GPAI
+providers (OpenAI, Anthropic, Google, among others), covering model security,
+independent evaluations, and post-market monitoring; by 15 September,
+providers of frontier-scale GPAI models must file their first systemic-risk
+evaluations with Brussels, including the standardized public summary of
+training content required under Article 53(1)(d). This lands squarely in
+FuSo's "Technology Assessment" focus area (AI governance consulting,
+regulatory expertise on emergent technologies), and connects directly to a
+FuSo publication: Dick Blankvoort, Harshvardhan J. Pandit & Maximilian
+Gahntz, "Quality Assessment of Public Summary of Training Content for GPAI
+Models required by AI Act Article 53(1)(d)," ACM FAccT 2026
+(https://doi.org/10.1145/3805689.3806755) — a framework for judging exactly
+the kind of summary providers are now required to submit.
 
-**Note:** the LinkedIn company page could not be reviewed — it requires a
-logged-in session and this agent has no LinkedIn credentials/MCP access, so
-the post below is grounded in the website's stated focus areas only, not in
-the account's actual recent posting style.
+Sources: EU AI Office RFIs (techpolicy.press reporting, late Aug 2026);
+EU AI Act implementation timeline (artificialintelligenceact.eu); FuSo Focus
+Areas / Technology Assessment (futuresociety.ch).
 
-Chosen news hook: the EU AI Act's transparency obligations took effect on
-2 August 2026, and the European Commission's AI Office sent its first formal
-information requests to frontier AI labs (OpenAI, Anthropic, Google) on
-29 August 2026 — a direct match for FuSo's "Technology Assessment" focus
-area (advising government bodies on AI governance and regulatory
-frameworks).
+**Note on @tags below:** LinkedIn's company page for FuSo is login-walled and
+could not be verified from this environment, so entity names are given as
+plain @Mentions to be re-linked by whoever posts this, once logged in to
+LinkedIn, to the correct handles (Future Society Hub, University of
+St.Gallen, European Commission, OpenAI, Anthropic, Google).
 
-## Draft post text
+---
 
-The EU AI Act just moved from paper to practice — and it's a preview of the governance challenges ahead.
+## Post text
 
-On 2 August 2026, new transparency rules took effect: chatbots must disclose they're automated, deepfakes need clear labels, and AI-generated content requires machine-readable marks. Then, on 29 August, the European Commission's AI Office sent its first formal requests for information to frontier AI labs — including OpenAI, Anthropic and Google — probing model security, independent evaluations and post-market monitoring. Fines for non-compliance can reach €15M or 3% of global turnover.
+🚨 This month, AI regulation stopped being a slide in a deck and became an inbox.
 
-This is precisely the terrain our Technology Assessment focus area was built for. At Future Society Hub, we work with governments and regulators to turn fast-moving AI capability into governance frameworks that hold up in practice, not just on paper. Rules like "label your deepfakes" sound simple — until you ask who verifies the label, or how a regulator meaningfully audits a frontier model's safety claims. Answering that takes exactly the interdisciplinary mix we bring together at the University of St.Gallen: computer scientists and legal scholars, working alongside policymakers and students.
+On 29 August, the EU AI Office sent its first formal Requests for Information under the AI Act — to @OpenAI, @Anthropic and @Google, among others — probing model security, independent evaluations, and post-market monitoring. By 15 September, every provider of a frontier-scale general-purpose AI model has to file its first systemic-risk evaluation with Brussels, including the standardized public summary of training content required under AI Act Article 53(1)(d).
 
-As AI regulation shifts from legislation to enforcement worldwide, the real test isn't whether laws exist — it's whether the institutions behind them have the technical depth to enforce them. That's the gap we work to close.
+That "public summary" sounds like a formality. It isn't. Whether it becomes a real transparency instrument or a compliance PDF nobody reads depends entirely on how it's built — and that's exactly the gap our Dick Blankvoort, together with Harshvardhan J. Pandit and Maximilian Gahntz, tackled in a new paper at ACM FAccT 2026: "Quality Assessment of Public Summary of Training Content for GPAI Models required by AI Act Article 53(1)(d)." They propose a concrete framework for judging whether these summaries genuinely inform researchers, rightsholders and regulators — right as regulators start reading the first real batch of them.
 
-Where do you think enforcement will bite hardest — foundation models, or the countless products built on top of them? 👇
+This is what we mean by Technology Assessment at @Future Society Hub — FuSo, hosted at the @University of St.Gallen: not commenting on AI governance from the sidelines, but building the tools that let authorities and providers tell good compliance from theatre. It sits alongside our work auditing systemic risks of dominant platforms under the Digital Services Act — the same instinct, applied to a different regulation.
 
-#AIGovernance #EUAIAct #TechPolicy #AIRegulation #FutureSociety
+If you're inside a GPAI provider, a market-surveillance authority, or a research team trying to make sense of the next few weeks of AI Act enforcement, we'd like to hear from you.
 
-## Sources checked
-- https://futuresociety.ch (mission and six focus areas)
-- https://www.linkedin.com/company/128604204/ (blocked by login wall)
-- https://www.helpnetsecurity.com/2026/08/04/eu-ai-act-enforcement-ai-models/
-- https://www.cnbc.com/2026/08/03/eu-ai-act-enforcement-powers.html
-- https://digital-strategy.ec.europa.eu/en/news/commission-starts-enforcing-ai-act-rules-and-new-transparency-requirements-2-august
+📄 Paper: https://doi.org/10.1145/3805689.3806755
+🔗 Our Technology Assessment work: https://futuresociety.ch/#focus
 
-## Email delivery status
-**Not sent.** No email-sending tool is available in this session — Gmail
-access requires OAuth authorization the user must grant via claude.ai
-connector settings (or `claude mcp` / `/mcp` interactively) before it can be
-used, and this session cannot run that flow. The draft above is saved here
-so the user can copy it into an email to simon.mayer@unisg.ch and
-aurelia.tamo@unisg.ch themselves.
+#AIAct #AIGovernance #ArtificialIntelligence #DigitalServicesAct #TechPolicy #Transparency #GPAI
