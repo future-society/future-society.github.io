@@ -740,8 +740,10 @@ p {
 .events-header { grid-column: 3 / 13; }
 .events-body { grid-column: 3 / 13; }
 
-/* Two side-by-side boxes: the dated events list and the Brown Bag series.
-   align-items: start lets each box size to its own content height. */
+/* Two side-by-side boxes: the dated events list and the Hosted Talks list
+   (BBL series entries plus one-off guest talks, chronological, BBL ones
+   flagged by .icon-lunch). align-items: start lets each box size to its
+   own content height. */
 .events-columns {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -762,7 +764,6 @@ p {
   margin-bottom: 1.5rem;
   border-bottom: 1px solid var(--black);
 }
-.event-box-sub { font-size: 0.85rem; color: #666; margin-bottom: 1.5rem; }
 
 /* Hierarchy system: green = the "when", black bold = the event name. */
 .event-list { display: grid; gap: 1.5rem; }
@@ -799,26 +800,10 @@ a.meta:hover { color: var(--accent); }
 }
 .icon-pin  { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E"); }
 .icon-link { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E"); }
-
-/* Brown Bag date table: when (green caps) | speaker (grey) */
-.event-dates { display: grid; }
-.event-date-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-  padding: 0.55rem 0;
-  border-bottom: 1px solid #eee;
-}
-.event-date-item:last-child { border-bottom: none; }
-.event-when {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-.event-speaker { font-size: 0.78rem; color: var(--mid); white-space: nowrap; }
+/* Marks a Hosted Talks entry as part of the recurring Brown Bag Lunch
+   Series, next to its own location (BBL doesn't always meet in the same
+   room, so the two badges are independent, not a stand-in for each other). */
+.icon-lunch { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 8h1a4 4 0 0 1 0 8h-1'/%3E%3Cpath d='M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4Z'/%3E%3Cline x1='6' y1='1' x2='6' y2='4'/%3E%3Cline x1='10' y1='1' x2='10' y2='4'/%3E%3Cline x1='14' y1='1' x2='14' y2='4'/%3E%3C/svg%3E"); }
 
 .event-note { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ddd; }
 .event-note p, .event-contact { font-size: 0.9rem; color: #666; }
