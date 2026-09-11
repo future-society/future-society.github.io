@@ -35,7 +35,7 @@
       }
 
       .cls-9 {
-        font-family: Inter-Black, Inter;
+        font-family: Inter-Black, Inter, system-ui, sans-serif;
         font-size: 72px;
         font-weight: 800;
       }

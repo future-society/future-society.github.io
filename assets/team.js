@@ -10,6 +10,7 @@ const TEAM_ROLES = {
 const TEAM_UI = {
   learnMore: { en: 'Learn More',     de: 'Mehr erfahren',    fr: 'En savoir plus' },
   showLess:  { en: 'Show Less',      de: 'Weniger anzeigen', fr: 'Réduire' },
+  former:    { en: 'Former Members', de: 'Ehemalige',        fr: 'Anciens membres' },
 };
 
 // To add a team member: add one entry here. It appears in all three languages automatically.
@@ -31,12 +32,12 @@ const teamMembers = [
   {
     name: 'Aurelia Tamò-Larrieux',
     photo: 'https://www.sectorplandls.nl/wordpress/wp-content/uploads/elementor/thumbs/at-scaled-e1667747586811-pxbhxlwz04n8sysm54fadyobe105o6hzjq0aotqw8o.jpg',
-    detail: 'Prof. Dr., Institute of Law and Economics',
+    detail: 'Prof. Dr., Institute for Law and Economics',
     role: 'co-director-f',
     bio: {
-      en: 'I head the Legal Design &amp; Code Lab and specialize in privacy-by-design, AI transparency, computational law, and the governance of automated decision-making.',
-      de: 'Ich beschäftige mich mit der Frage, wie Recht und Technologie zusammenwachsen — mit Schwerpunkten auf Privacy-by-Design, KI-Transparenz und der Governance automatisierter Entscheidungen.',
-      fr: 'Je m\'intéresse à la rencontre entre droit et technologie — notamment autour de la privacy-by-design, de la transparence de l\'IA et de la gouvernance des décisions automatisées.',
+      en: 'I lead the Chair for Law &amp; Technology and the Legal Design &amp; Code Lab, specializing in privacy-by-design, AI transparency, computational law, and the governance of automated decision-making.',
+      de: 'Ich leite den Lehrstuhl für Recht und Technologie sowie das Legal Design &amp; Code Lab — mit Schwerpunkten auf Privacy-by-Design, KI-Transparenz und der Governance automatisierter Entscheidungen.',
+      fr: 'Je dirige la chaire de droit et technologie ainsi que le Legal Design &amp; Code Lab — notamment autour de la privacy-by-design, de la transparence de l\'IA et de la gouvernance des décisions automatisées.',
     }
   },
   {
@@ -88,18 +89,19 @@ const teamMembers = [
   {
     name: 'Giovanni De Toni',
     link: 'https://detoni.me/',
-    detail: 'Postdoctoral Researcher',
+    photo: 'assets/images/GD.jpg',
+    detail: 'Postdoctoral Researcher, ETH AI Center',
     role: 'researcher',
     bio: {
-      en: 'I study the algorithmic challenges of keeping AI systems under meaningful human oversight and understanding their effects once deployed in society — spanning algorithmic recourse, fairness, human-AI complementarity, and risk-controlling machine learning. I earned my PhD at the University of Trento as part of the ELLIS network, with research at the Max Planck Institute for Software Systems, and received a Best Full Paper Award at ACM RecSys 2025. In September 2026 I begin a postdoctoral position at the ETH AI Center.',
-      de: 'Ich erforsche, wie sich KI-Systeme unter sinnvoller menschlicher Aufsicht halten lassen und welche Wirkung sie im gesellschaftlichen Einsatz entfalten — von algorithmischem Recourse über Fairness und Mensch-KI-Komplementarität bis zu risikokontrolliertem maschinellem Lernen. Ich habe an der Universität Trento im ELLIS-Netzwerk promoviert, mit Forschungsaufenthalten am Max-Planck-Institut für Softwaresysteme, und einen Best Full Paper Award auf der ACM RecSys 2025 erhalten. Im September 2026 beginne ich eine Postdoc-Stelle am ETH AI Center.',
-      fr: 'J\'étudie les défis algorithmiques liés au maintien d\'une supervision humaine effective des systèmes d\'IA et à la compréhension de leurs effets une fois déployés dans la société — du recours algorithmique à l\'équité, en passant par la complémentarité humain-IA et l\'apprentissage automatique sous contrôle du risque. J\'ai obtenu mon doctorat à l\'Université de Trente au sein du réseau ELLIS, avec des travaux à l\'Institut Max Planck pour les systèmes logiciels, et reçu un Best Full Paper Award à l\'ACM RecSys 2025. En septembre 2026, je débute un postdoctorat au ETH AI Center.',
+      en: 'I study the algorithmic challenges of keeping AI systems under meaningful human oversight and understanding their effects once deployed in society — spanning algorithmic recourse, fairness, human-AI complementarity, and risk-controlling machine learning. I earned my PhD at the University of Trento as part of the ELLIS network, with research at the Max Planck Institute for Software Systems, and received a Best Full Paper Award at ACM RecSys 2025.',
+      de: 'Ich erforsche, wie sich KI-Systeme unter sinnvoller menschlicher Aufsicht halten lassen und welche Wirkung sie im gesellschaftlichen Einsatz entfalten — von algorithmischem Recourse über Fairness und Mensch-KI-Komplementarität bis zu risikokontrolliertem maschinellem Lernen. Ich habe an der Universität Trento im ELLIS-Netzwerk promoviert, mit Forschungsaufenthalten am Max-Planck-Institut für Softwaresysteme, und einen Best Full Paper Award auf der ACM RecSys 2025 erhalten.',
+      fr: 'J\'étudie les défis algorithmiques liés au maintien d\'une supervision humaine effective des systèmes d\'IA et à la compréhension de leurs effets une fois déployés dans la société — du recours algorithmique à l\'équité, en passant par la complémentarité humain-IA et l\'apprentissage automatique sous contrôle du risque. J\'ai obtenu mon doctorat à l\'Université de Trente au sein du réseau ELLIS, avec des travaux à l\'Institut Max Planck pour les systèmes logiciels, et reçu un Best Full Paper Award à l\'ACM RecSys 2025.',
     }
   },
   {
     name: 'Haroon Khan',
     link: 'https://axolotlintelligence.com/',
-    photo: 'assets/haroon.jpg',
+    photo: 'https://haroonbilalkhan.datapod.igrant.io/public/YAILC-26-0182.jpg',
     detail: 'PhD candidate',
     role: 'researcher',
     bio: {
@@ -111,6 +113,7 @@ const teamMembers = [
   {
     name: 'Jan Grau',
     link: 'https://scholar.google.com/citations?user=XkY6KSIAAAAJ',
+    photo: 'assets/images/JG.jpeg',
     detail: 'PhD candidate',
     role: 'researcher',
     bio: {
@@ -143,16 +146,26 @@ const teamMembers = [
       fr: 'J\'étudie comment les systèmes algorithmiques façonnent notre environnement informationnel — bulles de filtre, audit des réseaux sociaux et transparence des plateformes — en construisant des outils pour rendre les systèmes de recommandation lisibles pour chercheur·euses, régulateur·rices et utilisateur·rices.',
     }
   },
+];
+
+// Former members. Rendered as a compact, collapsed-by-default list under the
+// team bricks — one line each, no bio, so the section stays small as it grows.
+// Leave the array empty and nothing is rendered at all.
+// - role: key from TEAM_ROLES (used when `detail` is absent)
+// - detail: what they did here — string, or { en, de, fr } to translate it
+// - now: optional, where they went — string, or { en, de, fr }; `nowLink` links it
+// - photo: optional, small thumbnail shown next to the name
+const formerMembers = [
   {
     name: 'Leonard Gardies',
     photo: 'assets/images/LG.jpg',
-    detail: { en: 'Grant recipient / Scholarship holder', de: 'Stipendiant', fr: 'Boursier' },
+    detail: { en: 'Scholarship Recipient', de: 'Stipendiant', fr: 'Boursier' },
     role: 'fellow',
-    bio: {
-      en: 'I work on project adaptation, with the goal of refining every aspect of the work — from design and the implementation of new ideas to the technical configuration of the code. My key strength lies in my language skills: I am fluent in French, German, English, and a little bit of Spanish, which allows me to collaborate effectively in multicultural environments.',
-      de: 'Ich arbeite an der Anpassung von Projekten mit dem Ziel, jeden Aspekt der Arbeit zu perfektionieren – vom Design über die Umsetzung neuer Ideen bis hin zur technischen Konfiguration des Codes. Meine größte Stärke liegt in meinen Sprachkenntnissen: Ich beherrsche Französisch, Deutsch, Englisch und ein bisschen Spanisch, was mir eine effektive Zusammenarbeit in multikulturellen Umgebungen ermöglicht.',
-      fr: 'Je travaille sur l\'adaptation de projets, avec pour objectif de perfectionner chaque aspect du travail : le design, la mise en œuvre de nouvelles idées ainsi que la configuration technique du code. Mon principal atout réside dans mes compétences linguistiques : je maîtrise le français, l\'allemand, l\'anglais et aussi un peu l\'espagnol, ce qui me permet de collaborer efficacement dans des environnements multiculturels.',
-    }
+    now: {
+      en: 'Now finishing school in Germany and France',
+      de: 'Beendet derzeit die Schule in Deutschland und Frankreich',
+      fr: 'Termine actuellement sa scolarité en Allemagne et en France',
+    },
   },
 ];
 
@@ -169,7 +182,7 @@ function renderTeam(lang) {
     const words      = m.name.split(/\s+/).filter(Boolean);
     const initials   = (words[0]?.[0] || '') + (words.length > 1 ? words[words.length - 1][0] : '');
     const photoHtml  = m.photo
-      ? `<img class="brick-avatar" src="${m.photo}" alt="${m.name}">`
+      ? `<img class="brick-avatar" loading="lazy" src="${m.photo}" alt="${m.name}">`
       : `<div class="brick-avatar brick-avatar--placeholder" aria-hidden="true">${initials.toUpperCase()}</div>`;
     const detailHtml = detail   ? `<p class="brick-detail">${detail}</p>` : '';
     const learnMore  = TEAM_UI.learnMore[lang] || TEAM_UI.learnMore.en;
@@ -182,6 +195,40 @@ function renderTeam(lang) {
       <div class="brick-bio"><div class="brick-bio-inner">${bio}</div></div>
     </div>`;
   }).join('');
+
+  renderFormerTeam(lang);
+}
+
+function renderFormerTeam(lang) {
+  const wrap = document.getElementById('teamFormer');
+  if (!wrap) return;
+  if (!formerMembers.length) { wrap.innerHTML = ''; return; }
+
+  const pick = v => (typeof v === 'object' && v !== null) ? (v[lang] || v.en || '') : (v || '');
+  const items = formerMembers.map(m => {
+    const what = pick(m.detail) || TEAM_ROLES[m.role] || m.role || '';
+    const nameHtml = m.link
+      ? `<a href="${m.link}" target="_blank" rel="noopener">${m.name}</a>`
+      : m.name;
+    const now = pick(m.now);
+    const nowHtml = now
+      ? `<span class="former-now">${m.nowLink ? `<a href="${m.nowLink}" target="_blank" rel="noopener">${now}</a>` : now}</span>`
+      : '';
+    const photoHtml = m.photo
+      ? `<img class="former-avatar" loading="lazy" src="${m.photo}" alt="${m.name}">`
+      : '';
+    return `<li class="former-item">
+      ${photoHtml}
+      <span class="former-name">${nameHtml}</span>
+      <span class="former-what">${what}</span>
+      ${nowHtml}
+    </li>`;
+  }).join('');
+
+  wrap.innerHTML = `<details class="team-former">
+    <summary>${TEAM_UI.former[lang] || TEAM_UI.former.en}</summary>
+    <ul class="former-list">${items}</ul>
+  </details>`;
 }
 
 function toggleBio(btn) {

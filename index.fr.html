@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FuSo — Future Society Hub | Université de Saint-Gall</title>
-  <meta name="description" content="FuSo est le hub de recherche interdisciplinaire de l'Université de Saint-Gall, qui unit informatique et droit. Nous offrons une expertise full-stack en gouvernance de l'IA, droit computationnel, infrastructure numérique, protection des données et risques systémiques — de la recherche scientifique à la mise en œuvre.">
+  <title>FuSo | Future Society Hub | Université de Saint-Gall</title>
+  <meta name="description" content="FuSo est le hub de recherche interdisciplinaire de l'Université de Saint-Gall, qui unit informatique et droit. Nous offrons une expertise full-stack en gouvernance de l'IA, droit computationnel, infrastructure numérique, protection des données et risques systémiques, de la recherche scientifique à la mise en œuvre.">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Future Society Hub, University of St.Gallen">
   <link rel="icon" href="assets/fuso-logo-text-only.svg" type="image/svg+xml">
@@ -17,20 +17,20 @@
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="FuSo — Future Society Hub">
+  <meta property="og:site_name" content="FuSo | Future Society Hub">
   <meta property="og:url" content="https://futuresociety.ch/index.fr.html">
-  <meta property="og:title" content="FuSo — Future Society Hub | Technologie × Société">
+  <meta property="og:title" content="FuSo | Future Society Hub | Technologie × Société">
   <meta property="og:description" content="Hub de recherche interdisciplinaire de l'Université de Saint-Gall unissant informatique et droit. Expertise full-stack en gouvernance de l'IA, droit computationnel, protection des données, risques systémiques et infrastructure numérique.">
   <meta property="og:image" content="https://futuresociety.ch/assets/social-card.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="FuSo — where tech and society fuse. Future Society Hub, University of St.Gallen.">
+  <meta property="og:image:alt" content="FuSo: where tech and society fuse. Future Society Hub, University of St.Gallen.">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:locale:alternate" content="en_US">
   <meta property="og:locale:alternate" content="de_DE">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="FuSo — Future Society Hub | Technologie × Société">
-  <meta name="twitter:description" content="Hub de recherche interdisciplinaire de l'Université de Saint-Gall unissant informatique et droit — de la recherche à l'impact.">
+  <meta name="twitter:title" content="FuSo | Future Society Hub | Technologie × Société">
+  <meta name="twitter:description" content="Hub de recherche interdisciplinaire de l'Université de Saint-Gall unissant informatique et droit, de la recherche à l'impact.">
   <meta name="twitter:image" content="https://futuresociety.ch/assets/social-card.png">
 
   <!-- JSON-LD Structured Data -->
@@ -45,6 +45,10 @@
     "description": "FuSo est le hub de recherche interdisciplinaire de l'Université de Saint-Gall qui unit informatique et droit pour étudier et façonner les impacts sociétaux des technologies émergentes.",
     "url": "https://futuresociety.ch",
     "email": "fuso@unisg.ch",
+    "sameAs": [
+      "https://www.linkedin.com/company/future-society-hub/",
+      "https://soundcloud.com/interactions-research"
+    ],
     "parentOrganization": {
       "@type": "CollegeOrUniversity",
       "name": "University of St.Gallen",
@@ -72,9 +76,16 @@
       <li><a href="#concrete">Projets</a></li>
       <li><a href="#events">Événements</a></li>
       <li><a href="#focus">Domaines</a></li>
-      <li><a href="#participate">Participer</a></li>
+      <li class="nav-has-sub">
+        <a href="#participate">Participer</a>
+        <ul class="nav-sub" aria-label="Participer par public">
+          <li><a href="#participate-students">Pour les &eacute;tudiant&middot;e&middot;s</a></li>
+          <li><a href="#participate-researchers">Pour les chercheur&middot;euse&middot;s</a></li>
+          <li><a href="#participate-policy">Pour la politique &amp; l'administration</a></li>
+          <li><a href="#participate-industry">Pour les entreprises &amp; la pratique</a></li>
+        </ul>
+      </li>
       <li><a href="#team">Équipe</a></li>
-      <li><a href="#supporting-network">Réseau</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="lang-switch">
@@ -95,17 +106,42 @@
 <div id="hero" style="margin-top:56px;">
   <div class="hero-text">
     <p class="hero-label">Université de Saint-Gall</p>
-    <h1><span class="hero-line">Future</span> <span class="hero-line">Society Hub</span></h1>
+    <h1><span class="hero-line">Future</span> <span class="hero-line"><span class="accent-text">Society</span> Hub</span></h1>
     <p class="hero-slogan">where tech and society fuse</p>
-    <p class="hero-sub">Un hub interdisciplinaire où technologie, droit et société se rencontrent — du savoir scientifique à l'impact dans le monde réel.</p>
+    <p class="hero-sub">Un hub interdisciplinaire où technologie et société se rencontrent.</p>
+    <p class="hero-sub hero-chain">Full Stack: Analyser <span class="chain-step"><span class="chain-arrow">&rsaquo;</span> Développer</span> <span class="chain-step"><span class="chain-arrow">&rsaquo;</span> Déployer</span> <span class="chain-step"><span class="chain-arrow">&rsaquo;</span> Évaluer</span></p>
     <p class="hero-meta">Technologie &nbsp;&times;&nbsp; Société</p>
   </div>
   <div class="hero-image">
-    <img id="heroLogo" src="assets/fuso-logo.svg" alt="Logo FuSo" title="Double-clique-moi…">
+    <!-- Easter egg : la note ouvre le choix des quatre chansons FuSo. Styling: .song-egg in assets/style.css. -->
+    <div class="hero-logo">
+      <img id="heroLogo" src="assets/fuso-logo.svg" alt="Logo FuSo">
+      <div class="song-egg">
+        <button type="button" class="song-note" id="songNote"
+                aria-label="Chansons FuSo" aria-expanded="false" aria-controls="songMenu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
+        </button>
+        <div class="song-menu" id="songMenu" role="group" aria-label="Choisir une langue" hidden>
+          <button type="button" data-song="assets/audio/CanYouFuseIt.mp3">EN</button>
+          <button type="button" data-song="assets/audio/Ich-mach-FuSo.mp3">DE</button>
+          <button type="button" data-song="assets/audio/FuSo-Horaire.mp3">FR</button>
+          <button type="button" data-song="assets/audio/I-faccio-FuSo.mp3">IT</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<audio id="fuseSong" src="assets/CanYouFuseIt.mp3" preload="none"></audio>
-<audio id="amplifySong" src="assets/AMPLIFY.mp3" preload="none"></audio>
+<audio id="fuseSong" preload="none"></audio>
+<audio id="amplifySong" src="assets/audio/AMPLIFY.mp3" preload="none"></audio>
+
+<!-- MISSION INTRO -->
+<div class="intro-standalone">
+  <div class="container grid">
+    <div class="about-intro">
+      <p>Les individus ne devraient pas être des consommateurs passifs du changement technologique, mais devraient <span class="accent-text">le façonner activement</span>, dans une perspective sociétale. C'est précisément ce que le <span class="accent-text">Future Society Hub</span> vise à permettre et à soutenir. Nous sommes un espace dynamique de résolution de problèmes où chercheur·euses, organisations et citoyen·nes façonnent la technologie autour de valeurs humaines. Une posture <span class="accent-text">proactive</span> qui anticipe les mutations sociales induites par la technologie et façonne la technologie à travers un prisme sociétal.</p>
+    </div>
+  </div>
+</div>
 
 <!-- ABOUT -->
 <section id="about">
@@ -122,25 +158,31 @@
         <p>Implantés à l'Université de Saint-Gall, nous réunissons les expertises de la <a href="https://scs.unisg.ch" target="_blank" rel="noopener">School of Computer Science</a> et de la <a href="https://www.unisg.ch/de/universitaet/schools/law/" target="_blank" rel="noopener">Law School</a> pour livrer des solutions full-stack, ancrées dans la recherche, à la communauté académique, aux administrations publiques, aux ONG et au secteur privé.</p>
       </div>
       <div class="about-fullstack">
-        <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">Full-Stack : de la connaissance à l'impact</h3>
+        <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">Full Stack: From Insight to Impact</h3>
         <p>Là où d'autres hubs s'arrêtent à la recherche, FuSo fait tout le chemin avec ses partenaires : de la première idée à la co-création, en passant par l'évaluation des risques, la mise en œuvre et l'évaluation sur le terrain.</p>
       </div>
       <div class="toolbox process-flow">
-        <span class="chain-label">Savoir</span>
+        <span class="chain-label">Insight</span>
         <span class="flow-arrow flow-arrow-endpoint" aria-hidden="true">›</span>
-        <span class="block-item">Idéation</span>
+        <span class="block-group">
+          <span class="block-item">Analyse des politiques</span>
+          <span class="block-item">Évaluation des risques</span>
+        </span>
         <span class="flow-arrow" aria-hidden="true">›</span>
-        <span class="block-item">Co-création</span>
+        <span class="block-group">
+          <span class="block-item">Co-création</span>
+          <span class="block-item">Mise en œuvre</span>
+        </span>
         <span class="flow-arrow" aria-hidden="true">›</span>
-        <span class="block-item">Étude d'impact</span>
+        <span class="block-group">
+          <span class="block-item">Étude d'impact</span>
+          <span class="block-item">Évaluation centrée utilisateur</span>
+        </span>
         <span class="flow-arrow" aria-hidden="true">›</span>
-        <span class="block-item">Analyse des politiques publiques</span>
-        <span class="flow-arrow" aria-hidden="true">›</span>
-        <span class="block-item">Conformité juridique</span>
-        <span class="flow-arrow" aria-hidden="true">›</span>
-        <span class="block-item">Mise en œuvre</span>
-        <span class="flow-arrow" aria-hidden="true">›</span>
-        <span class="block-item">Évaluation centrée utilisateur</span>
+        <span class="block-group">
+          <span class="block-item">Réponse politique</span>
+          <span class="block-item">Déploiement</span>
+        </span>
         <span class="flow-arrow flow-arrow-endpoint" aria-hidden="true">›</span>
         <span class="chain-label">Impact</span>
       </div>
@@ -181,21 +223,6 @@
             <p class="event-box-heading">Événements à venir</p>
             <div class="event-list">
               <div class="event-item">
-                <p class="event-eyebrow">21–23 septembre 2026</p>
-                <p class="event-name">Strategic AI Governance Course <span class="event-tag">(Formation Continué)</span></p>
-                <div class="event-meta-row">
-                  <span class="meta"><span class="event-icon icon-pin"></span>Zurich</span>
-                </div>
-              </div>
-              <div class="event-item">
-                <p class="event-eyebrow">24 septembre 2026</p>
-                <p class="event-name">Webinaire «&nbsp;Wenn der Feed die Welt erklärt&nbsp;» <span class="event-tag">(<a href="https://www.smartfeld.ch/" class="event-link" target="_blank" rel="noopener">Smartfeld</a>)</span></p>
-                <div class="event-meta-row">
-                  <span class="meta"><span class="event-icon icon-pin"></span>En ligne</span>
-                  <a class="meta" href="https://www.smartfeld.ch/events/webinar-wenn-der-feed-die-welt-erklaert/" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Site web</a>
-                </div>
-              </div>
-              <div class="event-item">
                 <p class="event-eyebrow">29 septembre 2026</p>
                 <p class="event-name">FuSo Retreat</p>
                 <div class="event-meta-row">
@@ -219,6 +246,14 @@
                 </div>
               </div>
               <div class="event-item">
+                <p class="event-eyebrow">27 octobre 2026</p>
+                <p class="event-name">Sustainability in Fashion and Textiles: Closing the Loop <span class="event-tag">(<a href="https://www.unisg.ch/de/forschung/forschung-im-fokus/circular-lab/" class="event-link" target="_blank" rel="noopener">Circular Lab</a>)</span></p>
+                <div class="event-meta-row">
+                  <span class="meta"><span class="event-icon icon-pin"></span>St.Gallen</span>
+                  <a class="meta" href="https://sustainable-fashion.github.io/" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Site web</a>
+                </div>
+              </div>
+              <div class="event-item">
                 <p class="event-eyebrow">4 novembre 2026</p>
                 <p class="event-name">Legal Design Workshop</p>
                 <div class="event-meta-row">
@@ -236,9 +271,17 @@
               </div>
               <div class="event-item">
                 <p class="event-eyebrow">8 décembre 2026</p>
-                <p class="event-name">FuSo Xmas Lunch</p>
+                <p class="event-name">FuSo Xmas Lunch &amp; Speed Dating</p>
                 <div class="event-meta-row">
                   <span class="meta"><span class="event-icon icon-pin"></span>Saint-Gall</span>
+                </div>
+              </div>
+              <div class="event-item">
+                <p class="event-eyebrow">26–28 janvier 2027</p>
+                <p class="event-name">Strategic AI Governance Course <span class="event-tag">(Formation Continué)</span></p>
+                <div class="event-meta-row">
+                  <span class="meta"><span class="event-icon icon-pin"></span>Zurich</span>
+                  <a class="meta" href="https://www.linkedin.com/posts/aurelia-tamo-larrieux-81a31130b_aigovernance-artificialintelligence-aistrategy-ugcPost-7490448664948289538-gQmc/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAeXUE0Bb7qjJCynFnck6EN1nLhB67zQuCE" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>More Information + Registration</a>
                 </div>
               </div>
               <div class="event-item">
@@ -246,7 +289,7 @@
                 <p class="event-name">Solid Symposium 2027</p>
                 <div class="event-meta-row">
                   <span class="meta"><span class="event-icon icon-pin"></span>Saint-Gall</span>
-                  <a class="meta" href="https://sosy2027.eu" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Site web</a>
+                  <a class="meta" href="https://sosy2027.org" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Site web</a>
                 </div>
               </div>
             </div>
@@ -272,15 +315,79 @@
             </details>
           </div>
           <div class="event-box">
-            <p class="event-box-heading">Brown Bag Lunch Series</p>
-            <p class="event-box-sub">Une nouvelle série de conférences-déjeuners débutera à l'automne 2026 — les thèmes et intervenant·es seront annoncés prochainement.</p>
-            <div class="event-dates">
-              <div class="event-date-item"><span class="event-when">15 septembre 2026</span><span class="event-speaker">Intervenant·e : à confirmer</span></div>
-              <div class="event-date-item"><span class="event-when">29 septembre 2026</span><span class="event-speaker">Intervenant·e : à confirmer</span></div>
-              <div class="event-date-item"><span class="event-when">13 octobre 2026</span><span class="event-speaker">Intervenant·e : <a href="https://www.bruno-br.com/" class="event-link">Bruno Rodrigues</a></span></div>
-              <div class="event-date-item"><span class="event-when">27 octobre 2026</span><span class="event-speaker">Intervenant·e : à confirmer</span></div>
-              <div class="event-date-item"><span class="event-when">10 novembre 2026</span><span class="event-speaker">Intervenant·e : <a href="https://www.maastrichtuniversity.nl/h-westermann" class="event-link">Hannes Westermann</a></span></div>
-              <div class="event-date-item"><span class="event-when">24 novembre 2026</span><span class="event-speaker">Intervenant·e : <a href="https://brunocaprettini.com/" class="event-link">Bruno Caprettini</a></span></div>
+            <p class="event-box-heading">FuSo Conférences</p>
+            <div class="event-list">
+              <div class="event-item">
+                <p class="event-eyebrow">15 septembre 2026</p>
+                <p class="event-name">Certifying Recommender Algorithms <span class="event-tag">— Intervenant·e : <a href="https://detoni.me/" class="event-link">Giovanni de Toni</a></span></p>
+                <div class="event-meta-row">
+                  <span class="meta"><span class="event-icon icon-lunch"></span>Brown Bag Lunch Series</span>
+                  <span class="meta"><span class="event-icon icon-pin"></span>C61-110, Rosenbergstrasse 30</span>
+                </div>
+              </div>
+              <div class="event-item">
+                <p class="event-eyebrow">17 septembre 2026</p>
+                <p class="event-name">On Action Plans, Action Research, and Inaction – States of Play in Researcher Data Access <span class="event-tag">— Intervenant·e : <a href="https://kgi.georgetown.edu/people/lk-seiling/" class="event-link">LK Seiling</a></span></p>
+                <div class="event-meta-row">
+                  <span class="meta"><span class="event-icon icon-pin"></span>C61-440, Rosenbergstrasse 30</span>
+                </div>
+              </div>
+              <div class="event-item">
+                <p class="event-eyebrow">24 septembre 2026</p>
+                <p class="event-name">Webinaire «&nbsp;Wenn der Feed die Welt erklärt&nbsp;» <span class="event-tag">(<a href="https://www.smartfeld.ch/" class="event-link" target="_blank" rel="noopener">Smartfeld</a>) — Intervenant·e : <a href="https://ics.unisg.ch/chairs/simon-mayer-interaction-and-communication-based-systems/" class="event-link">Simon Mayer</a></span></p>
+                <div class="event-meta-row">
+                  <span class="meta"><span class="event-icon icon-pin"></span>En ligne</span>
+                  <a class="meta" href="https://www.smartfeld.ch/events/webinar-wenn-der-feed-die-welt-erklaert/" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Site web</a>
+                </div>
+              </div>
+              <div class="event-item">
+                <p class="event-eyebrow">29 septembre 2026</p>
+                <p class="event-name">Intervenant·e : <a href="https://www.kcl.ac.uk/people/sophia-worth" class="event-link">Sophia Worth</a></p>
+                <div class="event-meta-row">
+                  <span class="meta"><span class="event-icon icon-lunch"></span>Brown Bag Lunch Series</span>
+                  <span class="meta"><span class="event-icon icon-pin"></span>C61-110, Rosenbergstrasse 30</span>
+                </div>
+              </div>
+              <div class="event-item">
+                <p class="event-eyebrow">13 octobre 2026</p>
+                <p class="event-name">Intervenant·e : <a href="https://www.bruno-br.com/" class="event-link">Bruno Rodrigues</a></p>
+                <div class="event-meta-row">
+                  <span class="meta"><span class="event-icon icon-lunch"></span>Brown Bag Lunch Series</span>
+                  <span class="meta"><span class="event-icon icon-pin"></span>C61-110, Rosenbergstrasse 30</span>
+                </div>
+              </div>
+              <div class="event-item">
+                <p class="event-eyebrow">27 octobre 2026</p>
+                <p class="event-name">Kids-fluencer <span class="event-tag">— Intervenant·e : <a href="https://faa.unisg.ch/en/chairs-and-research/chair-wildhaber/" class="event-link">Isabelle Wildhaber</a></span></p>
+                <div class="event-meta-row">
+                  <span class="meta"><span class="event-icon icon-lunch"></span>Brown Bag Lunch Series</span>
+                  <span class="meta"><span class="event-icon icon-pin"></span>MLE-Haus, Guisanstrasse 36</span>
+                </div>
+              </div>
+              <div class="event-item">
+                <p class="event-eyebrow">10 novembre 2026</p>
+                <p class="event-name">Intervenant·e : <a href="https://www.maastrichtuniversity.nl/h-westermann" class="event-link">Hannes Westermann</a></p>
+                <div class="event-meta-row">
+                  <span class="meta"><span class="event-icon icon-lunch"></span>Brown Bag Lunch Series</span>
+                  <span class="meta"><span class="event-icon icon-pin"></span>C61-110, Rosenbergstrasse 30</span>
+                </div>
+              </div>
+              <div class="event-item">
+                <p class="event-eyebrow">24 novembre 2026</p>
+                <p class="event-name">Drivers of AI regulation <span class="event-tag">— Intervenant·e : <a href="https://brunocaprettini.com/" class="event-link">Bruno Caprettini</a></span></p>
+                <div class="event-meta-row">
+                  <span class="meta"><span class="event-icon icon-lunch"></span>Brown Bag Lunch Series</span>
+                  <span class="meta"><span class="event-icon icon-pin"></span>MLE-Haus, Guisanstrasse 36</span>
+                </div>
+              </div>
+              <div class="event-item">
+                <p class="event-eyebrow">19 janvier 2027</p>
+                <p class="event-name">Intervenant·e : <a href="https://www.linkedin.com/in/simonabonardi/" class="event-link">Simona Bonardi</a></p>
+                <div class="event-meta-row">
+                  <span class="meta"><span class="event-icon icon-lunch"></span>Brown Bag Lunch Series</span>
+                  <span class="meta"><span class="event-icon icon-pin"></span>C61-110, Rosenbergstrasse 30</span>
+                </div>
+              </div>
             </div>
             <p class="event-contact">Contactez-nous pour plus d'informations : <a href="mailto:fuso@unisg.ch" class="event-link">fuso@unisg.ch.</a></p>
           </div>
@@ -303,33 +410,75 @@
       <div class="focus-grid">
         <div class="focus-card">
           <p class="focus-num">01</p>
-          <h3>Gouvernance &amp; régulation de l'IA</h3>
-          <p>Nous conseillons les autorités sur la gouvernance de l'IA et apportons une expertise réglementaire sur les technologies émergentes.</p>
+          <h3>Évaluation des technologies</h3>
+          <p>Nous conseillons les autorités sur la gouvernance de l'intelligence artificielle et apportons une expertise réglementaire sur les technologies émergentes.</p>
+          <details class="focus-publications">
+            <summary>Plus</summary>
+            <ul class="focus-pub-list">
+              <li><a href="https://doi.org/10.1177/20539517261431640" target="_blank" rel="noopener">Steering society through algorithms: Testing the social acceptability for automating administrative and legal processes</a></li>
+              <li><a href="https://doi.org/10.1177/20539517261434338" target="_blank" rel="noopener">Unpacking social scoring systems and their impact on fairness and digital dignity</a></li>
+              <li><a href="https://doi.org/10.1145/3805689.3806755" target="_blank" rel="noopener">A Quality Assessment Framework for GPAI Model Public Summaries required by AI Act Article 53(1)(d)</a></li>
+            </ul>
+          </details>
         </div>
         <div class="focus-card">
           <p class="focus-num">02</p>
           <h3>Réduction des risques systémiques</h3>
           <p>Nous développons des outils techno-juridiques pour repérer et contenir, à l'échelle mondiale, les risques systémiques posés par les technologies émergentes et les plateformes en ligne.</p>
+          <details class="focus-publications">
+            <summary>Plus</summary>
+            <ul class="focus-pub-list">
+              <li><a href="https://doi.org/10.1016/j.clsr.2026.106262" target="_blank" rel="noopener">Systemic risks of dominant online platforms: A scoping review</a></li>
+              <li><a href="https://doi.org/10.1145/3795516" target="_blank" rel="noopener">Scrutinizing Systemic Risks in Personalized Recommender Systems Through Sock-Puppet Auditing of VLOPs</a></li>
+              <li><a href="https://arxiv.org/abs/2601.12390" target="_blank" rel="noopener">Auditing Meta and TikTok Research API Data Access under Article 40(12) of the Digital Services Act</a></li>
+            </ul>
+          </details>
         </div>
         <div class="focus-card">
           <p class="focus-num">03</p>
           <h3>Éducation &amp; littératie numérique</h3>
-          <p>Nous anticipons les compétences clés de demain, contribuons aux parcours de formation et œuvrons à un environnement numérique sûr pour les jeunes en ligne.</p>
+          <p>Nous anticipons les compétences clés de demain, contribuons aux parcours de formation et œuvrons à un environnement numérique sûr pour les personnes en ligne.</p>
+          <details class="focus-publications">
+            <summary>Plus</summary>
+            <ul class="focus-pub-list">
+              <li><a href="https://doi.org/10.1145/3715336.3735709" target="_blank" rel="noopener">Towards Societally Beneficial Personalized Realities: A Conceptual Foundation for Responsible Ubiquitous Personalization Systems</a></li>
+            </ul>
+          </details>
         </div>
         <div class="focus-card">
           <p class="focus-num">04</p>
           <h3>Infrastructures de demain</h3>
           <p>Nous accompagnons la conception, le développement et la régulation des futures infrastructures numériques, au bénéfice de la société.</p>
+          <details class="focus-publications">
+            <summary>Plus</summary>
+            <ul class="focus-pub-list">
+              <li><a href="https://openreview.net/forum?id=eaLD4ioB02" target="_blank" rel="noopener">Solid and Secure Multi-Party Computation for a Circular Economy</a></li>
+              <li><a href="https://doi.org/10.1145/3613905.3651066" target="_blank" rel="noopener">Gaze-based Opportunistic Privacy-preserving Human-Agent Collaboration</a></li>
+            </ul>
+          </details>
         </div>
         <div class="focus-card">
           <p class="focus-num">05</p>
-          <h3>Droit computationnel</h3>
+          <h3>Accès à la justice</h3>
           <p>Nous explorons comment l'automatisation des processus juridiques peut élargir l'accès au droit.</p>
+          <details class="focus-publications">
+            <summary>Plus</summary>
+            <ul class="focus-pub-list">
+              <li>PermitBot: A User Study on Prompting Legal Chatbots for Proactivity</li>
+            </ul>
+          </details>
         </div>
         <div class="focus-card">
           <p class="focus-num">06</p>
           <h3>Une société inclusive et en bonne santé</h3>
           <p>Nous renforçons une société résiliente, saine et inclusive grâce à l'informatique ubiquitaire déployée à grande échelle.</p>
+          <details class="focus-publications">
+            <summary>Plus</summary>
+            <ul class="focus-pub-list">
+              <li><a href="https://ieeexplore.ieee.org/document/10882919/" target="_blank" rel="noopener">FoodCoach: Fully Automated Diet Counseling</a></li>
+              <li><a href="https://doi.org/10.1145/3613905.3650795" target="_blank" rel="noopener">ShoppingCoach: Using Diminished Reality to Prevent Unhealthy Food Choices in an Offline Supermarket Scenario</a></li>
+            </ul>
+          </details>
         </div>
       </div>
     </div>
@@ -347,25 +496,11 @@
         <h2>Rejoindre Fu<span class="accent-text">So</span></h2>
       </div>
       <div class="participate-body">
-        <p class="participate-intro">FuSo vit de la collaboration et de l'engagement. Que vous soyez chercheur·euse, étudiant·e ou décideur·euse politique — ou simplement passionné·e par les liens entre technologie et société — venez participer à nos activités et rejoignez la communauté FuSo. Voici quelques façons de vous impliquer :</p>
+        <p class="participate-intro">FuSo vit de la collaboration et de l'engagement — avec les étudiant·e·s, les chercheur·euse·s, le monde politique et les praticien·ne·s. Choisissez la perspective qui vous correspond : la liste ci-dessous ne garde que les façons de participer qui vous concernent. Plusieurs d'entre elles s'adressent à plusieurs publics et apparaissent donc sous chacun.</p>
 
-        <div class="participate-ways">
-          <div class="way"><p>Nous entretenons la cohésion en interne à travers des déjeuners thématiques bimensuels, des speed-datings qui font dialoguer les disciplines, et des retraites annuelles qui rassemblent notre communauté.</p></div>
+        <div class="participate-filters" id="waysFilters" role="group" aria-label="Filtrer les façons de participer par public"></div>
 
-          <div class="way"><p>Vers l'extérieur, nos newsletters, policy briefs et podcasts font circuler nos travaux auprès d'un public plus large.</p></div>
-
-          <div class="way"><p>Nous accueillons des <span class="accent-text">fellowships</span> pour des chercheur·euse·s après leur master, qui rejoignent notre groupe et s'y intègrent pendant plusieurs semaines ou mois.</p></div>
-
-          <div class="way"><p>Nous encadrons aussi des mémoires de master, des travaux de bachelor et des projets étudiants pour les étudiant·e·s de l'Université de Saint-Gall ainsi que pour les étudiant·e·s en mobilité entrante.</p></div>
-
-          <div class="way"><p>Nous animons des groupes de travail thématiques — sur l'audit des plateformes ou la décentralisation, par exemple — où chacun·e peut creuser en profondeur les questions émergentes.</p></div>
-
-          <div class="way"><p>Au-delà de FuSo, nous co-créons avec d'autres institutions des événements qui comptent : explorations des espaces où la vie privée s'efface, tables rondes avec le monde politique sur des sujets sensibles comme la régulation de l'IA.</p></div>
-
-          <div class="way"><p>Nous soutenons l'entrepreneuriat social et l'écosystème des start-ups, avec des partenaires comme <a href="https://innovationspark-ost.ch/start-ups/" target="_blank" rel="noopener">Startfeld</a>, pour transformer les idées en impact concret.</p></div>
-
-          <div class="way"><p>Nous co-animons aussi un cours conjoint en Contextual Studies, qui replace la recherche technique et juridique dans son contexte social plus large.</p></div>
-        </div>
+        <div class="participate-ways" id="waysList"></div>
 
         <p class="participate-contact">Écrivez-nous pour en savoir plus sur les façons de participer : <a href="mailto:fuso@unisg.ch?subject=Rejoindre%20FuSo">fuso@unisg.ch</a></p>
       </div>
@@ -385,6 +520,7 @@
       </div>
       <div class="team-bricks-wrap">
         <div class="team-bricks" id="teamBricks"></div>
+        <div id="teamFormer"></div>
       </div>
     </div>
   </div>
@@ -402,7 +538,7 @@
       </div>
       <div class="team-bricks-wrap">
         <div class="team-bricks">
-          <div class="team-brick"><div class="brick-avatar brick-avatar--placeholder" aria-hidden="true">&nbsp;</div><p class="brick-name">&nbsp;</p></div>
+          <div class="team-brick"><img class="brick-avatar" loading="lazy" src="https://siaw.unisg.ch/fileadmin/_processed_/f/c/csm_rsz_bruno_caprettini_mb10524_915dae4c70.jpg" alt="Bruno Caprettini"><p class="brick-name"><a href="https://brunocaprettini.com/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Bruno Caprettini</a></p><p class="brick-detail">Prof. Dr.</p></div>
           <div class="team-brick"><div class="brick-avatar brick-avatar--placeholder" aria-hidden="true">&nbsp;</div><p class="brick-name">&nbsp;</p></div>
           <div class="team-brick"><div class="brick-avatar brick-avatar--placeholder" aria-hidden="true">&nbsp;</div><p class="brick-name">&nbsp;</p></div>
           <div class="team-brick"><div class="brick-avatar brick-avatar--placeholder" aria-hidden="true">&nbsp;</div><p class="brick-name">&nbsp;</p></div>
@@ -424,10 +560,11 @@
         <p class="section-label">Contact</p>
       </div>
       <div class="contact-head">
-        <h2>Nous <span class="accent-text">contacter</span></h2>
+        <h2>Nous <span class="accent-text">contacter</span> &amp; nous <span class="accent-text">suivre</span></h2>
       </div>
       <div class="contact-body">
-        <p>Nous collaborons avec des chercheur·euses, le monde politique, les administrations publiques, des ONG et des partenaires industriels. Si une collaboration vous intéresse, écrivez-nous — nous serons heureux d'en discuter.</p>
+        <p>Nous collaborons avec des chercheur·euses, le monde politique, les administrations publiques, des ONG et des partenaires industriels. Si une collaboration vous intéresse, écrivez-nous. Nous serons heureux d'en discuter.</p>
+        <p style="margin-top:1rem;">Au-delà de notre équipe principale, nous partageons nos travaux par le biais de newsletters, de notes de synthèse, de podcasts et des <a href="https://www.linkedin.com/company/future-society-hub/about/?viewAsMember=true" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">réseaux sociaux</a>, afin de toucher un public plus large. Beaucoup de nos articles récents paraissent aussi sous forme de chansons sur <a href="https://soundcloud.com/interactions-research" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">SoundCloud</a>.</p>
         <p style="margin-top:1rem;">
           <strong>Université de Saint-Gall</strong><br>
           Institute of Computer Science et Institute of Law and Economics<br>
@@ -435,6 +572,33 @@
           Saint-Gall, Suisse<br>
           <a href="mailto:fuso@unisg.ch" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">fuso@unisg.ch</a>
         </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNDERS -->
+<section id="funders">
+  <div class="container">
+    <div class="grid">
+      <div class="funders-label">
+        <p class="section-label">Soutenu Par</p>
+      </div>
+      <div class="funders-intro">
+        <h2>Soutenu <span class="accent-text">Par</span></h2>
+        <p>Nos travaux sont rendus possibles par les agences et programmes de financement ci-dessous.</p>
+      </div>
+      <div class="funders-wrap">
+        <div class="funders-grid">
+          <a class="funder-tile" href="https://www.snf.ch/en" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--snsf" src="assets/images/funders/snsf-fr.svg" alt="Fonds national suisse"></a>
+          <a class="funder-tile" href="https://www.innosuisse.admin.ch/en" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--innosuisse" src="assets/images/funders/innosuisse.svg" alt="Innosuisse"></a>
+          <a class="funder-tile" href="https://www.bridge.ch/en" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--bridge" src="assets/images/funders/bridge.svg" alt="BRIDGE"></a>
+          <a class="funder-tile" href="https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe_en" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--eu-funded" src="assets/images/funders/eu-funded-fr.png" alt="Financé par l'Union européenne (Horizon Europe)"></a>
+          <a class="funder-tile" href="https://www.chips-ju.europa.eu/" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--chips-ju" src="assets/images/funders/chips-ju.png" alt="Chips Joint Undertaking"></a>
+          <a class="funder-tile" href="https://marie-sklodowska-curie-actions.ec.europa.eu/actions/doctoral-networks" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--ec" src="assets/images/funders/ec-fr.svg" alt="Commission européenne"></a>
+          <a class="funder-tile" href="https://www.palatin.ch/" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--palatin" src="assets/images/funders/palatin.svg" alt="Palatin Stiftung"></a>
+          <a class="funder-tile" href="https://www.interreg.org" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--interreg" src="assets/images/funders/interreg.png" alt="Interreg Alpenrhein-Bodensee-Hochrhein, cofinancé par l'Union européenne"></a>
+        </div>
       </div>
     </div>
   </div>
@@ -450,7 +614,8 @@
         <p class="footer-tagline">where tech and society fuse</p>
       </div>
     </div>
-    <img class="footer-hsg" src="assets/images/HSG_Logo_EN_RGB.png" alt="Université de Saint-Gall">
+    <img class="footer-hsg" loading="lazy" src="assets/images/HSG_Logo_EN_RGB.png" alt="Université de Saint-Gall">
+    <p class="footer-privacy">Nous mesurons la fréquentation avec <a href="https://www.goatcounter.com/help/privacy" target="_blank" rel="noopener">GoatCounter</a>&nbsp;: sans cookies et de manière anonyme, sans conservation de données personnelles ni stockage sur votre appareil.</p>
   </div>
 </footer>
 
@@ -465,11 +630,11 @@
     },
     {
       title: "Anticiper les compétences essentielles de demain et les parcours pour y mener.",
-      how: `Nous étudions comment les technologies émergentes redessinent l'éducation et les métiers, et nous accompagnons la conception des cursus. Avec des chercheur·euses en Suisse et dans l'UE, nous évaluons l'effet de l'IA sur les compétences individuelles — notamment dans le cadre <a href="https://www.ta-swiss.ch/en/large-language-models" target="_blank" rel="noopener">d'une étude pour TA-Swiss</a>. Il existe aussi une <span id="amplifyTrigger" class="amplify-trigger" title="Double-clique-moi…">chanson</span> sur nos résultats.`
+      how: `Nous étudions comment les technologies émergentes redessinent l'éducation et les métiers, et nous accompagnons la conception des cursus. Avec des chercheur·euses en Suisse et dans l'UE, nous évaluons l'effet de l'IA sur les compétences individuelles, notamment dans le cadre <a href="https://www.ta-swiss.ch/en/large-language-models" target="_blank" rel="noopener">d'une étude pour TA-Swiss</a>. Il existe aussi une <span id="amplifyTrigger" class="amplify-trigger" title="Double-clique-moi…">chanson</span> sur nos résultats.`
     },
     {
       title: "Concevoir l'architecture des infrastructures de demain.",
-      how: `Nous travaillons sur l'architecture des futures infrastructures numériques — en particulier sur leur capacité à accueillir des agents autonomes dans des systèmes multi-agents à l'échelle mondiale et des architectures de données décentralisées — et nous organisons le <a href="https://sosy2027.eu" target="_blank" rel="noopener">Solid Symposium 2027</a> afin de réunir la communauté qui façonne ces infrastructures.`
+      how: `Nous travaillons sur l'architecture des futures infrastructures numériques — en particulier sur leur capacité à accueillir des agents autonomes dans des systèmes multi-agents à l'échelle mondiale et des architectures de données décentralisées — et nous organisons le <a href="https://sosy2027.org" target="_blank" rel="noopener">Solid Symposium 2027</a> afin de réunir la communauté qui façonne ces infrastructures. Une application concrète concerne les chaînes d'approvisionnement de l'économie circulaire : grâce à des architectures fondées sur des ontologies et au calcul multipartite sécurisé, les entreprises peuvent calculer ensemble des analyses de cycle de vie sans exposer leurs propres données (<a href="https://openreview.net/forum?id=eaLD4ioB02" target="_blank" rel="noopener">Solid and Secure Multi-Party Computation for a Circular Economy</a>). Nous prolongeons ce fil vers la pratique lors de <a href="https://sustainable-fashion.github.io/" target="_blank" rel="noopener">Closing the Loop</a>, un atelier du Circular Lab sur la durabilité dans la mode et le textile (Saint-Gall, 27 octobre 2026).`
     },
     {
       title: "Aider les écoles près de chez nous à composer avec les contenus nuisibles sur les réseaux sociaux.",
@@ -477,7 +642,7 @@
     },
     {
       title: "Renforcer la capacité d'action des institutions grâce à l'IA.",
-      how: `Avec des ONG et des justiciables engagés, nous co-concevons des technologies d'accès au droit qui aident institutions et particuliers à se repérer dans un paysage juridique suisse complexe. Notre but : une IA juridique accessible, fiable et collaborative, qui rejoigne d'abord celles et ceux que le système laisse aujourd'hui de côté. C'est l'objet de notre projet <a href="https://www.bridge.ch/en/2JhW2ZFO9e7sAImV/page/funding/discovery" target="_blank" rel="noopener">Bridge Discovery</a> sur l'<strong>accès à la justice</strong>, que nous développons avec <a href="https://www.caritas.ch/fr/" target="_blank" rel="noopener">Caritas Suisse</a>.`
+      how: `Avec des ONG et des justiciables engagés, nous co-concevons des technologies d'accès au droit qui aident institutions et particuliers à se repérer dans un paysage juridique suisse complexe. Notre but : une IA juridique accessible, fiable et collaborative, qui rejoigne d'abord celles et ceux que le système laisse aujourd'hui de côté. C'est l'objet de notre projet <a href="https://www.bridge.ch/en/2JhW2ZFO9e7sAImV/page/funding/discovery" target="_blank" rel="noopener">Bridge Discovery</a> sur l'<strong>accès à la justice</strong>, <a href="https://arcl.unil.ch/" target="_blank" rel="noopener">Bridging Justice (ARCL)</a>, que nous développons avec <a href="https://www.caritas.ch/fr/" target="_blank" rel="noopener">Caritas Suisse</a>.`
     },
     {
       title: "Tisser un réseau solide entre les disciplines fondatrices de FuSo&nbsp;: informatique &amp; droit !",
@@ -526,6 +691,146 @@
 
   renderProjects();
 
+  // Façons de participer. `audiences` liste tous les publics visés par un
+  // chemin — il peut y en avoir plusieurs, et il apparaît alors sous chaque filtre.
+  const ways = [
+    {
+      audiences: ['researchers'],
+      title: "Cohésion d'équipe : déjeuners, speed-dating &amp; retraites.",
+      how: `Nous entretenons la cohésion en interne à travers des déjeuners thématiques bimensuels, des speed-datings qui font dialoguer les disciplines, et des retraites annuelles qui rassemblent notre communauté.`
+    },
+    {
+      audiences: ['policy', 'industry', 'researchers'],
+      title: "Rayonnement : newsletters, policy briefs, podcasts &amp; chansons.",
+      how: `Vers l'extérieur, nos newsletters, policy briefs et podcasts font circuler nos travaux auprès d'un public plus large. Beaucoup de nos articles récents paraissent aussi sous forme de chansons sur <a href="https://soundcloud.com/interactions-research" target="_blank" rel="noopener">SoundCloud</a>.`
+    },
+    {
+      audiences: ['students', 'researchers'],
+      title: "Fellowships pour jeunes chercheur·euse·s.",
+      how: `Nous accueillons des <span class="accent-text">fellowships</span> pour des chercheur·euse·s après leur master, qui rejoignent notre groupe et s'y intègrent pendant plusieurs semaines ou mois.`
+    },
+    {
+      audiences: ['students'],
+      title: "Encadrement de mémoires et projets étudiants.",
+      how: `Nous encadrons aussi des mémoires de master, des travaux de bachelor et des projets étudiants pour les étudiant·e·s de l'Université de Saint-Gall ainsi que pour les étudiant·e·s en mobilité entrante.`
+    },
+    {
+      audiences: ['researchers', 'industry', 'policy'],
+      title: "Groupes de travail sur des enjeux émergents.",
+      how: `Nous animons des groupes de travail thématiques — sur l'audit des plateformes ou la décentralisation, par exemple — où chacun·e peut creuser en profondeur les questions émergentes.`
+    },
+    {
+      audiences: ['policy', 'industry', 'researchers'],
+      title: "Événements co-créés avec des institutions partenaires.",
+      how: `Au-delà de FuSo, nous co-créons avec d'autres institutions des événements qui comptent : explorations des espaces où la vie privée s'efface, tables rondes avec le monde politique sur des sujets sensibles comme la régulation de l'IA.`
+    },
+    {
+      audiences: ['industry', 'students'],
+      title: "Soutien à l'entrepreneuriat social &amp; aux start-ups.",
+      how: `Nous soutenons l'entrepreneuriat social et l'écosystème des start-ups, avec des partenaires comme <a href="https://innovationspark-ost.ch/start-ups/" target="_blank" rel="noopener">Startfeld</a>, pour transformer les idées en impact concret.`
+    },
+    {
+      audiences: ['students', 'researchers'],
+      title: "Cours conjoint en Contextual Studies.",
+      how: `Nous prévoyons également un cours conjoint en Contextual Studies à partir de 2027, qui replace la recherche technique et juridique dans son contexte social plus large.`
+    }
+  ];
+
+  // Audience labels for the participation pathways. Keys must match the
+  // `audiences` arrays above; `all` is the unfiltered default.
+  const WAY_AUDIENCES = {
+    students: "Étudiant·e·s",
+    researchers: "Chercheur·euse·s",
+    policy: "Politique &amp; administration",
+    industry: "Entreprises &amp; pratique"
+  };
+  const WAY_ALL = "Tout le monde";
+
+  let wayFilter = 'all';
+
+  function renderWayFilters() {
+    const bar = document.getElementById('waysFilters');
+    if (!bar) return;
+    bar.innerHTML = ['all'].concat(Object.keys(WAY_AUDIENCES)).map(k => `
+      <button type="button" class="way-filter${k === wayFilter ? ' is-active' : ''}" data-audience="${k}" aria-pressed="${k === wayFilter}">${k === 'all' ? WAY_ALL : WAY_AUDIENCES[k]}</button>
+    `).join('');
+  }
+
+  function filterWays(audience) {
+    wayFilter = audience;
+    renderWayFilters();
+    renderWays();
+  }
+
+  function renderWays() {
+    const list = document.getElementById('waysList');
+    const shown = ways.filter(w => wayFilter === 'all' || (w.audiences || []).includes(wayFilter));
+    list.innerHTML = shown.map((w, i) => {
+      const tags = (w.audiences || []).map(a =>
+        `<span class="way-tag${a === wayFilter ? ' is-match' : ''}">${WAY_AUDIENCES[a] || a}</span>`
+      ).join('');
+      return `
+      <div class="way-item" data-index="${i}">
+        <div class="way-header" onclick="toggleWay(${i})">
+          <span class="way-num">${String(i + 1).padStart(2, '0')}</span>
+          <div class="way-titlewrap">
+            <p class="way-title">${w.title}</p>
+            <p class="way-tags">${tags}</p>
+          </div>
+          <span class="way-toggle">+</span>
+        </div>
+        <div class="way-body">
+          <div class="way-body-inner">${w.how}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function toggleWay(index) {
+    document.querySelectorAll('.way-item').forEach((item, i) => {
+      if (i === index) item.classList.toggle('open');
+      else item.classList.remove('open');
+    });
+  }
+
+  // Delegated, so the buttons survive every re-render of the filter bar.
+  (function () {
+    const bar = document.getElementById('waysFilters');
+    if (!bar) return;
+    bar.addEventListener('click', e => {
+      const btn = e.target.closest('.way-filter');
+      if (btn) filterWays(btn.dataset.audience);
+    });
+  })();
+
+  renderWayFilters();
+  renderWays();
+
+  // Audience deep links from the nav: #participate-students, -researchers,
+  // -policy, -industry (and -all). No element carries those ids, so the jump
+  // and the filter are both applied here rather than by the browser.
+  (function () {
+    const PREFIX = '#participate-';
+    function applyAudienceHash(hash) {
+      if (!hash || hash.indexOf(PREFIX) !== 0) return;
+      const key = hash.slice(PREFIX.length);
+      if (key !== 'all' && !WAY_AUDIENCES[key]) return;
+      filterWays(key);
+      const section = document.getElementById('participate');
+      // No options, so this honours the stylesheet's scroll-behavior — which
+      // the reduced-motion guard switches to auto.
+      if (section) section.scrollIntoView();
+    }
+    window.addEventListener('hashchange', () => applyAudienceHash(location.hash));
+    // Re-clicking the link for the audience already in the URL fires no
+    // hashchange, so that one case is handled directly.
+    document.addEventListener('click', e => {
+      const a = e.target.closest('.nav-sub a');
+      if (a && a.getAttribute('href') === location.hash) applyAudienceHash(location.hash);
+    });
+    applyAudienceHash(location.hash);
+  })();
+
   // Mobile nav: toggle the dropdown menu
   (function () {
     const toggle = document.getElementById('navToggle');
@@ -544,29 +849,81 @@
     menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
   })();
 
-  // Easter egg: double-click / double-tap the main logo to play "Can You Fuse It"
+  // Easter egg: the floating note in the hero corner opens a picker for the
+  // four FuSo songs (EN/DE/FR/IT). Picking one plays it; clicking the note
+  // again stops it. One <audio> element is reused for all four — its src is
+  // set on selection, which keeps preload="none" meaningful (nothing is
+  // fetched until a visitor actually picks a song) and keeps the analytics
+  // hook in assets/analytics.js working, since that reads the src at play time.
   (function () {
-    const logo = document.getElementById('heroLogo');
+    const note = document.getElementById('songNote');
+    const menu = document.getElementById('songMenu');
     const song = document.getElementById('fuseSong');
-    if (!logo || !song) return;
-    function toggleSong() {
-      if (song.paused) {
-        song.currentTime = 0;
-        song.play();
-      } else {
-        song.pause();
-      }
+    if (!note || !menu || !song) return;
+
+    const choices = Array.from(menu.querySelectorAll('button[data-song]'));
+
+    function openMenu(open) {
+      menu.hidden = !open;
+      note.setAttribute('aria-expanded', String(open));
     }
-    logo.addEventListener('dblclick', toggleSong);
-    // Touch: dblclick is unreliable on mobile, so detect a double-tap within 300ms
-    let lastTap = 0;
-    logo.addEventListener('touchend', function (e) {
-      const now = Date.now();
-      if (now - lastTap < 300) {
-        e.preventDefault();
-        toggleSong();
+
+    function stop() {
+      song.pause();
+      song.currentTime = 0;
+      // 'pause' fires for a genuine stop as well as when a new src is loaded,
+      // so the playing state is cleared here and in the 'ended'/'pause'
+      // handlers rather than being inferred from song.paused at read time.
+      markPlaying(null);
+    }
+
+    function markPlaying(src) {
+      note.classList.toggle('playing', Boolean(src));
+      choices.forEach(b => b.classList.toggle('playing', b.dataset.song === src));
+    }
+
+    note.addEventListener('click', function () {
+      // While something is playing the note is a stop button; otherwise it
+      // toggles the picker.
+      if (!song.paused) {
+        stop();
+        openMenu(false);
+        return;
       }
-      lastTap = now;
+      openMenu(menu.hidden);
+    });
+
+    choices.forEach(function (button) {
+      button.addEventListener('click', function () {
+        const src = button.dataset.song;
+        // First pick, or a different language than last time: point the shared
+        // <audio> at that file. Re-picking the same one just replays it.
+        if (song.getAttribute('src') !== src) song.setAttribute('src', src);
+        song.currentTime = 0;
+        const played = song.play();
+        // Autoplay policies reject play() only without a user gesture, which
+        // this is — but a missing/blocked file would leave the note stuck in
+        // its playing state, so clear it if the promise rejects.
+        if (played && typeof played.catch === 'function') {
+          played.catch(() => markPlaying(null));
+        }
+        markPlaying(src);
+        openMenu(false);
+      });
+    });
+
+    song.addEventListener('ended', () => markPlaying(null));
+
+    // Close the picker on Escape or a click elsewhere. Neither stops playback:
+    // only the note itself does that.
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !menu.hidden) {
+        openMenu(false);
+        note.focus();
+      }
+    });
+    document.addEventListener('click', function (e) {
+      if (!menu.hidden && !e.target.closest('.song-egg')) openMenu(false);
     });
   })();
 
@@ -595,7 +952,26 @@
       lastTap = now;
     });
   })();
+
+  // Funder logos live in assets/images/funders/. A tile whose logo file is not
+  // there yet falls back to the alt text as a wordmark, so the grid never shows
+  // a broken image while logos are still being collected.
+  document.querySelectorAll('.funder-logo').forEach(img => {
+    const fallback = () => {
+      const span = document.createElement('span');
+      span.className = 'funder-wordmark';
+      span.textContent = img.alt;
+      img.replaceWith(span);
+    };
+    if (img.complete && !img.naturalWidth) fallback();
+    else img.addEventListener('error', fallback);
+  });
 </script>
+
+<!-- Analytics: GoatCounter (cookieless, no personal data stored) -->
+<script data-goatcounter="https://fuso.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+<script src="assets/analytics.js" defer></script>
 
 </body>
 </html>

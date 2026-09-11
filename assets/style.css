@@ -12,6 +12,7 @@
 }
 
 html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
   font-family: var(--font);
@@ -73,7 +74,8 @@ nav .container {
   text-transform: uppercase;
 }
 
-nav ul { list-style: none; display: flex; align-items: center; gap: 2rem; margin-left: auto; }
+nav ul { list-style: none; }
+#navMenu { display: flex; align-items: center; gap: 2rem; margin-left: auto; }
 
 nav a {
   text-decoration: none;
@@ -86,6 +88,34 @@ nav a {
 }
 
 nav a:hover { color: var(--accent); }
+
+/* Participate submenu — audience shortcuts that jump into the Participate
+   section with that filter already applied (#participate-students, …).
+   Opens on hover and on keyboard focus; on mobile it is inlined under the
+   Participate entry instead (see the <=1100px block). */
+.nav-has-sub { position: relative; }
+
+.nav-sub {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: -1.25rem;
+  flex-direction: column;
+  min-width: max-content;
+  padding: 0.35rem 0;
+  background: var(--white);
+  box-shadow: 0 0 0 1px var(--black);
+}
+.nav-has-sub:hover > .nav-sub,
+.nav-has-sub:focus-within > .nav-sub { display: flex; }
+
+.nav-sub a {
+  display: block;
+  padding: 0.55rem 1.25rem;
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+.nav-sub a:hover { background: var(--gray); color: var(--accent); }
 
 .lang-switch {
   display: flex;
@@ -139,11 +169,14 @@ nav a:hover { color: var(--accent); }
 /* ─── HERO ─── */
 #hero {
   margin-top: 56px;
-  min-height: calc(100vh - 56px);
+  /* Containing block for the floating .song-note easter egg in the corner. */
+  position: relative;
+  /* Sized to its content (not a full-viewport splash) so the mission box
+     right after it sits close on any screen height. */
+  padding: 3.5rem 2rem 2.5rem;
   display: grid;
   grid-template-columns: 0.3fr repeat(11, 1fr);
   gap: var(--gap);
-  padding: 0 2rem;
   max-width: var(--max);
   margin-left: auto;
   margin-right: auto;
@@ -184,7 +217,29 @@ h1 {
   line-height: 1.5;
   max-width: 540px;
   color: #333;
+  /* No gap: .hero-chain follows directly below and should read as the next
+     line of the same block, not as a separate paragraph. */
+  margin-bottom: 0;
+}
+
+/* The pipeline line under .hero-sub. It carries .hero-sub too, so it is the
+   same plain type as the sentence above it — no chips, no reuse of the
+   About chain's .block-item boxes. Only the separators and spacing differ. */
+.hero-chain {
   margin-bottom: 2.5rem;
+  /* No max-width (unlike .hero-sub's 540px): the longer German verbs need
+     the full column to stay on one line. */
+  max-width: none;
+}
+
+/* Each arrow stays glued to the step that follows it, so a wrap on a narrow
+   viewport starts the next line with "> Step" instead of stranding an arrow
+   at the end of the line above. */
+.chain-step { white-space: nowrap; }
+
+.chain-arrow {
+  color: var(--mid);
+  padding: 0 0.15rem;
 }
 
 .hero-meta {
@@ -202,7 +257,116 @@ h1 {
   justify-content: flex-start;
 }
 
-.hero-image img { width: 100%; max-width: 360px; touch-action: manipulation; cursor: pointer; }
+/* Sized wrapper around the logo, so the .song-egg hanging off its bottom-right
+   corner tracks the logo at every viewport instead of the hero's corner. The
+   img's own sizing lives here for that reason — keep them together. */
+.hero-logo {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+}
+.hero-image img { display: block; width: 100%; touch-action: manipulation; }
+
+/* ─── HERO SONG EASTER EGG ─── */
+/* A small music note tucked just under the logo's bottom-right corner, drawn
+   in the logo's own green so it reads as part of the mark. Clicking it opens a
+   picker with the four FuSo songs (EN/DE/FR/IT); picking one plays it,
+   clicking the note again stops it. This replaced a double-click on the hero
+   logo, which was undiscoverable and could only ever reach the one song
+   matching the page's language.
+   It hangs off .hero-logo rather than #hero, so one rule places it at every
+   viewport: the logo is centred at the top on mobile and right-hand on
+   desktop, and the note follows it either way. Never move it to the hero's
+   top-right — there it lands under the nav's own EN/DE/FR switch and the open
+   picker reads as a second, competing language selector. Sitting below the
+   logo's box also keeps the leftward picker clear of the circle, which is
+   inscribed in that box: there is no artwork below its bottom edge. */
+/* Deliberately unpositioned: the note and the picker are placed against
+   .hero-logo independently, because they want different anchors — the note
+   hugs the circle, the picker has to clear it. */
+.song-egg { z-index: 5; }
+
+.song-note {
+  /* Parked on the circle's edge at the 4:30 position: the logo's circle is
+     inscribed in .hero-logo, so its centre is (50%, 50%) and its radius 50%
+     of the box. Stepping 1/root-2 of (radius + half the note + 8px) along both
+     axes puts the note just outside the arc, tangent to it, at every size. */
+  position: absolute;
+  left: calc(50% + 0.7071 * (50% + 25px));
+  top: calc(50% + 0.7071 * (50% + 25px));
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  /* The logo's green line-art, at the logo's own weight: the note should read
+     as one more node on the circuit board, not a UI chip stuck next to it.
+     Keep it var(--accent) — a grey or faded version detaches it from the mark. */
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--accent);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.song-note svg { display: block; width: 15px; height: 15px; fill: currentColor; }
+/* Hover/playing fill the circle instead of recolouring it, so the green stays
+   the logo's green in every state. */
+.song-note:hover,
+.song-note:focus-visible { background: var(--accent); color: var(--white); }
+.song-note.playing { background: var(--accent); color: var(--white); }
+.song-note.playing::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  animation: song-pulse 1.8s ease-out infinite;
+}
+@keyframes song-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(0, 128, 47, 0.35); }
+  100% { box-shadow: 0 0 0 10px rgba(0, 128, 47, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .song-note.playing::after { animation: none; }
+}
+
+.song-menu {
+  /* Anchored to .hero-logo, not to the note: it drops into the clear band
+     just below the logo's box. The circle is inscribed in that box, so there
+     is no artwork below its bottom edge — anywhere nearer, a picker this wide
+     crosses the circuit lines. */
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  display: flex;
+  gap: 0.1rem;
+  padding: 0.3rem;
+  background: var(--white);
+  border: 1px solid #e5e5e5;
+  border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+/* .song-menu sets display:flex, which would otherwise beat the [hidden]
+   attribute's UA display:none — the JS toggles .hidden via the attribute. */
+.song-menu[hidden] { display: none; }
+
+.song-menu button {
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.55rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--mid);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+.song-menu button:hover,
+.song-menu button:focus-visible { color: var(--accent); background: var(--gray); }
+.song-menu button.playing { color: var(--accent); background: var(--gray); }
 
 .accent-text { color: var(--accent); }
 
@@ -210,6 +374,13 @@ h1 {
 @media (min-width: 901px) {
   .hero-line { display: block; }
 }
+
+/* Mission-statement box, sitting directly under the hero/logo, ahead of the
+   alternating section rhythm — not part of a <section> so it stays on the
+   plain white body background. Aligned to the same content columns as the
+   About heading below it (left edge under "Addressing"). */
+.intro-standalone { padding: 1rem 0 6rem; }
+.intro-standalone .about-intro { grid-column: 3 / 13; margin-bottom: 0; }
 
 /* ─── SECTIONS ─── */
 section {
@@ -240,7 +411,7 @@ section:nth-of-type(even) { background: var(--white); }
    regardless of heading font-size/wrapping */
 .about-label, .concrete-label, .events-label,
 .focus-label, .participate-label, .team-label,
-.contact-label { align-self: end; }
+.contact-label, .funders-label { align-self: end; }
 
 h2 {
   font-size: clamp(2rem, 4vw, 3.5rem);
@@ -268,6 +439,33 @@ p {
 }
 
 /* ─── ABOUT ─── */
+.about-intro {
+  position: relative;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: rgba(0, 128, 47, 0.05);
+  padding: 1.5rem 2rem;
+  margin-bottom: 4.5rem;
+  overflow: hidden;
+}
+.about-intro p { color: var(--black); }
+.about-intro p + p { margin-top: 1rem; }
+
+/* Connector-line accents, echoing the FuSo logo's circuit nodes — decoration only */
+.about-intro::before, .about-intro::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 12px;
+  background-image: url('circuit-line-accent.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.35;
+  pointer-events: none;
+}
+.about-intro::before { top: 14px; right: 20px; }
+.about-intro::after { bottom: 14px; left: 20px; transform: rotate(180deg); }
+
 .about-label { grid-column: 1 / 3; align-self: start; }
 /* About's heading is multi-line; line up the circuit line with the first line */
 .about-label .section-label { top: 1.7rem; }
@@ -411,6 +609,7 @@ p {
 .toolbox.process-flow {
   gap: 0.6rem;
   align-items: center;
+  justify-content: center;
 }
 
 .chain-label {
@@ -464,6 +663,20 @@ p {
   flex-shrink: 0;
 }
 
+/* Two stacked block-items sharing one step in the flow, representing
+   parallel/concurrent work at that stage. */
+.block-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.block-group .block-item {
+  align-self: stretch;
+}
+
 .flow-arrow-endpoint {
   font-weight: 900;
 }
@@ -493,6 +706,8 @@ p {
 .focus-card {
   background: var(--white);
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .focus-num {
@@ -506,13 +721,41 @@ p {
 
 .focus-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
 
+/* Collapsible publications list on each Focus Areas tile: same <details>
+   pattern as the past-events archive, one list per focus area. Pure
+   <details>/<summary>, no JS required. */
+.focus-publications { margin-top: auto; padding-top: 1rem; }
+.focus-publications > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 0.6rem 0;
+  border-top: 1px solid #ddd;
+}
+.focus-publications > summary::-webkit-details-marker { display: none; }
+.focus-publications > summary::before { content: "+"; font-size: 0.95rem; line-height: 1; width: 0.8em; text-align: center; }
+.focus-publications[open] > summary::before { content: "\2013"; }
+.focus-pub-list { list-style: none; margin: 0.5rem 0 0; padding: 0; }
+.focus-pub-list li { font-size: 0.85rem; line-height: 1.5; padding: 0.4rem 0; border-bottom: 1px solid #eee; }
+.focus-pub-list li:last-child { border-bottom: 0; }
+.focus-pub-list li a { color: var(--accent); margin-left: 0.3em; }
+
 /* ─── EVENTS ─── */
 .events-label { grid-column: 1 / 3; }
 .events-header { grid-column: 3 / 13; }
 .events-body { grid-column: 3 / 13; }
 
-/* Two side-by-side boxes: the dated events list and the Brown Bag series.
-   align-items: start lets each box size to its own content height. */
+/* Two side-by-side boxes: the dated events list and the Hosted Talks list
+   (BBL series entries plus one-off guest talks, chronological, BBL ones
+   flagged by .icon-lunch). align-items: start lets each box size to its
+   own content height. */
 .events-columns {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -533,7 +776,6 @@ p {
   margin-bottom: 1.5rem;
   border-bottom: 1px solid var(--black);
 }
-.event-box-sub { font-size: 0.85rem; color: #666; margin-bottom: 1.5rem; }
 
 /* Hierarchy system: green = the "when", black bold = the event name. */
 .event-list { display: grid; gap: 1.5rem; }
@@ -570,26 +812,10 @@ a.meta:hover { color: var(--accent); }
 }
 .icon-pin  { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E"); }
 .icon-link { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E"); }
-
-/* Brown Bag date table: when (green caps) | speaker (grey) */
-.event-dates { display: grid; }
-.event-date-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-  padding: 0.55rem 0;
-  border-bottom: 1px solid #eee;
-}
-.event-date-item:last-child { border-bottom: none; }
-.event-when {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-.event-speaker { font-size: 0.78rem; color: var(--mid); white-space: nowrap; }
+/* Marks a Hosted Talks entry as part of the recurring Brown Bag Lunch
+   Series, next to its own location (BBL doesn't always meet in the same
+   room, so the two badges are independent, not a stand-in for each other). */
+.icon-lunch { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 8h1a4 4 0 0 1 0 8h-1'/%3E%3Cpath d='M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4Z'/%3E%3Cline x1='6' y1='1' x2='6' y2='4'/%3E%3Cline x1='10' y1='1' x2='10' y2='4'/%3E%3Cline x1='14' y1='1' x2='14' y2='4'/%3E%3C/svg%3E"); }
 
 .event-note { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ddd; }
 .event-note p, .event-contact { font-size: 0.9rem; color: #666; }
@@ -646,6 +872,8 @@ a.meta:hover { color: var(--accent); }
   padding: 1.5rem 1.25rem;
   box-shadow: 0 0 0 1px var(--black);
   transition: background 0.15s;
+  display: flex;
+  flex-direction: column;
 }
 .team-brick:hover { background: var(--gray); }
 
@@ -717,9 +945,68 @@ a.meta:hover { color: var(--accent); }
   line-height: 1.5;
 }
 
+/* Collapsible former-members list: same <details> pattern as the past-events
+   archive, kept deliberately compact — one line per person, no bio, so it
+   stays small as the list grows. A photo is optional and shown as a small
+   round thumbnail. Rendered by renderFormerTeam(). */
+.team-former { margin-top: 2rem; }
+.team-former > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 0.85rem 0;
+  border-top: 1px solid #ddd;
+}
+.team-former > summary::-webkit-details-marker { display: none; }
+.team-former > summary::before { content: "+"; font-size: 0.95rem; line-height: 1; width: 0.8em; text-align: center; }
+.team-former[open] > summary::before { content: "\2013"; }
+
+.former-list { list-style: none; margin: 0.25rem 0 0.5rem; }
+.former-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  opacity: 0.65;
+  transition: opacity 0.15s;
+}
+.former-item:hover { opacity: 1; }
+.former-item:last-child { border-bottom: 0; }
+.former-avatar {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+}
+.former-name { font-size: 0.85rem; font-weight: 600; }
+.former-name a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--mid); }
+.former-name a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.former-what { font-size: 0.7rem; font-weight: 300; color: #666; }
+.former-now { font-size: 0.7rem; font-weight: 300; color: #666; }
+.former-now::before { content: "\2192\00a0"; color: var(--mid); }
+.former-now a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--mid); }
+.former-now a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* margin-top: auto pins the button to the bottom of the brick so a row of
+   bricks lines up even when one detail line wraps; the last <p> above it
+   (.brick-detail, or .brick-name when there is none) carries the minimum
+   gap, since the button's own padding is its box padding, not a gap. */
+.team-brick > p:last-of-type { margin-bottom: 0.75rem; }
+
 .learn-more-btn {
   display: inline-block;
-  margin-top: 0.75rem;
+  align-self: flex-start;
+  margin-top: auto;
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -741,36 +1028,159 @@ a.meta:hover { color: var(--accent); }
 /* ─── PARTICIPATE PATHWAYS ─── */
 .participate-intro { margin-bottom: 1.25rem; }
 
-.participate-ways { display: grid; gap: 0.65rem; }
-.way {
+/* Audience filter. Each pathway is tagged with every audience it serves, so the
+   same item legitimately appears under more than one chip. Rendered by
+   renderWayFilters(); real <button>s, so keyboard and screen readers work. */
+.participate-filters {
   display: flex;
-  gap: 0.6rem;
-  font-size: 0.95rem;
-  line-height: 1.55;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
 }
-.way::before {
-  content: "\203A";
-  color: var(--accent);
+
+.way-filter {
+  font-family: inherit;
+  font-size: 0.66rem;
   font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #666;
+  background: transparent;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.way-filter:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.way-filter.is-active {
+  color: var(--white);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.way-filter:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Mirrors the "Get concrete" expandable project list */
+.participate-ways {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #e0e0e0;
+}
+
+.way-item {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.way-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 0.25rem;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.way-header:hover .way-title { color: var(--accent); }
+.way-header:hover .way-toggle { color: var(--accent); }
+
+.way-num {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--mid);
+  min-width: 2.25rem;
+  padding-top: 0.15rem;
+}
+
+.way-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--black);
+  margin: 0;
+  transition: color 0.15s;
+}
+
+.way-titlewrap {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Which audiences a pathway is for, shown even when the item is collapsed. The
+   one matching the active filter is picked out in the accent colour. */
+.way-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  margin: 0.35rem 0 0;
+}
+
+.way-tag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mid);
+}
+
+.way-tag.is-match { color: var(--accent); }
+
+.way-toggle {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--mid);
+  transition: transform 0.25s, color 0.15s;
+  padding-top: 0.1rem;
   flex-shrink: 0;
 }
-.way p { margin: 0; }
-.way p a {
+
+.way-item.open .way-toggle {
+  transform: rotate(45deg);
+  color: var(--accent);
+}
+
+.way-item.open .way-title {
+  color: var(--accent);
+}
+
+.way-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.3s ease, opacity 0.3s ease;
+}
+
+.way-item.open .way-body {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.way-body-inner {
+  overflow: hidden;
+  padding: 0 0 1.25rem calc(2.25rem + 1rem);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: #444;
+  max-width: 720px;
+}
+
+.way-body-inner a {
   color: var(--accent);
   text-decoration: none;
   border-bottom: 1px solid var(--accent);
-  transition: opacity 0.15s;
 }
-.way p a:hover { opacity: 0.7; }
-.way-link {
-  white-space: nowrap;
-  color: var(--accent);
-  text-decoration: none;
-  border-bottom: 1px solid var(--accent);
-  transition: opacity 0.15s;
-}
-.way-link::after { content: " \2192"; }
-.way-link:hover { opacity: 0.65; }
+
+.way-body-inner a:hover { opacity: 0.7; }
 
 .participate-contact {
   margin-top: 1.75rem;
@@ -789,12 +1199,72 @@ a.meta:hover { color: var(--accent); }
 .contact-head { grid-column: 3 / 9; }
 .contact-body { grid-column: 3 / 9; }
 
+/* ─── FUNDERS ─── */
+#funders .section-label { color: var(--mid); border-color: var(--black); }
+.funders-label { grid-column: 1 / 3; }
+.funders-intro { grid-column: 3 / 13; }
+.funders-intro h2 { margin-bottom: 1rem; }
+.funders-wrap { grid-column: 3 / -1; margin-top: 2.5rem; }
+
+.funders-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  overflow: hidden;
+}
+
+/* Tiles borrow the team-brick treatment: 1px hairline via box-shadow so
+   neighbours share an edge instead of doubling it. */
+.funder-tile {
+  background: var(--white);
+  box-shadow: 0 0 0 1px var(--black);
+  padding: 2rem 1.5rem;
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.funder-tile:hover { background: var(--gray); }
+
+.funder-logo {
+  max-width: 88%;
+  max-height: 56px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Per-logo caps. Each mark carries a different amount of detail and visual
+   weight, so a single height would leave BRIDGE shouting and the Innosuisse
+   lockup — federal CD, small type by design — unreadable. These even out the
+   optical weight instead of the pixel height. */
+.funder-logo--innosuisse { max-height: 90px; }
+.funder-logo--bridge     { max-height: 34px; }
+.funder-logo--chips-ju   { max-height: 58px; }
+.funder-logo--eu-funded  { max-height: 50px; }
+.funder-logo--ec         { max-height: 72px; }
+.funder-logo--palatin    { max-height: 58px; }
+.funder-logo--interreg   { max-height: 33px; }  /* native height of the bitmap */
+
+/* Stand-in for a logo file that is not in assets/images/funders/ yet. */
+.funder-wordmark {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  color: var(--black);
+}
+
 /* ─── FOOTER ─── */
 footer {
-  /* Continues the section odd/gray, even/white alternation. Contact is the
-     last section (even → white), so the footer takes gray. Flip this if the
+  /* Continues the section odd/gray, even/white alternation. Funders is the
+     last section (odd → gray), so the footer takes white. Flip this if the
      number of sections above changes. */
-  background: var(--gray);
+  background: var(--white);
   color: var(--black);
   padding: 3rem 0;
 }
@@ -842,13 +1312,40 @@ footer .container {
   width: auto;
 }
 
+/* Analytics disclosure. Full-basis so it wraps onto its own line below the
+   logos, separated by the container's 2.5rem row gap. */
+.footer-privacy {
+  flex-basis: 100%;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--mid);
+}
+
+.footer-privacy a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.footer-privacy a:hover { color: var(--accent); }
+
+/* Full-height nav items so the Participate submenu hangs off the bottom edge
+   of the bar rather than off the text, leaving no dead zone to hover across.
+   Only above the nav's own breakpoint — below it the menu is a stacked panel. */
+@media (min-width: 1101px) {
+  #navMenu { align-self: stretch; align-items: stretch; }
+  #navMenu > li { display: flex; align-items: center; }
+}
+
 /* ─── RESPONSIVE ─── */
 /* Nav collapses to the hamburger earlier than the rest of the layout: the full
    horizontal menu gets cramped and wraps between ~1100px and 900px. */
 @media (max-width: 1100px) {
   .nav-toggle { display: flex; margin-left: 0.75rem; }
 
-  nav ul {
+  #navMenu {
     display: none;
     position: absolute;
     top: 56px;
@@ -860,9 +1357,27 @@ footer .container {
     background: var(--white);
     border-bottom: 2px solid var(--gray);
   }
-  nav ul.open { display: flex; }
-  nav ul li { padding: 0.65rem 0; }
-  nav ul li a { font-size: 0.85rem; }
+  #navMenu.open { display: flex; }
+  #navMenu > li { padding: 0.65rem 0; }
+  #navMenu > li > a { font-size: 0.85rem; }
+
+  /* No hover on a collapsed menu: the audience shortcuts sit inline under
+     Participate rather than behind a hover target. The collapsed menu centres
+     its items (align-items on #navMenu), so these follow suit — grouping comes
+     from the tighter spacing and smaller, muted type, not from an indent. */
+  .nav-has-sub { display: block; text-align: center; }
+  .nav-sub {
+    display: flex;
+    position: static;
+    align-items: center;
+    min-width: 0;
+    margin: 0.35rem 0 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+  }
+  .nav-sub a { padding: 0.35rem 0; font-size: 0.75rem; color: var(--mid); }
+  .nav-sub a:hover { background: none; color: var(--accent); }
 
   /* Language switcher stays in the bar, pushed to the right next to the
      hamburger, rather than collapsing into the dropdown. */
@@ -890,24 +1405,25 @@ footer .container {
     grid-template-columns: 1fr;
     padding-top: 3rem;
     padding-bottom: 3rem;
-    min-height: auto;
   }
   .hero-text { grid-column: 1 / -1; }
   /* Show the logo above the text on mobile, centered */
   .hero-image {
     grid-column: 1 / -1;
     display: flex;
-    justify-content: left;
+    justify-content: center;
     order: -1;
-    margin-bottom: 2.5rem;
+    /* Room under the logo for the .song-egg that hangs off it, so its picker
+       cannot reach the "University of St.Gallen" line below. */
+    margin-bottom: 3.5rem;
   }
-  .hero-image img { width: 60%; max-width: 240px; }
+  .hero-logo { width: 80%; max-width: 320px; }
 
   .about-label { display: none; }
 
   .concrete-label, .events-label,
   .focus-label, .participate-label,
-  .team-label, .contact-label {
+  .team-label, .contact-label, .funders-label {
     display: block;
     justify-self: start;
     width: 5.5rem;
@@ -918,9 +1434,11 @@ footer .container {
   .focus-intro, .focus-grid,
   .concrete-header, .projects-container,
   .team-intro, .team-bricks-wrap,
+  .funders-intro, .funders-wrap,
   .contact-head, .contact-body,
   .events-header, .events-body,
-  .participate-head, .participate-body { grid-column: 1 / -1; }
+  .participate-head, .participate-body,
+  .intro-standalone .about-intro { grid-column: 1 / -1; }
 
   .events-columns { grid-template-columns: 1fr; }
   .projects-container { grid-template-columns: 1fr; }
@@ -935,12 +1453,18 @@ footer .container {
 /* ─── TABLET: three-up team grid ─── */
 @media (max-width: 730px) {
   .team-bricks { grid-template-columns: repeat(3, 1fr); }
+  .funders-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ─── SMALL PHONES ─── */
 @media (max-width: 600px) {
+  /* Logos go one-up: two-up leaves the detailed lockups (Innosuisse, SNSF)
+     too small to read on a phone. */
+  .funders-grid { grid-template-columns: 1fr; }
+  .funder-tile { min-height: 128px; padding: 1.75rem 1.25rem; }
+
   .container { padding: 0 1.25rem; }
-  nav ul { padding: 0.5rem 1.25rem 1.25rem; }
+  #navMenu { padding: 0.5rem 1.25rem 1.25rem; }
   #hero { padding-left: 1.25rem; padding-right: 1.25rem; }
 
   section { padding: 4rem 0; }
@@ -954,7 +1478,7 @@ footer .container {
   .brick-avatar { width: 90px; height: 90px; }
 
   /* Project rows: tighten the number gutter */
-  .project-body-inner { padding-left: calc(1.75rem + 0.75rem); }
+  .project-body-inner, .way-body-inner { padding-left: calc(1.75rem + 0.75rem); }
 }
 
 /* ─── SMALL PHONES: two-up team grid ─── */
