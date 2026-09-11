@@ -705,8 +705,13 @@ p {
 .focus-card {
   background: var(--white);
   padding: 2rem;
-  display: flex;
-  flex-direction: column;
+  /* Subgrid over the 4 children (num, h3, p, details) so the "More" toggles
+     line up across a row and open downward, while cards still share height. */
+  display: grid;
+  grid-row: span 4;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+  align-content: start;
 }
 
 .focus-num {
@@ -723,7 +728,7 @@ p {
 /* Collapsible publications list on each Focus Areas tile: same <details>
    pattern as the past-events archive, one list per focus area. Pure
    <details>/<summary>, no JS required. */
-.focus-publications { margin-top: auto; padding-top: 1rem; }
+.focus-publications { padding-top: 1rem; }
 .focus-publications > summary {
   list-style: none;
   cursor: pointer;
