@@ -725,15 +725,21 @@ p {
 
 .focus-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
 
-/* Collapsible publications list on each Focus Areas tile: same <details>
-   pattern as the past-events archive, one list per focus area. Pure
-   <details>/<summary>, no JS required. */
+/* Collapsible publications list on each Focus Areas tile, one list per focus
+   area. Same mechanism as the Participate items (.way-body): toggleFocusPubs()
+   flips .open, and the body animates grid-template-rows 0fr -> 1fr. */
 .focus-publications { padding-top: 1rem; }
-.focus-publications > summary {
-  list-style: none;
+.focus-pub-toggle {
+  width: 100%;
+  background: none;
+  border: 0;
+  border-top: 1px solid #ddd;
+  font-family: inherit;
+  text-align: left;
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.5rem;
   font-size: 0.68rem;
   font-weight: 700;
@@ -741,11 +747,26 @@ p {
   text-transform: uppercase;
   color: var(--accent);
   padding: 0.6rem 0;
-  border-top: 1px solid #ddd;
 }
-.focus-publications > summary::-webkit-details-marker { display: none; }
-.focus-publications > summary::before { content: "+"; font-size: 0.95rem; line-height: 1; width: 0.8em; text-align: center; }
-.focus-publications[open] > summary::before { content: "\2013"; }
+/* "+" on the right that rotates to "×" when open — same as .way-toggle. */
+.focus-pub-toggle::after {
+  content: "+";
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--mid);
+  transition: transform 0.25s, color 0.15s;
+}
+.focus-publications.open .focus-pub-toggle::after { transform: rotate(45deg); color: var(--accent); }
+.focus-pub-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.3s ease, opacity 0.3s ease;
+}
+.focus-publications.open .focus-pub-body { grid-template-rows: 1fr; opacity: 1; }
+.focus-pub-inner { overflow: hidden; }
 .focus-pub-list { list-style: none; margin: 0.5rem 0 0; padding: 0; }
 .focus-pub-list li {
   display: grid;
