@@ -100,6 +100,18 @@ nav a:hover { color: var(--accent); }
 }
 .lang-switch a.active { color: var(--accent); }
 
+/* Social icon in the nav bar — sits after the language switch and stays
+   visible at every breakpoint (the nav is fixed). */
+.nav-social {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 1.25rem;
+  color: var(--black);
+  transition: color 0.15s;
+}
+.nav-social:hover { color: var(--accent); }
+.nav-social svg { display: block; }
+
 /* Hamburger toggle — hidden on desktop, shown on mobile */
 .nav-toggle {
   display: none;
