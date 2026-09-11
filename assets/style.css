@@ -742,9 +742,34 @@ p {
 .focus-publications > summary::before { content: "+"; font-size: 0.95rem; line-height: 1; width: 0.8em; text-align: center; }
 .focus-publications[open] > summary::before { content: "\2013"; }
 .focus-pub-list { list-style: none; margin: 0.5rem 0 0; padding: 0; }
-.focus-pub-list li { font-size: 0.85rem; line-height: 1.5; padding: 0.4rem 0; border-bottom: 1px solid #eee; }
+.focus-pub-list li {
+  display: grid;
+  grid-template-columns: 1rem 1fr;
+  gap: 0.2rem 0.6rem;
+  align-items: start;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #eee;
+}
 .focus-pub-list li:last-child { border-bottom: 0; }
-.focus-pub-list li a { color: var(--accent); margin-left: 0.3em; }
+/* Paper icon, drawn as a CSS mask so it takes the text colour via
+   background-color. */
+.focus-pub-list li::before {
+  content: "";
+  grid-row: span 2;
+  width: 1rem;
+  height: 1.2rem;
+  margin-top: 0.05rem;
+  background-color: var(--accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 2v6h6M8 13h8M8 17h5'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 2v6h6M8 13h8M8 17h5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.focus-pub-list li:not(:has(a))::before { background-color: var(--mid); }
+.focus-pub-list li a { color: var(--black); text-decoration: none; }
+.focus-pub-list li a::after { content: "\00a0\2197"; /* nbsp: arrow never wraps alone */ color: var(--accent); font-size: 0.8em; }
+.focus-pub-list li a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.focus-pub-meta { grid-column: 2; font-size: 0.72rem; line-height: 1.4; color: #777; }
 
 /* ─── EVENTS ─── */
 .events-label { grid-column: 1 / 3; }
