@@ -791,6 +791,14 @@ p {
 .event-tag { font-weight: 400; font-size: 0.85rem; color: var(--mid); }
 .event-speaker { font-size: 0.85rem; color: var(--mid); margin-top: 0.2rem; }
 
+/* Talk titles: quoted (page-language quotes), so they read differently
+   from the event names in the other box. */
+.talk-title { quotes: "“" "”"; }
+:lang(de) .talk-title { quotes: "„" "“"; }
+:lang(fr) .talk-title { quotes: "«\00a0" "\00a0»"; }
+.talk-title::before { content: open-quote; }
+.talk-title::after  { content: close-quote; }
+
 /* Location + link line under each event name, each with a small icon. */
 .event-meta-row {
   display: flex;
