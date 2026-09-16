@@ -50,7 +50,6 @@ nav .container {
   align-items: center;
   justify-content: space-between;
   height: 56px;
-  padding-left: 0;
 }
 
 .nav-logo {
@@ -59,19 +58,19 @@ nav .container {
   gap: 0.75rem;
   text-decoration: none;
   color: var(--black);
-  /* Beyond --max the container is centered; pull just the logo back to the
-     true screen edge so the circuit lines start flush with the viewport.
-     Below --max this resolves to 0 (min with 0px), so nothing shifts. */
-  margin-left: min(0px, calc((var(--max) - 100vw) / 2));
+  /* Line up with the content column (grid-column 3 of the 0.3fr + 11×1fr
+     page grid): skip 1.3fr plus two gaps. % = container content width. */
+  margin-left: calc((100% - 11 * var(--gap)) / 11.3 * 1.3 + 2 * var(--gap));
 }
 
 .nav-logo img { height: 32px; width: auto; display: block; }
 
 .nav-wordmark {
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  text-transform: none; /* nav a uppercases links */
 }
 
 nav ul { list-style: none; }
@@ -129,6 +128,18 @@ nav a:hover { color: var(--accent); }
   letter-spacing: 0.08em;
 }
 .lang-switch a.active { color: var(--accent); }
+
+/* Social icon in the nav bar — sits after the language switch and stays
+   visible at every breakpoint (the nav is fixed). */
+.nav-social {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 1.25rem;
+  color: var(--black);
+  transition: color 0.15s;
+}
+.nav-social:hover { color: var(--accent); }
+.nav-social svg { display: block; }
 
 /* Hamburger toggle — hidden on desktop, shown on mobile */
 .nav-toggle {
@@ -369,6 +380,32 @@ h1 {
    About heading below it (left edge under "Addressing"). */
 .intro-standalone { padding: 1rem 0 6rem; }
 .intro-standalone .about-intro { grid-column: 3 / 13; margin-bottom: 0; }
+.intro-standalone .about-intro p { text-align: justify; }
+/* Green chevron marking the mission statement, in its own column to the left
+   of the text (same "›" as the hero's Analyze › Build › … line). */
+.intro-standalone .about-intro {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 1.25rem;
+}
+.intro-standalone .about-intro::before {
+  content: "";
+  width: 1.4rem;
+  height: 1.6rem; /* one text line (1.6 line-height), chevron centred on it */
+  background-color: var(--accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.143' stroke-linecap='square'%3E%3Cpath d='M8 4l8 8-8 8'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.143' stroke-linecap='square'%3E%3Cpath d='M8 4l8 8-8 8'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.intro-standalone .about-intro p { grid-column: 2; }
+/* Above 900px the box ends at the right edge of the hero logo's circle, not
+   at the grid edge. The logo sits left-aligned in cols 9-12 (width W =
+   40% of this box's area - 0.6 gap), capped at 360px, and its circle ends at
+   93.31% of the image (fuso-logo.svg: cx 302.06 + r 253.41 of 595.28). */
+@media (min-width: 901px) {
+  .intro-standalone .about-intro {
+    margin-right: calc(40% - 0.6 * var(--gap) - 0.9331 * min(40% - 0.6 * var(--gap), 360px));
+  }
+}
 
 /* ─── SECTIONS ─── */
 section {
@@ -427,32 +464,14 @@ p {
 }
 
 /* ─── ABOUT ─── */
+/* Mission statement box: square, no border, gray fill. */
 .about-intro {
-  position: relative;
-  border: 1px solid var(--accent);
-  border-radius: 8px;
-  background: rgba(0, 128, 47, 0.05);
+  background: var(--gray);
   padding: 1.5rem 2rem;
   margin-bottom: 4.5rem;
-  overflow: hidden;
 }
 .about-intro p { color: var(--black); }
 .about-intro p + p { margin-top: 1rem; }
-
-/* Connector-line accents, echoing the FuSo logo's circuit nodes — decoration only */
-.about-intro::before, .about-intro::after {
-  content: "";
-  position: absolute;
-  width: 90px;
-  height: 12px;
-  background-image: url('circuit-line-accent.svg');
-  background-repeat: no-repeat;
-  background-size: contain;
-  opacity: 0.35;
-  pointer-events: none;
-}
-.about-intro::before { top: 14px; right: 20px; }
-.about-intro::after { bottom: 14px; left: 20px; transform: rotate(180deg); }
 
 .about-label { grid-column: 1 / 3; align-self: start; }
 /* About's heading is multi-line; line up the circuit line with the first line */
@@ -694,8 +713,13 @@ p {
 .focus-card {
   background: var(--white);
   padding: 2rem;
-  display: flex;
-  flex-direction: column;
+  /* Subgrid over the 4 children (num, h3, p, details) so the "More" toggles
+     line up across a row and open downward, while cards still share height. */
+  display: grid;
+  grid-row: span 4;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+  align-content: start;
 }
 
 .focus-num {
@@ -709,15 +733,21 @@ p {
 
 .focus-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
 
-/* Collapsible publications list on each Focus Areas tile: same <details>
-   pattern as the past-events archive, one list per focus area. Pure
-   <details>/<summary>, no JS required. */
-.focus-publications { margin-top: auto; padding-top: 1rem; }
-.focus-publications > summary {
-  list-style: none;
+/* Collapsible publications list on each Focus Areas tile, one list per focus
+   area. Same mechanism as the Participate items (.way-body): toggleFocusPubs()
+   flips .open, and the body animates grid-template-rows 0fr -> 1fr. */
+.focus-publications { padding-top: 1rem; }
+.focus-pub-toggle {
+  width: 100%;
+  background: none;
+  border: 0;
+  border-top: 1px solid #ddd;
+  font-family: inherit;
+  text-align: left;
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.5rem;
   font-size: 0.68rem;
   font-weight: 700;
@@ -725,15 +755,55 @@ p {
   text-transform: uppercase;
   color: var(--accent);
   padding: 0.6rem 0;
-  border-top: 1px solid #ddd;
 }
-.focus-publications > summary::-webkit-details-marker { display: none; }
-.focus-publications > summary::before { content: "+"; font-size: 0.95rem; line-height: 1; width: 0.8em; text-align: center; }
-.focus-publications[open] > summary::before { content: "\2013"; }
+/* "+" on the right that rotates to "×" when open — same as .way-toggle. */
+.focus-pub-toggle::after {
+  content: "+";
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--mid);
+  transition: transform 0.25s, color 0.15s;
+}
+.focus-publications.open .focus-pub-toggle::after { transform: rotate(45deg); color: var(--accent); }
+.focus-pub-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.3s ease, opacity 0.3s ease;
+}
+.focus-publications.open .focus-pub-body { grid-template-rows: 1fr; opacity: 1; }
+.focus-pub-inner { overflow: hidden; }
 .focus-pub-list { list-style: none; margin: 0.5rem 0 0; padding: 0; }
-.focus-pub-list li { font-size: 0.85rem; line-height: 1.5; padding: 0.4rem 0; border-bottom: 1px solid #eee; }
+.focus-pub-list li {
+  display: grid;
+  grid-template-columns: 1rem 1fr;
+  gap: 0.2rem 0.6rem;
+  align-items: start;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #eee;
+}
 .focus-pub-list li:last-child { border-bottom: 0; }
-.focus-pub-list li a { color: var(--accent); margin-left: 0.3em; }
+/* Paper icon, drawn as a CSS mask so it takes the text colour via
+   background-color. */
+.focus-pub-list li::before {
+  content: "";
+  grid-row: span 2;
+  width: 1rem;
+  height: 1.2rem;
+  margin-top: 0.05rem;
+  background-color: var(--accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 2v6h6M8 13h8M8 17h5'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 2v6h6M8 13h8M8 17h5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.focus-pub-list li:not(:has(a))::before { background-color: var(--mid); }
+.focus-pub-list li a { color: var(--black); text-decoration: none; }
+.focus-pub-list li a::after { content: "\00a0\2197"; /* nbsp: arrow never wraps alone */ color: var(--accent); font-size: 0.8em; }
+.focus-pub-list li a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.focus-pub-meta { grid-column: 2; font-size: 0.72rem; line-height: 1.4; color: #777; }
 
 /* ─── EVENTS ─── */
 .events-label { grid-column: 1 / 3; }
@@ -778,6 +848,34 @@ p {
 }
 .event-name { font-size: 1rem; font-weight: 700; line-height: 1.3; color: var(--black); }
 .event-tag { font-weight: 400; font-size: 0.85rem; color: var(--mid); }
+/* "Brown Bag Talk" series marker, right after the talk title (like the
+   "(Smartfeld)" tag) — same pill look as the Participate filters
+   (.way-filter), but static. */
+.bbl-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.15rem 0.55rem;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  color: #666;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.event-speaker, .event-coop { font-size: 0.85rem; color: var(--mid); margin-top: 0.2rem; }
+
+/* Talk titles: quoted (page-language quotes), so they read differently
+   from the event names in the other box. */
+.talk-title { quotes: "“" "”"; }
+:lang(de) .talk-title { quotes: "„" "“"; }
+:lang(fr) .talk-title { quotes: "«\00a0" "\00a0»"; }
+.talk-title::before { content: open-quote; }
+.talk-title::after  { content: close-quote; }
 
 /* Location + link line under each event name, each with a small icon. */
 .event-meta-row {
@@ -799,11 +897,12 @@ a.meta:hover { color: var(--accent); }
   mask: var(--icon) center / contain no-repeat;
 }
 .icon-pin  { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E"); }
+.icon-clock { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E"); }
 .icon-link { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E"); }
 /* Marks a Hosted Talks entry as part of the recurring Brown Bag Lunch
    Series, next to its own location (BBL doesn't always meet in the same
    room, so the two badges are independent, not a stand-in for each other). */
-.icon-lunch { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 8h1a4 4 0 0 1 0 8h-1'/%3E%3Cpath d='M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4Z'/%3E%3Cline x1='6' y1='1' x2='6' y2='4'/%3E%3Cline x1='10' y1='1' x2='10' y2='4'/%3E%3Cline x1='14' y1='1' x2='14' y2='4'/%3E%3C/svg%3E"); }
+.icon-lunch { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 3h8a2 2 0 0 1 2 2v1.82a5 5 0 0 0 .528 2.236l.944 1.888a5 5 0 0 1 .528 2.236v5.82a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-5.82a5 5 0 0 1 .528 -2.236l1.472 -2.944v-3a2 2 0 0 1 2 -2'/%3E%3Cpath d='M12 15a2 2 0 1 0 4 0a2 2 0 1 0 -4 0'/%3E%3Cpath d='M6 21a2 2 0 0 0 2 -2v-5.82a5 5 0 0 0 -.528 -2.236l-1.472 -2.944'/%3E%3Cpath d='M11 7h2'/%3E%3C/svg%3E"); }
 
 .event-note { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ddd; }
 .event-note p, .event-contact { font-size: 0.9rem; color: #666; }
@@ -1388,6 +1487,9 @@ footer .container {
      auto), so long words — e.g. German compounds — wrap instead of
      widening the track and overflowing the viewport */
   .grid > * { min-width: 0; }
+
+  /* Content starts at the container edge once the grid is one column */
+  .nav-logo { margin-left: 0; }
 
   #hero {
     grid-template-columns: 1fr;
