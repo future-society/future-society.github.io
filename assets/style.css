@@ -1285,6 +1285,20 @@ a.meta:hover { color: var(--accent); }
 .contact-label { grid-column: 1 / 3; }
 .contact-head { grid-column: 3 / 9; }
 .contact-body { grid-column: 3 / 9; }
+.contact-social {
+  display: flex;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+.contact-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--black);
+  transition: color 0.15s;
+}
+.contact-social a:hover { color: var(--accent); }
+.contact-social svg { display: block; }
 
 /* ─── FUNDERS ─── */
 #funders .section-label { color: var(--mid); border-color: var(--black); }
