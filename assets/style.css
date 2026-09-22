@@ -869,6 +869,40 @@ p {
 
 .event-speaker, .event-coop { font-size: 0.85rem; color: var(--mid); margin-top: 0.2rem; }
 
+/* FuSo Talks: each talk is a row — date block left, hairline between rows.
+   Green is kept for the date only; links inside a talk are quiet (text
+   colour, grey underline, green on hover). */
+.talk-list { gap: 0; }
+.talk-item {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  gap: 1rem;
+  align-items: start;
+  padding: 1.1rem 0;
+  border-top: 1px solid #e5e5e5;
+}
+.talk-list > .talk-item:first-child { border-top: 0; padding-top: 0; }
+.talk-date { display: flex; flex-direction: column; align-items: center; line-height: 1.1; color: var(--accent); }
+.talk-day { font-size: 1.1rem; font-weight: 700; }
+.talk-month, .talk-year { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.talk-year { color: var(--mid); }
+.talk-kicker {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 0.25rem;
+}
+.talk-item .event-speaker { color: #555; }
+.talk-item .event-link { color: inherit; border-bottom-color: #ccc; transition: color 0.15s, border-color 0.15s; }
+.talk-item .event-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.talk-item .event-meta-row .meta { color: #999; align-items: flex-start; }
+/* Icon pinned to the first line when a meta item wraps (lunch + register). */
+.talk-item .event-meta-row .event-icon { margin-top: 0.22rem; }
+.talk-item a.meta:hover { color: var(--accent); }
+.event-archive .talk-list { margin-top: 0.75rem; }
+
 /* Talk titles: quoted (page-language quotes), so they read differently
    from the event names in the other box. */
 .talk-title { quotes: "“" "”"; }
