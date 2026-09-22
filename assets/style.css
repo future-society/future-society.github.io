@@ -869,6 +869,28 @@ p {
 
 .event-speaker, .event-coop { font-size: 0.85rem; color: var(--mid); margin-top: 0.2rem; }
 
+/* Upcoming Events: the name leads (events are bigger than a talk), the date
+   is the first meta item. Same hairline rhythm as the talks box, but full
+   width with no date column, so the two boxes don't look the same. */
+.ev-list { gap: 0; }
+.ev-item { padding: 1.1rem 0; border-top: 1px solid #e5e5e5; }
+.ev-list > .ev-item:first-child { border-top: 0; padding-top: 0; }
+.ev-kicker {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 0.25rem;
+}
+.ev-host .event-link { color: inherit; border-bottom-color: #ccc; }
+.ev-host .event-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.event-archive .ev-list { margin-top: 0.75rem; }
+/* Date in the talks' month style (green caps), a bit larger here since it
+   sits alone above the name; host/series goes under the name in grey. */
+.ev-kicker.ev-date { color: var(--accent); font-size: 0.72rem; }
+.ev-host { font-size: 0.85rem; color: #555; margin-top: 0.2rem; }
+
 /* FuSo Talks: each talk is a row — date block left, hairline between rows.
    Green is kept for the date only; links inside a talk are quiet (text
    colour, grey underline, green on hover). */
