@@ -1022,7 +1022,7 @@ a.meta:hover { color: var(--accent); }
   display: flex;
   flex-direction: column;
 }
-.team-brick:hover { background: var(--gray); }
+.team-brick:not(:has(.brick-avatar--placeholder)):hover { background: var(--gray); }
 
 .brick-role {
   font-size: 0.58rem;
@@ -1364,8 +1364,8 @@ a.meta:hover { color: var(--accent); }
 #funders .section-label { color: var(--mid); border-color: var(--black); }
 .funders-label { grid-column: 1 / 3; }
 .funders-intro { grid-column: 3 / 13; }
-.funders-intro h2 { margin-bottom: 1rem; }
-.funders-wrap { grid-column: 3 / -1; margin-top: 2.5rem; }
+.funders-wrap { grid-column: 3 / -1; }
+.funders-wrap > p { margin-bottom: 2.5rem; }
 
 .funders-grid {
   display: grid;
