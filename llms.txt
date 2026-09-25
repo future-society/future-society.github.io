@@ -140,7 +140,7 @@ Our work is supported by the following funding agencies and programmes:
 - September 29, 2026 — FuSo Retreat, St.Gallen
 - October 1, 2026 — AI+Social Media Track (AI+X Summit), Zurich
 - October 12, 2026 — International Workshop on Reality Mediation (UbiComp/ISWC 2026), Shanghai
-- October 27, 2026 — Sustainability in Fashion and Textiles: Closing the Loop (Circular Lab), St.Gallen — https://sustainable-fashion.github.io/
+- October 27, 2026 — Closing the Loop: Sustainability in Fashion and Textiles (Circular Lab), St.Gallen — https://sustainable-fashion.github.io/
 - November 4, 2026 — Legal Design Workshop, St.Gallen
 - November 7–8, 2026 — Legal Hackathon, St.Gallen
 - December 8, 2026 — FuSo Xmas Lunch & Speed Dating, St.Gallen
