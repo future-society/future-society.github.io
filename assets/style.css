@@ -420,10 +420,14 @@ section:nth-of-type(even) { background: var(--white); }
   font-size: 0;
   color: transparent;
   padding-top: 1.5rem;
-  background-image: url('circuit-line-black.svg');
+  /* circuit line = CSS line + ring SVG, so the length is just --line-length.
+     Whole-pixel sizes so the line and the ring's 2px stroke match
+     (circuit-ring-black.svg is 16x16, stroke 2). */
+  --line-length: 64px;
+  background-image: linear-gradient(#121212, #121212), url('circuit-ring-black.svg');
   background-repeat: no-repeat;
-  background-position: top left;
-  background-size: 100% auto;
+  background-position: right 16px top 7px, right 0 top 0;
+  background-size: var(--line-length) 2px, 16px 16px;
   /* line sits at the top of this box; nudge the box down so the line lands at
      the heading's bottom and the text sits below it. Use position/top rather
      than transform: a transform forces its own layer, which drops subpixel
@@ -1606,7 +1610,10 @@ footer .container {
   .director-cards { grid-template-columns: 1fr; }
   .team-bricks { grid-template-columns: repeat(4, 1fr); }
 
-  .section-label { margin-bottom: 0; }
+  .section-label {
+    margin-bottom: 0;
+    background-position: left 0 top 7px, left var(--line-length) top 0;
+  }
 
 }
 
