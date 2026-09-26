@@ -1,0 +1,630 @@
+<meta charset="utf-8">
+<title>Muse, In Its Own Files</title>
+<meta name="description" content="A citation-checked review of Meta's Muse agent, built from its own leaked virtual machine — every claim links to the exact file and line it comes from.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+  :root{
+    --ink:#111111; --paper:#ffffff; --paper-alt:#f4f4f4;
+    --line:#e2e2e2; --mid:#767676; --faint:#a8a8a8;
+    --accent:#00802f; --accent-ink:#ffffff;
+    --sev-high:#b3261e; --sev-medium:#a66a00; --sev-low:#5b6472;
+    --sev-high-bg:#fbe9e7; --sev-medium-bg:#faf0dc; --sev-low-bg:#eceff1;
+    --code-bg:#f0f0ee;
+    --font: 'Inter', system-ui, -apple-system, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --max: 1120px;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#efefef; --paper:#111111; --paper-alt:#181818;
+      --line:#2c2c2c; --mid:#9c9c9c; --faint:#6f6f6f;
+      --accent:#33a35c; --accent-ink:#08150c;
+      --sev-high:#ff6b5c; --sev-medium:#ffbf5c; --sev-low:#9fb0bd;
+      --sev-high-bg:#301613; --sev-medium-bg:#2e2410; --sev-low-bg:#1c2226;
+      --code-bg:#1c1c1a;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#efefef; --paper:#111111; --paper-alt:#181818;
+    --line:#2c2c2c; --mid:#9c9c9c; --faint:#6f6f6f;
+    --accent:#33a35c; --accent-ink:#08150c;
+    --sev-high:#ff6b5c; --sev-medium:#ffbf5c; --sev-low:#9fb0bd;
+    --sev-high-bg:#301613; --sev-medium-bg:#2e2410; --sev-low-bg:#1c2226;
+    --code-bg:#1c1c1a;
+    color-scheme: dark;
+  }
+
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{animation:none!important;transition:none!important} }
+
+  body{
+    font-family:var(--font); color:var(--ink); background:var(--paper);
+    font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+    padding-inline:16px;
+  }
+  .wrap{max-width:var(--max); margin-inline:auto}
+  .col{max-width:760px}
+  a{color:inherit}
+  code, .mono{font-family:var(--mono)}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky; top:env(safe-area-inset-top,0px); z-index:50;
+    background:var(--paper); border-bottom:1px solid var(--line);
+  }
+  nav .bar{display:flex; align-items:center; gap:1.5rem; height:56px; max-width:var(--max); margin-inline:auto}
+  .brand{display:flex; align-items:center; gap:.5rem; font-weight:800; letter-spacing:-.02em; font-size:1rem; text-decoration:none; white-space:nowrap}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent); flex:none}
+  nav .links{display:flex; gap:1.25rem; margin-left:auto; overflow-x:auto; scrollbar-width:none}
+  nav .links::-webkit-scrollbar{display:none}
+  nav .links a{font-size:.72rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; text-decoration:none; color:var(--mid); white-space:nowrap}
+  nav .links a:hover{color:var(--accent)}
+
+  /* ---------- section labels (futuresociety-style circuit tick) ---------- */
+  .label{
+    font-size:.72rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--mid); display:flex; align-items:center; gap:.6rem; margin-bottom:1.1rem;
+  }
+  .label::after{content:""; height:1px; width:44px; background:var(--ink); opacity:.4}
+
+  section{padding-block:4.5rem}
+  section + section{border-top:1px solid var(--line)}
+  h1,h2,h3{letter-spacing:-.02em; text-wrap:balance}
+  h1{font-size:clamp(2.4rem,6vw,4.4rem); font-weight:900; line-height:1.02; margin-bottom:1.1rem}
+  h2{font-size:clamp(1.6rem,3.4vw,2.3rem); font-weight:800; margin-bottom:1.4rem}
+  h3{font-size:1.05rem; font-weight:700}
+  p{color:var(--ink); font-weight:400}
+  .lede{font-size:1.2rem; font-weight:300; line-height:1.55; color:var(--ink); max-width:640px}
+  .muted{color:var(--mid)}
+  .small{font-size:.85rem}
+
+  /* ---------- hero ---------- */
+  #hero{padding-top:3.2rem}
+  .eyebrow{font-size:.78rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:1.2rem}
+  .stats{display:flex; flex-wrap:wrap; gap:2.2rem; margin-top:2.4rem; padding-top:2rem; border-top:1px solid var(--line)}
+  .stat b{display:block; font-size:2rem; font-weight:800; font-variant-numeric:tabular-nums; line-height:1}
+  .stat span{display:block; margin-top:.35rem; font-size:.75rem; text-transform:uppercase; letter-spacing:.08em; color:var(--mid)}
+
+  /* ---------- prose blocks / notes ---------- */
+  .card{background:var(--paper-alt); border:1px solid var(--line); border-radius:10px; padding:1.4rem 1.5rem}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:2rem}
+  @media (max-width:760px){.grid2{grid-template-columns:1fr}}
+  blockquote{
+    font-family:var(--mono); font-size:.86rem; line-height:1.65; color:var(--ink);
+    background:var(--code-bg); border-left:3px solid var(--accent);
+    padding:.85rem 1rem; border-radius:0 6px 6px 0; white-space:pre-wrap; word-break:break-word;
+  }
+  ul.footlinks{list-style:none; margin-top:.9rem; display:flex; flex-direction:column; gap:.4rem}
+  ul.footlinks a{font-size:.85rem; text-decoration:none; border-bottom:1px solid var(--accent); color:var(--accent)}
+  ul.footlinks a:hover{opacity:.7}
+
+  /* ---------- controls ---------- */
+  #controls{
+    position:sticky; top:calc(56px + env(safe-area-inset-top,0px)); z-index:40;
+    background:var(--paper); border-bottom:1px solid var(--line); padding-block:1rem;
+  }
+  .ctl-row{display:flex; flex-wrap:wrap; gap:.5rem; align-items:center}
+  .ctl-row + .ctl-row{margin-top:.65rem}
+  .chip{
+    font-family:var(--font); font-size:.74rem; font-weight:600; letter-spacing:.03em;
+    padding:.4rem .75rem; border-radius:999px; border:1px solid var(--line); background:var(--paper);
+    color:var(--mid); cursor:pointer; display:inline-flex; align-items:center; gap:.4rem; white-space:nowrap;
+  }
+  .chip .n{font-variant-numeric:tabular-nums; opacity:.7}
+  .chip:hover{border-color:var(--accent); color:var(--ink)}
+  .chip.active{background:var(--ink); border-color:var(--ink); color:var(--paper)}
+  .chip.active .n{opacity:.85}
+  .chip.sev-high.active{background:var(--sev-high); border-color:var(--sev-high)}
+  .chip.sev-medium.active{background:var(--sev-medium); border-color:var(--sev-medium)}
+  .chip.sev-low.active{background:var(--sev-low); border-color:var(--sev-low)}
+  #search{
+    font-family:var(--font); font-size:.85rem; padding:.5rem .85rem; border-radius:8px;
+    border:1px solid var(--line); background:var(--paper); color:var(--ink); min-width:200px; flex:1 1 200px;
+  }
+  #search:focus{outline:2px solid var(--accent); outline-offset:1px}
+  #resultcount{font-size:.78rem; color:var(--mid); margin-left:auto; white-space:nowrap}
+  #clearfilters{font-size:.74rem; color:var(--accent); background:none; border:none; cursor:pointer; text-decoration:underline; padding:.4rem 0}
+
+  /* ---------- findings list ---------- */
+  #findingslist{border-top:1px solid var(--line)}
+  .finding{border-bottom:1px solid var(--line)}
+  .f-head{
+    display:flex; align-items:flex-start; gap:1rem; padding:1.15rem 0; cursor:pointer; width:100%;
+    background:none; border:none; text-align:left; color:inherit; font:inherit;
+  }
+  .f-num{font-family:var(--mono); font-size:.72rem; color:var(--faint); min-width:2.2rem; padding-top:.3rem}
+  .f-sev{
+    flex:none; margin-top:.28rem; width:.6rem; height:.6rem; border-radius:50%;
+  }
+  .f-sev.sev-high{background:var(--sev-high)}
+  .f-sev.sev-medium{background:var(--sev-medium)}
+  .f-sev.sev-low{background:var(--sev-low)}
+  .f-main{flex:1; min-width:0}
+  .f-title{font-size:1.02rem; font-weight:650; line-height:1.4}
+  .f-tags{display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.5rem}
+  .tag{font-size:.68rem; text-transform:uppercase; letter-spacing:.06em; color:var(--mid); border:1px solid var(--line); border-radius:5px; padding:.15rem .5rem}
+  .tag.pub{color:var(--accent); border-color:var(--accent)}
+  .f-toggle{font-size:1.4rem; font-weight:300; color:var(--faint); line-height:1; transition:transform .2s; padding-top:.1rem; flex:none}
+  .finding.open .f-toggle{transform:rotate(45deg); color:var(--accent)}
+  .finding.open .f-title{color:var(--accent)}
+  .f-body{display:grid; grid-template-rows:0fr; opacity:0; transition:grid-template-rows .25s ease, opacity .25s ease}
+  .finding.open .f-body{grid-template-rows:1fr; opacity:1}
+  .f-body-inner{overflow:hidden}
+  .f-content{padding:0 0 1.8rem calc(2.2rem + 1rem)}
+  @media (max-width:560px){.f-content{padding-left:0}}
+  .f-claim{font-size:.98rem; line-height:1.65; margin-bottom:1.3rem; max-width:680px}
+  .f-context{font-size:.9rem; color:var(--mid); margin-top:1.3rem; max-width:680px; padding-top:1.1rem; border-top:1px dashed var(--line)}
+  .ev-label{font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--mid); margin-bottom:.7rem}
+  .evidence{display:flex; flex-direction:column; gap:.9rem}
+  .ev-item{border:1px solid var(--line); border-radius:8px; overflow:hidden; background:var(--paper)}
+  .ev-file{
+    display:flex; align-items:center; gap:.6rem; padding:.55rem .8rem; background:var(--paper-alt);
+    font-family:var(--mono); font-size:.76rem; color:var(--ink); flex-wrap:wrap;
+  }
+  .ev-file .path{word-break:break-all}
+  .ev-file .lines{color:var(--mid)}
+  .ev-badge{font-size:.62rem; text-transform:uppercase; letter-spacing:.05em; padding:.1rem .4rem; border-radius:4px; background:var(--paper); border:1px solid var(--line); color:var(--mid)}
+  .ev-copy{
+    margin-left:auto; font-family:var(--font); font-size:.68rem; color:var(--mid); background:none; border:1px solid var(--line);
+    border-radius:5px; padding:.15rem .5rem; cursor:pointer; flex:none;
+  }
+  .ev-copy:hover{color:var(--accent); border-color:var(--accent)}
+  .ev-body{padding:.85rem}
+  .ev-note{font-size:.8rem; color:var(--mid); margin-top:.6rem; font-style:italic}
+
+  /* ---------- publications ---------- */
+  .authors{display:flex; flex-wrap:wrap; gap:.6rem; margin-bottom:2.4rem}
+  .authors a{
+    font-size:.82rem; font-weight:600; text-decoration:none; border:1px solid var(--line); border-radius:999px;
+    padding:.45rem .9rem; color:var(--ink);
+  }
+  .authors a:hover{border-color:var(--accent); color:var(--accent)}
+  .pub-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line)}
+  .pub-card{background:var(--paper); padding:1.3rem; cursor:pointer; display:flex; flex-direction:column; gap:.5rem}
+  .pub-card:hover{background:var(--paper-alt)}
+  .pub-card .pt{font-size:.92rem; font-weight:650; line-height:1.4}
+  .pub-card .pa{font-size:.78rem; color:var(--mid)}
+  .pub-card .pv{font-size:.72rem; color:var(--mid); text-transform:uppercase; letter-spacing:.04em}
+  .pub-card .pc{margin-top:auto; font-size:.72rem; color:var(--accent); font-weight:600}
+
+  /* ---------- sources / footer ---------- */
+  .src-list{display:flex; flex-direction:column; gap:.55rem; margin-top:1rem}
+  .src-list a{font-size:.88rem; text-decoration:none; color:var(--ink); border-bottom:1px solid var(--line); padding-bottom:.55rem; display:block}
+  .src-list a:hover{color:var(--accent); border-color:var(--accent)}
+  footer{padding-block:3rem; font-size:.78rem; color:var(--mid)}
+  footer .wrap{display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; align-items:center}
+
+  #empty{display:none; padding:3rem 0; text-align:center; color:var(--mid)}
+</style>
+
+<nav>
+  <div class="bar wrap">
+    <a class="brand" href="#hero"><span class="dot"></span>MUSE, IN ITS OWN FILES</a>
+    <div class="links">
+      <a href="#context">Context</a>
+      <a href="#methodology">Method</a>
+      <a href="#findings">Findings</a>
+      <a href="#publications">Publications</a>
+      <a href="#sources">Sources</a>
+    </div>
+  </div>
+</nav>
+
+<header id="hero" class="wrap">
+  <div class="eyebrow">Independent review · AI-generated · unofficial · not affiliated with Meta</div>
+  <h1>What Muse's own files say about it.</h1>
+  <p class="lede">On 24 September 2026, developers found they could talk Meta's new personal‑AI agent, Muse, into exporting a copy of its own virtual machine. This review reads that export directly: every claim below is a quote, and every quote links to the exact file and line it came from in the machine itself.</p>
+  <div class="stats" id="stats">
+    <div class="stat"><b id="stat-findings">–</b><span>Findings</span></div>
+    <div class="stat"><b id="stat-evidence">–</b><span>Verified citations</span></div>
+    <div class="stat"><b id="stat-high">–</b><span>High severity</span></div>
+    <div class="stat"><b>26 Sep 2026</b><span>Published</span></div>
+  </div>
+</header>
+
+<section id="context">
+  <div class="wrap col">
+    <div class="label">What Muse is supposed to be</div>
+    <p>Meta launched Muse on 8 September 2026 as a personal AI agent: each user gets a dedicated cloud computer, the <em>Muse Secure VM</em>, where the agent can read email, manage a calendar, use connected apps, and make purchases. Meta's own materials describe it running in a container "so no one else's agent can reach it," gated by a separate <em>Sentinel</em> process that approves anything reaching the network, and promise that conversations and VM data are not shared with Meta's ad systems.</p>
+    <p style="margin-top:1rem">Within five days of launch, three separate problems surfaced. A bug‑bounty researcher reported a flaw Meta initially rated SEV‑2 (its third‑highest severity) that could expose a user's VM to an attacker. Security researcher Patrick Wardle disclosed an unpatched macOS zero‑day in the desktop client. And on 24 September, developers Peter James and Jonny L. Saunders found that, with what Saunders called "extremely easy" prompting, Muse could be talked into zipping up and handing over its own root filesystem — the same export this report is built from. Meta called this "intended behavior," not a breach, since each VM is isolated to its own user.</p>
+    <ul class="footlinks" id="context-sources"></ul>
+  </div>
+</section>
+
+<section id="methodology">
+  <div class="wrap col">
+    <div class="label">How this was checked</div>
+    <p>Every quotation below was verified by a script against the exact file and line range cited, after the ordinary variation from wrapped text and quotation‑mark style is normalised away — the build fails and refuses to publish if a single quote doesn't match. Three kinds of source appear:</p>
+    <ul class="footlinks" style="margin-top:.9rem; gap:.7rem">
+      <li><span class="ev-badge">file</span> &nbsp;a document shipped in the virtual machine, cited by path and line range.</li>
+      <li><span class="ev-badge">transcript</span> &nbsp;a line from a recorded agent session (one JSON record per physical line); the line number was found automatically by searching the decoded record text for the quoted phrase, not taken from a hand‑copied rendering.</li>
+      <li><span class="ev-badge">derived</span> &nbsp;a value decoded from a binary or compressed artifact in the VM (an FST‑encoded domain list, or strings extracted from a compiled binary with <code>strings -n 6</code>) and saved as a plain‑text file so the citation is checkable without re‑running the decoder.</li>
+    </ul>
+    <p style="margin-top:1rem">Where a finding draws a conclusion beyond what a file states outright, that reasoning is separated into its own "why it matters" line, and marked as such.</p>
+  </div>
+</section>
+
+<section id="findings" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="label">Findings</div>
+    <h2 id="findings-heading">Findings</h2>
+    <p class="muted" style="max-width:640px">Filter by severity or topic, or search. Click any row to open it and see its evidence.</p>
+  </div>
+
+  <div id="controls">
+    <div class="wrap">
+      <div class="ctl-row" id="sev-chips"></div>
+      <div class="ctl-row" id="cat-chips"></div>
+      <div class="ctl-row">
+        <input id="search" type="search" placeholder="Search findings…" autocomplete="off">
+        <button class="chip" id="pubs-only">Cites our research <span class="n" id="pubs-count"></span></button>
+        <button id="clearfilters">Clear filters</button>
+        <span id="resultcount"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div id="findingslist"></div>
+    <div id="empty">No findings match these filters.</div>
+  </div>
+</section>
+
+<section id="publications">
+  <div class="wrap">
+    <div class="label">Publications this connects to</div>
+    <h2>Where these findings meet the research</h2>
+    <p class="muted" style="max-width:680px; margin-bottom:1.6rem">Findings above that relate to a specific paper carry a linked tag. This section lists every paper referenced and how many findings cite it — click a card to filter the list above.</p>
+    <div class="authors" id="authors"></div>
+    <div class="pub-grid" id="pubgrid"></div>
+  </div>
+</section>
+
+<section id="sources">
+  <div class="wrap col">
+    <div class="label">External reporting</div>
+    <h2>Public sources used for context</h2>
+    <p class="muted">Used only for the launch‑promise and incident‑timeline framing above; every finding itself is sourced to the VM files, not to these articles.</p>
+    <div class="src-list" id="sourcelist"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>Independent review of a leaked Muse VM snapshot. This report was generated with AI. Not affiliated with, endorsed by, or reviewed by Meta, OpenClaw, or the researchers whose work is cited. All quotations are reproduced for commentary and verification.</div>
+    <div class="mono">rev. 2026‑09‑26</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var state = { sev: new Set(), cat: new Set(), q: "", pubsOnly: false, openId: null };
+  try {
+    var saved = JSON.parse(localStorage.getItem("museReportFilters") || "null");
+    if (saved) {
+      state.sev = new Set(saved.sev || []);
+      state.cat = new Set(saved.cat || []);
+      state.q = saved.q || "";
+      state.pubsOnly = !!saved.pubsOnly;
+    }
+  } catch (e) {}
+
+  function saveState(){
+    try {
+      localStorage.setItem("museReportFilters", JSON.stringify({
+        sev: Array.from(state.sev), cat: Array.from(state.cat), q: state.q, pubsOnly: state.pubsOnly
+      }));
+    } catch (e) {}
+  }
+
+  function esc(s){
+    return String(s == null ? "" : s)
+      .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
+  // Render `code` spans after escaping; safe because content is already escaped.
+  function rich(s){
+    return esc(s).replace(/`([^`]+)`/g, "<code>$1</code>");
+  }
+
+  var DATA = null;
+
+  fetch("report_data.json").then(function(r){ return r.json(); }).then(function(data){
+    DATA = data;
+    init(data);
+  }).catch(function(err){
+    document.getElementById("findingslist").innerHTML =
+      '<p class="muted" style="padding:2rem 0">Could not load report_data.json (' + esc(err && err.message) + ').</p>';
+  });
+
+  function init(data){
+    document.getElementById("stat-findings").textContent = data.findings.length;
+    document.getElementById("stat-evidence").textContent = data.findings.reduce(function(n,f){return n+f.evidence.length;},0);
+    document.getElementById("stat-high").textContent = data.findings.filter(function(f){return f.severity==="high";}).length;
+    document.getElementById("findings-heading").textContent = data.findings.length + " findings, " + data.findings.reduce(function(n,f){return n+f.evidence.length;},0) + " citations";
+
+    renderSources(data.sources);
+    renderSevChips(data);
+    renderCatChips(data);
+    renderPubsToggle(data);
+    renderPublications(data);
+    renderList(data);
+
+    document.getElementById("search").value = state.q;
+    document.getElementById("search").addEventListener("input", function(e){
+      state.q = e.target.value; saveState(); renderList(data);
+    });
+    document.getElementById("clearfilters").addEventListener("click", function(){
+      state.sev = new Set(); state.cat = new Set(); state.q = ""; state.pubsOnly = false;
+      document.getElementById("search").value = "";
+      saveState(); renderSevChips(data); renderCatChips(data); renderPubsToggle(data); renderList(data);
+    });
+
+    // deep link: #finding-<id>
+    var hash = decodeURIComponent(location.hash || "").replace(/^#/, "");
+    if (hash.indexOf("finding-") === 0) {
+      state.openId = hash.slice("finding-".length);
+      setTimeout(function(){
+        var el = document.getElementById("finding-" + state.openId);
+        if (el) el.scrollIntoView({behavior:"instant", block:"start"});
+      }, 30);
+    }
+  }
+
+  function renderSources(sources){
+    document.getElementById("sourcelist").innerHTML = sources.map(function(s){
+      return '<a href="'+esc(s[1])+'" target="_blank" rel="noopener">'+esc(s[0])+'</a>';
+    }).join("");
+    document.getElementById("context-sources").innerHTML = sources.slice(0,7).map(function(s){
+      return '<li><a href="'+esc(s[1])+'" target="_blank" rel="noopener">'+esc(s[0])+'</a></li>';
+    }).join("");
+  }
+
+  function severityCounts(data){
+    var c = {high:0, medium:0, low:0};
+    data.findings.forEach(function(f){ c[f.severity] = (c[f.severity]||0)+1; });
+    return c;
+  }
+  function categoryCounts(data){
+    var c = {};
+    data.findings.forEach(function(f){ f.categories.forEach(function(cat){ c[cat]=(c[cat]||0)+1; }); });
+    return c;
+  }
+
+  function renderSevChips(data){
+    var counts = severityCounts(data);
+    var order = ["high","medium","low"];
+    var host = document.getElementById("sev-chips");
+    host.innerHTML = order.map(function(s){
+      var active = state.sev.has(s) ? " active sev-"+s : "";
+      return '<button class="chip sev-'+s+(state.sev.has(s)?" active":"")+'" data-sev="'+s+'">'+
+        esc(data.severity_label[s])+' <span class="n">'+counts[s]+'</span></button>';
+    }).join("");
+    Array.prototype.forEach.call(host.querySelectorAll(".chip"), function(btn){
+      btn.addEventListener("click", function(){
+        var s = btn.getAttribute("data-sev");
+        if (state.sev.has(s)) state.sev.delete(s); else state.sev.add(s);
+        saveState(); renderSevChips(data); renderList(data);
+      });
+    });
+  }
+
+  function renderCatChips(data){
+    var counts = categoryCounts(data);
+    var cats = Object.keys(data.categories).filter(function(c){return counts[c];})
+      .sort(function(a,b){ return counts[b]-counts[a]; });
+    var host = document.getElementById("cat-chips");
+    host.innerHTML = cats.map(function(c){
+      return '<button class="chip'+(state.cat.has(c)?" active":"")+'" data-cat="'+c+'">'+
+        esc(data.categories[c])+' <span class="n">'+counts[c]+'</span></button>';
+    }).join("");
+    Array.prototype.forEach.call(host.querySelectorAll(".chip"), function(btn){
+      btn.addEventListener("click", function(){
+        var c = btn.getAttribute("data-cat");
+        if (state.cat.has(c)) state.cat.delete(c); else state.cat.add(c);
+        saveState(); renderCatChips(data); renderList(data);
+      });
+    });
+  }
+
+  function renderPubsToggle(data){
+    var n = data.findings.filter(function(f){return f.pubs && f.pubs.length;}).length;
+    document.getElementById("pubs-count").textContent = n;
+    var btn = document.getElementById("pubs-only");
+    btn.classList.toggle("active", state.pubsOnly);
+    btn.onclick = function(){
+      state.pubsOnly = !state.pubsOnly; saveState();
+      renderPubsToggle(data); renderList(data);
+    };
+  }
+
+  function matches(f){
+    if (state.sev.size && !state.sev.has(f.severity)) return false;
+    if (state.cat.size && !f.categories.some(function(c){return state.cat.has(c);})) return false;
+    if (state.pubsOnly && !(f.pubs && f.pubs.length)) return false;
+    if (state.q) {
+      var hay = (f.title+" "+f.claim+" "+(f.context||"")+" "+f.evidence.map(function(e){return (e.quote||"")+" "+(e.note||"")+" "+e.file;}).join(" ")).toLowerCase();
+      if (hay.indexOf(state.q.toLowerCase()) === -1) return false;
+    }
+    return true;
+  }
+
+  var SEV_ORDER = {high:0, medium:1, low:2};
+
+  function fileKindBadge(ev){
+    if (ev.is_transcript) return "transcript";
+    if (ev.is_derived) return "derived";
+    return "file";
+  }
+
+  function evidenceHtml(f, ev, idx){
+    var lineTxt = ev.lines ? (ev.lines[0]===ev.lines[1] ? ("L"+ev.lines[0]) : ("L"+ev.lines[0]+"–"+ev.lines[1])) : "";
+    var citeTxt = ev.file + (lineTxt ? (":"+lineTxt) : "");
+    return (
+      '<div class="ev-item">'+
+        '<div class="ev-file">'+
+          '<span class="ev-badge">'+fileKindBadge(ev)+'</span>'+
+          '<span class="path">'+esc(ev.file)+'</span>'+
+          (lineTxt ? '<span class="lines">'+lineTxt+'</span>' : '')+
+          '<button class="ev-copy" data-cite="'+esc(citeTxt)+'">Copy citation</button>'+
+        '</div>'+
+        '<div class="ev-body">'+
+          (ev.snippet ? '<blockquote>'+esc(ev.snippet.trim())+'</blockquote>' : '')+
+          (ev.note ? '<div class="ev-note">'+rich(ev.note)+'</div>' : '')+
+        '</div>'+
+      '</div>'
+    );
+  }
+
+  function findingHtml(f, i, data){
+    var tags = f.categories.map(function(c){return '<span class="tag">'+esc(data.categories[c])+'</span>';}).join("");
+    var pubtags = (f.pubs||[]).map(function(p){
+      var pub = data.pubs[p]; if (!pub) return "";
+      return '<span class="tag pub" data-pub="'+esc(p)+'">'+esc(pub.title.length>42?pub.title.slice(0,42)+"…":pub.title)+'</span>';
+    }).join("");
+    var evHtml = f.evidence.map(function(ev,idx){ return evidenceHtml(f, ev, idx); }).join("");
+    return (
+      '<div class="finding" id="finding-'+esc(f.id)+'" data-id="'+esc(f.id)+'">'+
+        '<button class="f-head" data-id="'+esc(f.id)+'">'+
+          '<span class="f-num">'+String(i+1).padStart(2,"0")+'</span>'+
+          '<span class="f-sev sev-'+f.severity+'" title="'+esc(data.severity_label[f.severity])+' severity"></span>'+
+          '<span class="f-main">'+
+            '<span class="f-title">'+rich(f.title)+'</span>'+
+            '<span class="f-tags">'+tags+pubtags+'</span>'+
+          '</span>'+
+          '<span class="f-toggle">+</span>'+
+        '</button>'+
+        '<div class="f-body"><div class="f-body-inner"><div class="f-content">'+
+          '<p class="f-claim">'+rich(f.claim)+'</p>'+
+          '<div class="ev-label">Evidence ('+f.evidence.length+')</div>'+
+          '<div class="evidence">'+evHtml+'</div>'+
+          (f.context ? '<p class="f-context">Why it matters — '+rich(f.context)+'</p>' : '')+
+        '</div></div></div>'+
+      '</div>'
+    );
+  }
+
+  function renderList(data){
+    var list = data.findings.filter(matches).slice().sort(function(a,b){
+      return SEV_ORDER[a.severity]-SEV_ORDER[b.severity];
+    });
+    var host = document.getElementById("findingslist");
+    var empty = document.getElementById("empty");
+    document.getElementById("resultcount").textContent = list.length + " of " + data.findings.length;
+    if (!list.length){ host.innerHTML=""; empty.style.display="block"; return; }
+    empty.style.display = "none";
+    host.innerHTML = list.map(function(f,i){ return findingHtml(f,i,data); }).join("");
+
+    Array.prototype.forEach.call(host.querySelectorAll(".f-head"), function(btn){
+      btn.addEventListener("click", function(){
+        var row = btn.closest(".finding");
+        var id = row.getAttribute("data-id");
+        var wasOpen = row.classList.contains("open");
+        Array.prototype.forEach.call(host.querySelectorAll(".finding.open"), function(o){ o.classList.remove("open"); });
+        if (!wasOpen) { row.classList.add("open"); history.replaceState(null, "", "#finding-"+id); }
+        else { history.replaceState(null, "", "#findings"); }
+      });
+    });
+    Array.prototype.forEach.call(host.querySelectorAll(".ev-copy"), function(btn){
+      btn.addEventListener("click", function(e){
+        e.stopPropagation();
+        var text = btn.getAttribute("data-cite");
+        var done = function(){ var t=btn.textContent; btn.textContent="Copied"; setTimeout(function(){btn.textContent=t;}, 1200); };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text); done(); });
+        } else { fallbackCopy(text); done(); }
+      });
+    });
+    Array.prototype.forEach.call(host.querySelectorAll(".tag.pub"), function(t){
+      t.addEventListener("click", function(e){
+        e.stopPropagation();
+        var p = t.getAttribute("data-pub");
+        state.pubsOnly = false; state.q = ""; document.getElementById("search").value = "";
+        document.getElementById("publications").scrollIntoView({behavior:"smooth"});
+      });
+    });
+
+    if (state.openId) {
+      var el = document.getElementById("finding-"+state.openId);
+      if (el) el.classList.add("open");
+      state.openId = null;
+    }
+  }
+
+  function fallbackCopy(text){
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch(e){}
+    document.body.removeChild(ta);
+  }
+
+  function renderPublications(data){
+    document.getElementById("authors").innerHTML = data.authors.map(function(a){
+      return '<a href="'+esc(a[1])+'" target="_blank" rel="noopener">'+esc(a[0])+'</a>';
+    }).join("");
+
+    var countByPub = {};
+    data.findings.forEach(function(f){ (f.pubs||[]).forEach(function(p){ countByPub[p]=(countByPub[p]||0)+1; }); });
+    var pubIds = Object.keys(data.pubs).filter(function(p){return countByPub[p];})
+      .sort(function(a,b){ return countByPub[b]-countByPub[a]; });
+
+    document.getElementById("pubgrid").innerHTML = pubIds.map(function(p){
+      var pub = data.pubs[p];
+      return '<div class="pub-card" data-pub="'+esc(p)+'">'+
+        '<div class="pt">'+esc(pub.title)+'</div>'+
+        '<div class="pa">'+esc(pub.authors)+'</div>'+
+        '<div class="pv">'+esc(pub.venue)+'</div>'+
+        '<div class="pc">'+countByPub[p]+' finding'+(countByPub[p]===1?"":"s")+' →</div>'+
+      '</div>';
+    }).join("");
+
+    Array.prototype.forEach.call(document.querySelectorAll(".pub-card"), function(card){
+      card.addEventListener("click", function(){
+        var p = card.getAttribute("data-pub");
+        state.pubsOnly = false; state.sev = new Set(); state.cat = new Set();
+        state.q = "";
+        document.getElementById("search").value = "";
+        window.__pubFilter = p;
+        renderSevChips(DATA); renderCatChips(DATA);
+        filterByPub(p);
+        document.getElementById("findings").scrollIntoView({behavior:"smooth"});
+      });
+    });
+  }
+
+  function filterByPub(pubId){
+    var origMatches = matches;
+    var host = document.getElementById("findingslist");
+    var list = DATA.findings.filter(function(f){ return (f.pubs||[]).indexOf(pubId) !== -1; })
+      .sort(function(a,b){ return SEV_ORDER[a.severity]-SEV_ORDER[b.severity]; });
+    document.getElementById("resultcount").textContent = list.length + " of " + DATA.findings.length + " (filtered by publication)";
+    document.getElementById("empty").style.display = list.length ? "none" : "block";
+    host.innerHTML = list.map(function(f,i){ return findingHtml(f,i,DATA); }).join("");
+    Array.prototype.forEach.call(host.querySelectorAll(".f-head"), function(btn){
+      btn.addEventListener("click", function(){
+        var row = btn.closest(".finding");
+        var wasOpen = row.classList.contains("open");
+        Array.prototype.forEach.call(host.querySelectorAll(".finding.open"), function(o){ o.classList.remove("open"); });
+        if (!wasOpen) row.classList.add("open");
+      });
+    });
+    Array.prototype.forEach.call(host.querySelectorAll(".ev-copy"), function(btn){
+      btn.addEventListener("click", function(e){
+        e.stopPropagation();
+        var text = btn.getAttribute("data-cite");
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text);
+        else fallbackCopy(text);
+        var t=btn.textContent; btn.textContent="Copied"; setTimeout(function(){btn.textContent=t;}, 1200);
+      });
+    });
+  }
+})();
+</script>
