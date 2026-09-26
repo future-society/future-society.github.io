@@ -1,4 +1,5 @@
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Muse, In Its Own Files</title>
 <meta name="description" content="A citation-checked review of Meta's Muse agent, built from its own leaked virtual machine — every claim links to the exact file and line it comes from.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -215,11 +216,39 @@
   .hl-card .go{margin-top:auto; padding-top:.4rem; font-size:.75rem; font-weight:600; color:var(--accent)}
   .hl-all{display:inline-block; margin-top:1.4rem; font-size:.85rem; font-weight:600; text-decoration:none; border-bottom:1px solid var(--accent); color:var(--accent)}
   .hl-all:hover{opacity:.7}
+
+  /* ---------- mobile ---------- */
+  .f-claim code, .ev-note code{overflow-wrap:anywhere}
+  @media (max-width:760px){
+    section{padding-block:3rem}
+    #highlights{padding-top:2rem}
+    /* a sticky filter bar would cover half a phone screen */
+    #controls{position:static; padding-block:.75rem}
+    #sev-chips, #cat-chips{
+      flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none;
+      margin-inline:-16px; padding-inline:16px;
+    }
+    #sev-chips::-webkit-scrollbar, #cat-chips::-webkit-scrollbar{display:none}
+    nav .links{-webkit-mask-image:linear-gradient(to right, #000 85%, transparent); mask-image:linear-gradient(to right, #000 85%, transparent); padding-right:1.5rem}
+  }
+  @media (max-width:560px){
+    .brand-rest{display:none}
+    nav .bar{gap:1rem}
+    .stats{gap:1.4rem 2rem}
+    .stat b{font-size:1.6rem}
+    .f-num{display:none}
+    .f-head{gap:.75rem}
+    .tag{font-size:.62rem}
+    .hl-card{padding:1.1rem}
+    .card{padding:1.1rem}
+    .ev-body{padding:.6rem}
+    blockquote{font-size:.8rem; padding:.7rem .8rem}
+  }
 </style>
 
 <nav>
   <div class="bar wrap">
-    <a class="brand" href="#hero"><span class="dot"></span>MUSE, IN ITS OWN FILES</a>
+    <a class="brand" href="#hero"><span class="dot"></span>MUSE<span class="brand-rest">, IN ITS OWN FILES</span></a>
     <div class="links">
       <a href="#highlights">Highlights</a>
       <a href="#context">Context</a>
@@ -451,7 +480,9 @@
     setTimeout(function(){
       var el = document.getElementById("finding-" + id);
       if (!el) return;
-      var offset = document.querySelector("nav").offsetHeight + document.getElementById("controls").offsetHeight + 8;
+      var controls = document.getElementById("controls");
+      var offset = document.querySelector("nav").offsetHeight + 8 +
+        (getComputedStyle(controls).position === "sticky" ? controls.offsetHeight : 0);
       window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - offset, behavior: behavior});
     }, 30);
   }
