@@ -43,7 +43,8 @@ body{
   padding-inline:var(--gutter);
 }
 .wrap{max-width:var(--max); margin-inline:auto}
-.col{max-width:760px}
+/* narrow text measure, but left-aligned with the other sections (not a centered column) */
+.col > *{max-width:760px}
 a{color:inherit}
 code, .mono{font-family:var(--mono)}
 
@@ -155,6 +156,13 @@ ul.footlinks a:hover{opacity:.7}
 .f-title{font-size:1.02rem; font-weight:650; line-height:1.4}
 .f-tags{display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.5rem}
 .tag{font-size:.68rem; text-transform:uppercase; letter-spacing:.06em; color:var(--mid); border:1px solid var(--line); border-radius:5px; padding:.15rem .5rem}
+/* paper icon from the focus-area publication lists on futuresociety.ch (.focus-pub-list li::before),
+   drawn as a mask so it takes the text colour */
+.paper-icon{
+  display:inline-block; flex:none; width:1em; height:1.2em; vertical-align:-.25em; background-color:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 2v6h6M8 13h8M8 17h5'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 2v6h6M8 13h8M8 17h5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
 /* papers a finding connects to: plain text links under the topic tags, so they don't read as more tags */
 .f-pubs{display:flex; flex-direction:column; gap:.3rem; margin-top:.6rem}
 .pub-link{display:grid; grid-template-columns:auto 1fr; gap:.4rem; font-size:.78rem; font-weight:400; line-height:1.4; color:var(--mid); cursor:pointer}

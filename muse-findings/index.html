@@ -110,7 +110,7 @@
       <div class="ctl-row" id="cat-chips"></div>
       <div class="ctl-row">
         <input id="search" type="search" placeholder="Search findings…" autocomplete="off">
-        <button class="chip" id="pubs-only"><span aria-hidden="true">📄</span>Connected to our research <span class="n" id="pubs-count"></span></button>
+        <button class="chip" id="pubs-only"><span class="paper-icon" aria-hidden="true"></span>Connected to our research <span class="n" id="pubs-count"></span></button>
         <button id="clearfilters">Clear filters</button>
         <span id="resultcount"></span>
       </div>
@@ -359,7 +359,7 @@
     var tags = f.categories.map(function(c){return '<span class="tag">'+esc(data.categories[c])+'</span>';}).join("");
     var pubtags = (f.pubs||[]).map(function(p){
       var pub = data.pubs[p]; if (!pub) return "";
-      return '<span class="pub-link" data-pub="'+esc(p)+'" title="'+esc(pub.title)+'"><span aria-hidden="true">📄</span><span>'+esc(pub.title)+'</span></span>';
+      return '<span class="pub-link" data-pub="'+esc(p)+'" title="'+esc(pub.title)+'"><span class="paper-icon" aria-hidden="true"></span><span>'+esc(pub.title)+'</span></span>';
     }).join("");
     var evHtml = f.evidence.map(function(ev,idx){ return evidenceHtml(f, ev, idx); }).join("");
     return (
