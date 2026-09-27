@@ -10,6 +10,7 @@
   --font: 'Inter', system-ui, -apple-system, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --max: 1120px;
+  --gutter: 2rem; /* futuresociety.ch .container padding */
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark){
@@ -39,7 +40,7 @@ html{scroll-behavior:smooth}
 body{
   font-family:var(--font); color:var(--ink); background:var(--paper);
   font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
-  padding-inline:16px;
+  padding-inline:var(--gutter);
 }
 .wrap{max-width:var(--max); margin-inline:auto}
 .col{max-width:760px}
@@ -74,10 +75,10 @@ nav .links a:hover{color:var(--accent)}
 }
 
 /* alternating gray/white full-bleed sections, as on futuresociety.ch */
-section{padding-block:6rem; margin-inline:-16px; padding-inline:16px}
+section{padding-block:6rem; margin-inline:calc(-1 * var(--gutter)); padding-inline:var(--gutter)}
 section:nth-of-type(odd){background:var(--paper-alt)}
 section:nth-of-type(even){background:var(--paper)}
-@media (max-width:600px){ section{padding-block:4rem} }
+@media (max-width:600px){ section{padding-block:4rem} :root{--gutter:1.25rem} }
 h1,h2,h3{letter-spacing:-.02em; text-wrap:balance}
 h1{font-size:clamp(2.4rem,6vw,4.4rem); font-weight:900; line-height:1.02; margin-bottom:1.1rem}
 h2{font-size:clamp(1.6rem,3.4vw,2.3rem); font-weight:800; margin-bottom:1.4rem}
@@ -206,7 +207,6 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-betwe
 #empty{display:none; padding:3rem 0; text-align:center; color:var(--mid)}
 
 /* ---------- highlights ---------- */
-#highlights{padding-top:3rem}
 .hl-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line)}
 .hl-card{background:var(--paper); padding:1.3rem; display:flex; flex-direction:column; gap:.6rem; text-decoration:none; color:inherit}
 .hl-card:hover{background:var(--paper-alt)}
@@ -222,13 +222,11 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-betwe
 /* ---------- mobile ---------- */
 .f-claim code, .ev-note code{overflow-wrap:anywhere}
 @media (max-width:760px){
-  section{padding-block:3rem}
-  #highlights{padding-top:2rem}
   /* a sticky filter bar would cover half a phone screen */
   #controls{position:static; padding-block:.75rem}
   #sev-chips, #cat-chips{
     flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none;
-    margin-inline:-16px; padding-inline:16px;
+    margin-inline:calc(-1 * var(--gutter)); padding-inline:var(--gutter);
   }
   #sev-chips::-webkit-scrollbar, #cat-chips::-webkit-scrollbar{display:none}
   nav .links{-webkit-mask-image:linear-gradient(to right, #000 85%, transparent); mask-image:linear-gradient(to right, #000 85%, transparent); padding-right:1.5rem}
