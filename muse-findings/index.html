@@ -110,7 +110,7 @@
       <div class="ctl-row" id="cat-chips"></div>
       <div class="ctl-row">
         <input id="search" type="search" placeholder="Search findings…" autocomplete="off">
-        <button class="chip" id="pubs-only">Cites our research <span class="n" id="pubs-count"></span></button>
+        <button class="chip" id="pubs-only">Connected to our research <span class="n" id="pubs-count"></span></button>
         <button id="clearfilters">Clear filters</button>
         <span id="resultcount"></span>
       </div>
@@ -127,8 +127,8 @@
   <div class="wrap">
     <div class="label">Publications</div>
     <h2>Where these findings meet the research</h2>
-    <p class="muted" style="max-width:680px; margin-bottom:1.6rem">Findings above that relate to a specific paper carry a linked tag. This section lists every paper referenced and how many findings cite it — click a card to filter the list above.</p>
-    <div class="authors" id="authors"></div>
+    <p class="muted" style="max-width:680px; margin-bottom:1.6rem">Findings above that relate to a specific paper carry a linked tag. This section lists every paper and how many findings connect to it — click a card to filter the list above.</p>
+    <div class="authors" id="authors" role="group" aria-label="Filter publications by author"></div>
     <div class="pub-grid" id="pubgrid"></div>
   </div>
 </section>
@@ -144,7 +144,7 @@
 
 <footer>
   <div class="wrap">
-    <div>Independent review of a leaked Muse VM snapshot. This report was generated with AI. Not affiliated with, endorsed by, or reviewed by Meta, OpenClaw, or the researchers whose work is cited. All quotations are reproduced for commentary and verification.</div>
+    <div>Independent review of a leaked Muse VM snapshot. This report was generated with AI. Not affiliated with, endorsed by, or reviewed by Meta, OpenClaw, or the researchers whose work is referenced. All quotations are reproduced for commentary and verification.</div>
     <div class="mono">rev. 2026‑09‑26</div>
   </div>
 </footer>
@@ -439,9 +439,6 @@
   }
 
   function renderPublications(data){
-    document.getElementById("authors").innerHTML = data.authors.map(function(a){
-      return '<a href="'+esc(a[1])+'" target="_blank" rel="noopener">'+esc(a[0])+'</a>';
-    }).join("");
 
     var countByPub = {};
     data.findings.forEach(function(f){ (f.pubs||[]).forEach(function(p){ countByPub[p]=(countByPub[p]||0)+1; }); });
@@ -469,6 +466,35 @@
         filterByPub(p);
         document.getElementById("findings").scrollIntoView({behavior:"smooth"});
       });
+    });
+
+    renderAuthorFilters(data);
+  }
+
+  // Author pills filter the publication cards, like the Participate filter on
+  // futuresociety.ch: one active at a time, "All" resets. Cards list authors as
+  // initials + surname, so match on the surname ("Strecker(-Bischoff)" -> "Strecker").
+  var authorFilter = "all";
+  function surname(name){ return name.replace(/\(.*?\)/g, "").trim().split(/\s+/).pop(); }
+  function renderAuthorFilters(data){
+    var keys = ["all"].concat(data.authors.map(function(a){ return a[0]; }));
+    var box = document.getElementById("authors");
+    box.innerHTML = keys.map(function(k){
+      var on = k === authorFilter;
+      return '<button type="button" class="author-filter'+(on?' is-active':'')+'" data-author="'+esc(k)+'" aria-pressed="'+on+'">'+
+        esc(k === "all" ? "All" : k)+'</button>';
+    }).join("");
+    Array.prototype.forEach.call(box.querySelectorAll(".author-filter"), function(btn){
+      btn.addEventListener("click", function(){
+        var k = btn.getAttribute("data-author");
+        authorFilter = (k === authorFilter) ? "all" : k;
+        renderAuthorFilters(data);
+      });
+    });
+    var sn = authorFilter === "all" ? null : surname(authorFilter);
+    Array.prototype.forEach.call(document.querySelectorAll(".pub-card"), function(card){
+      var pub = data.pubs[card.getAttribute("data-pub")];
+      card.hidden = !!sn && (pub.authors || "").indexOf(sn) === -1;
     });
   }
 

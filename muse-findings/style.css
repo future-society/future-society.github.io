@@ -185,12 +185,17 @@ ul.footlinks a:hover{opacity:.7}
 .ev-note{font-size:.8rem; color:var(--mid); margin-top:.6rem; font-style:italic}
 
 /* ---------- publications ---------- */
-.authors{display:flex; flex-wrap:wrap; gap:.6rem; margin-bottom:2.4rem}
-.authors a{
-  font-size:.82rem; font-weight:600; text-decoration:none; border:1px solid var(--line); border-radius:999px;
-  padding:.45rem .9rem; color:var(--ink);
+/* author filter, same pills as the Participate filter on futuresociety.ch (.way-filter) */
+.authors{display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1.5rem}
+.author-filter{
+  font-family:inherit; font-size:.66rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--mid); background:transparent; border:1px solid var(--line); border-radius:999px;
+  padding:.45rem .9rem; cursor:pointer; transition:color .15s, border-color .15s, background .15s;
 }
-.authors a:hover{border-color:var(--accent); color:var(--accent)}
+.author-filter:hover{color:var(--accent); border-color:var(--accent)}
+.author-filter.is-active{color:var(--accent-ink); background:var(--accent); border-color:var(--accent)}
+.author-filter:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.pub-card[hidden]{display:none}
 .pub-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line)}
 .pub-card{background:var(--paper); padding:1.3rem; cursor:pointer; display:flex; flex-direction:column; gap:.5rem}
 .pub-card:hover{background:var(--paper-alt)}
