@@ -174,12 +174,15 @@ ul.footlinks a:hover{opacity:.7}
 .evidence{display:flex; flex-direction:column; gap:.9rem}
 .ev-item{border:1px solid var(--line); border-radius:8px; overflow:hidden; background:var(--paper)}
 .ev-file{
-  display:flex; align-items:center; gap:.6rem; padding:.55rem .8rem; background:var(--paper-alt);
-  font-family:var(--mono); font-size:.76rem; color:var(--ink); flex-wrap:wrap;
+  display:flex; align-items:flex-start; gap:.6rem; padding:.55rem .8rem; background:var(--paper-alt); flex-wrap:nowrap;
+  font-family:var(--mono); font-size:.7rem; color:var(--mid);
 }
-.ev-file .path{word-break:break-all}
-.ev-file .lines{color:var(--mid)}
-.ev-badge{font-size:.62rem; text-transform:uppercase; letter-spacing:.05em; padding:.1rem .4rem; border-radius:4px; background:var(--paper); border:1px solid var(--line); color:var(--mid)}
+/* path wraps inside its own column so the line number and Copy citation stay on the first row */
+.ev-file .path{flex:1; min-width:0; overflow-wrap:anywhere}
+/* inside an evidence card the quote is just text with the green rule, not a second gray box */
+.ev-item blockquote{background:color-mix(in srgb, var(--paper-alt) 60%, var(--paper)); border-radius:0 4px 4px 0; padding:.7rem .9rem; font-size:.78rem; line-height:1.6}
+.ev-file .lines{color:var(--mid); flex:none; white-space:nowrap}
+.ev-badge{flex:none; font-size:.62rem; text-transform:uppercase; letter-spacing:.05em; padding:.1rem .4rem; border-radius:4px; background:var(--paper); border:1px solid var(--line); color:var(--mid)}
 .ev-copy{
   margin-left:auto; font-family:var(--font); font-size:.68rem; color:var(--mid); background:none; border:1px solid var(--line);
   border-radius:5px; padding:.15rem .5rem; cursor:pointer; flex:none;
