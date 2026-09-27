@@ -10,7 +10,7 @@
 <nav>
   <div class="bar wrap">
     <a class="brand" href="#hero"><span class="dot"></span><span>MUSE<span class="brand-rest">, IN ITS OWN FILES</span></span></a>
-    <div class="links">
+    <div class="links" id="navMenu">
       <a href="#highlights">Highlights</a>
       <a href="#context">Context</a>
       <a href="#methodology">Method</a>
@@ -18,6 +18,9 @@
       <a href="#publications">Publications</a>
       <a href="#sources">Sources</a>
     </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -150,6 +153,21 @@
 </footer>
 
 <script>
+// Mobile hamburger, same behaviour as futuresociety.ch: toggles the menu,
+// closes it when a link is picked.
+(function(){
+  var toggle = document.getElementById("navToggle");
+  var menu = document.getElementById("navMenu");
+  if (!toggle || !menu) return;
+  function close(){ menu.classList.remove("open"); toggle.classList.remove("open"); toggle.setAttribute("aria-expanded","false"); }
+  toggle.addEventListener("click", function(){
+    var open = menu.classList.toggle("open");
+    toggle.classList.toggle("open", open);
+    toggle.setAttribute("aria-expanded", String(open));
+  });
+  Array.prototype.forEach.call(menu.querySelectorAll("a"), function(a){ a.addEventListener("click", close); });
+})();
+
 (function(){
   "use strict";
 

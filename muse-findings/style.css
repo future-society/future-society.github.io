@@ -52,6 +52,8 @@ code, .mono{font-family:var(--mono)}
 nav{
   position:sticky; top:env(safe-area-inset-top,0px); z-index:50;
   background:var(--paper); border-bottom:2px solid var(--paper-alt);
+  /* full-bleed like the sections, so gray sections don't show beside it */
+  margin-inline:calc(-1 * var(--gutter)); padding-inline:var(--gutter);
 }
 nav .bar{display:flex; align-items:center; gap:1.5rem; height:56px; max-width:var(--max); margin-inline:auto}
 .brand{display:flex; align-items:center; gap:.5rem; font-weight:800; letter-spacing:-.02em; font-size:1rem; text-decoration:none; white-space:nowrap}
@@ -60,6 +62,26 @@ nav .links{display:flex; gap:1.25rem; margin-left:auto; overflow-x:auto; scrollb
 nav .links::-webkit-scrollbar{display:none}
 nav .links a{font-size:.75rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase; text-decoration:none; color:var(--ink); white-space:nowrap; transition:color .15s}
 nav .links a:hover{color:var(--accent)}
+
+/* hamburger, copied from futuresociety.ch (.nav-toggle); shown below 900px */
+.nav-toggle{
+  display:none; flex-direction:column; justify-content:center; gap:5px;
+  width:40px; height:40px; padding:8px; margin-left:auto; background:none; border:none; cursor:pointer;
+}
+.nav-toggle span{display:block; width:100%; height:2px; background:var(--ink); transition:transform .25s, opacity .25s}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media (max-width:900px){
+  .nav-toggle{display:flex}
+  nav .links{
+    display:none; position:absolute; top:100%; left:0; right:0;
+    flex-direction:column; align-items:center; gap:0; margin:0; overflow:visible;
+    padding:.5rem var(--gutter) 1.25rem; background:var(--paper); border-bottom:2px solid var(--paper-alt);
+  }
+  nav .links.open{display:flex}
+  nav .links a{padding:.65rem 0; font-size:.85rem}
+}
 
 /* ---------- section labels (futuresociety-style circuit tick) ---------- */
 .label{
@@ -108,6 +130,10 @@ blockquote{
   padding:.85rem 1rem; border-radius:0 6px 6px 0; white-space:pre-wrap; word-break:break-word;
 }
 ul.footlinks{list-style:none; margin-top:.9rem; display:flex; flex-direction:column; gap:.4rem}
+/* list items read as body text (same as p) */
+ul.footlinks li{color:var(--body); font-weight:300; line-height:1.7}
+/* source-type pills in the Method list, a bit larger than in the evidence headers */
+#methodology .ev-badge{font-size:.7rem; padding:.15rem .5rem}
 ul.footlinks a{font-size:.85rem; text-decoration:none; border-bottom:1px solid var(--accent); color:var(--accent)}
 ul.footlinks a:hover{opacity:.7}
 
@@ -246,7 +272,6 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-betwe
 @media (max-width:760px){
   /* a sticky filter bar would cover half a phone screen */
   #controls{position:static; padding-block:.75rem}
-  nav .links{-webkit-mask-image:linear-gradient(to right, #000 85%, transparent); mask-image:linear-gradient(to right, #000 85%, transparent); padding-right:1.5rem}
 }
 @media (max-width:560px){
   .brand-rest{display:none}
