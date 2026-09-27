@@ -155,7 +155,11 @@ ul.footlinks a:hover{opacity:.7}
 .f-title{font-size:1.02rem; font-weight:650; line-height:1.4}
 .f-tags{display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.5rem}
 .tag{font-size:.68rem; text-transform:uppercase; letter-spacing:.06em; color:var(--mid); border:1px solid var(--line); border-radius:5px; padding:.15rem .5rem}
-.tag.pub{color:var(--accent); border-color:var(--accent)}
+/* papers a finding connects to: plain text links under the topic tags, so they don't read as more tags */
+.f-pubs{display:flex; flex-direction:column; gap:.3rem; margin-top:.6rem}
+.pub-link{display:grid; grid-template-columns:auto 1fr; gap:.4rem; font-size:.78rem; font-weight:400; line-height:1.4; color:var(--mid); cursor:pointer}
+.pub-link span:last-child{min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.pub-link:hover{color:var(--accent); text-decoration:underline; text-underline-offset:2px}
 .f-toggle{font-size:1.4rem; font-weight:300; color:var(--faint); line-height:1; transition:transform .2s; padding-top:.1rem; flex:none}
 .finding.open .f-toggle{transform:rotate(45deg); color:var(--accent)}
 .finding.open .f-title{color:var(--accent)}
@@ -231,11 +235,6 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-betwe
 @media (max-width:760px){
   /* a sticky filter bar would cover half a phone screen */
   #controls{position:static; padding-block:.75rem}
-  #sev-chips, #cat-chips{
-    flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none;
-    margin-inline:calc(-1 * var(--gutter)); padding-inline:var(--gutter);
-  }
-  #sev-chips::-webkit-scrollbar, #cat-chips::-webkit-scrollbar{display:none}
   nav .links{-webkit-mask-image:linear-gradient(to right, #000 85%, transparent); mask-image:linear-gradient(to right, #000 85%, transparent); padding-right:1.5rem}
 }
 @media (max-width:560px){

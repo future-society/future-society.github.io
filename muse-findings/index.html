@@ -110,7 +110,7 @@
       <div class="ctl-row" id="cat-chips"></div>
       <div class="ctl-row">
         <input id="search" type="search" placeholder="Search findings…" autocomplete="off">
-        <button class="chip" id="pubs-only">Connected to our research <span class="n" id="pubs-count"></span></button>
+        <button class="chip" id="pubs-only"><span aria-hidden="true">📄</span>Connected to our research <span class="n" id="pubs-count"></span></button>
         <button id="clearfilters">Clear filters</button>
         <span id="resultcount"></span>
       </div>
@@ -359,7 +359,7 @@
     var tags = f.categories.map(function(c){return '<span class="tag">'+esc(data.categories[c])+'</span>';}).join("");
     var pubtags = (f.pubs||[]).map(function(p){
       var pub = data.pubs[p]; if (!pub) return "";
-      return '<span class="tag pub" data-pub="'+esc(p)+'">'+esc(pub.title.length>42?pub.title.slice(0,42)+"…":pub.title)+'</span>';
+      return '<span class="pub-link" data-pub="'+esc(p)+'" title="'+esc(pub.title)+'"><span aria-hidden="true">📄</span><span>'+esc(pub.title)+'</span></span>';
     }).join("");
     var evHtml = f.evidence.map(function(ev,idx){ return evidenceHtml(f, ev, idx); }).join("");
     return (
@@ -369,7 +369,8 @@
           '<span class="f-sev sev-'+f.severity+'" title="'+esc(data.severity_label[f.severity])+' severity"></span>'+
           '<span class="f-main">'+
             '<span class="f-title">'+rich(f.title)+'</span>'+
-            '<span class="f-tags">'+tags+pubtags+'</span>'+
+            '<span class="f-tags">'+tags+'</span>'+
+            (pubtags ? '<span class="f-pubs">'+pubtags+'</span>' : '')+
           '</span>'+
           '<span class="f-toggle">+</span>'+
         '</button>'+
@@ -414,7 +415,7 @@
         } else { fallbackCopy(text); done(); }
       });
     });
-    Array.prototype.forEach.call(host.querySelectorAll(".tag.pub"), function(t){
+    Array.prototype.forEach.call(host.querySelectorAll(".pub-link"), function(t){
       t.addEventListener("click", function(e){
         e.stopPropagation();
         var p = t.getAttribute("data-pub");
