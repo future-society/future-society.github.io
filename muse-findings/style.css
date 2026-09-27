@@ -134,8 +134,6 @@ ul.footlinks{list-style:none; margin-top:.9rem; display:flex; flex-direction:col
 ul.footlinks li{color:var(--body); font-weight:300; line-height:1.7}
 /* source-type pills in the Method list, a bit larger than in the evidence headers */
 #methodology .ev-badge{font-size:.7rem; padding:.15rem .5rem}
-.inline-link{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent)}
-.inline-link:hover{opacity:.7}
 ul.footlinks a{font-size:.85rem; text-decoration:none; border-bottom:1px solid var(--accent); color:var(--accent)}
 ul.footlinks a:hover{opacity:.7}
 
@@ -253,10 +251,6 @@ ul.footlinks a:hover{opacity:.7}
 .src-list a:hover{color:var(--accent); border-color:var(--accent)}
 footer{padding-block:3rem; font-size:.78rem; color:var(--mid)}
 footer .wrap{display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; align-items:center}
-.fuso-row{flex-basis:100%}
-.fuso-link{display:inline-flex; align-items:center; gap:.6rem; font-size:.85rem; font-weight:700; color:var(--ink); text-decoration:none}
-.fuso-link img{display:block; width:28px; height:28px}
-.fuso-link:hover{color:var(--accent)}
 
 #empty{display:none; padding:3rem 0; text-align:center; color:var(--mid)}
 
