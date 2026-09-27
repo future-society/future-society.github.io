@@ -75,7 +75,8 @@
 
 <section id="context">
   <div class="wrap col">
-    <div class="label">What Muse is supposed to be</div>
+    <div class="label">Context</div>
+    <h2>What Meta promised, and what surfaced</h2>
     <p>Meta launched Muse on 8 September 2026 as a personal AI agent: each user gets a dedicated cloud computer, the <em>Muse Secure VM</em>, where the agent can read email, manage a calendar, use connected apps, and make purchases. Meta's own materials describe it running in a container "so no one else's agent can reach it," gated by a separate <em>Sentinel</em> process that approves anything reaching the network, and promise that conversations and VM data are not shared with Meta's ad systems.</p>
     <p style="margin-top:1rem">Within five days of launch, three separate problems surfaced. A bug‑bounty researcher reported a flaw Meta initially rated SEV‑2 (its third‑highest severity) that could expose a user's VM to an attacker. Security researcher Patrick Wardle disclosed an unpatched macOS zero‑day in the desktop client. And on 24 September, developers Peter James and Jonny L. Saunders found that, with what Saunders called "extremely easy" prompting, Muse could be talked into zipping up and handing over its own root filesystem — the same export this report is built from. Meta called this "intended behavior," not a breach, since each VM is isolated to its own user.</p>
     <ul class="footlinks" id="context-sources"></ul>
@@ -84,7 +85,8 @@
 
 <section id="methodology">
   <div class="wrap col">
-    <div class="label">How this was checked</div>
+    <div class="label">Method</div>
+    <h2>Every quote checked against its file</h2>
     <p>Every quotation below was verified by a script against the exact file and line range cited, after the ordinary variation from wrapped text and quotation‑mark style is normalised away — the build fails and refuses to publish if a single quote doesn't match. Three kinds of source appear:</p>
     <ul class="footlinks" style="margin-top:.9rem; gap:.7rem">
       <li><span class="ev-badge">file</span> &nbsp;a document shipped in the virtual machine, cited by path and line range.</li>
@@ -123,7 +125,7 @@
 
 <section id="publications">
   <div class="wrap">
-    <div class="label">Publications this connects to</div>
+    <div class="label">Publications</div>
     <h2>Where these findings meet the research</h2>
     <p class="muted" style="max-width:680px; margin-bottom:1.6rem">Findings above that relate to a specific paper carry a linked tag. This section lists every paper referenced and how many findings cite it — click a card to filter the list above.</p>
     <div class="authors" id="authors"></div>
@@ -133,7 +135,7 @@
 
 <section id="sources">
   <div class="wrap col">
-    <div class="label">External reporting</div>
+    <div class="label">Sources</div>
     <h2>Public sources used for context</h2>
     <p class="muted">Used only for the launch‑promise and incident‑timeline framing above; every finding itself is sourced to the VM files, not to these articles.</p>
     <div class="src-list" id="sourcelist"></div>
