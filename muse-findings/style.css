@@ -6,7 +6,7 @@
   --accent:#00802f; --accent-ink:#ffffff;
   --sev-high:#b3261e; --sev-medium:#a66a00; --sev-low:#5b6472;
   --sev-high-bg:#fbe9e7; --sev-medium-bg:#faf0dc; --sev-low-bg:#eceff1;
-  --code-bg:#f0f0ee;
+  --code-bg:#f0f0ee; --body:#333333;
   --font: 'Inter', system-ui, -apple-system, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --max: 1120px;
@@ -20,7 +20,7 @@
     --accent:#33a35c; --accent-ink:#08150c;
     --sev-high:#ff6b5c; --sev-medium:#ffbf5c; --sev-low:#9fb0bd;
     --sev-high-bg:#301613; --sev-medium-bg:#2e2410; --sev-low-bg:#1c2226;
-    --code-bg:#1c1c1a;
+    --code-bg:#1c1c1a; --body:#cfcfcf;
     color-scheme: dark;
   }
 }
@@ -30,7 +30,7 @@
   --accent:#33a35c; --accent-ink:#08150c;
   --sev-high:#ff6b5c; --sev-medium:#ffbf5c; --sev-low:#9fb0bd;
   --sev-high-bg:#301613; --sev-medium-bg:#2e2410; --sev-low-bg:#1c2226;
-  --code-bg:#1c1c1a;
+  --code-bg:#1c1c1a; --body:#cfcfcf;
   color-scheme: dark;
 }
 
@@ -79,12 +79,14 @@ section{padding-block:6rem; margin-inline:calc(-1 * var(--gutter)); padding-inli
 section:nth-of-type(odd){background:var(--paper-alt)}
 section:nth-of-type(even){background:var(--paper)}
 @media (max-width:600px){ section{padding-block:4rem} :root{--gutter:1.25rem} }
-h1,h2,h3{letter-spacing:-.02em; text-wrap:balance}
-h1{font-size:clamp(2.4rem,6vw,4.4rem); font-weight:900; line-height:1.02; margin-bottom:1.1rem}
-h2{font-size:clamp(1.6rem,3.4vw,2.3rem); font-weight:800; margin-bottom:1.4rem}
-h3{font-size:1.05rem; font-weight:700}
-p{color:var(--ink); font-weight:400}
-.lede{font-size:1.2rem; font-weight:300; line-height:1.55; color:var(--ink); max-width:640px}
+/* type scale from futuresociety.ch (assets/style.css) */
+h1,h2,h3{text-wrap:balance; overflow-wrap:break-word}
+h1{font-size:clamp(3rem,6.5vw,5.25rem); font-weight:900; line-height:1; letter-spacing:-.03em; margin-bottom:1rem}
+/* FuSo declares 800 but only loads 900, so its h2 renders at 900 */
+h2{font-size:clamp(2rem,4vw,3.5rem); font-weight:900; line-height:1.05; letter-spacing:-.02em; margin-bottom:1.4rem}
+h3{font-size:1.1rem; font-weight:700; letter-spacing:-.01em}
+p{color:var(--body); font-weight:300; line-height:1.7}
+.lede{font-size:1.3rem; font-weight:300; line-height:1.5; color:var(--body); max-width:640px}
 .muted{color:var(--mid)}
 .small{font-size:.85rem}
 
