@@ -6,9 +6,46 @@
   --gray:    #f4f4f4;
   --mid:     #999999;
   --accent:  #00802F;
+  /* Fixed, never re-themed: the deep green needed so white button/badge text
+     on top of it keeps AA contrast. --accent itself gets lightened for dark
+     mode (readable as text on a dark page), which would fail that same
+     contrast test used as a fill under white text — so anywhere accent is a
+     background colour under white text, use this instead. */
+  --accent-contrast: #00802F;
+  /* Body copy / muted labels / hairline dividers written as literal hex
+     throughout this file rather than var(--black)/var(--mid) — several
+     distinct shades (#333 and #444 for body copy; #555, #666, #777 for
+     muted labels — #999 already matches --mid exactly) collapsed to two
+     roles here, since they were never meant as deliberately distinct tones. */
+  --text-body:  #333333;
+  --text-quiet: #666666;
+  --divider:    #dddddd;
   --font:    'Inter', system-ui, sans-serif;
   --gap: 2rem;
   --max: 1280px;
+}
+
+/* Dark mode: opt-in via the nav toggle (assets/style.css consumers set
+   data-theme="dark" on <html>, persisted in localStorage), never from
+   prefers-color-scheme — light stays the default even on a dark-mode OS.
+   Overriding these five variables re-themes nearly every rule in this file,
+   since almost all of them already read colour through var(--black)/
+   var(--white)/var(--gray)/var(--mid)/var(--accent) rather than literal hex.
+   Values are inverted-but-softened (not pure #000/#fff) and, for --accent,
+   relightened so text/icons/borders drawn in it keep >=4.5:1 (resp. >=3:1)
+   against the new dark backgrounds — the original --accent only clears
+   ~3.7:1 there. The three added here (--text-body/--text-quiet/--divider)
+   back rules that used to hardcode hex instead of a variable; see the
+   comment on their :root declaration above. */
+:root[data-theme="dark"] {
+  --black: #ededed;
+  --white: #121212;
+  --gray:  #1a1a1a;
+  --mid:   #a3a3a3;
+  --accent:#2db45e;
+  --text-body:  #dadada;
+  --text-quiet: #bdbdbd;
+  --divider:    #2e2e2e;
 }
 
 html { scroll-behavior: smooth; }
@@ -121,7 +158,7 @@ nav a:hover { color: var(--accent); }
   gap: 0.5rem;
   margin-left: 1.5rem;
   padding-left: 1.5rem;
-  border-left: 1px solid #ddd;
+  border-left: 1px solid var(--divider);
 }
 .lang-switch a {
   font-size: 0.7rem;
@@ -140,6 +177,29 @@ nav a:hover { color: var(--accent); }
 }
 .nav-social:hover { color: var(--accent); }
 .nav-social svg { display: block; }
+
+/* Light/dark toggle — same treatment as .nav-social so it reads as one more
+   icon control in the bar, not a separate widget. Both icons are always in
+   the DOM; CSS shows the one for the theme a click would switch *to*, driven
+   off the data-theme attribute the toggle's JS sets on <html>. */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1.25rem;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--black);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.theme-toggle:hover { color: var(--accent); }
+.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.theme-toggle svg { display: block; }
+.theme-toggle .icon-sun { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 
 /* Hamburger toggle — hidden on desktop, shown on mobile */
 .nav-toggle {
@@ -215,7 +275,7 @@ h1 {
   font-weight: 300;
   line-height: 1.5;
   max-width: 540px;
-  color: #333;
+  color: var(--text-body);
   /* No gap: .hero-chain follows directly below and should read as the next
      line of the same block, not as a separate paragraph. */
   margin-bottom: 0;
@@ -313,8 +373,8 @@ h1 {
 /* Hover/playing fill the circle instead of recolouring it, so the green stays
    the logo's green in every state. */
 .song-note:hover,
-.song-note:focus-visible { background: var(--accent); color: var(--white); }
-.song-note.playing { background: var(--accent); color: var(--white); }
+.song-note:focus-visible { background: var(--accent-contrast); color: #fff; }
+.song-note.playing { background: var(--accent-contrast); color: #fff; }
 .song-note.playing::after {
   content: '';
   position: absolute;
@@ -342,7 +402,7 @@ h1 {
   gap: 0.1rem;
   padding: 0.3rem;
   background: var(--white);
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--divider);
   border-radius: 999px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
@@ -464,7 +524,7 @@ p {
   font-size: 1rem;
   font-weight: 300;
   line-height: 1.7;
-  color: #333;
+  color: var(--text-body);
 }
 
 /* ─── ABOUT ─── */
@@ -494,7 +554,7 @@ p {
 .concrete-label { grid-column: 1 / 3; }
 .concrete-header { grid-column: 3 / 13; }
 .concrete-header h2 { margin-bottom: 0; }
-.concrete-header p { color: #333; }
+.concrete-header p { color: var(--text-body); }
 
 .projects-container {
   grid-column: 3 / -1;
@@ -503,11 +563,11 @@ p {
 .projects-list {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--divider);
 }
 
 .project-item {
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--divider);
 }
 
 .project-header {
@@ -580,7 +640,7 @@ p {
   padding: 0 0 1.25rem calc(2.25rem + 1rem);
   font-size: 0.9rem;
   line-height: 1.65;
-  color: #444;
+  color: var(--text-body);
   max-width: 720px;
 }
 
@@ -645,7 +705,7 @@ p {
   justify-content: center;
   padding: 0.35rem 0.8rem;
   background: #0a8a3a;
-  color: var(--white);
+  color: #fff;
   font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -745,7 +805,7 @@ p {
   width: 100%;
   background: none;
   border: 0;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--divider);
   font-family: inherit;
   text-align: left;
   cursor: pointer;
@@ -788,7 +848,7 @@ p {
   font-size: 0.85rem;
   line-height: 1.45;
   padding: 0.6rem 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--divider);
 }
 .focus-pub-list li:last-child { border-bottom: 0; }
 /* Paper icon, drawn as a CSS mask so it takes the text colour via
@@ -807,7 +867,7 @@ p {
 .focus-pub-list li a { color: var(--black); text-decoration: none; }
 .focus-pub-list li a::after { content: "\00a0\2197"; /* nbsp: arrow never wraps alone */ color: var(--accent); font-size: 0.8em; }
 .focus-pub-list li a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
-.focus-pub-meta { grid-column: 2; font-size: 0.72rem; line-height: 1.4; color: #777; }
+.focus-pub-meta { grid-column: 2; font-size: 0.72rem; line-height: 1.4; color: var(--text-quiet); }
 
 /* ─── EVENTS ─── */
 .events-label { grid-column: 1 / 3; }
@@ -860,9 +920,9 @@ p {
   align-items: center;
   gap: 0.3rem;
   padding: 0.15rem 0.55rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--divider);
   border-radius: 999px;
-  color: #666;
+  color: var(--text-quiet);
   font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -876,10 +936,10 @@ p {
 /* Upcoming Events: same row layout and date block as the talks box (see
    .talk-item below); host/series goes under the name in grey. */
 .ev-list { gap: 0; }
-.ev-host .event-link { color: inherit; border-bottom-color: #ccc; }
+.ev-host .event-link { color: inherit; border-bottom-color: var(--divider); }
 .ev-host .event-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
 .event-archive .ev-list { margin-top: 0.75rem; }
-.ev-host { font-size: 0.85rem; color: #555; margin-top: 0.2rem; }
+.ev-host { font-size: 0.85rem; color: var(--text-quiet); margin-top: 0.2rem; }
 
 /* FuSo Talks: each talk is a row — date block left, hairline between rows.
    Green is kept for the date only; links inside a talk are quiet (text
@@ -891,7 +951,7 @@ p {
   gap: 1rem;
   align-items: start;
   padding: 1.1rem 0;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid var(--divider);
 }
 .talk-list > .talk-item:first-child,
 .ev-list > .ev-item:first-child { border-top: 0; padding-top: 0; }
@@ -907,10 +967,10 @@ p {
   color: var(--mid);
   margin-bottom: 0.25rem;
 }
-.talk-item .event-speaker { color: #555; }
-.talk-item .event-link { color: inherit; border-bottom-color: #ccc; transition: color 0.15s, border-color 0.15s; }
+.talk-item .event-speaker { color: var(--text-quiet); }
+.talk-item .event-link { color: inherit; border-bottom-color: var(--divider); transition: color 0.15s, border-color 0.15s; }
 .talk-item .event-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
-.talk-item .event-meta-row .meta { color: #999; align-items: flex-start; }
+.talk-item .event-meta-row .meta { color: var(--mid); align-items: flex-start; }
 /* Icon pinned to the first line when a meta item wraps (lunch + register). */
 .talk-item .event-meta-row .event-icon { margin-top: 0.22rem; }
 .talk-item a.meta:hover { color: var(--accent); }
@@ -956,14 +1016,14 @@ a.meta:hover { color: var(--accent); }
 .talk-ics-export {
   display: inline-flex; align-items: center; gap: 0.4rem;
   margin-top: 1.25rem;
-  font-family: inherit; font-size: 0.9rem; color: #666;
+  font-family: inherit; font-size: 0.9rem; color: var(--text-quiet);
   background: none; border: 0; padding: 0;
   cursor: pointer;
 }
 .talk-ics-export:hover { color: var(--accent); }
 
-.event-note { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ddd; }
-.event-note p, .event-contact { font-size: 0.9rem; color: #666; }
+.event-note { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--divider); }
+.event-note p, .event-contact { font-size: 0.9rem; color: var(--text-quiet); }
 .event-contact { margin-top: 1.5rem; }
 .event-link { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); }
 
@@ -983,7 +1043,7 @@ a.meta:hover { color: var(--accent); }
   text-transform: uppercase;
   color: var(--accent);
   padding: 0.85rem 0;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--divider);
 }
 .event-archive > summary::-webkit-details-marker { display: none; }
 .event-archive > summary::before { content: "+"; font-size: 0.95rem; line-height: 1; width: 0.8em; text-align: center; }
@@ -1086,7 +1146,7 @@ a.meta:hover { color: var(--accent); }
   overflow: hidden;
   font-size: 0.7rem;
   font-weight: 300;
-  color: #666;
+  color: var(--text-quiet);
   line-height: 1.5;
 }
 
@@ -1107,7 +1167,7 @@ a.meta:hover { color: var(--accent); }
   text-transform: uppercase;
   color: var(--accent);
   padding: 0.85rem 0;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--divider);
 }
 .team-former > summary::-webkit-details-marker { display: none; }
 .team-former > summary::before { content: "+"; font-size: 0.95rem; line-height: 1; width: 0.8em; text-align: center; }
@@ -1120,7 +1180,7 @@ a.meta:hover { color: var(--accent); }
   align-items: center;
   gap: 0.35rem 1rem;
   padding: 0.5rem 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--divider);
   opacity: 0.65;
   transition: opacity 0.15s;
 }
@@ -1136,8 +1196,8 @@ a.meta:hover { color: var(--accent); }
 .former-name { font-size: 0.85rem; font-weight: 600; }
 .former-name a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--mid); }
 .former-name a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-.former-what { font-size: 0.7rem; font-weight: 300; color: #666; }
-.former-now { font-size: 0.7rem; font-weight: 300; color: #666; }
+.former-what { font-size: 0.7rem; font-weight: 300; color: var(--text-quiet); }
+.former-now { font-size: 0.7rem; font-weight: 300; color: var(--text-quiet); }
 .former-now::before { content: "\2192\00a0"; color: var(--mid); }
 .former-now a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--mid); }
 .former-now a:hover { color: var(--accent); border-bottom-color: var(--accent); }
@@ -1166,8 +1226,9 @@ a.meta:hover { color: var(--accent); }
 }
 
 .learn-more-btn:hover {
-  background: var(--accent);
-  color: var(--white);
+  background: var(--accent-contrast);
+  border-color: var(--accent-contrast);
+  color: #fff;
 }
 
 /* ─── PARTICIPATE PATHWAYS ─── */
@@ -1189,9 +1250,9 @@ a.meta:hover { color: var(--accent); }
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #666;
+  color: var(--text-quiet);
   background: transparent;
-  border: 1px solid #ddd;
+  border: 1px solid var(--divider);
   border-radius: 999px;
   padding: 0.45rem 0.9rem;
   cursor: pointer;
@@ -1204,9 +1265,9 @@ a.meta:hover { color: var(--accent); }
 }
 
 .way-filter.is-active {
-  color: var(--white);
-  background: var(--accent);
-  border-color: var(--accent);
+  color: #fff;
+  background: var(--accent-contrast);
+  border-color: var(--accent-contrast);
 }
 
 .way-filter:focus-visible {
@@ -1218,11 +1279,11 @@ a.meta:hover { color: var(--accent); }
 .participate-ways {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--divider);
 }
 
 .way-item {
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--divider);
 }
 
 .way-header {
@@ -1315,7 +1376,7 @@ a.meta:hover { color: var(--accent); }
   padding: 0 0 1.25rem calc(2.25rem + 1rem);
   font-size: 0.9rem;
   line-height: 1.65;
-  color: #444;
+  color: var(--text-body);
   max-width: 720px;
 }
 
@@ -1650,3 +1711,24 @@ footer .container {
 @media (max-width: 540px) {
   .team-bricks { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ─── DARK MODE: remaining fixed rules ───
+   The literal (non-var) body-copy/muted-text/divider colours elsewhere in
+   this file were converted in place to var(--text-body)/var(--text-quiet)/
+   var(--divider)/var(--mid) instead of being overridden from here — those
+   selectors have :hover/.is-active siblings of equal CSS specificity
+   (e.g. .way-filter, .ev-host .event-link), and a same-specificity override
+   rule placed after them in the cascade would have permanently beaten the
+   hover state rather than losing to it on hover as intended. What's left
+   here is genuinely new dark-only styling with no such conflict. */
+/* The circuit line under section headings is a background-image (CSS
+   gradient + circuit-ring-black.svg), not a var(--black) text/border colour,
+   so it can't pick up the variable override above — flip it with a filter
+   instead. .section-label has no other visible content (its text is
+   color:transparent), so inverting the whole element is safe. */
+[data-theme="dark"] .section-label { filter: invert(1); }
+
+/* Song-menu popover: give it real depth against a dark page now that its
+   border has faded to a hairline, instead of a shadow that would read as
+   pure black-on-black. */
+[data-theme="dark"] .song-menu { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6); }
