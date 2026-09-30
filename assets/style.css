@@ -1110,6 +1110,9 @@ a.meta:hover { color: var(--accent); }
 .event-note p, .event-contact { font-size: 0.9rem; color: var(--text-quiet); }
 .event-contact { margin-top: 1.5rem; }
 .event-link { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); }
+/* Trailing arrow inside a text link; the &nbsp; before it keeps it from
+   wrapping onto a line of its own. */
+.event-link .link-arrow { font-size: 0.8em; }
 
 /* Collapsible past-events archive: closed by default so it doesn't disturb
    the upcoming-events flow; expands to reveal past events in the same style,
