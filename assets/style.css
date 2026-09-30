@@ -1502,19 +1502,26 @@ details[open] > summary .summary-open { display: inline; }
 .contact-head { grid-column: 3 / 9; }
 .contact-body { grid-column: 3 / 9; }
 .contact-social {
+  grid-column: 9 / -1;
+  align-self: end;
   display: flex;
-  gap: 0.9rem;
-  margin-top: 1rem;
+  flex-direction: column;
+  gap: 0;
+  padding-left: 1.25rem;
+  border-left: 1px solid var(--divider);
 }
 .contact-social a {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  color: var(--black);
+  gap: 0.6rem;
+  color: var(--text-body);
+  font-weight: 300;
+  line-height: 1.7;
+  text-decoration: none;
   transition: color 0.15s;
 }
 .contact-social a:hover { color: var(--accent); }
-.contact-social .ph-bold { display: block; font-size: 24px; }
+.contact-social .ph-bold { display: block; font-size: 18px; }
 
 /* ─── FUNDERS ─── */
 #funders .section-label { color: var(--mid); border-color: var(--black); }
@@ -1790,7 +1797,7 @@ footer .container {
   .concrete-header, .projects-container,
   .team-intro, .team-bricks-wrap,
   .funders-intro, .funders-wrap,
-  .contact-head, .contact-body,
+  .contact-head, .contact-body, .contact-social,
   .events-header, .events-body,
   .participate-head, .participate-body,
   .intro-standalone .about-intro { grid-column: 1 / -1; }
