@@ -863,8 +863,9 @@ p {
 }
 
 .focus-card {
+  --card-pad: 2rem;
   background: var(--white);
-  padding: 2rem;
+  padding: var(--card-pad);
   /* Subgrid over the 4 children (num, h3, p, details) so the "More" toggles
      line up across a row and open downward, while cards still share height. */
   display: grid;
@@ -923,6 +924,20 @@ p {
 }
 .focus-publications.open .focus-pub-body { grid-template-rows: 1fr; opacity: 1; }
 .focus-pub-inner { overflow: hidden; }
+/* Same as the team bricks: the opened list sits on a grey panel that runs
+   to the card's edges (negative margins cancel the card padding); the
+   "More" row itself stays on white, with no divider. */
+.focus-card .focus-publications {
+  margin: 1rem calc(-1 * var(--card-pad)) calc(-1 * var(--card-pad));
+  padding: 0 var(--card-pad);
+}
+.focus-card .focus-pub-body {
+  margin: 0 calc(-1 * var(--card-pad));
+  padding: 0 var(--card-pad);
+  background: var(--gray);
+}
+.focus-card .focus-pub-toggle { border-top: 0; }
+.focus-card .focus-pub-list { padding: 0.25rem 0 0.5rem; }
 .focus-pub-list { list-style: none; margin: 0.5rem 0 0; padding: 0; }
 .focus-pub-list li {
   display: grid;
@@ -1227,6 +1242,7 @@ details[open] > summary .summary-open { display: inline; }
   vertical-align: 0.05em;
   margin-left: 0.2rem;
   color: var(--mid);
+  text-decoration: none;
   transition: color 0.15s;
 }
 .brick-link:hover { color: var(--accent); }
@@ -1234,19 +1250,23 @@ details[open] > summary .summary-open { display: inline; }
 /* No divider above the toggle here: in the narrow, photo-led bricks the rule
    reads as a stray line rather than closing off a block of text. */
 .team-brick--bio .focus-pub-toggle { border-top: 0; }
-/* "Learn More" and the bio sit on a grey footer that runs to the brick's
-   edges (negative margins cancel the brick padding), in place of the hover
-   highlight the supporting-network bricks use. */
+/* The opened bio sits on a grey panel that runs to the brick's edges
+   (negative margins cancel the brick padding); the "Learn More" row itself
+   stays on white. */
 .team-brick--bio .focus-publications {
   margin: 1rem calc(-1 * var(--brick-pad-x)) calc(-1 * var(--brick-pad-y));
+  padding: 0 var(--brick-pad-x);
+}
+.team-brick--bio .focus-pub-body {
+  margin: 0 calc(-1 * var(--brick-pad-x));
   padding: 0 var(--brick-pad-x);
   background: var(--gray);
 }
 .brick-bio-text {
-  margin-top: 0.25rem;
+  margin-top: 0.75rem;
   padding-bottom: 1rem;
-  font-size: 0.7rem;
-  font-weight: 300;
+  font-size: 0.8rem;
+  font-weight: 400;
   color: var(--text-quiet);
   line-height: 1.5;
 }
@@ -1807,7 +1827,7 @@ footer .container {
 
   .about-fullstack { margin-top: 2rem; padding-top: 2rem; }
 
-  .focus-card { padding: 1.5rem; }
+  .focus-card { --card-pad: 1.5rem; }
 
   .team-brick { --brick-pad-y: 1.25rem; --brick-pad-x: 1rem; }
   .brick-avatar { width: 90px; height: 90px; }
