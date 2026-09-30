@@ -1027,6 +1027,7 @@ p {
 }
 
 .event-speaker, .event-coop { font-size: 0.85rem; color: var(--mid); margin-top: 0.2rem; }
+.event-sponsor-logo { height: 14px; width: auto; vertical-align: -2px; margin-right: 0.3rem; }
 
 /* Upcoming Events: same row layout and date block as the talks box (see
    .talk-item below); host/series goes under the name in grey. */
