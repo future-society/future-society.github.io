@@ -9,19 +9,20 @@ const TEAM_ROLES = {
 
 const TEAM_UI = {
   learnMore: { en: 'Learn More',     de: 'Mehr erfahren',    fr: 'En savoir plus' },
-  showLess:  { en: 'Show Less',      de: 'Weniger anzeigen', fr: 'Réduire' },
   former:    { en: 'Former Members', de: 'Ehemalige',        fr: 'Anciens membres' },
 };
 
 // To add a team member: add one entry here. It appears in all three languages automatically.
 // - role: key from TEAM_ROLES above (label shown in English across all languages)
 // - detail: string shown below the name (kept English across all languages), or { en, de, fr } to translate it
+// - affiliation (optional): institute/organisation, shown on its own line below detail; string or { en, de, fr }
 // - bio: { en, de, fr } — write all three, or just 'en' and the others fall back to English
 const teamMembers = [
   {
     name: 'Simon Mayer',
     photo: 'https://storage.inrupt.com/f531f8ef-cd9d-474a-9fa6-70026b37c847/public/publicPortrait-square.jpg',
-    detail: 'Prof. Dr., Institute of Computer Science',
+    detail: 'Prof. Dr.',
+    affiliation: 'Institute of Computer Science',
     role: 'co-director-m',
     bio: {
       en: 'I lead the Interactions Research Group at ICS-HSG, investigating technology-mediated interactions in complex socio-technical systems. My work spans the Web of Things, autonomous multi-agent systems, human-robot interaction, and pervasive computing.',
@@ -32,7 +33,8 @@ const teamMembers = [
   {
     name: 'Aurelia Tamò-Larrieux',
     photo: 'https://www.sectorplandls.nl/wordpress/wp-content/uploads/elementor/thumbs/at-scaled-e1667747586811-pxbhxlwz04n8sysm54fadyobe105o6hzjq0aotqw8o.jpg',
-    detail: 'Prof. Dr., Institute for Law and Economics',
+    detail: 'Prof. Dr.',
+    affiliation: 'Institute for Law and Economics',
     role: 'co-director-f',
     bio: {
       en: 'I lead the Chair for Law &amp; Technology and the Legal Design &amp; Code Lab, specializing in privacy-by-design, AI transparency, computational law, and the governance of automated decision-making.',
@@ -47,8 +49,8 @@ const teamMembers = [
     detail: 'PhD candidate',
     role: 'hub-leader',
     bio: {
-      en: 'I am a PhD student at the University of St.Gallen studying how ubiquitous personalization systems can make interactions with our environment more efficient, safer, and more inclusive. My dissertation focuses on Personalized Reality — exploring how customized digital experiences can enhance individual interactions while preventing social fragmentation in a Personalized Society.',
-      de: 'Ich erforsche, wie Personalisierungstechnologien unseren Alltag prägen — und wie wir sie so gestalten können, dass sie Menschen verbinden statt trennen.',
+      en: 'I am a PhD student at the University of St.Gallen studying how ubiquitous personalization systems can make interactions with our environment more efficient, safer, and more inclusive. My dissertation focuses on Personalized Reality — exploring how personalized digital experiences can enhance individual interactions while preventing social fragmentation in a Personalized Society.',
+      de: 'Ich erforsche, wie Personalisierungstechnologien unseren Alltag prägen und wie wir sie so gestalten können, dass sie Menschen verbinden statt trennen.',
       fr: 'J\'étudie comment les systèmes de personnalisation façonnent notre quotidien — et comment les concevoir pour qu\'ils rapprochent les gens plutôt que de les isoler.',
     }
   },
@@ -90,7 +92,8 @@ const teamMembers = [
     name: 'Giovanni De Toni',
     link: 'https://detoni.me/',
     photo: 'assets/images/GD.jpg',
-    detail: 'Postdoctoral Researcher, ETH AI Center',
+    detail: 'Postdoctoral Researcher',
+    affiliation: 'ETH AI Center',
     role: 'researcher',
     bio: {
       en: 'I study the algorithmic challenges of keeping AI systems under meaningful human oversight and understanding their effects once deployed in society — spanning algorithmic recourse, fairness, human-AI complementarity, and risk-controlling machine learning. I earned my PhD at the University of Trento as part of the ELLIS network, with research at the Max Planck Institute for Software Systems, and received a Best Full Paper Award at ACM RecSys 2025.',
@@ -175,7 +178,9 @@ function renderTeam(lang) {
   wrap.innerHTML = teamMembers.map(m => {
     const role   = TEAM_ROLES[m.role] || m.role;
     const bio    = (m.bio || {})[lang] || (m.bio || {}).en || '';
-    const detail = typeof m.detail === 'object' ? (m.detail[lang] || m.detail.en || '') : (m.detail || '');
+    const pick   = v => (typeof v === 'object' && v !== null) ? (v[lang] || v.en || '') : (v || '');
+    const detail      = pick(m.detail);
+    const affiliation = pick(m.affiliation);
     const nameHtml   = m.link
       ? `<a href="${m.link}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">${m.name}</a>`
       : m.name;
@@ -184,15 +189,20 @@ function renderTeam(lang) {
     const photoHtml  = m.photo
       ? `<img class="brick-avatar" loading="lazy" src="${m.photo}" alt="${m.name}">`
       : `<div class="brick-avatar brick-avatar--placeholder" aria-hidden="true">${initials.toUpperCase()}</div>`;
-    const detailHtml = detail   ? `<p class="brick-detail">${detail}</p>` : '';
     const learnMore  = TEAM_UI.learnMore[lang] || TEAM_UI.learnMore.en;
-    return `<div class="team-brick">
+    // Always six children (detail/affiliation may be empty) so every brick
+    // fills the same subgrid rows, and the bio toggle reuses the Focus Areas
+    // toggle markup and toggleFocusPubs() so both behave identically.
+    return `<div class="team-brick team-brick--bio">
       ${photoHtml}
       <p class="brick-role">${role}</p>
       <p class="brick-name">${nameHtml}</p>
-      ${detailHtml}
-      <button class="learn-more-btn" data-lang="${lang}" onclick="toggleBio(this)">${learnMore}</button>
-      <div class="brick-bio"><div class="brick-bio-inner">${bio}</div></div>
+      <p class="brick-detail">${detail}</p>
+      <p class="brick-affiliation">${affiliation}</p>
+      <div class="focus-publications">
+        <button type="button" class="focus-pub-toggle" aria-expanded="false" onclick="toggleFocusPubs(this)">${learnMore}</button>
+        <div class="focus-pub-body"><div class="focus-pub-inner"><p class="brick-bio-text">${bio}</p></div></div>
+      </div>
     </div>`;
   }).join('');
 
@@ -229,12 +239,4 @@ function renderFormerTeam(lang) {
     <summary>${TEAM_UI.former[lang] || TEAM_UI.former.en}</summary>
     <ul class="former-list">${items}</ul>
   </details>`;
-}
-
-function toggleBio(btn) {
-  const lang  = btn.dataset.lang || 'en';
-  const bio   = btn.nextElementSibling;
-  const isOpen = bio.classList.contains('open');
-  bio.classList.toggle('open', !isOpen);
-  btn.textContent = isOpen ? TEAM_UI.learnMore[lang] : TEAM_UI.showLess[lang];
 }

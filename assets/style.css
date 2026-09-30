@@ -1166,14 +1166,16 @@ a.meta:hover { color: var(--accent); }
 }
 
 .team-brick {
+  --brick-pad-y: 1.5rem;
+  --brick-pad-x: 1.25rem;
   background: var(--white);
-  padding: 1.5rem 1.25rem;
+  padding: var(--brick-pad-y) var(--brick-pad-x);
   box-shadow: 0 0 0 1px var(--black);
   transition: background 0.15s;
   display: flex;
   flex-direction: column;
 }
-.team-brick:not(:has(.brick-avatar--placeholder)):hover { background: var(--gray); }
+.team-brick:not(.team-brick--bio):not(:has(.brick-avatar--placeholder)):hover { background: var(--gray); }
 
 .brick-role {
   font-size: 0.58rem;
@@ -1220,23 +1222,41 @@ a.meta:hover { color: var(--accent); }
   letter-spacing: 0.05em;
 }
 
-/* Smooth reveal: animate the grid track from 0fr to 1fr so it eases to the
-   bio's natural height without a hard-coded max-height. The inner wrapper
-   clips the text while the row collapses. */
-.brick-bio {
+/* Core-team bricks (rendered by renderTeam) follow the Focus Areas cards:
+   a subgrid over the six children (avatar, role, name, detail, affiliation,
+   "Learn More") keeps
+   every text line top-aligned and the toggles level across a row, and an
+   open bio grows its own brick downward. The toggle itself is the shared
+   .focus-publications / .focus-pub-toggle markup. */
+.team-brick--bio {
   display: grid;
-  grid-template-rows: 0fr;
-  margin-top: 0;
-  opacity: 0;
-  transition: grid-template-rows 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+  grid-row: span 6;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+  align-content: start;
 }
-.brick-bio.open {
-  grid-template-rows: 1fr;
-  margin-top: 0.75rem;
-  opacity: 1;
+.team-brick--bio > p:last-of-type { margin-bottom: 0; }
+/* Same type as .brick-detail — it is the second line of the same text. */
+.brick-affiliation {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--mid);
 }
-.brick-bio-inner {
-  overflow: hidden;
+.team-brick--bio .brick-detail:empty { margin-top: 0; }
+/* No divider above the toggle here: in the narrow, photo-led bricks the rule
+   reads as a stray line rather than closing off a block of text. */
+.team-brick--bio .focus-pub-toggle { border-top: 0; }
+/* "Learn More" and the bio sit on a grey footer that runs to the brick's
+   edges (negative margins cancel the brick padding), in place of the hover
+   highlight the supporting-network bricks use. */
+.team-brick--bio .focus-publications {
+  margin: 1rem calc(-1 * var(--brick-pad-x)) calc(-1 * var(--brick-pad-y));
+  padding: 0 var(--brick-pad-x);
+  background: var(--gray);
+}
+.brick-bio-text {
+  margin-top: 0.25rem;
+  padding-bottom: 1rem;
   font-size: 0.7rem;
   font-weight: 300;
   color: var(--text-quiet);
@@ -1295,34 +1315,9 @@ a.meta:hover { color: var(--accent); }
 .former-now a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--mid); }
 .former-now a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
-/* margin-top: auto pins the button to the bottom of the brick so a row of
-   bricks lines up even when one detail line wraps; the last <p> above it
-   (.brick-detail, or .brick-name when there is none) carries the minimum
-   gap, since the button's own padding is its box padding, not a gap. */
+/* Supporting-network bricks end on their last <p>; give it breathing room
+   above the brick's bottom edge. */
 .team-brick > p:last-of-type { margin-bottom: 0.75rem; }
-
-.learn-more-btn {
-  display: inline-block;
-  align-self: flex-start;
-  margin-top: auto;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  background: none;
-  border: 1px solid var(--accent);
-  padding: 0.4rem 0.8rem;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-  font-family: var(--font);
-}
-
-.learn-more-btn:hover {
-  background: var(--accent-contrast);
-  border-color: var(--accent-contrast);
-  color: #fff;
-}
 
 /* ─── PARTICIPATE PATHWAYS ─── */
 .participate-intro { margin-bottom: 1.25rem; }
@@ -1828,7 +1823,7 @@ footer .container {
 
   .focus-card { padding: 1.5rem; }
 
-  .team-brick { padding: 1.25rem 1rem; }
+  .team-brick { --brick-pad-y: 1.25rem; --brick-pad-x: 1rem; }
   .brick-avatar { width: 90px; height: 90px; }
 
   /* Project rows: tighten the number gutter */
