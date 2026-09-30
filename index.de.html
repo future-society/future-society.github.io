@@ -2,10 +2,10 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <!-- Applies a saved dark-mode choice before first paint, so the page never
-       flashes light-then-dark. Light stays the default: this only ever sets
-       the attribute, never reads prefers-color-scheme. -->
-  <script>(function(){try{if(localStorage.getItem('fuso-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+  <!-- Applies the dark-mode choice before first paint, so the page never
+       flashes light-then-dark: an explicit saved choice wins, otherwise
+       falls back to the browser's prefers-color-scheme. -->
+  <script>(function(){try{var t=localStorage.getItem('fuso-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FuSo | Future Society Hub | Universität St.Gallen</title>
   <meta name="description" content="FuSo ist der interdisziplinäre Forschungshub der Universität St.Gallen, der Informatik und Recht verbindet. Wir bieten Full-Stack-Expertise zu KI-Governance, Computational Law, digitaler Infrastruktur, Datenschutz und systemischen Risiken, von der wissenschaftlichen Erkenntnis bis zur Umsetzung in der Praxis.">
@@ -231,25 +231,6 @@
             <p class="event-box-heading">Kommende Veranstaltungen</p>
             <div class="event-list ev-list">
               <div class="event-item ev-item">
-                <p class="talk-date"><span class="talk-day">28</span><span class="talk-month">Sep</span><span class="talk-year">2026</span></p>
-                <div class="talk-body">
-                  <p class="event-name">Joint Research Meeting on Computing for Reality Mediation</p>
-                  <p class="ev-host">mit Forschenden der Nagoya University (<a href="https://internet-of-realities.org/" class="event-link" target="_blank" rel="noopener">Internet of Realities</a>)</p>
-                  <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-pin"></span>St.Gallen</span>
-                  </div>
-                </div>
-              </div>
-              <div class="event-item ev-item">
-                <p class="talk-date"><span class="talk-day">29</span><span class="talk-month">Sep</span><span class="talk-year">2026</span></p>
-                <div class="talk-body">
-                  <p class="event-name">FuSo Retreat</p>
-                  <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-pin"></span>St.Gallen</span>
-                  </div>
-                </div>
-              </div>
-              <div class="event-item ev-item">
                 <p class="talk-date"><span class="talk-day">1</span><span class="talk-month">Okt</span><span class="talk-year">2026</span></p>
                 <div class="talk-body">
                   <p class="event-name">AI+Social Media Track</p>
@@ -336,6 +317,25 @@
             <details class="event-archive">
               <summary>Vergangene Veranstaltungen</summary>
               <div class="event-list ev-list">
+                <div class="event-item ev-item">
+                  <p class="talk-date"><span class="talk-day">29</span><span class="talk-month">Sep</span><span class="talk-year">2026</span></p>
+                  <div class="talk-body">
+                    <p class="event-name">FuSo Retreat</p>
+                    <div class="event-meta-row">
+                      <span class="meta"><span class="event-icon icon-pin"></span>St.Gallen</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="event-item ev-item">
+                  <p class="talk-date"><span class="talk-day">28</span><span class="talk-month">Sep</span><span class="talk-year">2026</span></p>
+                  <div class="talk-body">
+                    <p class="event-name">Joint Research Meeting on Computing for Reality Mediation</p>
+                    <p class="ev-host">mit Forschenden der Nagoya University (<a href="https://internet-of-realities.org/" class="event-link" target="_blank" rel="noopener">Internet of Realities</a>)</p>
+                    <div class="event-meta-row">
+                      <span class="meta"><span class="event-icon icon-pin"></span>St.Gallen</span>
+                    </div>
+                  </div>
+                </div>
                 <div class="event-item ev-item">
                   <p class="talk-date"><span class="talk-day">6–7</span><span class="talk-month">Jul</span><span class="talk-year">2026</span></p>
                   <div class="talk-body">
@@ -959,15 +959,18 @@
     applyAudienceHash(location.hash);
   })();
 
-  // Light/dark toggle. Light is the default; a saved choice is applied
-  // before paint by the inline <script> at the top of <head> (which this
-  // reads back rather than duplicating), and clicks persist to localStorage
-  // so the preference follows the visitor across EN/DE/FR and repeat visits.
+  // Light/dark toggle. Defaults to the browser's prefers-color-scheme; a
+  // saved explicit choice (from a toggle click) overrides that. The initial
+  // theme is applied before paint by the inline <script> at the top of
+  // <head> (which this reads back rather than duplicating), and clicks
+  // persist to localStorage so the override follows the visitor across
+  // EN/DE/FR and repeat visits.
   (function () {
     const STORAGE_KEY = 'fuso-theme';
     const toggle = document.getElementById('themeToggle');
     if (!toggle) return;
     const root = document.documentElement;
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
     const LABEL = { light: 'Zum Dunkelmodus wechseln', dark: 'Zum hellen Modus wechseln' };
 
     function apply(theme) {
@@ -983,6 +986,12 @@
       const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       try { localStorage.setItem(STORAGE_KEY, next); } catch (e) {}
       apply(next);
+    });
+
+    media.addEventListener('change', function (e) {
+      let stored = null;
+      try { stored = localStorage.getItem(STORAGE_KEY); } catch (err) {}
+      if (!stored) apply(e.matches ? 'dark' : 'light');
     });
   })();
 
