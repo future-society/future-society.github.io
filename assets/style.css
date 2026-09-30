@@ -126,33 +126,67 @@ nav a {
 
 nav a:hover { color: var(--accent); }
 
-/* Participate submenu — audience shortcuts that jump into the Participate
-   section with that filter already applied (#participate-students, …).
-   Opens on hover and on keyboard focus; on mobile it is inlined under the
-   Participate entry instead (see the <=1100px block). */
+/* Nav submenus — each lists the sections that follow its parent on the page
+   (Team → Supporting Network, Funders), plus Participate's
+   audience shortcuts, which open that section with the filter already applied
+   (#participate-students, …). Opens on hover and on keyboard focus; on mobile
+   it is inlined under its parent entry instead (see the <=1240px block). */
 .nav-has-sub { position: relative; }
 
+/* Chevron after the parent label so it reads as "has more"; it flips while
+   the submenu is open. Drawn from two borders so it follows currentColor. */
+.nav-has-sub > a::after {
+  content: "";
+  display: inline-block;
+  width: 0.35em;
+  height: 0.35em;
+  margin-left: 0.5em;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-0.2em) rotate(45deg);
+  transition: transform 0.25s ease;
+}
+.nav-has-sub:hover > a::after,
+.nav-has-sub:focus-within > a::after { transform: translateY(0.05em) rotate(-135deg); }
+
+/* Panel hangs flush from the bar's bottom edge with the accent line on top,
+   and drops in (fade + short slide). Hidden via visibility rather than
+   display so the transition can run; the delay keeps it hoverable until the
+   fade-out has finished. */
 .nav-sub {
-  display: none;
+  display: flex;
   position: absolute;
   top: 100%;
   left: -1.25rem;
   flex-direction: column;
   min-width: max-content;
-  padding: 0.35rem 0;
+  padding: 0.5rem 0;
   background: var(--white);
-  box-shadow: 0 0 0 1px var(--black);
+  border-top: 2px solid var(--accent);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
 }
 .nav-has-sub:hover > .nav-sub,
-.nav-has-sub:focus-within > .nav-sub { display: flex; }
+.nav-has-sub:focus-within > .nav-sub {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-sub, .nav-has-sub > a::after { transition: none; }
+}
 
 .nav-sub a {
   display: block;
-  padding: 0.55rem 1.25rem;
+  padding: 0.6rem 1.25rem;
   font-size: 0.7rem;
   white-space: nowrap;
 }
-.nav-sub a:hover { background: var(--gray); color: var(--accent); }
+.nav-sub a:hover { color: var(--accent); }
 
 .lang-switch {
   display: flex;
@@ -1668,8 +1702,14 @@ footer .container {
     margin: 0.35rem 0 0;
     padding: 0;
     background: none;
+    border-top: none;
     box-shadow: none;
+    visibility: inherit;
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
+  .nav-has-sub > a::after { display: none; }
   .nav-sub a { padding: 0.35rem 0; font-size: 0.75rem; color: var(--mid); }
   .nav-sub a:hover { background: none; color: var(--accent); }
 
@@ -1820,3 +1860,4 @@ footer .container {
    border has faded to a hairline, instead of a shadow that would read as
    pure black-on-black. */
 [data-theme="dark"] .song-menu { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6); }
+[data-theme="dark"] .nav-sub { box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5); }
