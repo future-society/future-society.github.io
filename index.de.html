@@ -2,6 +2,10 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
+  <!-- Applies the dark-mode choice before first paint, so the page never
+       flashes light-then-dark: an explicit saved choice wins, otherwise
+       falls back to the browser's prefers-color-scheme. -->
+  <script>(function(){try{var t=localStorage.getItem('fuso-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FuSo | Future Society Hub | Universität St.Gallen</title>
   <meta name="description" content="FuSo ist der interdisziplinäre Forschungshub der Universität St.Gallen, der Informatik und Recht verbindet. Wir bieten Full-Stack-Expertise zu KI-Governance, Computational Law, digitaler Infrastruktur, Datenschutz und systemischen Risiken, von der wissenschaftlichen Erkenntnis bis zur Umsetzung in der Praxis.">
@@ -60,6 +64,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/phosphor/style.css">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -76,7 +81,7 @@
       <li><a href="#events">Veranstaltungen</a></li>
       <li><a href="#focus">Schwerpunkte</a></li>
       <li class="nav-has-sub">
-        <a href="#participate">Mitmachen</a>
+        <a href="#participate">Mitmachen<i class="ph-bold ph-caret-down nav-caret" aria-hidden="true"></i></a>
         <ul class="nav-sub" aria-label="Mitmachen nach Zielgruppe">
           <li><a href="#participate-students">F&uuml;r Studierende</a></li>
           <li><a href="#participate-researchers">F&uuml;r Forschende</a></li>
@@ -84,8 +89,25 @@
           <li><a href="#participate-industry">F&uuml;r Wirtschaft &amp; Praxis</a></li>
         </ul>
       </li>
-      <li><a href="#team">Team</a></li>
+      <li class="nav-has-sub">
+        <a href="#team">Team<i class="ph-bold ph-caret-down nav-caret" aria-hidden="true"></i></a>
+        <ul class="nav-sub" aria-label="Team und Unterstützung">
+          <li><a href="#supporting-network">Netzwerk</a></li>
+          <li><a href="#funders">Förderer</a></li>
+        </ul>
+      </li>
       <li><a href="#contact">Kontakt</a></li>
+      <li class="nav-extras">
+        <a class="nav-extras-social" href="https://www.linkedin.com/company/future-society-hub" target="_blank" rel="noopener" aria-label="FuSo auf LinkedIn">
+          <i class="ph-bold ph-linkedin-logo" aria-hidden="true"></i>
+        </a>
+        <a class="nav-extras-social" href="https://mu.social/profile/fuso.eurosky.social" target="_blank" rel="noopener" aria-label="FuSo auf BlueSky">
+          <i class="ph-bold ph-butterfly" aria-hidden="true"></i>
+        </a>
+        <button class="theme-switch" type="button" role="switch" aria-checked="false" aria-label="Dunkelmodus" data-theme-toggle>
+          <span class="theme-switch-track" aria-hidden="true"><span class="theme-switch-thumb"><i class="ph-bold ph-sun icon-sun" aria-hidden="true"></i><i class="ph-bold ph-moon icon-moon" aria-hidden="true"></i></span></span>
+        </button>
+      </li>
     </ul>
     <div class="lang-switch">
       <a href="index.html">EN</a>
@@ -93,8 +115,12 @@
       <a href="index.fr.html">FR</a>
     </div>
     <a class="nav-social" href="https://www.linkedin.com/company/future-society-hub" target="_blank" rel="noopener" aria-label="FuSo auf LinkedIn">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      <i class="ph-bold ph-linkedin-logo" aria-hidden="true"></i>
     </a>
+    <button class="theme-toggle" id="themeToggle" data-theme-toggle type="button" aria-pressed="false" aria-label="Zum Dunkelmodus wechseln">
+      <i class="ph-bold ph-moon icon-moon" aria-hidden="true"></i>
+      <i class="ph-bold ph-sun icon-sun" aria-hidden="true"></i>
+    </button>
     <button class="nav-toggle" id="navToggle" aria-label="Menü umschalten" aria-expanded="false" aria-controls="navMenu">
       <span></span><span></span><span></span>
     </button>
@@ -118,7 +144,7 @@
       <div class="song-egg">
         <button type="button" class="song-note" id="songNote"
                 aria-label="FuSo-Songs" aria-expanded="false" aria-controls="songMenu">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
+          <i class="ph-bold ph-music-note" aria-hidden="true"></i>
         </button>
         <div class="song-menu" id="songMenu" role="group" aria-label="Sprache wählen" hidden>
           <button type="button" data-song="assets/audio/CanYouFuseIt.mp3">EN</button>
@@ -138,6 +164,7 @@
 <div class="intro-standalone">
   <div class="container grid">
     <div class="about-intro">
+      <i class="ph-bold ph-caret-right intro-caret" aria-hidden="true"></i>
       <p>Die Gesellschaft sollte den technologischen Wandel nicht passiv hinnehmen, sondern <span class="accent-text">aktiv mitgestalten</span>. Genau das will der <span class="accent-text">Future Society Hub</span> ermöglichen und fördern. Wir sind ein dynamischer Raum für gemeinsame Problemlösung, in dem Forschende, Organisationen und Bürger:innen Technologie an menschlichen Werten ausrichten. Eine <span class="accent-text">proaktive</span> Haltung, die technologiebedingte gesellschaftliche Veränderungen antizipiert und Technologie aus gesellschaftlicher Perspektive mitgestaltet.</p>
     </div>
   </div>
@@ -163,27 +190,27 @@
       </div>
       <div class="toolbox process-flow">
         <span class="chain-label">Insight</span>
-        <span class="flow-arrow flow-arrow-endpoint" aria-hidden="true">›</span>
+        <span class="flow-arrow flow-arrow-endpoint" aria-hidden="true"><i class="ph-bold ph-caret-right" aria-hidden="true"></i></span>
         <span class="block-group">
           <span class="block-item">Politikanalyse</span>
           <span class="block-item">Risikobewertung</span>
         </span>
-        <span class="flow-arrow" aria-hidden="true">›</span>
+        <span class="flow-arrow" aria-hidden="true"><i class="ph-bold ph-caret-right" aria-hidden="true"></i></span>
         <span class="block-group">
           <span class="block-item">Ko-Kreation</span>
           <span class="block-item">Umsetzung</span>
         </span>
-        <span class="flow-arrow" aria-hidden="true">›</span>
+        <span class="flow-arrow" aria-hidden="true"><i class="ph-bold ph-caret-right" aria-hidden="true"></i></span>
         <span class="block-group">
           <span class="block-item">Folgenabschätzung</span>
           <span class="block-item">Nutzerzentrierte Evaluation</span>
         </span>
-        <span class="flow-arrow" aria-hidden="true">›</span>
+        <span class="flow-arrow" aria-hidden="true"><i class="ph-bold ph-caret-right" aria-hidden="true"></i></span>
         <span class="block-group">
           <span class="block-item">Politikreaktion</span>
           <span class="block-item">Einsatz</span>
         </span>
-        <span class="flow-arrow flow-arrow-endpoint" aria-hidden="true">›</span>
+        <span class="flow-arrow flow-arrow-endpoint" aria-hidden="true"><i class="ph-bold ph-caret-right" aria-hidden="true"></i></span>
         <span class="chain-label">Impact</span>
       </div>
     </div>
@@ -223,32 +250,13 @@
             <p class="event-box-heading">Kommende Veranstaltungen</p>
             <div class="event-list ev-list">
               <div class="event-item ev-item">
-                <p class="talk-date"><span class="talk-day">28</span><span class="talk-month">Sep</span><span class="talk-year">2026</span></p>
-                <div class="talk-body">
-                  <p class="event-name">Joint Research Meeting on Computing for Reality Mediation</p>
-                  <p class="ev-host">mit Forschenden der Nagoya University (<a href="https://internet-of-realities.org/" class="event-link" target="_blank" rel="noopener">Internet of Realities</a>)</p>
-                  <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-pin"></span>St.Gallen</span>
-                  </div>
-                </div>
-              </div>
-              <div class="event-item ev-item">
-                <p class="talk-date"><span class="talk-day">29</span><span class="talk-month">Sep</span><span class="talk-year">2026</span></p>
-                <div class="talk-body">
-                  <p class="event-name">FuSo Retreat</p>
-                  <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-pin"></span>St.Gallen</span>
-                  </div>
-                </div>
-              </div>
-              <div class="event-item ev-item">
                 <p class="talk-date"><span class="talk-day">1</span><span class="talk-month">Okt</span><span class="talk-year">2026</span></p>
                 <div class="talk-body">
                   <p class="event-name">AI+Social Media Track</p>
                   <p class="ev-host">AI+X Summit</p>
                   <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-pin"></span>Zürich</span>
-                    <a class="meta" href="https://www.plusx.ai/" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Website</a>
+                    <span class="meta"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>Zürich</span>
+                    <a class="meta" href="https://www.plusx.ai/" target="_blank" rel="noopener"><i class="ph-bold ph-arrow-up-right event-icon" aria-hidden="true"></i>Website</a>
                   </div>
                 </div>
               </div>
@@ -256,10 +264,10 @@
                 <p class="talk-date"><span class="talk-day">12</span><span class="talk-month">Okt</span><span class="talk-year">2026</span></p>
                 <div class="talk-body">
                   <p class="event-name">International Workshop on Reality Mediation</p>
-                  <p class="ev-host">Im Rahmen der <a href="https://www.ubicomp.org/ubicomp-iswc-2026/" class="event-link" target="_blank" rel="noopener">UbiComp/ISWC 2026</a></p>
+                  <p class="ev-host">Im Rahmen der <a href="https://www.ubicomp.org/ubicomp-iswc-2026/" class="event-link" target="_blank" rel="noopener">UbiComp/ISWC 2026&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a></p>
                   <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-pin"></span>Shanghai</span>
-                    <a class="meta" href="https://reality-mediation.github.io/2026/" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Website</a>
+                    <span class="meta"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>Shanghai</span>
+                    <a class="meta" href="https://reality-mediation.github.io/2026/" target="_blank" rel="noopener"><i class="ph-bold ph-arrow-up-right event-icon" aria-hidden="true"></i>Website</a>
                   </div>
                 </div>
               </div>
@@ -267,10 +275,10 @@
                 <p class="talk-date"><span class="talk-day">27</span><span class="talk-month">Okt</span><span class="talk-year">2026</span></p>
                 <div class="talk-body">
                   <p class="event-name">Closing the Loop: Sustainability in Fashion and Textiles</p>
-                  <p class="ev-host"><a href="https://www.unisg.ch/de/forschung/forschung-im-fokus/circular-lab/" class="event-link" target="_blank" rel="noopener">Circular Lab</a></p>
+                  <p class="ev-host"><a href="https://www.unisg.ch/de/forschung/forschung-im-fokus/circular-lab/" class="event-link" target="_blank" rel="noopener">Circular Lab&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a></p>
                   <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-pin"></span>St.Gallen</span>
-                    <a class="meta" href="https://sustainable-fashion.github.io/" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Website</a>
+                    <span class="meta"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>St.Gallen</span>
+                    <a class="meta" href="https://sustainable-fashion.github.io/" target="_blank" rel="noopener"><i class="ph-bold ph-arrow-up-right event-icon" aria-hidden="true"></i>Website</a>
                   </div>
                 </div>
               </div>
@@ -279,8 +287,8 @@
                 <div class="talk-body">
                   <p class="event-name">Legal Design Workshop</p>
                   <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-pin"></span>St.Gallen</span>
-                    <a class="meta" href="https://www.legaldesignworkshop.org/" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Website</a>
+                    <span class="meta"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>St.Gallen</span>
+                    <a class="meta" href="https://www.legaldesignworkshop.org/" target="_blank" rel="noopener"><i class="ph-bold ph-arrow-up-right event-icon" aria-hidden="true"></i>Website</a>
                   </div>
                 </div>
               </div>
@@ -289,8 +297,8 @@
                 <div class="talk-body">
                   <p class="event-name">Legal Hackathon</p>
                   <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-pin"></span>St.Gallen</span>
-                    <a class="meta" href="https://www.legalhackathons.org/" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Website</a>
+                    <span class="meta"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>St.Gallen</span>
+                    <a class="meta" href="https://www.legalhackathons.org/" target="_blank" rel="noopener"><i class="ph-bold ph-arrow-up-right event-icon" aria-hidden="true"></i>Website</a>
                   </div>
                 </div>
               </div>
@@ -299,7 +307,7 @@
                 <div class="talk-body">
                   <p class="event-name">FuSo Xmas Lunch &amp; Speed Dating</p>
                   <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-pin"></span>St.Gallen</span>
+                    <span class="meta"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>St.Gallen</span>
                   </div>
                 </div>
               </div>
@@ -309,8 +317,8 @@
                   <p class="event-name">Strategic AI Governance Course</p>
                   <p class="ev-host">Weiterbildung</p>
                   <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-pin"></span>Zürich</span>
-                    <a class="meta" href="https://www.linkedin.com/posts/aurelia-tamo-larrieux-81a31130b_aigovernance-artificialintelligence-aistrategy-ugcPost-7490448664948289538-gQmc/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAeXUE0Bb7qjJCynFnck6EN1nLhB67zQuCE" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>More Information + Registration</a>
+                    <span class="meta"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>Zürich</span>
+                    <a class="meta" href="https://www.linkedin.com/posts/aurelia-tamo-larrieux-81a31130b_aigovernance-artificialintelligence-aistrategy-ugcPost-7490448664948289538-gQmc/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAeXUE0Bb7qjJCynFnck6EN1nLhB67zQuCE" target="_blank" rel="noopener"><i class="ph-bold ph-arrow-up-right event-icon" aria-hidden="true"></i>More Information + Registration</a>
                   </div>
                 </div>
               </div>
@@ -319,21 +327,40 @@
                 <div class="talk-body">
                   <p class="event-name">Solid Symposium 2027</p>
                   <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-pin"></span>St.Gallen</span>
-                    <a class="meta" href="https://sosy2027.org" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Website</a>
+                    <span class="meta"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>St.Gallen</span>
+                    <a class="meta" href="https://sosy2027.org" target="_blank" rel="noopener"><i class="ph-bold ph-arrow-up-right event-icon" aria-hidden="true"></i>Website</a>
                   </div>
                 </div>
               </div>
             </div>
             <details class="event-archive">
-              <summary>Vergangene Veranstaltungen</summary>
+              <summary><i class="ph-bold ph-plus summary-closed" aria-hidden="true"></i><i class="ph-bold ph-minus summary-open" aria-hidden="true"></i>Vergangene Veranstaltungen</summary>
               <div class="event-list ev-list">
+                <div class="event-item ev-item">
+                  <p class="talk-date"><span class="talk-day">29</span><span class="talk-month">Sep</span><span class="talk-year">2026</span></p>
+                  <div class="talk-body">
+                    <p class="event-name">FuSo Retreat</p>
+                    <div class="event-meta-row">
+                      <span class="meta"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>St.Gallen</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="event-item ev-item">
+                  <p class="talk-date"><span class="talk-day">28</span><span class="talk-month">Sep</span><span class="talk-year">2026</span></p>
+                  <div class="talk-body">
+                    <p class="event-name">Joint Research Meeting on Computing for Reality Mediation</p>
+                    <p class="ev-host">mit Forschenden der Nagoya University (<a href="https://internet-of-realities.org/" class="event-link" target="_blank" rel="noopener">Internet of Realities&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a>)</p>
+                    <div class="event-meta-row">
+                      <span class="meta"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>St.Gallen</span>
+                    </div>
+                  </div>
+                </div>
                 <div class="event-item ev-item">
                   <p class="talk-date"><span class="talk-day">6–7</span><span class="talk-month">Jul</span><span class="talk-year">2026</span></p>
                   <div class="talk-body">
                     <p class="event-name">Everyday Law Workshop</p>
                     <div class="event-meta-row">
-                      <span class="meta"><span class="event-icon icon-pin"></span>Lausanne</span>
+                      <span class="meta"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>Lausanne</span>
                     </div>
                   </div>
                 </div>
@@ -342,8 +369,8 @@
                   <div class="talk-body">
                     <p class="event-name">KEK Workshop „Meinungsmarkt oder Meinungsmacht?!"</p>
                     <div class="event-meta-row">
-                      <span class="meta"><span class="event-icon icon-pin"></span>Berlin</span>
-                      <a class="meta" href="https://www.kek-online.de/kek-workshop-2026-meinungsmarkt-oder-meinungsmacht/" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Website</a>
+                      <span class="meta"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>Berlin</span>
+                      <a class="meta" href="https://www.kek-online.de/kek-workshop-2026-meinungsmarkt-oder-meinungsmacht/" target="_blank" rel="noopener"><i class="ph-bold ph-arrow-up-right event-icon" aria-hidden="true"></i>Website</a>
                     </div>
                   </div>
                 </div>
@@ -354,28 +381,15 @@
             <p class="event-box-heading">FuSo Vorträge</p>
             <div class="event-list talk-list">
               <div class="event-item talk-item">
-                <p class="talk-date"><span class="talk-day">29</span><span class="talk-month">Sep</span><span class="talk-year">2026</span></p>
-                <div class="talk-body">
-                  <p class="talk-kicker">Featured <a href="https://snsf-cocoda.github.io/" class="event-link" target="_blank" rel="noopener">CoCoDa</a> Talk</p>
-                  <p class="event-name"><span class="talk-title">TBA</span></p>
-                  <p class="event-speaker">Vortragende:r: <a href="https://theodi.org/profile/jake-stein/" class="event-link">Jake Stein</a></p>
-                  <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-clock"></span>12:15–13:15</span>
-                    <a class="meta" href="https://use.mazemap.com/#v=1&config=unisg-profile&campusid=710&zlevel=2&center=9.370831,47.425068&zoom=18&sharepoitype=poi&sharepoi=1000761103&search=C61-110%2C" target="_blank" rel="noopener"><span class="event-icon icon-pin"></span>C61-110, Rosenbergstrasse 30</a>
-                    <span class="meta"><span class="event-icon icon-lunch"></span><span>Sandwiches werden angeboten · <a href="mailto:fuso@unisg.ch" class="event-link">Anmeldung per E-Mail/Slack</a></span></span>
-                  </div>
-                </div>
-              </div>
-              <div class="event-item talk-item">
                 <p class="talk-date"><span class="talk-day">13</span><span class="talk-month">Okt</span><span class="talk-year">2026</span></p>
                 <div class="talk-body">
                   <p class="talk-kicker">Brown Bag Talk</p>
-                  <p class="event-name"><span class="talk-title">TBA</span></p>
-                  <p class="event-speaker">Vortragende:r: <a href="https://www.bruno-br.com/" class="event-link">Bruno Rodrigues</a></p>
+                  <p class="event-name"><span class="talk-title">Wi-Fi Sensing and Privacy: Uses and Misuses of CSI and Beamforming Feedback</span></p>
+                  <p class="event-speaker">Vortragende:r: <a href="https://www.bruno-br.com/" class="event-link" target="_blank" rel="noopener">Bruno Rodrigues&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a></p>
                   <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-clock"></span>12:15–13:15</span>
-                    <a class="meta" href="https://use.mazemap.com/#v=1&config=unisg-profile&campusid=710&zlevel=2&center=9.370831,47.425068&zoom=18&sharepoitype=poi&sharepoi=1000761103&search=C61-110%2C" target="_blank" rel="noopener"><span class="event-icon icon-pin"></span>C61-110, Rosenbergstrasse 30</a>
-                    <span class="meta"><span class="event-icon icon-lunch"></span>Eigenes Mittagessen mitbringen</span>
+                    <span class="meta"><i class="ph-bold ph-clock event-icon" aria-hidden="true"></i>12:15–13:15</span>
+                    <a class="meta" href="https://use.mazemap.com/#v=1&config=unisg-profile&campusid=710&zlevel=2&center=9.370831,47.425068&zoom=18&sharepoitype=poi&sharepoi=1000761103&search=C61-110%2C" target="_blank" rel="noopener"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>C61-110, Rosenbergstrasse 30</a>
+                    <span class="meta"><i class="ph-bold ph-fork-knife event-icon" aria-hidden="true"></i>Eigenes Mittagessen mitbringen</span>
                   </div>
                 </div>
               </div>
@@ -384,38 +398,38 @@
                 <div class="talk-body">
                   <p class="talk-kicker">Brown Bag Talk</p>
                   <p class="event-name"><span class="talk-title">Kids-fluencer</span></p>
-                  <p class="event-speaker">Vortragende:r: <a href="https://faa.unisg.ch/de/lehrstuehle-und-forschung/lehrstuhl-wildhaber/" class="event-link">Isabelle Wildhaber</a></p>
+                  <p class="event-speaker">Vortragende:r: <a href="https://faa.unisg.ch/de/lehrstuehle-und-forschung/lehrstuhl-wildhaber/" class="event-link" target="_blank" rel="noopener">Isabelle Wildhaber&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a></p>
                   <p class="event-coop">In Kooperation mit dem Institute for Law and Economics</p>
                   <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-clock"></span>12:15–13:15</span>
-                    <span class="meta"><span class="event-icon icon-pin"></span>MLE-Haus, Guisanstrasse 36</span>
-                    <span class="meta"><span class="event-icon icon-lunch"></span><span>Gesponsertes Mittagessen · <a href="mailto:fuso@unisg.ch" class="event-link">Anmeldung erforderlich bis 20. Okt. per E-Mail</a></span></span>
+                    <span class="meta"><i class="ph-bold ph-clock event-icon" aria-hidden="true"></i>12:15–13:15</span>
+                    <span class="meta"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>MLE-Haus, Guisanstrasse 36</span>
+                    <span class="meta"><i class="ph-bold ph-fork-knife event-icon" aria-hidden="true"></i><span>Gesponsertes Mittagessen · <a href="mailto:fuso@unisg.ch" class="event-link">Anmeldung erforderlich bis 20. Okt. per E-Mail&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a></span></span>
                   </div>
                 </div>
               </div>
               <div class="event-item talk-item">
                 <p class="talk-date"><span class="talk-day">6</span><span class="talk-month">Nov</span><span class="talk-year">2026</span></p>
                 <div class="talk-body">
-                  <p class="talk-kicker">Featured <a href="https://snsf-cocoda.github.io/" class="event-link" target="_blank" rel="noopener">CoCoDa</a> Talk</p>
+                  <p class="talk-kicker">Featured <a href="https://snsf-cocoda.github.io/" class="event-link" target="_blank" rel="noopener">CoCoDa&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a> Talk</p>
                   <p class="event-name"><span class="talk-title">Open Terms Archive</span></p>
-                  <p class="event-speaker">Vortragende:r: <a href="https://www.linkedin.com/in/mattisg/?locale=en" class="event-link">Matti Schneider</a>, Gründer von <a href="https://opentermsarchive.org/en/" class="event-link" target="_blank" rel="noopener">Open Terms Archive</a> und <a href="https://openfisca.org/en/" class="event-link" target="_blank" rel="noopener">OpenFisca</a></p>
+                  <p class="event-speaker">Vortragende:r: <a href="https://www.linkedin.com/in/mattisg/?locale=en" class="event-link" target="_blank" rel="noopener">Matti Schneider&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a>, Gründer von <a href="https://opentermsarchive.org/en/" class="event-link" target="_blank" rel="noopener">Open Terms Archive&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a> und <a href="https://openfisca.org/en/" class="event-link" target="_blank" rel="noopener">OpenFisca&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a></p>
                   <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-clock"></span>12:15–13:15</span>
-                    <a class="meta" href="https://courses.unisg.ch/room/rooms/409" target="_blank" rel="noopener"><span class="event-icon icon-pin"></span>Tellstrasse 2, 58-022</a>
-                    <span class="meta"><span class="event-icon icon-lunch"></span>Eigenes Mittagessen mitbringen</span>
+                    <span class="meta"><i class="ph-bold ph-clock event-icon" aria-hidden="true"></i>12:15–13:15</span>
+                    <a class="meta" href="https://courses.unisg.ch/room/rooms/409" target="_blank" rel="noopener"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>Tellstrasse 2, 58-022</a>
+                    <span class="meta"><i class="ph-bold ph-fork-knife event-icon" aria-hidden="true"></i>Eigenes Mittagessen mitbringen</span>
                   </div>
                 </div>
               </div>
               <div class="event-item talk-item">
                 <p class="talk-date"><span class="talk-day">10</span><span class="talk-month">Nov</span><span class="talk-year">2026</span></p>
                 <div class="talk-body">
-                  <p class="talk-kicker">Featured <a href="https://arcl.unil.ch/" class="event-link" target="_blank" rel="noopener">ARCL</a> Talk</p>
+                  <p class="talk-kicker">Featured <a href="https://arcl.unil.ch/" class="event-link" target="_blank" rel="noopener">ARCL&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a> Talk</p>
                   <p class="event-name"><span class="talk-title">Legal AI</span></p>
-                  <p class="event-speaker">Vortragende:r: <a href="https://www.maastrichtuniversity.nl/h-westermann" class="event-link">Hannes Westermann</a></p>
+                  <p class="event-speaker">Vortragende:r: <a href="https://www.maastrichtuniversity.nl/h-westermann" class="event-link" target="_blank" rel="noopener">Hannes Westermann&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a></p>
                   <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-clock"></span>12:15–13:15</span>
-                    <a class="meta" href="https://use.mazemap.com/#v=1&config=unisg-profile&campusid=710&zlevel=2&center=9.370831,47.425068&zoom=18&sharepoitype=poi&sharepoi=1000761103&search=C61-110%2C" target="_blank" rel="noopener"><span class="event-icon icon-pin"></span>C61-110, Rosenbergstrasse 30</a>
-                    <span class="meta"><span class="event-icon icon-lunch"></span>Eigenes Mittagessen mitbringen</span>
+                    <span class="meta"><i class="ph-bold ph-clock event-icon" aria-hidden="true"></i>12:15–13:15</span>
+                    <a class="meta" href="https://use.mazemap.com/#v=1&config=unisg-profile&campusid=710&zlevel=2&center=9.370831,47.425068&zoom=18&sharepoitype=poi&sharepoi=1000761103&search=C61-110%2C" target="_blank" rel="noopener"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>C61-110, Rosenbergstrasse 30</a>
+                    <span class="meta"><i class="ph-bold ph-fork-knife event-icon" aria-hidden="true"></i>Eigenes Mittagessen mitbringen</span>
                   </div>
                 </div>
               </div>
@@ -424,12 +438,12 @@
                 <div class="talk-body">
                   <p class="talk-kicker">Brown Bag Talk</p>
                   <p class="event-name"><span class="talk-title">Drivers of AI regulation</span></p>
-                  <p class="event-speaker">Vortragende:r: <a href="https://brunocaprettini.com/" class="event-link">Bruno Caprettini</a></p>
+                  <p class="event-speaker">Vortragende:r: <a href="https://brunocaprettini.com/" class="event-link" target="_blank" rel="noopener">Bruno Caprettini&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a></p>
                   <p class="event-coop">In Kooperation mit dem Institute for Law and Economics</p>
                   <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-clock"></span>12:15–13:15</span>
-                    <span class="meta"><span class="event-icon icon-pin"></span>MLE-Haus, Guisanstrasse 36</span>
-                    <span class="meta"><span class="event-icon icon-lunch"></span><span>Gesponsertes Mittagessen · <a href="mailto:fuso@unisg.ch" class="event-link">Anmeldung erforderlich bis 17. Nov. per E-Mail</a></span></span>
+                    <span class="meta"><i class="ph-bold ph-clock event-icon" aria-hidden="true"></i>12:15–13:15</span>
+                    <span class="meta"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>MLE-Haus, Guisanstrasse 36</span>
+                    <span class="meta"><i class="ph-bold ph-fork-knife event-icon" aria-hidden="true"></i><span>Gesponsertes Mittagessen · <a href="mailto:fuso@unisg.ch" class="event-link">Anmeldung erforderlich bis 17. Nov. per E-Mail&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a></span></span>
                   </div>
                 </div>
               </div>
@@ -438,28 +452,28 @@
                 <div class="talk-body">
                   <p class="talk-kicker">Brown Bag Talk</p>
                   <p class="event-name"><span class="talk-title">TBA</span></p>
-                  <p class="event-speaker">Vortragende:r: <a href="https://www.linkedin.com/in/simonabonardi/" class="event-link">Simona Bonardi</a></p>
+                  <p class="event-speaker">Vortragende:r: <a href="https://www.linkedin.com/in/simonabonardi/" class="event-link" target="_blank" rel="noopener">Simona Bonardi&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a></p>
                   <div class="event-meta-row">
-                    <span class="meta"><span class="event-icon icon-clock"></span>12:15–13:15</span>
-                    <a class="meta" href="https://use.mazemap.com/#v=1&config=unisg-profile&campusid=710&zlevel=2&center=9.370831,47.425068&zoom=18&sharepoitype=poi&sharepoi=1000761103&search=C61-110%2C" target="_blank" rel="noopener"><span class="event-icon icon-pin"></span>C61-110, Rosenbergstrasse 30</a>
-                    <span class="meta"><span class="event-icon icon-lunch"></span>Eigenes Mittagessen mitbringen</span>
+                    <span class="meta"><i class="ph-bold ph-clock event-icon" aria-hidden="true"></i>12:15–13:15</span>
+                    <a class="meta" href="https://use.mazemap.com/#v=1&config=unisg-profile&campusid=710&zlevel=2&center=9.370831,47.425068&zoom=18&sharepoitype=poi&sharepoi=1000761103&search=C61-110%2C" target="_blank" rel="noopener"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>C61-110, Rosenbergstrasse 30</a>
+                    <span class="meta"><i class="ph-bold ph-fork-knife event-icon" aria-hidden="true"></i>Eigenes Mittagessen mitbringen</span>
                   </div>
                 </div>
               </div>
             </div>
             <details class="event-archive">
-              <summary>Vergangene Vorträge</summary>
+              <summary><i class="ph-bold ph-plus summary-closed" aria-hidden="true"></i><i class="ph-bold ph-minus summary-open" aria-hidden="true"></i>Vergangene Vorträge</summary>
               <div class="event-list talk-list">
                 <div class="event-item talk-item">
                   <p class="talk-date"><span class="talk-day">15</span><span class="talk-month">Sep</span><span class="talk-year">2026</span></p>
                   <div class="talk-body">
                     <p class="talk-kicker">Brown Bag Talk</p>
                     <p class="event-name"><span class="talk-title">Certifying Recommender Algorithms</span></p>
-                    <p class="event-speaker">Vortragende:r: <a href="https://detoni.me/" class="event-link">Giovanni de Toni</a></p>
+                    <p class="event-speaker">Vortragende:r: <a href="https://detoni.me/" class="event-link" target="_blank" rel="noopener">Giovanni de Toni&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a></p>
                     <div class="event-meta-row">
-                      <span class="meta"><span class="event-icon icon-clock"></span>12:15–13:15</span>
-                      <a class="meta" href="https://use.mazemap.com/#v=1&config=unisg-profile&campusid=710&zlevel=2&center=9.370831,47.425068&zoom=18&sharepoitype=poi&sharepoi=1000761103&search=C61-110%2C" target="_blank" rel="noopener"><span class="event-icon icon-pin"></span>C61-110, Rosenbergstrasse 30</a>
-                      <span class="meta"><span class="event-icon icon-lunch"></span>Eigenes Mittagessen mitbringen</span>
+                      <span class="meta"><i class="ph-bold ph-clock event-icon" aria-hidden="true"></i>12:15–13:15</span>
+                      <a class="meta" href="https://use.mazemap.com/#v=1&config=unisg-profile&campusid=710&zlevel=2&center=9.370831,47.425068&zoom=18&sharepoitype=poi&sharepoi=1000761103&search=C61-110%2C" target="_blank" rel="noopener"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>C61-110, Rosenbergstrasse 30</a>
+                      <span class="meta"><i class="ph-bold ph-fork-knife event-icon" aria-hidden="true"></i>Eigenes Mittagessen mitbringen</span>
                     </div>
                   </div>
                 </div>
@@ -467,27 +481,40 @@
                   <p class="talk-date"><span class="talk-day">17</span><span class="talk-month">Sep</span><span class="talk-year">2026</span></p>
                   <div class="talk-body">
                     <p class="event-name"><span class="talk-title">On Action Plans, Action Research, and Inaction – States of Play in Researcher Data Access</span></p>
-                    <p class="event-speaker">Vortragende:r: <a href="https://kgi.georgetown.edu/people/lk-seiling/" class="event-link">LK Seiling</a></p>
+                    <p class="event-speaker">Vortragende:r: <a href="https://kgi.georgetown.edu/people/lk-seiling/" class="event-link" target="_blank" rel="noopener">LK Seiling&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a></p>
                     <div class="event-meta-row">
-                      <span class="meta"><span class="event-icon icon-pin"></span>C61-440, Rosenbergstrasse 30</span>
+                      <span class="meta"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>C61-440, Rosenbergstrasse 30</span>
                     </div>
                   </div>
                 </div>
                 <div class="event-item talk-item">
                   <p class="talk-date"><span class="talk-day">24</span><span class="talk-month">Sep</span><span class="talk-year">2026</span></p>
                   <div class="talk-body">
-                    <p class="talk-kicker">Webinar · <a href="https://www.smartfeld.ch/" class="event-link" target="_blank" rel="noopener">Smartfeld</a></p>
+                    <p class="talk-kicker">Webinar · <a href="https://www.smartfeld.ch/" class="event-link" target="_blank" rel="noopener">Smartfeld&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a></p>
                     <p class="event-name"><span class="talk-title">Wenn der Feed die Welt erklärt</span></p>
-                    <p class="event-speaker">Vortragende:r: <a href="https://ics.unisg.ch/chairs/simon-mayer-interaction-and-communication-based-systems/" class="event-link">Simon Mayer</a></p>
+                    <p class="event-speaker">Vortragende:r: <a href="https://ics.unisg.ch/chairs/simon-mayer-interaction-and-communication-based-systems/" class="event-link" target="_blank" rel="noopener">Simon Mayer&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a></p>
                     <div class="event-meta-row">
-                      <span class="meta"><span class="event-icon icon-pin"></span>Online</span>
-                      <a class="meta" href="https://www.smartfeld.ch/events/webinar-wenn-der-feed-die-welt-erklaert/" target="_blank" rel="noopener"><span class="event-icon icon-link"></span>Website</a>
+                      <span class="meta"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>Online</span>
+                      <a class="meta" href="https://www.smartfeld.ch/events/webinar-wenn-der-feed-die-welt-erklaert/" target="_blank" rel="noopener"><i class="ph-bold ph-arrow-up-right event-icon" aria-hidden="true"></i>Website</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="event-item talk-item">
+                  <p class="talk-date"><span class="talk-day">29</span><span class="talk-month">Sep</span><span class="talk-year">2026</span></p>
+                  <div class="talk-body">
+                    <p class="talk-kicker">Featured <a href="https://snsf-cocoda.github.io/" class="event-link" target="_blank" rel="noopener">CoCoDa&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a> Talk</p>
+                    <p class="event-name"><span class="talk-title">Who gets to encode the law? AI and Legal Processes for Data Access</span></p>
+                    <p class="event-speaker">Vortragende:r: <a href="https://theodi.org/profile/jake-stein/" class="event-link" target="_blank" rel="noopener">Jake Stein&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a></p>
+                    <div class="event-meta-row">
+                      <span class="meta"><i class="ph-bold ph-clock event-icon" aria-hidden="true"></i>12:15–13:15</span>
+                      <a class="meta" href="https://use.mazemap.com/#v=1&config=unisg-profile&campusid=710&zlevel=2&center=9.370831,47.425068&zoom=18&sharepoitype=poi&sharepoi=1000761103&search=C61-110%2C" target="_blank" rel="noopener"><i class="ph-bold ph-map-pin event-icon" aria-hidden="true"></i>C61-110, Rosenbergstrasse 30</a>
+                      <span class="meta"><i class="ph-bold ph-fork-knife event-icon" aria-hidden="true"></i><span>Sandwiches werden angeboten · <a href="mailto:fuso@unisg.ch" class="event-link">Anmeldung per E-Mail/Slack&nbsp;<i class="ph-bold ph-arrow-up-right link-arrow" aria-hidden="true"></i></a></span></span>
                     </div>
                   </div>
                 </div>
               </div>
             </details>
-            <button type="button" class="talk-ics-export"><span class="event-icon icon-calendar"></span>Talks zum Kalender hinzufügen (.ics)</button>
+            <button type="button" class="talk-ics-export"><i class="ph-bold ph-calendar-plus event-icon" aria-hidden="true"></i>Talks zum Kalender hinzufügen (.ics)</button>
             <p class="event-contact">Kontaktieren Sie uns für weitere Informationen: <a href="mailto:fuso@unisg.ch" class="event-link">fuso@unisg.ch.</a></p>
           </div>
         </div>
@@ -512,12 +539,12 @@
           <h3>Technikfolgenabschätzung</h3>
           <p>Wir beraten Behörden zur Governance künstlicher Intelligenz und bringen regulatorische Expertise zu neuen Technologien ein.</p>
           <div class="focus-publications">
-            <button type="button" class="focus-pub-toggle" aria-expanded="false" onclick="toggleFocusPubs(this)">Mehr</button>
+            <button type="button" class="focus-pub-toggle" aria-expanded="false" onclick="toggleFocusPubs(this)">Mehr<i class="ph-bold ph-plus toggle-icon" aria-hidden="true"></i></button>
             <div class="focus-pub-body"><div class="focus-pub-inner">
               <ul class="focus-pub-list">
-                <li><a href="https://doi.org/10.1177/20539517261431640" target="_blank" rel="noopener">Steering society through algorithms: Testing the social acceptability for automating administrative and legal processes</a><span class="focus-pub-meta">Big Data &amp; Society · 2026</span></li>
-                <li><a href="https://doi.org/10.1177/20539517261434338" target="_blank" rel="noopener">Unpacking social scoring systems and their impact on fairness and digital dignity</a><span class="focus-pub-meta">Big Data &amp; Society · 2026</span></li>
-                <li><a href="https://doi.org/10.1145/3805689.3806755" target="_blank" rel="noopener">A Quality Assessment Framework for GPAI Model Public Summaries required by AI Act Article 53(1)(d)</a><span class="focus-pub-meta">ACM FAccT · 2026</span></li>
+                <li><i class="ph-bold ph-file-text pub-icon" aria-hidden="true"></i><a href="https://doi.org/10.1177/20539517261431640" target="_blank" rel="noopener">Steering society through algorithms: Testing the social acceptability for automating administrative and legal processes&nbsp;<i class="ph-bold ph-arrow-up-right pub-ext" aria-hidden="true"></i></a><span class="focus-pub-meta">Big Data &amp; Society · 2026</span></li>
+                <li><i class="ph-bold ph-file-text pub-icon" aria-hidden="true"></i><a href="https://doi.org/10.1177/20539517261434338" target="_blank" rel="noopener">Unpacking social scoring systems and their impact on fairness and digital dignity&nbsp;<i class="ph-bold ph-arrow-up-right pub-ext" aria-hidden="true"></i></a><span class="focus-pub-meta">Big Data &amp; Society · 2026</span></li>
+                <li><i class="ph-bold ph-file-text pub-icon" aria-hidden="true"></i><a href="https://doi.org/10.1145/3805689.3806755" target="_blank" rel="noopener">A Quality Assessment Framework for GPAI Model Public Summaries required by AI Act Article 53(1)(d)&nbsp;<i class="ph-bold ph-arrow-up-right pub-ext" aria-hidden="true"></i></a><span class="focus-pub-meta">ACM FAccT · 2026</span></li>
               </ul>
             </div></div>
           </div>
@@ -527,12 +554,12 @@
           <h3>Systemische Risiken eindämmen</h3>
           <p>Wir entwickeln techno-rechtliche Werkzeuge, mit denen sich systemische Risiken neuer Technologien und Online-Plattformen weltweit erkennen und eindämmen lassen.</p>
           <div class="focus-publications">
-            <button type="button" class="focus-pub-toggle" aria-expanded="false" onclick="toggleFocusPubs(this)">Mehr</button>
+            <button type="button" class="focus-pub-toggle" aria-expanded="false" onclick="toggleFocusPubs(this)">Mehr<i class="ph-bold ph-plus toggle-icon" aria-hidden="true"></i></button>
             <div class="focus-pub-body"><div class="focus-pub-inner">
               <ul class="focus-pub-list">
-                <li><a href="https://doi.org/10.1016/j.clsr.2026.106262" target="_blank" rel="noopener">Systemic risks of dominant online platforms: A scoping review</a><span class="focus-pub-meta">Computer Law &amp; Security Review · 2026</span></li>
-                <li><a href="https://doi.org/10.1145/3795516" target="_blank" rel="noopener">Scrutinizing Systemic Risks in Personalized Recommender Systems Through Sock-Puppet Auditing of VLOPs</a><span class="focus-pub-meta">ACM Transactions on Recommender Systems · 2026</span></li>
-                <li><a href="https://arxiv.org/abs/2601.12390" target="_blank" rel="noopener">Auditing Meta and TikTok Research API Data Access under Article 40(12) of the Digital Services Act</a><span class="focus-pub-meta">Pre-print · 2026</span></li>
+                <li><i class="ph-bold ph-file-text pub-icon" aria-hidden="true"></i><a href="https://doi.org/10.1016/j.clsr.2026.106262" target="_blank" rel="noopener">Systemic risks of dominant online platforms: A scoping review&nbsp;<i class="ph-bold ph-arrow-up-right pub-ext" aria-hidden="true"></i></a><span class="focus-pub-meta">Computer Law &amp; Security Review · 2026</span></li>
+                <li><i class="ph-bold ph-file-text pub-icon" aria-hidden="true"></i><a href="https://doi.org/10.1145/3795516" target="_blank" rel="noopener">Scrutinizing Systemic Risks in Personalized Recommender Systems Through Sock-Puppet Auditing of VLOPs&nbsp;<i class="ph-bold ph-arrow-up-right pub-ext" aria-hidden="true"></i></a><span class="focus-pub-meta">ACM Transactions on Recommender Systems · 2026</span></li>
+                <li><i class="ph-bold ph-file-text pub-icon" aria-hidden="true"></i><a href="https://arxiv.org/abs/2601.12390" target="_blank" rel="noopener">Auditing Meta and TikTok Research API Data Access under Article 40(12) of the Digital Services Act&nbsp;<i class="ph-bold ph-arrow-up-right pub-ext" aria-hidden="true"></i></a><span class="focus-pub-meta">Pre-print · 2026</span></li>
               </ul>
             </div></div>
           </div>
@@ -542,10 +569,10 @@
           <h3>Bildung &amp; digitale Kompetenzen</h3>
           <p>Wir antizipieren künftig benötigte Kompetenzen, gestalten Bildungswege mit, fördern neue Fähigkeiten und schaffen ein sicheres digitales Umfeld für Menschen.</p>
           <div class="focus-publications">
-            <button type="button" class="focus-pub-toggle" aria-expanded="false" onclick="toggleFocusPubs(this)">Mehr</button>
+            <button type="button" class="focus-pub-toggle" aria-expanded="false" onclick="toggleFocusPubs(this)">Mehr<i class="ph-bold ph-plus toggle-icon" aria-hidden="true"></i></button>
             <div class="focus-pub-body"><div class="focus-pub-inner">
               <ul class="focus-pub-list">
-                <li><a href="https://doi.org/10.1145/3715336.3735709" target="_blank" rel="noopener">Towards Societally Beneficial Personalized Realities: A Conceptual Foundation for Responsible Ubiquitous Personalization Systems</a><span class="focus-pub-meta">ACM DIS · 2025</span></li>
+                <li><i class="ph-bold ph-file-text pub-icon" aria-hidden="true"></i><a href="https://doi.org/10.1145/3715336.3735709" target="_blank" rel="noopener">Towards Societally Beneficial Personalized Realities: A Conceptual Foundation for Responsible Ubiquitous Personalization Systems&nbsp;<i class="ph-bold ph-arrow-up-right pub-ext" aria-hidden="true"></i></a><span class="focus-pub-meta">ACM DIS · 2025</span></li>
               </ul>
             </div></div>
           </div>
@@ -555,11 +582,11 @@
           <h3>Infrastrukturen von morgen</h3>
           <p>Wir wirken am Entwurf, an der Entwicklung und an der Regulierung künftiger digitaler Infrastrukturen mit, zum Nutzen der Gesellschaft.</p>
           <div class="focus-publications">
-            <button type="button" class="focus-pub-toggle" aria-expanded="false" onclick="toggleFocusPubs(this)">Mehr</button>
+            <button type="button" class="focus-pub-toggle" aria-expanded="false" onclick="toggleFocusPubs(this)">Mehr<i class="ph-bold ph-plus toggle-icon" aria-hidden="true"></i></button>
             <div class="focus-pub-body"><div class="focus-pub-inner">
               <ul class="focus-pub-list">
-                <li><a href="https://openreview.net/forum?id=eaLD4ioB02" target="_blank" rel="noopener">Solid and Secure Multi-Party Computation for a Circular Economy</a><span class="focus-pub-meta">Solid Symposium · 2026</span></li>
-                <li><a href="https://doi.org/10.1145/3613905.3651066" target="_blank" rel="noopener">Gaze-based Opportunistic Privacy-preserving Human-Agent Collaboration</a><span class="focus-pub-meta">ACM CHI Extended Abstracts · 2024</span></li>
+                <li><i class="ph-bold ph-file-text pub-icon" aria-hidden="true"></i><a href="https://openreview.net/forum?id=eaLD4ioB02" target="_blank" rel="noopener">Solid and Secure Multi-Party Computation for a Circular Economy&nbsp;<i class="ph-bold ph-arrow-up-right pub-ext" aria-hidden="true"></i></a><span class="focus-pub-meta">Solid Symposium · 2026</span></li>
+                <li><i class="ph-bold ph-file-text pub-icon" aria-hidden="true"></i><a href="https://doi.org/10.1145/3613905.3651066" target="_blank" rel="noopener">Gaze-based Opportunistic Privacy-preserving Human-Agent Collaboration&nbsp;<i class="ph-bold ph-arrow-up-right pub-ext" aria-hidden="true"></i></a><span class="focus-pub-meta">ACM CHI Extended Abstracts · 2024</span></li>
               </ul>
             </div></div>
           </div>
@@ -569,10 +596,10 @@
           <h3>Zugang zum Recht</h3>
           <p>Wir loten aus, wie sich juristische Prozesse automatisieren lassen, um den Zugang zum Recht zu verbessern.</p>
           <div class="focus-publications">
-            <button type="button" class="focus-pub-toggle" aria-expanded="false" onclick="toggleFocusPubs(this)">Mehr</button>
+            <button type="button" class="focus-pub-toggle" aria-expanded="false" onclick="toggleFocusPubs(this)">Mehr<i class="ph-bold ph-plus toggle-icon" aria-hidden="true"></i></button>
             <div class="focus-pub-body"><div class="focus-pub-inner">
               <ul class="focus-pub-list">
-                <li><span>PermitBot: A User Study on Prompting Legal Chatbots for Proactivity</span><span class="focus-pub-meta">ICAIL · 2026</span></li>
+                <li><i class="ph-bold ph-file-text pub-icon" aria-hidden="true"></i><span>PermitBot: A User Study on Prompting Legal Chatbots for Proactivity</span><span class="focus-pub-meta">ICAIL · 2026</span></li>
               </ul>
             </div></div>
           </div>
@@ -582,11 +609,11 @@
           <h3>Inklusive und gesunde Gesellschaft</h3>
           <p>Wir stärken eine widerstandsfähige, gesunde und inklusive Gesellschaft mit Ubiquitous Computing im grossen Massstab.</p>
           <div class="focus-publications">
-            <button type="button" class="focus-pub-toggle" aria-expanded="false" onclick="toggleFocusPubs(this)">Mehr</button>
+            <button type="button" class="focus-pub-toggle" aria-expanded="false" onclick="toggleFocusPubs(this)">Mehr<i class="ph-bold ph-plus toggle-icon" aria-hidden="true"></i></button>
             <div class="focus-pub-body"><div class="focus-pub-inner">
               <ul class="focus-pub-list">
-                <li><a href="https://ieeexplore.ieee.org/document/10882919/" target="_blank" rel="noopener">FoodCoach: Fully Automated Diet Counseling</a><span class="focus-pub-meta">IEEE Journal of Biomedical and Health Informatics · 2025</span></li>
-                <li><a href="https://doi.org/10.1145/3613905.3650795" target="_blank" rel="noopener">ShoppingCoach: Using Diminished Reality to Prevent Unhealthy Food Choices in an Offline Supermarket Scenario</a><span class="focus-pub-meta">ACM CHI Extended Abstracts · 2024</span></li>
+                <li><i class="ph-bold ph-file-text pub-icon" aria-hidden="true"></i><a href="https://ieeexplore.ieee.org/document/10882919/" target="_blank" rel="noopener">FoodCoach: Fully Automated Diet Counseling&nbsp;<i class="ph-bold ph-arrow-up-right pub-ext" aria-hidden="true"></i></a><span class="focus-pub-meta">IEEE Journal of Biomedical and Health Informatics · 2025</span></li>
+                <li><i class="ph-bold ph-file-text pub-icon" aria-hidden="true"></i><a href="https://doi.org/10.1145/3613905.3650795" target="_blank" rel="noopener">ShoppingCoach: Using Diminished Reality to Prevent Unhealthy Food Choices in an Offline Supermarket Scenario&nbsp;<i class="ph-bold ph-arrow-up-right pub-ext" aria-hidden="true"></i></a><span class="focus-pub-meta">ACM CHI Extended Abstracts · 2024</span></li>
               </ul>
             </div></div>
           </div>
@@ -649,10 +676,37 @@
       </div>
       <div class="team-bricks-wrap">
         <div class="team-bricks">
-          <div class="team-brick"><img class="brick-avatar" loading="lazy" src="https://siaw.unisg.ch/fileadmin/_processed_/f/c/csm_rsz_bruno_caprettini_mb10524_915dae4c70.jpg" alt="Bruno Caprettini"><p class="brick-name"><a href="https://brunocaprettini.com/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Bruno Caprettini</a></p><p class="brick-detail">Prof. Dr.</p></div>
+          <div class="team-brick"><img class="brick-avatar" loading="lazy" src="https://siaw.unisg.ch/fileadmin/_processed_/f/c/csm_rsz_bruno_caprettini_mb10524_915dae4c70.jpg" alt="Bruno Caprettini"><p class="brick-name">Bruno Caprettini <a class="brick-link" href="https://brunocaprettini.com/" target="_blank" rel="noopener" aria-label="Bruno Caprettini: brunocaprettini.com" title="https://brunocaprettini.com/"><i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i></a></p><p class="brick-detail">Prof. Dr.</p></div>
+          <div class="team-brick"><img class="brick-avatar" loading="lazy" src="https://www.bi.no/contentassets/481cdbaf83b14d0fb74b3c15df3469dd/d441ca19-4c62-42d5-a3e6-0f02fa6e216d.jpg" alt="Christoph Lutz"><p class="brick-name">Christoph Lutz <a class="brick-link" href="https://www.bi.no/en/about-bi/employees/department-of-communication-and-culture/christoph-lutz/" target="_blank" rel="noopener" aria-label="Christoph Lutz: bi.no" title="https://www.bi.no/en/about-bi/employees/department-of-communication-and-culture/christoph-lutz/"><i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i></a></p><p class="brick-detail">Prof. Dr.</p></div>
+          <div class="team-brick"><img class="brick-avatar" loading="lazy" src="https://www.lut.fi/sites/default/files/styles/profile_image_2x/public/profiles/Maud_Reveilhac_24790713_1743759918.jpg.webp?itok=S_SdiV9_" alt="Maud Reveilhac"><p class="brick-name">Maud Reveilhac <a class="brick-link" href="https://www.lut.fi/en/profiles/maud-reveilhac" target="_blank" rel="noopener" aria-label="Maud Reveilhac: lut.fi" title="https://www.lut.fi/en/profiles/maud-reveilhac"><i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i></a></p><p class="brick-detail">Dr.</p></div>
           <div class="team-brick"><div class="brick-avatar brick-avatar--placeholder" aria-hidden="true">&nbsp;</div><p class="brick-name">&nbsp;</p></div>
-          <div class="team-brick"><div class="brick-avatar brick-avatar--placeholder" aria-hidden="true">&nbsp;</div><p class="brick-name">&nbsp;</p></div>
-          <div class="team-brick"><div class="brick-avatar brick-avatar--placeholder" aria-hidden="true">&nbsp;</div><p class="brick-name">&nbsp;</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNDERS -->
+<section id="funders">
+  <div class="container">
+    <div class="grid">
+      <div class="funders-label">
+        <p class="section-label">Gefördert Von</p>
+      </div>
+      <div class="funders-intro">
+        <h2>Gefördert <span class="accent-text">Von</span></h2>
+      </div>
+      <div class="funders-wrap">
+        <p>Unsere Arbeit wird durch die folgenden Förderagenturen und Programme ermöglicht.</p>
+        <div class="funders-grid">
+          <a class="funder-tile" href="https://www.snf.ch/en" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--snsf" src="assets/images/funders/snsf-de.svg" alt="Schweizerischer Nationalfonds"></a>
+          <a class="funder-tile" href="https://www.innosuisse.admin.ch/en" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--innosuisse" src="assets/images/funders/innosuisse.svg" alt="Innosuisse"></a>
+          <a class="funder-tile" href="https://www.bridge.ch/en" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--bridge" src="assets/images/funders/bridge.svg" alt="BRIDGE"></a>
+          <a class="funder-tile" href="https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe_en" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--eu-funded" src="assets/images/funders/eu-funded-de.png" alt="Von der Europäischen Union finanziert (Horizon Europe)"></a>
+          <a class="funder-tile" href="https://www.chips-ju.europa.eu/" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--chips-ju" src="assets/images/funders/chips-ju.png" alt="Chips Joint Undertaking"></a>
+          <a class="funder-tile" href="https://marie-sklodowska-curie-actions.ec.europa.eu/actions/doctoral-networks" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--ec" src="assets/images/funders/ec-de.svg" alt="Europäische Kommission"></a>
+          <a class="funder-tile" href="https://www.palatin.ch/" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--palatin" src="assets/images/funders/palatin.svg" alt="Palatin Stiftung"></a>
+          <a class="funder-tile" href="https://www.interreg.org" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--interreg" src="assets/images/funders/interreg.png" alt="Interreg Alpenrhein-Bodensee-Hochrhein, kofinanziert von der Europäischen Union"></a>
         </div>
       </div>
     </div>
@@ -671,49 +725,27 @@
       </div>
       <div class="contact-body">
         <p>Wir arbeiten mit Forschenden, politischen Entscheidungsträger:innen, Verwaltungen, NGOs und Industriepartnern zusammen. Wenn Sie an einer Zusammenarbeit interessiert sind, schreiben Sie uns gerne.</p>
-        <p style="margin-top:1rem;">Über unser Kernteam hinaus teilen wir unsere Arbeit über Newsletter, Policy Briefs, Podcasts und <a href="https://www.linkedin.com/company/future-society-hub/about/?viewAsMember=true" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">soziale Medien</a>, um ein breiteres Publikum zu erreichen. Viele unserer neueren Papers erscheinen zudem als Songs auf <a href="https://soundcloud.com/interactions-research" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">SoundCloud</a>.</p>
+        <p style="margin-top:1rem;">Über unser Kernteam hinaus teilen wir unsere Arbeit über Newsletter, Policy Briefs, Podcasts und soziale Medien, um ein breiteres Publikum zu erreichen. Viele unserer neueren Papers erscheinen zudem als Songs auf SoundCloud.</p>
         <p style="margin-top:1rem;">
           <strong>Universität St.Gallen</strong><br>
           Institute of Computer Science und Institute of Law and Economics<br>
           Rosenbergstrasse 30<br>
-          St. Gallen, Schweiz<br>
-          <a href="mailto:fuso@unisg.ch" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">fuso@unisg.ch</a>
+          St. Gallen, Schweiz
         </p>
-        <div class="contact-social">
-          <a href="https://www.linkedin.com/company/future-society-hub/" target="_blank" rel="noopener" aria-label="FuSo auf LinkedIn">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          </a>
-          <a href="https://mu.social/profile/fuso.eurosky.social" target="_blank" rel="noopener" aria-label="FuSo auf BlueSky">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.296 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.203-.659-.299-1.664-.621-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/></svg>
-          </a>
-        </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- FUNDERS -->
-<section id="funders">
-  <div class="container">
-    <div class="grid">
-      <div class="funders-label">
-        <p class="section-label">Unterstützt Von</p>
-      </div>
-      <div class="funders-intro">
-        <h2>Unterstützt <span class="accent-text">Von</span></h2>
-      </div>
-      <div class="funders-wrap">
-        <p>Unsere Arbeit wird durch die folgenden Förderagenturen und Programme ermöglicht.</p>
-        <div class="funders-grid">
-          <a class="funder-tile" href="https://www.snf.ch/en" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--snsf" src="assets/images/funders/snsf-de.svg" alt="Schweizerischer Nationalfonds"></a>
-          <a class="funder-tile" href="https://www.innosuisse.admin.ch/en" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--innosuisse" src="assets/images/funders/innosuisse.svg" alt="Innosuisse"></a>
-          <a class="funder-tile" href="https://www.bridge.ch/en" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--bridge" src="assets/images/funders/bridge.svg" alt="BRIDGE"></a>
-          <a class="funder-tile" href="https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe_en" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--eu-funded" src="assets/images/funders/eu-funded-de.png" alt="Von der Europäischen Union finanziert (Horizon Europe)"></a>
-          <a class="funder-tile" href="https://www.chips-ju.europa.eu/" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--chips-ju" src="assets/images/funders/chips-ju.png" alt="Chips Joint Undertaking"></a>
-          <a class="funder-tile" href="https://marie-sklodowska-curie-actions.ec.europa.eu/actions/doctoral-networks" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--ec" src="assets/images/funders/ec-de.svg" alt="Europäische Kommission"></a>
-          <a class="funder-tile" href="https://www.palatin.ch/" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--palatin" src="assets/images/funders/palatin.svg" alt="Palatin Stiftung"></a>
-          <a class="funder-tile" href="https://www.interreg.org" target="_blank" rel="noopener"><img loading="lazy" class="funder-logo funder-logo--interreg" src="assets/images/funders/interreg.png" alt="Interreg Alpenrhein-Bodensee-Hochrhein, kofinanziert von der Europäischen Union"></a>
-        </div>
+      <div class="contact-social">
+        <a href="https://www.linkedin.com/company/future-society-hub/" target="_blank" rel="noopener" aria-label="FuSo auf LinkedIn">
+          <i class="ph-bold ph-linkedin-logo" aria-hidden="true"></i><span>LinkedIn</span>
+        </a>
+        <a href="https://mu.social/profile/fuso.eurosky.social" target="_blank" rel="noopener" aria-label="FuSo auf Bluesky">
+          <i class="ph-bold ph-butterfly" aria-hidden="true"></i><span>Bluesky</span>
+        </a>
+        <a href="https://soundcloud.com/interactions-research" target="_blank" rel="noopener" aria-label="FuSo auf SoundCloud">
+          <i class="ph-bold ph-soundcloud-logo" aria-hidden="true"></i><span>SoundCloud</span>
+        </a>
+        <a href="mailto:fuso@unisg.ch">
+          <i class="ph-bold ph-envelope-simple" aria-hidden="true"></i><span>fuso@unisg.ch</span>
+        </a>
       </div>
     </div>
   </div>
@@ -892,7 +924,7 @@
             <p class="way-title">${w.title}</p>
             <p class="way-tags">${tags}</p>
           </div>
-          <span class="way-toggle">+</span>
+          <span class="way-toggle"><i class="ph-bold ph-plus" aria-hidden="true"></i></span>
         </div>
         <div class="way-body">
           <div class="way-body-inner">${w.how}</div>
@@ -949,6 +981,50 @@
       if (a && a.getAttribute('href') === location.hash) applyAudienceHash(location.hash);
     });
     applyAudienceHash(location.hash);
+  })();
+
+  // Light/dark toggle. Defaults to the browser's prefers-color-scheme; a
+  // saved explicit choice (from a toggle click) overrides that. The initial
+  // theme is applied before paint by the inline <script> at the top of
+  // <head> (which this reads back rather than duplicating), and clicks
+  // persist to localStorage so the override follows the visitor across
+  // EN/DE/FR and repeat visits.
+  (function () {
+    const STORAGE_KEY = 'fuso-theme';
+    const toggles = document.querySelectorAll('[data-theme-toggle]');
+    if (!toggles.length) return;
+    const root = document.documentElement;
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const LABEL = { light: 'Zum Dunkelmodus wechseln', dark: 'Zum hellen Modus wechseln' };
+
+    function apply(theme) {
+      if (theme === 'dark') root.setAttribute('data-theme', 'dark');
+      else root.removeAttribute('data-theme');
+      toggles.forEach(function (t) {
+        // The bar's icon button is a pressed-state button with a label that
+        // names the action; the menu's switch reports its on/off state.
+        if (t.getAttribute('role') === 'switch') {
+          t.setAttribute('aria-checked', String(theme === 'dark'));
+        } else {
+          t.setAttribute('aria-pressed', String(theme === 'dark'));
+          t.setAttribute('aria-label', LABEL[theme]);
+        }
+      });
+    }
+
+    apply(root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+
+    toggles.forEach(t => t.addEventListener('click', function () {
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      try { localStorage.setItem(STORAGE_KEY, next); } catch (e) {}
+      apply(next);
+    }));
+
+    media.addEventListener('change', function (e) {
+      let stored = null;
+      try { stored = localStorage.getItem(STORAGE_KEY); } catch (err) {}
+      if (!stored) apply(e.matches ? 'dark' : 'light');
+    });
   })();
 
   // Mobile nav: toggle the dropdown menu

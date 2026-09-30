@@ -6,9 +6,46 @@
   --gray:    #f4f4f4;
   --mid:     #999999;
   --accent:  #00802F;
+  /* Fixed, never re-themed: the deep green needed so white button/badge text
+     on top of it keeps AA contrast. --accent itself gets lightened for dark
+     mode (readable as text on a dark page), which would fail that same
+     contrast test used as a fill under white text — so anywhere accent is a
+     background colour under white text, use this instead. */
+  --accent-contrast: #00802F;
+  /* Body copy / muted labels / hairline dividers written as literal hex
+     throughout this file rather than var(--black)/var(--mid) — several
+     distinct shades (#333 and #444 for body copy; #555, #666, #777 for
+     muted labels — #999 already matches --mid exactly) collapsed to two
+     roles here, since they were never meant as deliberately distinct tones. */
+  --text-body:  #333333;
+  --text-quiet: #666666;
+  --divider:    #dddddd;
   --font:    'Inter', system-ui, sans-serif;
   --gap: 2rem;
   --max: 1280px;
+}
+
+/* Dark mode: opt-in via the nav toggle (assets/style.css consumers set
+   data-theme="dark" on <html>, persisted in localStorage), never from
+   prefers-color-scheme — light stays the default even on a dark-mode OS.
+   Overriding these five variables re-themes nearly every rule in this file,
+   since almost all of them already read colour through var(--black)/
+   var(--white)/var(--gray)/var(--mid)/var(--accent) rather than literal hex.
+   Values are inverted-but-softened (not pure #000/#fff) and, for --accent,
+   relightened so text/icons/borders drawn in it keep >=4.5:1 (resp. >=3:1)
+   against the new dark backgrounds — the original --accent only clears
+   ~3.7:1 there. The three added here (--text-body/--text-quiet/--divider)
+   back rules that used to hardcode hex instead of a variable; see the
+   comment on their :root declaration above. */
+:root[data-theme="dark"] {
+  --black: #ededed;
+  --white: #121212;
+  --gray:  #1a1a1a;
+  --mid:   #a3a3a3;
+  --accent:#2db45e;
+  --text-body:  #dadada;
+  --text-quiet: #bdbdbd;
+  --divider:    #2e2e2e;
 }
 
 html { scroll-behavior: smooth; }
@@ -75,6 +112,7 @@ nav .container {
 
 nav ul { list-style: none; }
 #navMenu { display: flex; align-items: center; gap: 2rem; margin-left: auto; }
+#navMenu > li > a { white-space: nowrap; }
 
 nav a {
   text-decoration: none;
@@ -88,40 +126,72 @@ nav a {
 
 nav a:hover { color: var(--accent); }
 
-/* Participate submenu — audience shortcuts that jump into the Participate
-   section with that filter already applied (#participate-students, …).
-   Opens on hover and on keyboard focus; on mobile it is inlined under the
-   Participate entry instead (see the <=1100px block). */
+/* Nav submenus — each lists the sections that follow its parent on the page
+   (Team → Supporting Network, Funders), plus Participate's
+   audience shortcuts, which open that section with the filter already applied
+   (#participate-students, …). Opens on hover and on keyboard focus; on mobile
+   it is inlined under its parent entry instead (see the <=1240px block). */
 .nav-has-sub { position: relative; }
 
+/* Phosphor caret after the parent label so it reads as "has more"; it flips
+   while the submenu is open. Letter-spacing is reset so the nav's tracking
+   does not pad the glyph. */
+.nav-caret {
+  display: inline-block;
+  margin-left: 0.3em;
+  font-size: 0.95em;
+  letter-spacing: 0;
+  vertical-align: -0.1em;
+  transition: transform 0.25s ease;
+}
+.nav-has-sub:hover .nav-caret,
+.nav-has-sub:focus-within .nav-caret { transform: rotate(180deg); }
+
+/* Panel hangs flush from the bar's bottom edge with the accent line on top,
+   and drops in (fade + short slide). Hidden via visibility rather than
+   display so the transition can run; the delay keeps it hoverable until the
+   fade-out has finished. */
 .nav-sub {
-  display: none;
+  display: flex;
   position: absolute;
   top: 100%;
   left: -1.25rem;
   flex-direction: column;
   min-width: max-content;
-  padding: 0.35rem 0;
+  padding: 0.5rem 0;
   background: var(--white);
-  box-shadow: 0 0 0 1px var(--black);
+  border-top: 2px solid var(--accent);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
 }
 .nav-has-sub:hover > .nav-sub,
-.nav-has-sub:focus-within > .nav-sub { display: flex; }
+.nav-has-sub:focus-within > .nav-sub {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-sub, .nav-caret { transition: none; }
+}
 
 .nav-sub a {
   display: block;
-  padding: 0.55rem 1.25rem;
+  padding: 0.6rem 1.25rem;
   font-size: 0.7rem;
   white-space: nowrap;
 }
-.nav-sub a:hover { background: var(--gray); color: var(--accent); }
+.nav-sub a:hover { color: var(--accent); }
 
 .lang-switch {
   display: flex;
   gap: 0.5rem;
   margin-left: 1.5rem;
   padding-left: 1.5rem;
-  border-left: 1px solid #ddd;
+  border-left: 1px solid var(--divider);
 }
 .lang-switch a {
   font-size: 0.7rem;
@@ -139,7 +209,88 @@ nav a:hover { color: var(--accent); }
   transition: color 0.15s;
 }
 .nav-social:hover { color: var(--accent); }
-.nav-social svg { display: block; }
+.nav-social .ph-bold { display: block; font-size: 20px; }
+
+/* Light/dark toggle — same treatment as .nav-social so it reads as one more
+   icon control in the bar, not a separate widget. Both icons are always in
+   the DOM; CSS shows the one for the theme a click would switch *to*, driven
+   off the data-theme attribute the toggle's JS sets on <html>. */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1.25rem;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--black);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.theme-toggle:hover { color: var(--accent); }
+.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.theme-toggle .ph-bold { display: block; font-size: 20px; }
+.theme-toggle .icon-sun { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+/* LinkedIn + dark-mode switch row at the foot of the collapsed menu. On the
+   desktop bar the icon controls above do this job, so the row stays hidden
+   until the nav collapses (see the max-width: 1240px block). */
+/* li.nav-extras outranks the full-height "#navMenu > li { display: flex }"
+   rule in the desktop block; the collapsed block re-shows it. */
+#navMenu > li.nav-extras { display: none; }
+.nav-extras-social {
+  display: inline-flex;
+  align-items: center;
+}
+.nav-extras-social .ph-bold { display: block; font-size: 24px; }
+
+/* A real on/off switch: track + sliding thumb, green when dark mode is on.
+   State comes from aria-checked, which the theme script keeps in sync. */
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.theme-switch-track {
+  position: relative;
+  width: 48px;
+  height: 26px;
+  border-radius: 13px;
+  background: var(--divider);
+  transition: background 0.2s;
+}
+.theme-switch-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff; /* stays white in dark mode too */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Thumb shows the current theme: sun when light, moon when dark. The thumb
+   stays white in both themes, so the icon colour is fixed as well. */
+.theme-switch-thumb .ph-bold { display: block; font-size: 13px; color: #00802F; }
+.theme-switch-thumb .icon-moon { display: none; }
+.theme-switch[aria-checked="true"] .theme-switch-thumb .icon-sun { display: none; }
+.theme-switch[aria-checked="true"] .theme-switch-thumb .icon-moon { display: block; }
+.theme-switch[aria-checked="true"] .theme-switch-track { background: var(--accent); }
+.theme-switch[aria-checked="true"] .theme-switch-thumb { transform: translateX(22px); }
+.theme-switch:focus-visible { outline: none; }
+.theme-switch:focus-visible .theme-switch-track { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .theme-switch-track, .theme-switch-thumb { transition: none; }
+}
 
 /* Hamburger toggle — hidden on desktop, shown on mobile */
 .nav-toggle {
@@ -215,7 +366,7 @@ h1 {
   font-weight: 300;
   line-height: 1.5;
   max-width: 540px;
-  color: #333;
+  color: var(--text-body);
   /* No gap: .hero-chain follows directly below and should read as the next
      line of the same block, not as a separate paragraph. */
   margin-bottom: 0;
@@ -309,12 +460,12 @@ h1 {
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
-.song-note svg { display: block; width: 15px; height: 15px; fill: currentColor; }
+.song-note .ph-bold { display: block; font-size: 16px; }
 /* Hover/playing fill the circle instead of recolouring it, so the green stays
    the logo's green in every state. */
 .song-note:hover,
-.song-note:focus-visible { background: var(--accent); color: var(--white); }
-.song-note.playing { background: var(--accent); color: var(--white); }
+.song-note:focus-visible { background: var(--accent-contrast); color: #fff; }
+.song-note.playing { background: var(--accent-contrast); color: #fff; }
 .song-note.playing::after {
   content: '';
   position: absolute;
@@ -342,7 +493,7 @@ h1 {
   gap: 0.1rem;
   padding: 0.3rem;
   background: var(--white);
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--divider);
   border-radius: 999px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
@@ -382,19 +533,16 @@ h1 {
 .intro-standalone .about-intro { grid-column: 3 / 13; margin-bottom: 0; }
 .intro-standalone .about-intro p { text-align: justify; }
 /* Green chevron marking the mission statement, in its own column to the left
-   of the text (same "›" as the hero's Analyze › Build › … line). */
+   of the text (same caret as the hero's Analyze › Build › … line). */
 .intro-standalone .about-intro {
   display: grid;
   grid-template-columns: auto 1fr;
   column-gap: 1.25rem;
 }
-.intro-standalone .about-intro::before {
-  content: "";
-  width: 1.4rem;
-  height: 1.6rem; /* one text line (1.6 line-height), chevron centred on it */
-  background-color: var(--accent);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.143' stroke-linecap='square'%3E%3Cpath d='M8 4l8 8-8 8'/%3E%3C/svg%3E") center / contain no-repeat;
-          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.143' stroke-linecap='square'%3E%3Cpath d='M8 4l8 8-8 8'/%3E%3C/svg%3E") center / contain no-repeat;
+.intro-standalone .intro-caret {
+  font-size: 1.4rem;
+  line-height: 1.6rem; /* one text line (1.6 line-height), caret centred on it */
+  color: var(--accent);
 }
 .intro-standalone .about-intro p { grid-column: 2; }
 /* Above 900px the box ends at the right edge of the hero logo's circle, not
@@ -419,33 +567,35 @@ section:nth-of-type(even) { background: var(--white); }
 .section-label {
   font-size: 0;
   color: transparent;
-  padding-top: 1.5rem;
+  height: 22px;
   /* circuit line = CSS line + ring SVG, so the length is just --line-length.
-     Whole-pixel sizes so the line and the ring's 2px stroke match
-     (circuit-ring-black.svg is 16x16, stroke 2). */
+     Whole-pixel sizes so the line and the ring's 4px stroke match
+     (circuit-ring-black.svg is 22x22, stroke 4) — heavy enough to sit
+     next to the 800-weight headings. */
   --line-length: 64px;
   background-image: linear-gradient(#121212, #121212), url('circuit-ring-black.svg');
   background-repeat: no-repeat;
-  background-position: right 16px top 7px, right 0 top 0;
-  background-size: var(--line-length) 2px, 16px 16px;
-  /* line sits at the top of this box; nudge the box down so the line lands at
-     the heading's bottom and the text sits below it. Use position/top rather
-     than transform: a transform forces its own layer, which drops subpixel
-     antialiasing and makes the label text render visibly heavier. */
+  background-position: right 22px top 9px, right 0 top 0;
+  background-size: var(--line-length) 4px, 22px 22px;
+  /* The box is exactly the ring's height, so the line runs through its
+     middle. Push it down by half the h2's first line box minus half the ring,
+     which centres the circuit line on the heading's first line whatever its
+     size or wrapping. position/top rather than transform: a transform forces
+     its own layer, which drops subpixel antialiasing and makes the label
+     text render visibly heavier. */
   position: relative;
-  top: calc(1.5rem - 1.2rem);
+  top: calc(var(--h2-size) * var(--h2-line-height) / 2 - 11px);
 }
 
-/* Bottom-align the label so its circuit line meets the heading's baseline,
-   regardless of heading font-size/wrapping */
 .about-label, .concrete-label, .events-label,
 .focus-label, .participate-label, .team-label,
-.contact-label, .funders-label { align-self: end; }
+.contact-label, .funders-label { align-self: start; }
 
+:root { --h2-size: clamp(2rem, 4vw, 3.5rem); --h2-line-height: 1.05; }
 h2 {
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: var(--h2-size);
   font-weight: 800;
-  line-height: 1.05;
+  line-height: var(--h2-line-height);
   letter-spacing: -0.02em;
 }
 
@@ -464,7 +614,7 @@ p {
   font-size: 1rem;
   font-weight: 300;
   line-height: 1.7;
-  color: #333;
+  color: var(--text-body);
 }
 
 /* ─── ABOUT ─── */
@@ -477,9 +627,7 @@ p {
 .about-intro p { color: var(--black); }
 .about-intro p + p { margin-top: 1rem; }
 
-.about-label { grid-column: 1 / 3; align-self: start; }
-/* About's heading is multi-line; line up the circuit line with the first line */
-.about-label .section-label { top: 1.7rem; }
+.about-label { grid-column: 1 / 3; }
 .about-headline { grid-column: 3 / 9; }
 .about-headline h2 { margin-bottom: 0; }
 .about-body { grid-column: 9 / 13; padding-top: 0.5rem; }
@@ -494,7 +642,7 @@ p {
 .concrete-label { grid-column: 1 / 3; }
 .concrete-header { grid-column: 3 / 13; }
 .concrete-header h2 { margin-bottom: 0; }
-.concrete-header p { color: #333; }
+.concrete-header p { color: var(--text-body); }
 
 .projects-container {
   grid-column: 3 / -1;
@@ -503,11 +651,11 @@ p {
 .projects-list {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--divider);
 }
 
 .project-item {
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--divider);
 }
 
 .project-header {
@@ -580,7 +728,7 @@ p {
   padding: 0 0 1.25rem calc(2.25rem + 1rem);
   font-size: 0.9rem;
   line-height: 1.65;
-  color: #444;
+  color: var(--text-body);
   max-width: 720px;
 }
 
@@ -645,7 +793,7 @@ p {
   justify-content: center;
   padding: 0.35rem 0.8rem;
   background: #0a8a3a;
-  color: var(--white);
+  color: #fff;
   font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -715,8 +863,9 @@ p {
 }
 
 .focus-card {
+  --card-pad: 2rem;
   background: var(--white);
-  padding: 2rem;
+  padding: var(--card-pad);
   /* Subgrid over the 4 children (num, h3, p, details) so the "More" toggles
      line up across a row and open downward, while cards still share height. */
   display: grid;
@@ -745,7 +894,7 @@ p {
   width: 100%;
   background: none;
   border: 0;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--divider);
   font-family: inherit;
   text-align: left;
   cursor: pointer;
@@ -760,17 +909,13 @@ p {
   color: var(--accent);
   padding: 0.6rem 0;
 }
-/* "+" on the right that rotates to "×" when open — same as .way-toggle. */
-.focus-pub-toggle::after {
-  content: "+";
-  font-size: 1.25rem;
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: 0;
+/* Plus on the right that rotates to "×" when open — same as .way-toggle. */
+.focus-pub-toggle .toggle-icon {
+  font-size: 1.1rem;
   color: var(--mid);
   transition: transform 0.25s, color 0.15s;
 }
-.focus-publications.open .focus-pub-toggle::after { transform: rotate(45deg); color: var(--accent); }
+.focus-publications.open .toggle-icon { transform: rotate(45deg); color: var(--accent); }
 .focus-pub-body {
   display: grid;
   grid-template-rows: 0fr;
@@ -779,6 +924,20 @@ p {
 }
 .focus-publications.open .focus-pub-body { grid-template-rows: 1fr; opacity: 1; }
 .focus-pub-inner { overflow: hidden; }
+/* Same as the team bricks: the opened list sits on a grey panel that runs
+   to the card's edges (negative margins cancel the card padding); the
+   "More" row itself stays on white, with no divider. */
+.focus-card .focus-publications {
+  margin: 1rem calc(-1 * var(--card-pad)) calc(-1 * var(--card-pad));
+  padding: 0 var(--card-pad);
+}
+.focus-card .focus-pub-body {
+  margin: 0 calc(-1 * var(--card-pad));
+  padding: 0 var(--card-pad);
+  background: var(--gray);
+}
+.focus-card .focus-pub-toggle { border-top: 0; }
+.focus-card .focus-pub-list { padding: 0.25rem 0 0.5rem; }
 .focus-pub-list { list-style: none; margin: 0.5rem 0 0; padding: 0; }
 .focus-pub-list li {
   display: grid;
@@ -788,26 +947,22 @@ p {
   font-size: 0.85rem;
   line-height: 1.45;
   padding: 0.6rem 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--divider);
 }
 .focus-pub-list li:last-child { border-bottom: 0; }
-/* Paper icon, drawn as a CSS mask so it takes the text colour via
-   background-color. */
-.focus-pub-list li::before {
-  content: "";
+/* Paper icon in the first column, spanning title and meta rows. */
+.focus-pub-list .pub-icon {
   grid-row: span 2;
-  width: 1rem;
-  height: 1.2rem;
-  margin-top: 0.05rem;
-  background-color: var(--accent);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 2v6h6M8 13h8M8 17h5'/%3E%3C/svg%3E") center / contain no-repeat;
-          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 2v6h6M8 13h8M8 17h5'/%3E%3C/svg%3E") center / contain no-repeat;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--accent);
 }
-.focus-pub-list li:not(:has(a))::before { background-color: var(--mid); }
+.focus-pub-list li:not(:has(a)) .pub-icon { color: var(--mid); }
 .focus-pub-list li a { color: var(--black); text-decoration: none; }
-.focus-pub-list li a::after { content: "\00a0\2197"; /* nbsp: arrow never wraps alone */ color: var(--accent); font-size: 0.8em; }
+/* External-link arrow; the &nbsp; before it in the markup keeps it from wrapping alone. */
+.focus-pub-list .pub-ext { color: var(--accent); font-size: 0.8em; }
 .focus-pub-list li a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
-.focus-pub-meta { grid-column: 2; font-size: 0.72rem; line-height: 1.4; color: #777; }
+.focus-pub-meta { grid-column: 2; font-size: 0.72rem; line-height: 1.4; color: var(--text-quiet); }
 
 /* ─── EVENTS ─── */
 .events-label { grid-column: 1 / 3; }
@@ -860,9 +1015,9 @@ p {
   align-items: center;
   gap: 0.3rem;
   padding: 0.15rem 0.55rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--divider);
   border-radius: 999px;
-  color: #666;
+  color: var(--text-quiet);
   font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -876,10 +1031,10 @@ p {
 /* Upcoming Events: same row layout and date block as the talks box (see
    .talk-item below); host/series goes under the name in grey. */
 .ev-list { gap: 0; }
-.ev-host .event-link { color: inherit; border-bottom-color: #ccc; }
+.ev-host .event-link { color: inherit; border-bottom-color: var(--divider); }
 .ev-host .event-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
 .event-archive .ev-list { margin-top: 0.75rem; }
-.ev-host { font-size: 0.85rem; color: #555; margin-top: 0.2rem; }
+.ev-host { font-size: 0.85rem; color: var(--text-quiet); margin-top: 0.2rem; }
 
 /* FuSo Talks: each talk is a row — date block left, hairline between rows.
    Green is kept for the date only; links inside a talk are quiet (text
@@ -891,7 +1046,7 @@ p {
   gap: 1rem;
   align-items: start;
   padding: 1.1rem 0;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid var(--divider);
 }
 .talk-list > .talk-item:first-child,
 .ev-list > .ev-item:first-child { border-top: 0; padding-top: 0; }
@@ -907,10 +1062,10 @@ p {
   color: var(--mid);
   margin-bottom: 0.25rem;
 }
-.talk-item .event-speaker { color: #555; }
-.talk-item .event-link { color: inherit; border-bottom-color: #ccc; transition: color 0.15s, border-color 0.15s; }
+.talk-item .event-speaker { color: var(--text-quiet); }
+.talk-item .event-link { color: inherit; border-bottom-color: var(--divider); transition: color 0.15s, border-color 0.15s; }
 .talk-item .event-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
-.talk-item .event-meta-row .meta { color: #999; align-items: flex-start; }
+.talk-item .event-meta-row .meta { color: var(--mid); align-items: flex-start; }
 /* Icon pinned to the first line when a meta item wraps (lunch + register). */
 .talk-item .event-meta-row .event-icon { margin-top: 0.22rem; }
 .talk-item a.meta:hover { color: var(--accent); }
@@ -937,35 +1092,27 @@ p {
 a.meta { transition: color 0.15s; }
 a.meta:hover { color: var(--accent); }
 .event-icon {
-  width: 13px; height: 13px;
+  font-size: 13px;
   flex-shrink: 0;
-  background-color: currentColor;
-  -webkit-mask: var(--icon) center / contain no-repeat;
-  mask: var(--icon) center / contain no-repeat;
 }
-.icon-pin  { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E"); }
-.icon-clock { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E"); }
-.icon-link { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E"); }
-/* Marks a Hosted Talks entry as part of the recurring Brown Bag Lunch
-   Series, next to its own location (BBL doesn't always meet in the same
-   room, so the two badges are independent, not a stand-in for each other). */
-.icon-lunch { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 3h8a2 2 0 0 1 2 2v1.82a5 5 0 0 0 .528 2.236l.944 1.888a5 5 0 0 1 .528 2.236v5.82a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-5.82a5 5 0 0 1 .528 -2.236l1.472 -2.944v-3a2 2 0 0 1 2 -2'/%3E%3Cpath d='M12 15a2 2 0 1 0 4 0a2 2 0 1 0 -4 0'/%3E%3Cpath d='M6 21a2 2 0 0 0 2 -2v-5.82a5 5 0 0 0 -.528 -2.236l-1.472 -2.944'/%3E%3Cpath d='M11 7h2'/%3E%3C/svg%3E"); }
-.icon-calendar { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2'/%3E%3Cline x1='16' y1='2' x2='16' y2='6'/%3E%3Cline x1='8' y1='2' x2='8' y2='6'/%3E%3Cline x1='3' y1='10' x2='21' y2='10'/%3E%3Cpath d='M12 14v4'/%3E%3Cpath d='M10 16h4'/%3E%3C/svg%3E"); }
 
 /* Small ".ics" export affordance beneath the FuSo Talks list. */
 .talk-ics-export {
   display: inline-flex; align-items: center; gap: 0.4rem;
   margin-top: 1.25rem;
-  font-family: inherit; font-size: 0.9rem; color: #666;
+  font-family: inherit; font-size: 0.9rem; color: var(--text-quiet);
   background: none; border: 0; padding: 0;
   cursor: pointer;
 }
 .talk-ics-export:hover { color: var(--accent); }
 
-.event-note { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ddd; }
-.event-note p, .event-contact { font-size: 0.9rem; color: #666; }
+.event-note { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--divider); }
+.event-note p, .event-contact { font-size: 0.9rem; color: var(--text-quiet); }
 .event-contact { margin-top: 1.5rem; }
 .event-link { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); }
+/* Trailing arrow inside a text link; the &nbsp; before it keeps it from
+   wrapping onto a line of its own. */
+.event-link .link-arrow { font-size: 0.8em; }
 
 /* Collapsible past-events archive: closed by default so it doesn't disturb
    the upcoming-events flow; expands to reveal past events in the same style,
@@ -983,11 +1130,14 @@ a.meta:hover { color: var(--accent); }
   text-transform: uppercase;
   color: var(--accent);
   padding: 0.85rem 0;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--divider);
 }
 .event-archive > summary::-webkit-details-marker { display: none; }
-.event-archive > summary::before { content: "+"; font-size: 0.95rem; line-height: 1; width: 0.8em; text-align: center; }
-.event-archive[open] > summary::before { content: "\2013"; }
+.event-archive > summary .ph-bold, .team-former > summary .ph-bold { font-size: 0.95rem; }
+/* Plus when closed, minus when open. */
+details > summary .summary-open,
+details[open] > summary .summary-closed { display: none; }
+details[open] > summary .summary-open { display: inline; }
 .event-archive .event-list { margin-top: 0.75rem; }
 .event-archive .event-item { opacity: 0.5; }
 .event-archive .event-item:hover { opacity: 0.8; }
@@ -1013,14 +1163,14 @@ a.meta:hover { color: var(--accent); }
 }
 
 .team-brick {
+  --brick-pad-y: 1.5rem;
+  --brick-pad-x: 1.25rem;
   background: var(--white);
-  padding: 1.5rem 1.25rem;
+  padding: var(--brick-pad-y) var(--brick-pad-x);
   box-shadow: 0 0 0 1px var(--black);
-  transition: background 0.15s;
   display: flex;
   flex-direction: column;
 }
-.team-brick:not(:has(.brick-avatar--placeholder)):hover { background: var(--gray); }
 
 .brick-role {
   font-size: 0.58rem;
@@ -1067,26 +1217,60 @@ a.meta:hover { color: var(--accent); }
   letter-spacing: 0.05em;
 }
 
-/* Smooth reveal: animate the grid track from 0fr to 1fr so it eases to the
-   bio's natural height without a hard-coded max-height. The inner wrapper
-   clips the text while the row collapses. */
-.brick-bio {
+/* Core-team bricks (rendered by renderTeam) follow the Focus Areas cards:
+   a subgrid over the six children (avatar, role, name, detail, affiliation,
+   "Learn More") keeps
+   every text line top-aligned and the toggles level across a row, and an
+   open bio grows its own brick downward. The toggle itself is the shared
+   .focus-publications / .focus-pub-toggle markup. */
+.team-brick--bio {
   display: grid;
-  grid-template-rows: 0fr;
-  margin-top: 0;
-  opacity: 0;
-  transition: grid-template-rows 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+  grid-row: span 6;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+  align-content: start;
 }
-.brick-bio.open {
-  grid-template-rows: 1fr;
+.team-brick--bio > p:last-of-type { margin-bottom: 0; }
+/* Same type as .brick-detail — it is the second line of the same text. */
+.brick-affiliation {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--mid);
+}
+.team-brick--bio .brick-detail:empty { margin-top: 0; }
+/* External-link arrow after the name: small and muted so it marks the link
+   without competing with the name; it turns accent on hover like other links. */
+.brick-link {
+  display: inline-flex;
+  vertical-align: 0.05em;
+  margin-left: 0.2rem;
+  color: var(--mid);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.brick-link:hover { color: var(--accent); }
+.brick-link .ph-bold { display: block; font-size: 13px; }
+/* No divider above the toggle here: in the narrow, photo-led bricks the rule
+   reads as a stray line rather than closing off a block of text. */
+.team-brick--bio .focus-pub-toggle { border-top: 0; }
+/* The opened bio sits on a grey panel that runs to the brick's edges
+   (negative margins cancel the brick padding); the "Learn More" row itself
+   stays on white. */
+.team-brick--bio .focus-publications {
+  margin: 1rem calc(-1 * var(--brick-pad-x)) calc(-1 * var(--brick-pad-y));
+  padding: 0 var(--brick-pad-x);
+}
+.team-brick--bio .focus-pub-body {
+  margin: 0 calc(-1 * var(--brick-pad-x));
+  padding: 0 var(--brick-pad-x);
+  background: var(--gray);
+}
+.brick-bio-text {
   margin-top: 0.75rem;
-  opacity: 1;
-}
-.brick-bio-inner {
-  overflow: hidden;
-  font-size: 0.7rem;
-  font-weight: 300;
-  color: #666;
+  padding-bottom: 1rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--text-quiet);
   line-height: 1.5;
 }
 
@@ -1107,11 +1291,9 @@ a.meta:hover { color: var(--accent); }
   text-transform: uppercase;
   color: var(--accent);
   padding: 0.85rem 0;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--divider);
 }
 .team-former > summary::-webkit-details-marker { display: none; }
-.team-former > summary::before { content: "+"; font-size: 0.95rem; line-height: 1; width: 0.8em; text-align: center; }
-.team-former[open] > summary::before { content: "\2013"; }
 
 .former-list { list-style: none; margin: 0.25rem 0 0.5rem; }
 .former-item {
@@ -1120,7 +1302,7 @@ a.meta:hover { color: var(--accent); }
   align-items: center;
   gap: 0.35rem 1rem;
   padding: 0.5rem 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--divider);
   opacity: 0.65;
   transition: opacity 0.15s;
 }
@@ -1136,39 +1318,15 @@ a.meta:hover { color: var(--accent); }
 .former-name { font-size: 0.85rem; font-weight: 600; }
 .former-name a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--mid); }
 .former-name a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-.former-what { font-size: 0.7rem; font-weight: 300; color: #666; }
-.former-now { font-size: 0.7rem; font-weight: 300; color: #666; }
-.former-now::before { content: "\2192\00a0"; color: var(--mid); }
+.former-what { font-size: 0.7rem; font-weight: 300; color: var(--text-quiet); }
+.former-now { font-size: 0.7rem; font-weight: 300; color: var(--text-quiet); }
+.former-now .ph-bold { color: var(--mid); margin-right: 0.25em; vertical-align: -0.1em; }
 .former-now a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--mid); }
 .former-now a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
-/* margin-top: auto pins the button to the bottom of the brick so a row of
-   bricks lines up even when one detail line wraps; the last <p> above it
-   (.brick-detail, or .brick-name when there is none) carries the minimum
-   gap, since the button's own padding is its box padding, not a gap. */
+/* Supporting-network bricks end on their last <p>; give it breathing room
+   above the brick's bottom edge. */
 .team-brick > p:last-of-type { margin-bottom: 0.75rem; }
-
-.learn-more-btn {
-  display: inline-block;
-  align-self: flex-start;
-  margin-top: auto;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  background: none;
-  border: 1px solid var(--accent);
-  padding: 0.4rem 0.8rem;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-  font-family: var(--font);
-}
-
-.learn-more-btn:hover {
-  background: var(--accent);
-  color: var(--white);
-}
 
 /* ─── PARTICIPATE PATHWAYS ─── */
 .participate-intro { margin-bottom: 1.25rem; }
@@ -1189,9 +1347,9 @@ a.meta:hover { color: var(--accent); }
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #666;
+  color: var(--text-quiet);
   background: transparent;
-  border: 1px solid #ddd;
+  border: 1px solid var(--divider);
   border-radius: 999px;
   padding: 0.45rem 0.9rem;
   cursor: pointer;
@@ -1204,9 +1362,9 @@ a.meta:hover { color: var(--accent); }
 }
 
 .way-filter.is-active {
-  color: var(--white);
-  background: var(--accent);
-  border-color: var(--accent);
+  color: #fff;
+  background: var(--accent-contrast);
+  border-color: var(--accent-contrast);
 }
 
 .way-filter:focus-visible {
@@ -1218,11 +1376,11 @@ a.meta:hover { color: var(--accent); }
 .participate-ways {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--divider);
 }
 
 .way-item {
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--divider);
 }
 
 .way-header {
@@ -1315,7 +1473,7 @@ a.meta:hover { color: var(--accent); }
   padding: 0 0 1.25rem calc(2.25rem + 1rem);
   font-size: 0.9rem;
   line-height: 1.65;
-  color: #444;
+  color: var(--text-body);
   max-width: 720px;
 }
 
@@ -1344,19 +1502,26 @@ a.meta:hover { color: var(--accent); }
 .contact-head { grid-column: 3 / 9; }
 .contact-body { grid-column: 3 / 9; }
 .contact-social {
+  grid-column: 9 / -1;
+  align-self: end;
   display: flex;
-  gap: 0.9rem;
-  margin-top: 1rem;
+  flex-direction: column;
+  gap: 0;
+  padding-left: 1.25rem;
+  border-left: 1px solid var(--divider);
 }
 .contact-social a {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  color: var(--black);
+  gap: 0.6rem;
+  color: var(--text-body);
+  font-weight: 300;
+  line-height: 1.7;
+  text-decoration: none;
   transition: color 0.15s;
 }
 .contact-social a:hover { color: var(--accent); }
-.contact-social svg { display: block; }
+.contact-social .ph-bold { display: block; font-size: 18px; }
 
 /* ─── FUNDERS ─── */
 #funders .section-label { color: var(--mid); border-color: var(--black); }
@@ -1493,19 +1658,24 @@ footer .container {
 /* Full-height nav items so the Participate submenu hangs off the bottom edge
    of the bar rather than off the text, leaving no dead zone to hover across.
    Only above the nav's own breakpoint — below it the menu is a stacked panel. */
-@media (min-width: 1101px) {
+@media (min-width: 1241px) {
   #navMenu { align-self: stretch; align-items: stretch; }
   #navMenu > li { display: flex; align-items: center; }
 }
 
 /* ─── RESPONSIVE ─── */
 /* Nav collapses to the hamburger earlier than the rest of the layout: the full
-   horizontal menu gets cramped and wraps between ~1100px and 900px. */
-@media (max-width: 1100px) {
+   horizontal menu gets cramped and wraps below ~1240px (German labels are longest). */
+@media (max-width: 1240px) {
   .nav-toggle { display: flex; margin-left: 0.75rem; }
 
+  /* Always laid out so it can animate: closed, it is clipped away from the
+     bottom up; opening unrolls it downwards from the bar and closing rolls it
+     back up along the same symmetric curve, with no fade. The visibility
+     delay on close keeps it out of the tab order and pointer events only
+     once the roll-up has finished. */
   #navMenu {
-    display: none;
+    display: flex;
     position: absolute;
     top: 56px;
     left: 0;
@@ -1515,8 +1685,18 @@ footer .container {
     padding: 0.5rem 2rem 1.25rem;
     background: var(--white);
     border-bottom: 2px solid var(--gray);
+    visibility: hidden;
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 0.45s ease-in-out, visibility 0s linear 0.45s;
   }
-  #navMenu.open { display: flex; }
+  #navMenu.open {
+    visibility: visible;
+    clip-path: inset(0);
+    transition: clip-path 0.45s ease-in-out, visibility 0s;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #navMenu, #navMenu.open { transition: none; }
+  }
   #navMenu > li { padding: 0.65rem 0; }
   #navMenu > li > a { font-size: 0.85rem; }
 
@@ -1533,8 +1713,14 @@ footer .container {
     margin: 0.35rem 0 0;
     padding: 0;
     background: none;
+    border-top: none;
     box-shadow: none;
+    visibility: inherit;
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
+  .nav-caret { display: none; }
   .nav-sub a { padding: 0.35rem 0; font-size: 0.75rem; color: var(--mid); }
   .nav-sub a:hover { background: none; color: var(--accent); }
 
@@ -1547,6 +1733,20 @@ footer .container {
     gap: 0.75rem;
   }
   .lang-switch a { font-size: 0.8rem; }
+
+  /* LinkedIn and the theme control move out of the bar into the menu. */
+  nav .container > .nav-social,
+  nav .container > .theme-toggle { display: none; }
+  #navMenu > li.nav-extras {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--divider);
+  }
 }
 
 @media (max-width: 900px) {
@@ -1597,7 +1797,7 @@ footer .container {
   .concrete-header, .projects-container,
   .team-intro, .team-bricks-wrap,
   .funders-intro, .funders-wrap,
-  .contact-head, .contact-body,
+  .contact-head, .contact-body, .contact-social,
   .events-header, .events-body,
   .participate-head, .participate-body,
   .intro-standalone .about-intro { grid-column: 1 / -1; }
@@ -1608,9 +1808,11 @@ footer .container {
   .director-cards { grid-template-columns: 1fr; }
   .team-bricks { grid-template-columns: repeat(4, 1fr); }
 
+  /* Label sits on its own row above the heading here, so no centring offset. */
   .section-label {
     margin-bottom: 0;
-    background-position: left 0 top 7px, left var(--line-length) top 0;
+    top: 0;
+    background-position: left 0 top 9px, left var(--line-length) top 0;
   }
 
 }
@@ -1637,9 +1839,9 @@ footer .container {
 
   .about-fullstack { margin-top: 2rem; padding-top: 2rem; }
 
-  .focus-card { padding: 1.5rem; }
+  .focus-card { --card-pad: 1.5rem; }
 
-  .team-brick { padding: 1.25rem 1rem; }
+  .team-brick { --brick-pad-y: 1.25rem; --brick-pad-x: 1rem; }
   .brick-avatar { width: 90px; height: 90px; }
 
   /* Project rows: tighten the number gutter */
@@ -1650,3 +1852,25 @@ footer .container {
 @media (max-width: 540px) {
   .team-bricks { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ─── DARK MODE: remaining fixed rules ───
+   The literal (non-var) body-copy/muted-text/divider colours elsewhere in
+   this file were converted in place to var(--text-body)/var(--text-quiet)/
+   var(--divider)/var(--mid) instead of being overridden from here — those
+   selectors have :hover/.is-active siblings of equal CSS specificity
+   (e.g. .way-filter, .ev-host .event-link), and a same-specificity override
+   rule placed after them in the cascade would have permanently beaten the
+   hover state rather than losing to it on hover as intended. What's left
+   here is genuinely new dark-only styling with no such conflict. */
+/* The circuit line under section headings is a background-image (CSS
+   gradient + circuit-ring-black.svg), not a var(--black) text/border colour,
+   so it can't pick up the variable override above — flip it with a filter
+   instead. .section-label has no other visible content (its text is
+   color:transparent), so inverting the whole element is safe. */
+[data-theme="dark"] .section-label { filter: invert(1); }
+
+/* Song-menu popover: give it real depth against a dark page now that its
+   border has faded to a hairline, instead of a shadow that would read as
+   pure black-on-black. */
+[data-theme="dark"] .song-menu { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6); }
+[data-theme="dark"] .nav-sub { box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5); }
