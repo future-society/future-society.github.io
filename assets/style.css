@@ -1624,8 +1624,13 @@ footer .container {
 @media (max-width: 1240px) {
   .nav-toggle { display: flex; margin-left: 0.75rem; }
 
+  /* Always laid out so it can animate: closed, it is clipped away from the
+     bottom up; opening unrolls it downwards from the bar and closing rolls it
+     back up along the same symmetric curve, with no fade. The visibility
+     delay on close keeps it out of the tab order and pointer events only
+     once the roll-up has finished. */
   #navMenu {
-    display: none;
+    display: flex;
     position: absolute;
     top: 56px;
     left: 0;
@@ -1635,8 +1640,18 @@ footer .container {
     padding: 0.5rem 2rem 1.25rem;
     background: var(--white);
     border-bottom: 2px solid var(--gray);
+    visibility: hidden;
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 0.45s ease-in-out, visibility 0s linear 0.45s;
   }
-  #navMenu.open { display: flex; }
+  #navMenu.open {
+    visibility: visible;
+    clip-path: inset(0);
+    transition: clip-path 0.45s ease-in-out, visibility 0s;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #navMenu, #navMenu.open { transition: none; }
+  }
   #navMenu > li { padding: 0.65rem 0; }
   #navMenu > li > a { font-size: 0.85rem; }
 
