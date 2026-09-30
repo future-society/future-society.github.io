@@ -16,6 +16,7 @@ const TEAM_UI = {
 // - role: key from TEAM_ROLES above (label shown in English across all languages)
 // - detail: string shown below the name (kept English across all languages), or { en, de, fr } to translate it
 // - affiliation (optional): institute/organisation, shown on its own line below detail; string or { en, de, fr }
+// - link (optional): personal page (website, Scholar, LinkedIn, …); marked with an external-link arrow
 // - bio: { en, de, fr } — write all three, or just 'en' and the others fall back to English
 const teamMembers = [
   {
@@ -181,8 +182,10 @@ function renderTeam(lang) {
     const pick   = v => (typeof v === 'object' && v !== null) ? (v[lang] || v.en || '') : (v || '');
     const detail      = pick(m.detail);
     const affiliation = pick(m.affiliation);
+    // Tooltip shows the full link; screen readers get the name and the site.
+    const linkHost    = m.link ? new URL(m.link).hostname.replace(/^www\./, '') : '';
     const nameHtml   = m.link
-      ? `<a href="${m.link}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">${m.name}</a>`
+      ? `${m.name} <a class="brick-link" href="${m.link}" target="_blank" rel="noopener" aria-label="${m.name}: ${linkHost}" title="${m.link}"><i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i></a>`
       : m.name;
     const words      = m.name.split(/\s+/).filter(Boolean);
     const initials   = (words[0]?.[0] || '') + (words.length > 1 ? words[words.length - 1][0] : '');
@@ -200,7 +203,7 @@ function renderTeam(lang) {
       <p class="brick-detail">${detail}</p>
       <p class="brick-affiliation">${affiliation}</p>
       <div class="focus-publications">
-        <button type="button" class="focus-pub-toggle" aria-expanded="false" onclick="toggleFocusPubs(this)">${learnMore}</button>
+        <button type="button" class="focus-pub-toggle" aria-expanded="false" onclick="toggleFocusPubs(this)">${learnMore}<i class="ph-bold ph-plus toggle-icon" aria-hidden="true"></i></button>
         <div class="focus-pub-body"><div class="focus-pub-inner"><p class="brick-bio-text">${bio}</p></div></div>
       </div>
     </div>`;
@@ -222,7 +225,7 @@ function renderFormerTeam(lang) {
       : m.name;
     const now = pick(m.now);
     const nowHtml = now
-      ? `<span class="former-now">${m.nowLink ? `<a href="${m.nowLink}" target="_blank" rel="noopener">${now}</a>` : now}</span>`
+      ? `<span class="former-now"><i class="ph-bold ph-arrow-right" aria-hidden="true"></i>${m.nowLink ? `<a href="${m.nowLink}" target="_blank" rel="noopener">${now}</a>` : now}</span>`
       : '';
     const photoHtml = m.photo
       ? `<img class="former-avatar" loading="lazy" src="${m.photo}" alt="${m.name}">`
@@ -236,7 +239,7 @@ function renderFormerTeam(lang) {
   }).join('');
 
   wrap.innerHTML = `<details class="team-former">
-    <summary>${TEAM_UI.former[lang] || TEAM_UI.former.en}</summary>
+    <summary><i class="ph-bold ph-plus summary-closed" aria-hidden="true"></i><i class="ph-bold ph-minus summary-open" aria-hidden="true"></i>${TEAM_UI.former[lang] || TEAM_UI.former.en}</summary>
     <ul class="former-list">${items}</ul>
   </details>`;
 }

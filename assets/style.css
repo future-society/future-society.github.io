@@ -133,21 +133,19 @@ nav a:hover { color: var(--accent); }
    it is inlined under its parent entry instead (see the <=1240px block). */
 .nav-has-sub { position: relative; }
 
-/* Chevron after the parent label so it reads as "has more"; it flips while
-   the submenu is open. Drawn from two borders so it follows currentColor. */
-.nav-has-sub > a::after {
-  content: "";
+/* Phosphor caret after the parent label so it reads as "has more"; it flips
+   while the submenu is open. Letter-spacing is reset so the nav's tracking
+   does not pad the glyph. */
+.nav-caret {
   display: inline-block;
-  width: 0.35em;
-  height: 0.35em;
-  margin-left: 0.5em;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
-  transform: translateY(-0.2em) rotate(45deg);
+  margin-left: 0.3em;
+  font-size: 0.95em;
+  letter-spacing: 0;
+  vertical-align: -0.1em;
   transition: transform 0.25s ease;
 }
-.nav-has-sub:hover > a::after,
-.nav-has-sub:focus-within > a::after { transform: translateY(0.05em) rotate(-135deg); }
+.nav-has-sub:hover .nav-caret,
+.nav-has-sub:focus-within .nav-caret { transform: rotate(180deg); }
 
 /* Panel hangs flush from the bar's bottom edge with the accent line on top,
    and drops in (fade + short slide). Hidden via visibility rather than
@@ -177,7 +175,7 @@ nav a:hover { color: var(--accent); }
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s;
 }
 @media (prefers-reduced-motion: reduce) {
-  .nav-sub, .nav-has-sub > a::after { transition: none; }
+  .nav-sub, .nav-caret { transition: none; }
 }
 
 .nav-sub a {
@@ -211,7 +209,7 @@ nav a:hover { color: var(--accent); }
   transition: color 0.15s;
 }
 .nav-social:hover { color: var(--accent); }
-.nav-social svg { display: block; }
+.nav-social .ph-bold { display: block; font-size: 20px; }
 
 /* Light/dark toggle — same treatment as .nav-social so it reads as one more
    icon control in the bar, not a separate widget. Both icons are always in
@@ -231,7 +229,7 @@ nav a:hover { color: var(--accent); }
 }
 .theme-toggle:hover { color: var(--accent); }
 .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.theme-toggle svg { display: block; }
+.theme-toggle .ph-bold { display: block; font-size: 20px; }
 .theme-toggle .icon-sun { display: none; }
 [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
@@ -246,7 +244,7 @@ nav a:hover { color: var(--accent); }
   display: inline-flex;
   align-items: center;
 }
-.nav-extras-social svg { display: block; }
+.nav-extras-social .ph-bold { display: block; font-size: 24px; }
 
 /* A real on/off switch: track + sliding thumb, green when dark mode is on.
    State comes from aria-checked, which the theme script keeps in sync. */
@@ -282,7 +280,7 @@ nav a:hover { color: var(--accent); }
 }
 /* Thumb shows the current theme: sun when light, moon when dark. The thumb
    stays white in both themes, so the icon colour is fixed as well. */
-.theme-switch-thumb svg { display: block; color: #00802F; }
+.theme-switch-thumb .ph-bold { display: block; font-size: 13px; color: #00802F; }
 .theme-switch-thumb .icon-moon { display: none; }
 .theme-switch[aria-checked="true"] .theme-switch-thumb .icon-sun { display: none; }
 .theme-switch[aria-checked="true"] .theme-switch-thumb .icon-moon { display: block; }
@@ -462,7 +460,7 @@ h1 {
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
-.song-note svg { display: block; width: 15px; height: 15px; fill: currentColor; }
+.song-note .ph-bold { display: block; font-size: 16px; }
 /* Hover/playing fill the circle instead of recolouring it, so the green stays
    the logo's green in every state. */
 .song-note:hover,
@@ -535,19 +533,16 @@ h1 {
 .intro-standalone .about-intro { grid-column: 3 / 13; margin-bottom: 0; }
 .intro-standalone .about-intro p { text-align: justify; }
 /* Green chevron marking the mission statement, in its own column to the left
-   of the text (same "›" as the hero's Analyze › Build › … line). */
+   of the text (same caret as the hero's Analyze › Build › … line). */
 .intro-standalone .about-intro {
   display: grid;
   grid-template-columns: auto 1fr;
   column-gap: 1.25rem;
 }
-.intro-standalone .about-intro::before {
-  content: "";
-  width: 1.4rem;
-  height: 1.6rem; /* one text line (1.6 line-height), chevron centred on it */
-  background-color: var(--accent);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.143' stroke-linecap='square'%3E%3Cpath d='M8 4l8 8-8 8'/%3E%3C/svg%3E") center / contain no-repeat;
-          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.143' stroke-linecap='square'%3E%3Cpath d='M8 4l8 8-8 8'/%3E%3C/svg%3E") center / contain no-repeat;
+.intro-standalone .intro-caret {
+  font-size: 1.4rem;
+  line-height: 1.6rem; /* one text line (1.6 line-height), caret centred on it */
+  color: var(--accent);
 }
 .intro-standalone .about-intro p { grid-column: 2; }
 /* Above 900px the box ends at the right edge of the hero logo's circle, not
@@ -913,17 +908,13 @@ p {
   color: var(--accent);
   padding: 0.6rem 0;
 }
-/* "+" on the right that rotates to "×" when open — same as .way-toggle. */
-.focus-pub-toggle::after {
-  content: "+";
-  font-size: 1.25rem;
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: 0;
+/* Plus on the right that rotates to "×" when open — same as .way-toggle. */
+.focus-pub-toggle .toggle-icon {
+  font-size: 1.1rem;
   color: var(--mid);
   transition: transform 0.25s, color 0.15s;
 }
-.focus-publications.open .focus-pub-toggle::after { transform: rotate(45deg); color: var(--accent); }
+.focus-publications.open .toggle-icon { transform: rotate(45deg); color: var(--accent); }
 .focus-pub-body {
   display: grid;
   grid-template-rows: 0fr;
@@ -944,21 +935,17 @@ p {
   border-bottom: 1px solid var(--divider);
 }
 .focus-pub-list li:last-child { border-bottom: 0; }
-/* Paper icon, drawn as a CSS mask so it takes the text colour via
-   background-color. */
-.focus-pub-list li::before {
-  content: "";
+/* Paper icon in the first column, spanning title and meta rows. */
+.focus-pub-list .pub-icon {
   grid-row: span 2;
-  width: 1rem;
-  height: 1.2rem;
-  margin-top: 0.05rem;
-  background-color: var(--accent);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 2v6h6M8 13h8M8 17h5'/%3E%3C/svg%3E") center / contain no-repeat;
-          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 2v6h6M8 13h8M8 17h5'/%3E%3C/svg%3E") center / contain no-repeat;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--accent);
 }
-.focus-pub-list li:not(:has(a))::before { background-color: var(--mid); }
+.focus-pub-list li:not(:has(a)) .pub-icon { color: var(--mid); }
 .focus-pub-list li a { color: var(--black); text-decoration: none; }
-.focus-pub-list li a::after { content: "\00a0\2197"; /* nbsp: arrow never wraps alone */ color: var(--accent); font-size: 0.8em; }
+/* External-link arrow; the &nbsp; before it in the markup keeps it from wrapping alone. */
+.focus-pub-list .pub-ext { color: var(--accent); font-size: 0.8em; }
 .focus-pub-list li a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
 .focus-pub-meta { grid-column: 2; font-size: 0.72rem; line-height: 1.4; color: var(--text-quiet); }
 
@@ -1090,20 +1077,9 @@ p {
 a.meta { transition: color 0.15s; }
 a.meta:hover { color: var(--accent); }
 .event-icon {
-  width: 13px; height: 13px;
+  font-size: 13px;
   flex-shrink: 0;
-  background-color: currentColor;
-  -webkit-mask: var(--icon) center / contain no-repeat;
-  mask: var(--icon) center / contain no-repeat;
 }
-.icon-pin  { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E"); }
-.icon-clock { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E"); }
-.icon-link { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E"); }
-/* Marks a Hosted Talks entry as part of the recurring Brown Bag Lunch
-   Series, next to its own location (BBL doesn't always meet in the same
-   room, so the two badges are independent, not a stand-in for each other). */
-.icon-lunch { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 3h8a2 2 0 0 1 2 2v1.82a5 5 0 0 0 .528 2.236l.944 1.888a5 5 0 0 1 .528 2.236v5.82a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-5.82a5 5 0 0 1 .528 -2.236l1.472 -2.944v-3a2 2 0 0 1 2 -2'/%3E%3Cpath d='M12 15a2 2 0 1 0 4 0a2 2 0 1 0 -4 0'/%3E%3Cpath d='M6 21a2 2 0 0 0 2 -2v-5.82a5 5 0 0 0 -.528 -2.236l-1.472 -2.944'/%3E%3Cpath d='M11 7h2'/%3E%3C/svg%3E"); }
-.icon-calendar { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2'/%3E%3Cline x1='16' y1='2' x2='16' y2='6'/%3E%3Cline x1='8' y1='2' x2='8' y2='6'/%3E%3Cline x1='3' y1='10' x2='21' y2='10'/%3E%3Cpath d='M12 14v4'/%3E%3Cpath d='M10 16h4'/%3E%3C/svg%3E"); }
 
 /* Small ".ics" export affordance beneath the FuSo Talks list. */
 .talk-ics-export {
@@ -1139,8 +1115,11 @@ a.meta:hover { color: var(--accent); }
   border-top: 1px solid var(--divider);
 }
 .event-archive > summary::-webkit-details-marker { display: none; }
-.event-archive > summary::before { content: "+"; font-size: 0.95rem; line-height: 1; width: 0.8em; text-align: center; }
-.event-archive[open] > summary::before { content: "\2013"; }
+.event-archive > summary .ph-bold, .team-former > summary .ph-bold { font-size: 0.95rem; }
+/* Plus when closed, minus when open. */
+details > summary .summary-open,
+details[open] > summary .summary-closed { display: none; }
+details[open] > summary .summary-open { display: inline; }
 .event-archive .event-list { margin-top: 0.75rem; }
 .event-archive .event-item { opacity: 0.5; }
 .event-archive .event-item:hover { opacity: 0.8; }
@@ -1171,11 +1150,9 @@ a.meta:hover { color: var(--accent); }
   background: var(--white);
   padding: var(--brick-pad-y) var(--brick-pad-x);
   box-shadow: 0 0 0 1px var(--black);
-  transition: background 0.15s;
   display: flex;
   flex-direction: column;
 }
-.team-brick:not(.team-brick--bio):not(:has(.brick-avatar--placeholder)):hover { background: var(--gray); }
 
 .brick-role {
   font-size: 0.58rem;
@@ -1243,6 +1220,17 @@ a.meta:hover { color: var(--accent); }
   color: var(--mid);
 }
 .team-brick--bio .brick-detail:empty { margin-top: 0; }
+/* External-link arrow after the name: small and muted so it marks the link
+   without competing with the name; it turns accent on hover like other links. */
+.brick-link {
+  display: inline-flex;
+  vertical-align: 0.05em;
+  margin-left: 0.2rem;
+  color: var(--mid);
+  transition: color 0.15s;
+}
+.brick-link:hover { color: var(--accent); }
+.brick-link .ph-bold { display: block; font-size: 13px; }
 /* No divider above the toggle here: in the narrow, photo-led bricks the rule
    reads as a stray line rather than closing off a block of text. */
 .team-brick--bio .focus-pub-toggle { border-top: 0; }
@@ -1283,8 +1271,6 @@ a.meta:hover { color: var(--accent); }
   border-top: 1px solid var(--divider);
 }
 .team-former > summary::-webkit-details-marker { display: none; }
-.team-former > summary::before { content: "+"; font-size: 0.95rem; line-height: 1; width: 0.8em; text-align: center; }
-.team-former[open] > summary::before { content: "\2013"; }
 
 .former-list { list-style: none; margin: 0.25rem 0 0.5rem; }
 .former-item {
@@ -1311,7 +1297,7 @@ a.meta:hover { color: var(--accent); }
 .former-name a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 .former-what { font-size: 0.7rem; font-weight: 300; color: var(--text-quiet); }
 .former-now { font-size: 0.7rem; font-weight: 300; color: var(--text-quiet); }
-.former-now::before { content: "\2192\00a0"; color: var(--mid); }
+.former-now .ph-bold { color: var(--mid); margin-right: 0.25em; vertical-align: -0.1em; }
 .former-now a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--mid); }
 .former-now a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
@@ -1505,7 +1491,7 @@ a.meta:hover { color: var(--accent); }
   transition: color 0.15s;
 }
 .contact-social a:hover { color: var(--accent); }
-.contact-social svg { display: block; }
+.contact-social .ph-bold { display: block; font-size: 24px; }
 
 /* ─── FUNDERS ─── */
 #funders .section-label { color: var(--mid); border-color: var(--black); }
@@ -1704,7 +1690,7 @@ footer .container {
     transform: none;
     transition: none;
   }
-  .nav-has-sub > a::after { display: none; }
+  .nav-caret { display: none; }
   .nav-sub a { padding: 0.35rem 0; font-size: 0.75rem; color: var(--mid); }
   .nav-sub a:hover { background: none; color: var(--accent); }
 
