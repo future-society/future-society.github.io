@@ -257,6 +257,8 @@ footer{
 }
 footer .wrap{display:grid; grid-template-columns:9fr 3fr; column-gap:2rem; border-top:1px solid var(--ink); padding-top:1rem}
 footer .mono{text-align:right}
+footer .home-link{text-decoration:none; color:var(--ink); transition:color .15s}
+footer .home-link:hover{color:var(--accent)}
 @media (max-width:760px){ footer .wrap{grid-template-columns:1fr; row-gap:1rem} footer .mono{text-align:left} }
 
 #empty{display:none; padding:3rem 0; color:var(--mid)}
