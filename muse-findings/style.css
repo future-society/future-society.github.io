@@ -2,35 +2,33 @@
 
 :root{
   --ink:#111111; --paper:#ffffff; --paper-alt:#f4f4f4;
-  --line:#e2e2e2; --mid:#767676; --faint:#a8a8a8;
+  --line:#dcdcdc; --mid:#6b6b6b; --faint:#a8a8a8;
   --accent:#00802f; --accent-ink:#ffffff;
   --sev-high:#b3261e; --sev-medium:#a66a00; --sev-low:#5b6472;
-  --sev-high-bg:#fbe9e7; --sev-medium-bg:#faf0dc; --sev-low-bg:#eceff1;
-  --code-bg:#f0f0ee; --body:#333333;
-  --font: 'Inter', system-ui, -apple-system, sans-serif;
+  --code-bg:#f4f4f2; --body:#222222;
+  --font: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --max: 1120px;
   --gutter: 2rem; /* futuresociety.ch .container padding */
+  --measure: 68ch;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --ink:#efefef; --paper:#111111; --paper-alt:#181818;
-    --line:#2c2c2c; --mid:#9c9c9c; --faint:#6f6f6f;
+    --ink:#efefef; --paper:#111111; --paper-alt:#1a1a1a;
+    --line:#333333; --mid:#9c9c9c; --faint:#6f6f6f;
     --accent:#33a35c; --accent-ink:#08150c;
     --sev-high:#ff6b5c; --sev-medium:#ffbf5c; --sev-low:#9fb0bd;
-    --sev-high-bg:#301613; --sev-medium-bg:#2e2410; --sev-low-bg:#1c2226;
-    --code-bg:#1c1c1a; --body:#cfcfcf;
+    --code-bg:#1c1c1a; --body:#d6d6d6;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"]{
-  --ink:#efefef; --paper:#111111; --paper-alt:#181818;
-  --line:#2c2c2c; --mid:#9c9c9c; --faint:#6f6f6f;
+  --ink:#efefef; --paper:#111111; --paper-alt:#1a1a1a;
+  --line:#333333; --mid:#9c9c9c; --faint:#6f6f6f;
   --accent:#33a35c; --accent-ink:#08150c;
   --sev-high:#ff6b5c; --sev-medium:#ffbf5c; --sev-low:#9fb0bd;
-  --sev-high-bg:#301613; --sev-medium-bg:#2e2410; --sev-low-bg:#1c2226;
-  --code-bg:#1c1c1a; --body:#cfcfcf;
+  --code-bg:#1c1c1a; --body:#d6d6d6;
   color-scheme: dark;
 }
 
@@ -43,24 +41,22 @@ body{
   padding-inline:var(--gutter);
 }
 .wrap{max-width:var(--max); margin-inline:auto}
-/* narrow text measure, but left-aligned with the other sections (not a centered column) */
-.col > *{max-width:760px}
 a{color:inherit}
+.stat b, .chip .n, #resultcount, .f-num{font-variant-numeric:tabular-nums}
 code, .mono{font-family:var(--mono)}
 
 /* ---------- nav ---------- */
 nav{
   position:sticky; top:env(safe-area-inset-top,0px); z-index:50;
-  background:var(--paper); border-bottom:2px solid var(--paper-alt);
-  /* full-bleed like the sections, so gray sections don't show beside it */
+  background:var(--paper); border-bottom:1px solid var(--ink);
   margin-inline:calc(-1 * var(--gutter)); padding-inline:var(--gutter);
 }
 nav .bar{display:flex; align-items:center; gap:1.5rem; height:56px; max-width:var(--max); margin-inline:auto}
-.brand{display:flex; align-items:center; gap:.5rem; font-weight:800; letter-spacing:-.02em; font-size:1rem; text-decoration:none; white-space:nowrap}
-.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent); flex:none}
-nav .links{display:flex; gap:1.25rem; margin-left:auto; overflow-x:auto; scrollbar-width:none}
+.brand{display:flex; align-items:center; gap:.6rem; font-weight:700; letter-spacing:.02em; font-size:.85rem; text-decoration:none; white-space:nowrap}
+.brand .dot{width:10px; height:10px; background:var(--accent); flex:none}
+nav .links{display:flex; gap:1.5rem; margin-left:auto; overflow-x:auto; scrollbar-width:none}
 nav .links::-webkit-scrollbar{display:none}
-nav .links a{font-size:.75rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase; text-decoration:none; color:var(--ink); white-space:nowrap; transition:color .15s}
+nav .links a{font-size:.72rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase; text-decoration:none; color:var(--ink); white-space:nowrap; transition:color .15s}
 nav .links a:hover{color:var(--accent)}
 
 /* hamburger, copied from futuresociety.ch (.nav-toggle); shown below 900px */
@@ -76,112 +72,120 @@ nav .links a:hover{color:var(--accent)}
   .nav-toggle{display:flex}
   nav .links{
     display:none; position:absolute; top:100%; left:0; right:0;
-    flex-direction:column; align-items:center; gap:0; margin:0; overflow:visible;
-    padding:.5rem var(--gutter) 1.25rem; background:var(--paper); border-bottom:2px solid var(--paper-alt);
+    flex-direction:column; align-items:flex-start; gap:0; margin:0; overflow:visible;
+    padding:.5rem var(--gutter) 1.25rem; background:var(--paper); border-bottom:1px solid var(--ink);
   }
   nav .links.open{display:flex}
-  nav .links a{padding:.65rem 0; font-size:.85rem}
+  nav .links a{padding:.65rem 0; font-size:.8rem}
 }
 
-/* ---------- section labels (futuresociety-style circuit tick) ---------- */
-.label{
-  font-size:.72rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
-  color:var(--mid); display:flex; align-items:center; gap:.6rem; margin-bottom:1.1rem;
+/* ---------- grid: section label in a narrow left column, content on the right ---------- */
+section{padding-block:5rem; margin-inline:calc(-1 * var(--gutter)); padding-inline:var(--gutter)}
+.grid{
+  display:grid; grid-template-columns:3fr 9fr; column-gap:2rem;
+  border-top:2px solid var(--ink); padding-top:1.1rem;
 }
-/* 2px line ending in a 16px ring, as on futuresociety.ch (circuit-ring-black.svg),
-   drawn with gradients so it follows --ink in dark mode */
-.label::after{
-  content:""; flex:none; width:calc(64px + 16px); height:16px;
-  background:
-    linear-gradient(var(--ink),var(--ink)) left center / 64px 2px no-repeat,
-    radial-gradient(circle, transparent 5.5px, var(--ink) 6px 7.5px, transparent 8px) right center / 16px 16px no-repeat;
+.sec-label{
+  font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink); padding-top:.35rem;
 }
+.sec-label .num{display:block; font-size:.72rem; color:var(--mid); margin-bottom:.2rem}
+.sec-body{min-width:0}
+.sec-body > p, .sec-body > ul, .sec-body > dl{max-width:var(--measure)}
+.sec-body > p + p{margin-top:1rem}
+@media (max-width:760px){
+  .grid{grid-template-columns:1fr}
+  .sec-label{display:flex; gap:.75rem; padding-top:0; margin-bottom:1.5rem}
+  .sec-label .num{display:inline; margin:0}
+}
+@media (max-width:600px){ section{padding-block:3.5rem} :root{--gutter:1.25rem} }
 
-/* alternating gray/white full-bleed sections, as on futuresociety.ch */
-section{padding-block:6rem; margin-inline:calc(-1 * var(--gutter)); padding-inline:var(--gutter)}
-section:nth-of-type(odd){background:var(--paper-alt)}
-section:nth-of-type(even){background:var(--paper)}
-@media (max-width:600px){ section{padding-block:4rem} :root{--gutter:1.25rem} }
-/* type scale from futuresociety.ch (assets/style.css) */
-h1,h2,h3{text-wrap:balance; overflow-wrap:break-word}
-h1{font-size:clamp(3rem,6.5vw,5.25rem); font-weight:900; line-height:1; letter-spacing:-.03em; margin-bottom:1rem}
-/* FuSo declares 800 but only loads 900, so its h2 renders at 900 */
-h2{font-size:clamp(2rem,4vw,3.5rem); font-weight:900; line-height:1.05; letter-spacing:-.02em; margin-bottom:1.4rem}
-h3{font-size:1.1rem; font-weight:700; letter-spacing:-.01em}
-p{color:var(--body); font-weight:300; line-height:1.7}
-.lede{font-size:1.3rem; font-weight:300; line-height:1.5; color:var(--body); max-width:640px}
+/* ---------- type ---------- */
+h1,h2,h3{overflow-wrap:break-word; color:var(--ink)}
+h1{font-size:clamp(2.5rem,5.6vw,4.5rem); font-weight:700; line-height:1.02; letter-spacing:-.035em; margin-bottom:1.75rem; max-width:16ch}
+h2{font-size:clamp(1.75rem,3.2vw,2.6rem); font-weight:700; line-height:1.1; letter-spacing:-.025em; margin-bottom:1.5rem; max-width:22ch}
+h3{font-size:1.05rem; font-weight:600; letter-spacing:-.01em}
+p{color:var(--body); line-height:1.65}
+.lede{font-size:1.25rem; line-height:1.5; color:var(--body); max-width:var(--measure)}
 .muted{color:var(--mid)}
 .small{font-size:.85rem}
 
 /* ---------- hero ---------- */
-#hero{padding-block:3.2rem 4.5rem}
-.eyebrow{font-size:.78rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:1.2rem}
-.stats{display:flex; flex-wrap:wrap; gap:2.2rem; margin-top:2.4rem; padding-top:2rem; border-top:1px solid var(--line)}
-.stat b{display:block; font-size:2rem; font-weight:800; font-variant-numeric:tabular-nums; line-height:1}
-.stat span{display:block; margin-top:.35rem; font-size:.75rem; text-transform:uppercase; letter-spacing:.08em; color:var(--mid)}
+#hero{padding-block:4rem 5rem}
+.eyebrow{
+  display:flex; flex-wrap:wrap; gap:.3rem 1.75rem; margin-bottom:2.5rem;
+  font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--mid);
+}
+.eyebrow span:first-child{color:var(--accent)}
+.stats{display:grid; grid-template-columns:repeat(4,1fr); column-gap:2rem; margin-top:3.5rem}
+.stat{border-top:1px solid var(--ink); padding-top:.8rem}
+.stat b{display:block; font-size:2rem; font-weight:700; letter-spacing:-.02em; line-height:1}
+.stat span{display:block; margin-top:.5rem; font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--mid)}
+@media (max-width:760px){ .stats{grid-template-columns:repeat(2,1fr); row-gap:1.75rem} }
 
-/* ---------- prose blocks / notes ---------- */
-.card{background:var(--paper-alt); border:1px solid var(--line); border-radius:10px; padding:1.4rem 1.5rem}
-.grid2{display:grid; grid-template-columns:1fr 1fr; gap:2rem}
-@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+/* ---------- prose blocks ---------- */
 blockquote{
   font-family:var(--mono); font-size:.86rem; line-height:1.65; color:var(--ink);
-  background:var(--code-bg); border-left:3px solid var(--accent);
-  padding:.85rem 1rem; border-radius:0 6px 6px 0; white-space:pre-wrap; word-break:break-word;
+  background:var(--code-bg); border-left:2px solid var(--accent);
+  padding:.85rem 1rem; white-space:pre-wrap; word-break:break-word;
 }
-ul.footlinks{list-style:none; margin-top:.9rem; display:flex; flex-direction:column; gap:.4rem}
-/* list items read as body text (same as p) */
-ul.footlinks li{color:var(--body); font-weight:300; line-height:1.7}
-/* source-type pills in the Method list, a bit larger than in the evidence headers */
-#methodology .ev-badge{font-size:.7rem; padding:.15rem .5rem}
-ul.footlinks a{font-size:.85rem; text-decoration:none; border-bottom:1px solid var(--accent); color:var(--accent)}
-ul.footlinks a:hover{opacity:.7}
+ul.footlinks{list-style:none; margin-top:1.75rem; border-top:1px solid var(--line)}
+ul.footlinks li{border-bottom:1px solid var(--line); padding-block:.5rem; line-height:1.5}
+ul.footlinks a{font-size:.85rem; text-decoration:none; color:var(--ink)}
+ul.footlinks a:hover{color:var(--accent)}
+
+/* source types in the Method section: badge column + description */
+.src-types{display:grid; grid-template-columns:max-content 1fr; column-gap:1.25rem; margin-block:1.5rem; border-top:1px solid var(--line)}
+.src-types dt, .src-types dd{padding-block:.8rem; border-bottom:1px solid var(--line)}
+.src-types dt{padding-top:1rem}
+.src-types dd{color:var(--body); line-height:1.65}
+#methodology .ev-badge{font-size:.68rem; padding:.15rem .5rem}
 
 /* ---------- controls ---------- */
 #controls{
   position:sticky; top:calc(56px + env(safe-area-inset-top,0px)); z-index:40;
-  background:var(--paper); border-bottom:1px solid var(--line); padding-block:1rem;
+  background:var(--paper); border-bottom:1px solid var(--line); padding-block:1rem; margin-top:1rem;
+  margin-inline:calc(-1 * var(--gutter)); padding-inline:var(--gutter);
 }
-.ctl-row{display:flex; flex-wrap:wrap; gap:.5rem; align-items:center}
-.ctl-row + .ctl-row{margin-top:.65rem}
+.ctl-row{display:flex; flex-wrap:wrap; gap:.4rem; align-items:center}
+.ctl-row + .ctl-row{margin-top:.6rem}
 .chip{
-  font-family:var(--font); font-size:.74rem; font-weight:600; letter-spacing:.03em;
-  padding:.4rem .75rem; border-radius:999px; border:1px solid var(--line); background:var(--paper);
-  color:var(--mid); cursor:pointer; display:inline-flex; align-items:center; gap:.4rem; white-space:nowrap;
+  font-family:var(--font); font-size:.74rem; font-weight:500;
+  padding:.38rem .7rem; border:1px solid var(--line); background:var(--paper);
+  color:var(--mid); cursor:pointer; display:inline-flex; align-items:center; gap:.45rem; white-space:nowrap;
 }
-.chip .n{font-variant-numeric:tabular-nums; opacity:.7}
-.chip:hover{border-color:var(--accent); color:var(--ink)}
+.chip .n{opacity:.7}
+.chip:hover{border-color:var(--ink); color:var(--ink)}
 .chip.active{background:var(--ink); border-color:var(--ink); color:var(--paper)}
 .chip.active .n{opacity:.85}
 .chip.sev-high.active{background:var(--sev-high); border-color:var(--sev-high)}
 .chip.sev-medium.active{background:var(--sev-medium); border-color:var(--sev-medium)}
 .chip.sev-low.active{background:var(--sev-low); border-color:var(--sev-low)}
 #search{
-  font-family:var(--font); font-size:.85rem; padding:.5rem .85rem; border-radius:8px;
+  font-family:var(--font); font-size:.85rem; padding:.45rem .75rem; border-radius:0;
   border:1px solid var(--line); background:var(--paper); color:var(--ink); min-width:200px; flex:1 1 200px;
 }
-#search:focus{outline:2px solid var(--accent); outline-offset:1px}
-#resultcount{font-size:.78rem; color:var(--mid); margin-left:auto; white-space:nowrap}
-#clearfilters{font-size:.74rem; color:var(--accent); background:none; border:none; cursor:pointer; text-decoration:underline; padding:.4rem 0}
+#search:focus{outline:none; border-color:var(--ink)}
+#resultcount{font-size:.75rem; color:var(--mid); margin-left:auto; white-space:nowrap}
+#clearfilters{font-family:var(--font); font-size:.74rem; color:var(--ink); background:none; border:none; cursor:pointer; text-decoration:underline; text-underline-offset:3px; padding:.4rem .2rem}
+#clearfilters:hover{color:var(--accent)}
 
 /* ---------- findings list ---------- */
-#findingslist{border-top:1px solid var(--line)}
+#findingslist{border-top:1px solid var(--ink)}
 .finding{border-bottom:1px solid var(--line)}
 .f-head{
-  display:flex; align-items:flex-start; gap:1rem; padding:1.15rem 0; cursor:pointer; width:100%;
+  display:flex; align-items:flex-start; gap:1rem; padding:1.1rem 0; cursor:pointer; width:100%;
   background:none; border:none; text-align:left; color:inherit; font:inherit;
 }
-.f-num{font-family:var(--mono); font-size:.72rem; color:var(--faint); min-width:2.2rem; padding-top:.3rem}
-.f-sev{
-  flex:none; margin-top:.28rem; width:.6rem; height:.6rem; border-radius:50%;
-}
+.f-num{font-family:var(--mono); font-size:.72rem; color:var(--mid); min-width:2.2rem; padding-top:.25rem}
+.f-sev{flex:none; margin-top:.4rem; width:.55rem; height:.55rem}
 .f-sev.sev-high{background:var(--sev-high)}
 .f-sev.sev-medium{background:var(--sev-medium)}
 .f-sev.sev-low{background:var(--sev-low)}
 .f-main{flex:1; min-width:0}
-.f-title{font-size:1.02rem; font-weight:650; line-height:1.4}
-.f-tags{display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.5rem}
-.tag{font-size:.68rem; text-transform:uppercase; letter-spacing:.06em; color:var(--mid); border:1px solid var(--line); border-radius:5px; padding:.15rem .5rem}
+.f-title{font-size:1rem; font-weight:600; line-height:1.4}
+.f-tags{display:flex; flex-wrap:wrap; gap:.25rem 1rem; margin-top:.4rem}
+.tag{font-size:.68rem; text-transform:uppercase; letter-spacing:.08em; color:var(--mid)}
 /* paper icon from the focus-area publication lists on futuresociety.ch (.focus-pub-list li::before),
    drawn as a mask so it takes the text colour */
 .paper-icon{
@@ -190,82 +194,84 @@ ul.footlinks a:hover{opacity:.7}
           mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 2v6h6M8 13h8M8 17h5'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 /* papers a finding connects to: plain text links under the topic tags, so they don't read as more tags */
-.f-pubs{display:flex; flex-direction:column; gap:.3rem; margin-top:.6rem}
-.pub-link{display:grid; grid-template-columns:auto 1fr; gap:.4rem; font-size:.78rem; font-weight:400; line-height:1.4; color:var(--mid); cursor:pointer}
+.f-pubs{display:flex; flex-direction:column; gap:.3rem; margin-top:.55rem}
+.pub-link{display:grid; grid-template-columns:auto 1fr; gap:.4rem; font-size:.78rem; line-height:1.4; color:var(--mid); cursor:pointer}
 .pub-link span:last-child{min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .pub-link:hover{color:var(--accent); text-decoration:underline; text-underline-offset:2px}
-.f-toggle{font-size:1.4rem; font-weight:300; color:var(--faint); line-height:1; transition:transform .2s; padding-top:.1rem; flex:none}
-.finding.open .f-toggle{transform:rotate(45deg); color:var(--accent)}
-.finding.open .f-title{color:var(--accent)}
+.f-toggle{font-size:1.3rem; font-weight:400; color:var(--mid); line-height:1; transition:transform .2s; padding-top:.1rem; flex:none}
+.finding.open .f-toggle{transform:rotate(45deg); color:var(--ink)}
 .f-body{display:grid; grid-template-rows:0fr; opacity:0; transition:grid-template-rows .25s ease, opacity .25s ease}
 .finding.open .f-body{grid-template-rows:1fr; opacity:1}
 .f-body-inner{overflow:hidden}
-.f-content{padding:0 0 1.8rem calc(2.2rem + 1rem)}
+.f-content{padding:0 0 2rem calc(2.2rem + 1rem)}
 @media (max-width:560px){.f-content{padding-left:0}}
-.f-claim{font-size:.98rem; line-height:1.65; margin-bottom:1.3rem; max-width:680px}
-.f-context{font-size:.9rem; color:var(--mid); margin-top:1.3rem; max-width:680px; padding-top:1.1rem; border-top:1px dashed var(--line)}
-.ev-label{font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--mid); margin-bottom:.7rem}
-.evidence{display:flex; flex-direction:column; gap:.9rem}
-.ev-item{border:1px solid var(--line); border-radius:8px; overflow:hidden; background:var(--paper)}
+.f-claim{font-size:.98rem; line-height:1.65; margin-bottom:1.5rem; max-width:var(--measure)}
+.f-context{margin-top:1.5rem; max-width:var(--measure)}
+.f-context p{font-size:.92rem}
+.ev-label{font-size:.68rem; font-weight:600; text-transform:uppercase; letter-spacing:.1em; color:var(--mid); margin-bottom:.6rem}
+.evidence{display:flex; flex-direction:column; gap:1rem}
+.ev-item{border-top:1px solid var(--ink)}
 .ev-file{
-  display:flex; align-items:flex-start; gap:.6rem; padding:.55rem .8rem; background:var(--paper-alt); flex-wrap:nowrap;
+  display:flex; align-items:flex-start; gap:.75rem; padding:.5rem 0; flex-wrap:nowrap;
   font-family:var(--mono); font-size:.7rem; color:var(--mid);
 }
 /* path wraps inside its own column so the line number and Copy citation stay on the first row */
-.ev-file .path{flex:1; min-width:0; overflow-wrap:anywhere}
-/* inside an evidence card the quote is just text with the green rule, not a second gray box */
-.ev-item blockquote{background:color-mix(in srgb, var(--paper-alt) 60%, var(--paper)); border-radius:0 4px 4px 0; padding:.7rem .9rem; font-size:.78rem; line-height:1.6}
+.ev-file .path{flex:1; min-width:0; overflow-wrap:anywhere; color:var(--ink)}
+.ev-item blockquote{padding:.7rem .9rem; font-size:.78rem; line-height:1.6}
 .ev-file .lines{color:var(--mid); flex:none; white-space:nowrap}
-.ev-badge{flex:none; font-size:.62rem; text-transform:uppercase; letter-spacing:.05em; padding:.1rem .4rem; border-radius:4px; background:var(--paper); border:1px solid var(--line); color:var(--mid)}
+.ev-badge{flex:none; font-size:.6rem; text-transform:uppercase; letter-spacing:.06em; padding:.08rem .4rem; border:1px solid var(--line); color:var(--mid)}
 .ev-copy{
-  margin-left:auto; font-family:var(--font); font-size:.68rem; color:var(--mid); background:none; border:1px solid var(--line);
-  border-radius:5px; padding:.15rem .5rem; cursor:pointer; flex:none;
+  margin-left:auto; font-family:var(--font); font-size:.68rem; color:var(--mid); background:none; border:none;
+  text-decoration:underline; text-underline-offset:2px; padding:0 0 0 .5rem; cursor:pointer; flex:none;
 }
-.ev-copy:hover{color:var(--accent); border-color:var(--accent)}
-.ev-body{padding:.85rem}
-.ev-note{font-size:.8rem; color:var(--mid); margin-top:.6rem; font-style:italic}
+.ev-copy:hover{color:var(--ink)}
+.ev-body{padding:0}
+.ev-note{font-size:.82rem; color:var(--mid); margin-top:.6rem}
 
 /* ---------- publications ---------- */
-/* author filter, same pills as the Participate filter on futuresociety.ch (.way-filter) */
-.authors{display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1.5rem}
+.authors{display:flex; flex-wrap:wrap; gap:.4rem; margin-block:1.5rem}
 .author-filter{
-  font-family:inherit; font-size:.66rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
-  color:var(--mid); background:transparent; border:1px solid var(--line); border-radius:999px;
-  padding:.45rem .9rem; cursor:pointer; transition:color .15s, border-color .15s, background .15s;
+  font-family:inherit; font-size:.68rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--mid); background:transparent; border:1px solid var(--line);
+  padding:.4rem .75rem; cursor:pointer; transition:color .15s, border-color .15s, background .15s;
 }
-.author-filter:hover{color:var(--accent); border-color:var(--accent)}
-.author-filter.is-active{color:var(--accent-ink); background:var(--accent); border-color:var(--accent)}
+.author-filter:hover{color:var(--ink); border-color:var(--ink)}
+.author-filter.is-active{color:var(--paper); background:var(--ink); border-color:var(--ink)}
 .author-filter:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 .pub-card[hidden]{display:none}
-.pub-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line)}
-.pub-card{background:var(--paper); padding:1.3rem; cursor:pointer; display:flex; flex-direction:column; gap:.5rem}
-.pub-card:hover{background:var(--paper-alt)}
-.pub-card .pt{font-size:.92rem; font-weight:650; line-height:1.4}
-.pub-card .pa{font-size:.78rem; color:var(--mid)}
-.pub-card .pv{font-size:.72rem; color:var(--mid); text-transform:uppercase; letter-spacing:.04em}
-.pub-card .pc{margin-top:auto; font-size:.72rem; color:var(--accent); font-weight:600}
+.pub-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); column-gap:2rem}
+.pub-card{border-top:1px solid var(--ink); padding:.9rem 0 1.75rem; cursor:pointer; display:flex; flex-direction:column; gap:.4rem}
+.pub-card:hover .pt{color:var(--accent)}
+.pub-card .pt{font-size:.95rem; font-weight:600; line-height:1.4}
+.pub-card .pa{font-size:.8rem; color:var(--body)}
+.pub-card .pv{font-size:.72rem; color:var(--mid); text-transform:uppercase; letter-spacing:.06em}
+.pub-card .pc{margin-top:auto; padding-top:.4rem; font-size:.72rem; color:var(--mid)}
 
 /* ---------- sources / footer ---------- */
-.src-list{display:flex; flex-direction:column; gap:.55rem; margin-top:1rem}
-.src-list a{font-size:.88rem; text-decoration:none; color:var(--ink); border-bottom:1px solid var(--line); padding-bottom:.55rem; display:block}
-.src-list a:hover{color:var(--accent); border-color:var(--accent)}
-footer{padding-block:3rem; font-size:.78rem; color:var(--mid)}
-footer .wrap{display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; align-items:center}
+.src-list{display:flex; flex-direction:column; margin-top:1.5rem; border-top:1px solid var(--line); max-width:var(--measure)}
+.src-list a{font-size:.88rem; text-decoration:none; color:var(--ink); border-bottom:1px solid var(--line); padding-block:.6rem; display:block}
+.src-list a:hover{color:var(--accent)}
+footer{
+  padding-block:2rem 3rem; font-size:.75rem; color:var(--mid);
+  margin-inline:calc(-1 * var(--gutter)); padding-inline:var(--gutter);
+}
+footer .wrap{display:grid; grid-template-columns:9fr 3fr; column-gap:2rem; border-top:1px solid var(--ink); padding-top:1rem}
+footer .mono{text-align:right}
+@media (max-width:760px){ footer .wrap{grid-template-columns:1fr; row-gap:1rem} footer .mono{text-align:left} }
 
-#empty{display:none; padding:3rem 0; text-align:center; color:var(--mid)}
+#empty{display:none; padding:3rem 0; color:var(--mid)}
 
 /* ---------- highlights ---------- */
-.hl-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line)}
-.hl-card{background:var(--paper); padding:1.3rem; display:flex; flex-direction:column; gap:.6rem; text-decoration:none; color:inherit}
-.hl-card:hover{background:var(--paper-alt)}
+.hl-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); column-gap:2rem; row-gap:2.25rem}
+.hl-card{border-top:1px solid var(--ink); padding-top:.9rem; display:flex; flex-direction:column; gap:.55rem; text-decoration:none; color:inherit}
 .hl-card:hover h3{color:var(--accent)}
-.hl-sev{display:flex; align-items:center; gap:.45rem; font-size:.68rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--sev-high)}
-.hl-sev::before{content:""; width:.6rem; height:.6rem; border-radius:50%; background:var(--sev-high)}
+.hl-sev{display:flex; align-items:center; gap:.45rem; font-size:.68rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--sev-high)}
+.hl-sev::before{content:""; width:.55rem; height:.55rem; background:var(--sev-high)}
 .hl-card h3{line-height:1.3}
-.hl-card p{font-size:.88rem; color:var(--mid); line-height:1.55}
-.hl-card .go{margin-top:auto; padding-top:.4rem; font-size:.75rem; font-weight:600; color:var(--accent)}
-.hl-all{display:inline-block; margin-top:1.4rem; font-size:.85rem; font-weight:600; text-decoration:none; border-bottom:1px solid var(--accent); color:var(--accent)}
-.hl-all:hover{opacity:.7}
+.hl-card p{font-size:.88rem; color:var(--body); line-height:1.55}
+.hl-card .go{margin-top:auto; padding-top:.3rem; font-size:.75rem; font-weight:500; color:var(--mid); text-decoration:underline; text-underline-offset:3px}
+.hl-all{display:inline-block; margin-top:2.25rem; font-size:.85rem; font-weight:600; text-decoration:underline; text-underline-offset:4px; color:var(--ink)}
+.hl-all:hover{color:var(--accent)}
 
 /* ---------- mobile ---------- */
 .f-claim code, .ev-note code{overflow-wrap:anywhere}
@@ -276,13 +282,11 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-betwe
 @media (max-width:560px){
   .brand-rest{display:none}
   nav .bar{gap:1rem}
-  .stats{gap:1.4rem 2rem}
   .stat b{font-size:1.6rem}
   .f-num{display:none}
   .f-head{gap:.75rem}
   .tag{font-size:.62rem}
-  .hl-card{padding:1.1rem}
-  .card{padding:1.1rem}
-  .ev-body{padding:.6rem}
   blockquote{font-size:.8rem; padding:.7rem .8rem}
+  .src-types{grid-template-columns:1fr}
+  .src-types dt{border-bottom:none; padding-bottom:0}
 }
