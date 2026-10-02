@@ -1857,3 +1857,15 @@ footer .container {
    pure black-on-black. */
 [data-theme="dark"] .song-menu { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6); }
 [data-theme="dark"] .nav-sub { box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5); }
+
+/* Funder logos: brand rules forbid recolouring, so a tile with an official
+   dark-background version carries both images and swaps them here. */
+.funder-logo-dark { display: none; }
+[data-theme="dark"] .funder-tile:has(.funder-logo-dark) .funder-logo { display: none; }
+[data-theme="dark"] .funder-tile:has(.funder-logo-dark) .funder-logo-dark { display: block; }
+/* --gray is too close to the dark page to read as a hover; lift it a step. */
+[data-theme="dark"] .funder-tile:hover { background: #222; }
+/* The Chips JU negative ships on solid black; match the tile to it. */
+[data-theme="dark"] .funder-tile:has(.funder-logo--chips-ju) { background: #000; }
+/* Interreg has no public negative: show its own white field with a margin. */
+[data-theme="dark"] .funder-logo--interreg { background: #fff; padding: 8px; box-sizing: content-box; }
