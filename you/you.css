@@ -242,3 +242,12 @@ a.you-tile h3 { font-size: 1.35rem; transition: color 0.15s; }
 
 /* Hero without a chain line: keep the main site's gap above the meta line. */
 .hero-sub:not(.hero-chain):has(+ .hero-meta) { margin-bottom: 2.5rem; }
+
+/* Phones: the main stylesheet puts the small logo in the h1's row (row 2).
+   The "Tailored for" line adds a row above the label, so the logo moves down
+   one row to stay beside the title, and the line itself may use the full
+   width. */
+@media (max-width: 900px) {
+  #hero .you-bar { grid-column: 1 / -1; }
+  #hero:has(.you-bar) .hero-image { grid-row: 3; }
+}

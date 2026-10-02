@@ -138,9 +138,6 @@
     </ul>
     ${switcher(current)}
     <a class="nav-social" href="https://www.linkedin.com/company/future-society-hub" target="_blank" rel="noopener" aria-label="FuSo on LinkedIn"><i class="ph-bold ph-linkedin-logo" aria-hidden="true"></i></a>
-    <button class="theme-toggle" id="themeToggle" data-theme-toggle type="button" aria-pressed="false" aria-label="Switch to dark mode">
-      <i class="ph-bold ph-moon icon-moon" aria-hidden="true"></i><i class="ph-bold ph-sun icon-sun" aria-hidden="true"></i>
-    </button>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
   </div>
 </nav>`;
