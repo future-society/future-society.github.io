@@ -1748,22 +1748,38 @@ footer .container {
   .nav-logo { margin-left: 0; }
 
   #hero {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr auto;
+    row-gap: 0;
     padding-top: 3rem;
     padding-bottom: 3rem;
   }
-  .hero-text { grid-column: 1 / -1; }
-  /* Show the logo above the text on mobile, centered */
+  /* Small logo to the right of the title, centred on it. .hero-text dissolves
+     so its lines become rows of #hero (label, h1, slogan, chain) and the logo
+     can share the h1's row. The large negative block margins take the logo
+     out of the row's height calculation, so it does not push the slogan down;
+     being equal, they keep it centred on the h1. */
+  .hero-text { display: contents; }
+  .hero-text > * { grid-column: 1; }
   .hero-image {
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: center;
-    order: -1;
-    /* Room under the logo for the .song-egg that hangs off it, so its picker
-       cannot reach the "University of St.Gallen" line below. */
-    margin-bottom: 3.5rem;
+    grid-column: 2;
+    grid-row: 2;
+    align-self: center;
+    margin-block: -100px;
   }
-  .hero-logo { width: 80%; max-width: 320px; }
+  .hero-logo { width: clamp(90px, 22vw, 170px); }
+  /* One word per line (Future / Society / Hub) next to the logo, instead of
+     wherever the narrow column happens to wrap. */
+  #hero h1 .hero-line,
+  #hero h1 .accent-text { display: block; }
+  /* Smaller note so it does not compete with the small logo; the offset is
+     half the note + 6px, as on desktop (see .song-note). */
+  .song-note {
+    width: 26px;
+    height: 26px;
+    left: calc(50% + 0.7071 * (50% + 19px));
+    top: calc(50% + 0.7071 * (50% + 19px));
+  }
+  .song-note .ph-bold { font-size: 13px; }
 
   .about-label { display: none; }
 
