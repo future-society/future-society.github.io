@@ -301,7 +301,7 @@ nav a:hover { color: var(--accent); }
   position: relative;
   /* Sized to its content (not a full-viewport splash) so the mission box
      right after it sits close on any screen height. */
-  padding: 3.5rem 2rem 2.5rem;
+  padding: 7.5rem 2rem 5rem;
   display: grid;
   grid-template-columns: 0.3fr repeat(11, 1fr);
   gap: var(--gap);
@@ -345,16 +345,14 @@ h1 {
   line-height: 1.5;
   max-width: 540px;
   color: var(--text-body);
-  /* No gap: .hero-chain follows directly below and should read as the next
-     line of the same block, not as a separate paragraph. */
   margin-bottom: 0;
 }
 
-/* The pipeline line under .hero-sub. It carries .hero-sub too, so it is the
-   same plain type as the sentence above it — no chips, no reuse of the
-   About chain's .block-item boxes. Only the separators and spacing differ. */
+/* The pipeline line under the slogan. It carries .hero-sub for its plain
+   type — no chips, no reuse of the About chain's .block-item boxes. Only the
+   separators and spacing differ. */
 .hero-chain {
-  margin-bottom: 2.5rem;
+  margin-bottom: 0;
   /* No max-width (unlike .hero-sub's 540px): the longer German verbs need
      the full column to stay on one line. */
   max-width: none;
@@ -368,14 +366,6 @@ h1 {
 .chain-arrow {
   color: var(--mid);
   padding: 0 0.15rem;
-}
-
-.hero-meta {
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--mid);
 }
 
 .hero-image {
