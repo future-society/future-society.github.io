@@ -211,32 +211,9 @@ nav a:hover { color: var(--accent); }
 .nav-social:hover { color: var(--accent); }
 .nav-social .ph-bold { display: block; font-size: 20px; }
 
-/* Light/dark toggle — same treatment as .nav-social so it reads as one more
-   icon control in the bar, not a separate widget. Both icons are always in
-   the DOM; CSS shows the one for the theme a click would switch *to*, driven
-   off the data-theme attribute the toggle's JS sets on <html>. */
-.theme-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 1.25rem;
-  padding: 0;
-  background: none;
-  border: none;
-  color: var(--black);
-  cursor: pointer;
-  transition: color 0.15s;
-}
-.theme-toggle:hover { color: var(--accent); }
-.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.theme-toggle .ph-bold { display: block; font-size: 20px; }
-.theme-toggle .icon-sun { display: none; }
-[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
-[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
-
-/* LinkedIn + dark-mode switch row at the foot of the collapsed menu. On the
-   desktop bar the icon controls above do this job, so the row stays hidden
-   until the nav collapses (see the max-width: 1240px block). */
+/* LinkedIn + dark-mode switch row at the foot of the collapsed menu. On
+   desktop the bar's LinkedIn icon and the footer's switch do this job, so the
+   row stays hidden until the nav collapses (see the max-width: 1240px block). */
 /* li.nav-extras outranks the full-height "#navMenu > li { display: flex }"
    rule in the desktop block; the collapsed block re-shows it. */
 #navMenu > li.nav-extras { display: none; }
@@ -1507,6 +1484,7 @@ details[open] > summary .summary-open { display: inline; }
   align-self: end;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 0;
   padding-left: 1.25rem;
   border-left: 1px solid var(--divider);
@@ -1636,6 +1614,9 @@ footer .container {
   height: 48px;
   width: auto;
 }
+.footer-hsg-dark { display: none; }
+[data-theme="dark"] .footer-hsg { display: none; }
+[data-theme="dark"] .footer-hsg-dark { display: block; }
 
 /* Analytics disclosure. Full-basis so it wraps onto its own line below the
    logos, separated by the container's 2.5rem row gap. */
@@ -1735,9 +1716,10 @@ footer .container {
   }
   .lang-switch a { font-size: 0.8rem; }
 
-  /* LinkedIn and the theme control move out of the bar into the menu. */
+  /* LinkedIn moves out of the bar into the menu, and the theme switch moves
+     from the footer into the menu. */
   nav .container > .nav-social,
-  nav .container > .theme-toggle { display: none; }
+  .footer-theme-switch { display: none; }
   #navMenu > li.nav-extras {
     display: flex;
     justify-content: center;

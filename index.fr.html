@@ -117,10 +117,6 @@
     <a class="nav-social" href="https://www.linkedin.com/company/future-society-hub" target="_blank" rel="noopener" aria-label="FuSo sur LinkedIn">
       <i class="ph-bold ph-linkedin-logo" aria-hidden="true"></i>
     </a>
-    <button class="theme-toggle" id="themeToggle" data-theme-toggle type="button" aria-pressed="false" aria-label="Passer en mode sombre">
-      <i class="ph-bold ph-moon icon-moon" aria-hidden="true"></i>
-      <i class="ph-bold ph-sun icon-sun" aria-hidden="true"></i>
-    </button>
     <button class="nav-toggle" id="navToggle" aria-label="Basculer le menu" aria-expanded="false" aria-controls="navMenu">
       <span></span><span></span><span></span>
     </button>
@@ -763,6 +759,10 @@
       </div>
     </div>
     <img class="footer-hsg" loading="lazy" src="assets/images/HSG_Logo_EN_RGB.png" alt="Université de Saint-Gall">
+    <img class="footer-hsg footer-hsg-dark" loading="lazy" src="assets/images/HSG_Logo_EN_RGB_Weiss.png" alt="Université de Saint-Gall">
+    <button class="theme-switch footer-theme-switch" type="button" role="switch" aria-checked="false" aria-label="Mode sombre" data-theme-toggle>
+      <span class="theme-switch-track" aria-hidden="true"><span class="theme-switch-thumb"><i class="ph-bold ph-sun icon-sun" aria-hidden="true"></i><i class="ph-bold ph-moon icon-moon" aria-hidden="true"></i></span></span>
+    </button>
     <p class="footer-privacy">Nous mesurons la fréquentation avec <a href="https://www.goatcounter.com/help/privacy" target="_blank" rel="noopener">GoatCounter</a>&nbsp;: sans cookies et de manière anonyme, sans conservation de données personnelles ni stockage sur votre appareil.</p>
   </div>
 </footer>
@@ -996,21 +996,11 @@
     if (!toggles.length) return;
     const root = document.documentElement;
     const media = window.matchMedia('(prefers-color-scheme: dark)');
-    const LABEL = { light: 'Passer en mode sombre', dark: 'Passer en mode clair' };
 
     function apply(theme) {
       if (theme === 'dark') root.setAttribute('data-theme', 'dark');
       else root.removeAttribute('data-theme');
-      toggles.forEach(function (t) {
-        // The bar's icon button is a pressed-state button with a label that
-        // names the action; the menu's switch reports its on/off state.
-        if (t.getAttribute('role') === 'switch') {
-          t.setAttribute('aria-checked', String(theme === 'dark'));
-        } else {
-          t.setAttribute('aria-pressed', String(theme === 'dark'));
-          t.setAttribute('aria-label', LABEL[theme]);
-        }
-      });
+      toggles.forEach(t => t.setAttribute('aria-checked', String(theme === 'dark')));
     }
 
     apply(root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
