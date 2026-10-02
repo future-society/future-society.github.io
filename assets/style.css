@@ -1677,8 +1677,26 @@ footer .container {
     clip-path: inset(0);
     transition: clip-path 0.45s ease-in-out, visibility 0s;
   }
+  /* Dim the page under the open menu, so the menu reads as a layer on top
+     instead of merging with the page (both share the white/dark background).
+     A pseudo-element of the nav at z-index -1 sits above the nav's own
+     background but below #navMenu, and starts under the bar. It fades in
+     over the same 0.45s as the menu unrolls. Closed, it lets taps through;
+     open, it catches them, and the nav script closes the menu. */
+  nav::after {
+    content: '';
+    position: fixed;
+    inset: 56px 0 0;
+    z-index: -1;
+    background: rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.45s ease-in-out;
+  }
+  nav:has(#navMenu.open)::after { opacity: 1; pointer-events: auto; }
+  [data-theme="dark"] nav::after { background: rgba(0, 0, 0, 0.65); }
   @media (prefers-reduced-motion: reduce) {
-    #navMenu, #navMenu.open { transition: none; }
+    #navMenu, #navMenu.open, nav::after { transition: none; }
   }
   #navMenu > li { padding: 0.65rem 0; }
   #navMenu > li > a { font-size: 0.85rem; }
@@ -1871,7 +1889,11 @@ footer .container {
    border has faded to a hairline, instead of a shadow that would read as
    pure black-on-black. */
 [data-theme="dark"] .song-menu { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6); }
-[data-theme="dark"] .nav-sub { box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5); }
+/* Desktop dropdowns only: on the collapsed menu the submenus are inline, and
+   this shadow drew dark boxes around them. */
+@media (min-width: 1241px) {
+  [data-theme="dark"] .nav-sub { box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5); }
+}
 
 /* Funder logos: brand rules forbid recolouring, so a tile with an official
    dark-background version carries both images and swaps them here. */

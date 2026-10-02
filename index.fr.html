@@ -1034,6 +1034,12 @@
       toggle.setAttribute('aria-expanded', String(open));
     });
     menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+    // A tap on the dimmed page (the nav's ::after overlay, below the 56px
+    // bar) lands on the nav itself; close the menu.
+    const nav = menu.closest('nav');
+    nav.addEventListener('click', e => {
+      if (e.target === nav && e.clientY > 56) close();
+    });
   })();
 
   // Easter egg: the floating note in the hero corner opens a picker for the
