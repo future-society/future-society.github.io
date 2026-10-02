@@ -743,10 +743,33 @@ p {
   flex-wrap: wrap;
 }
 
+/* Fixed grid instead of a wrapping row, so no piece of the chain can drop
+   onto a line of its own: label, arrow, then 4 × (step, arrow), label.
+   Each step column is as wide as its labels need; when space is tight the
+   labels wrap between words, never inside one. */
 .toolbox.process-flow {
-  gap: 0.6rem;
+  grid-column: 3 / 13;
+  display: grid;
+  grid-template-columns: repeat(11, auto);
+  gap: 0.4rem;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+}
+.process-flow .block-item {
+  font-size: 0.85rem;
+  line-height: 1.2;
+  padding: 0.6rem 0.75rem;
+}
+/* Start and end of the chain: same pill shape as the steps, outlined
+   instead of filled. */
+.process-flow .chain-label {
+  font-size: 0.95rem;
+  min-height: 0;
+  padding: 0.55rem 0.75rem;
+  border: 2px solid #0a8a3a;
+  border-radius: 4px;
+  color: #0a8a3a;
+  line-height: 1.2;
 }
 
 .chain-label {
@@ -1751,6 +1774,41 @@ footer .container {
   }
 }
 
+/* Below 1240px the full horizontal chain no longer fits. Insight moves above
+   the first step and Impact below the last (with down arrows), which leaves
+   the four steps the full width, shared equally. */
+@media (max-width: 1240px) {
+  .toolbox.process-flow {
+    grid-template-columns: repeat(3, minmax(0, 1fr) auto) minmax(0, 1fr);
+    row-gap: 0.35rem;
+  }
+  .process-flow > * { grid-row: 3; }
+  .process-flow .chain-label,
+  .process-flow .flow-arrow-endpoint { justify-self: center; }
+  .process-flow .flow-arrow-endpoint { transform: rotate(90deg); min-height: 0; }
+  .process-flow > :first-child { grid-row: 1; grid-column: 1; }
+  .process-flow > :nth-child(2) { grid-row: 2; grid-column: 1; }
+  .process-flow > :nth-last-child(2) { grid-row: 4; grid-column: -2; }
+  .process-flow > :last-child { grid-row: 5; grid-column: -2; }
+  /* Long German compounds (Folgenabschätzung) break instead of overflowing
+     when the column is tight. */
+  .process-flow .block-item { hyphens: auto; }
+}
+
+/* Narrow screens: the chain runs fully top to bottom; the two blocks of a
+   step sit side by side. */
+@media (max-width: 900px) {
+  .toolbox.process-flow {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+  .toolbox.process-flow > * { grid-row: auto; grid-column: auto; }
+  .process-flow .flow-arrow { transform: rotate(90deg); min-height: 0; }
+  .process-flow .block-group { flex-direction: row; width: min(100%, 28rem); }
+  .process-flow .block-group .block-item { flex: 1 1 0; min-width: 0; }
+}
+
 @media (max-width: 900px) {
   :root { --gap: 1.5rem; }
 
@@ -1845,6 +1903,9 @@ footer .container {
      too small to read on a phone. */
   .funders-grid { grid-template-columns: 1fr; }
   .funder-tile { min-height: 128px; padding: 1.75rem 1.25rem; }
+
+  /* Phone: the two blocks of each step stack again. */
+  .process-flow .block-group { flex-direction: column; width: min(100%, 17rem); }
 
   .container { padding: 0 1.25rem; }
   #navMenu { padding: 0.5rem 1.25rem 1.25rem; }
