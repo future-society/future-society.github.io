@@ -1781,9 +1781,7 @@ footer .container {
   }
   .song-note .ph-bold { font-size: 13px; }
 
-  .about-label { display: none; }
-
-  .concrete-label, .events-label,
+  .about-label, .concrete-label, .events-label,
   .focus-label, .participate-label,
   .team-label, .contact-label, .funders-label {
     display: block;
