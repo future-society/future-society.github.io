@@ -11,13 +11,17 @@
 document.addEventListener('click', function (e) {
   if (!window.goatcounter || typeof window.goatcounter.count !== 'function') return;
 
+  // Pages that reuse this script (e.g. /you/) prefix their event names so
+  // they stay apart from the main site's numbers.
+  var prefix = document.body.getAttribute('data-analytics-prefix') || '';
+
   // Which audience visitors identify with, from the Participate filter chips.
   // Useful on its own: it tells us who the section is actually reaching.
   var chip = e.target.closest('.way-filter');
   if (chip) {
     var audience = chip.getAttribute('data-audience') || 'all';
     window.goatcounter.count({
-      path: 'audience-' + audience,
+      path: prefix + 'audience-' + audience,
       title: 'Participate filter: ' + audience,
       event: true
     });
@@ -40,7 +44,7 @@ document.addEventListener('click', function (e) {
     return;
   }
 
-  window.goatcounter.count({ path: name, title: title, event: true });
+  window.goatcounter.count({ path: prefix + name, title: title, event: true });
 });
 
 // Track the easter-egg songs. The toggles always restart playback from 0, so

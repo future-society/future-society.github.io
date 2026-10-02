@@ -1,0 +1,244 @@
+/* Additions for the personalized site (/you/). Everything else comes from
+   ../assets/style.css; colours only through its theme variables so dark mode
+   works unchanged. */
+
+/* ─── Perspective switcher (nav bar, all views) ───
+   Sits where the main site has its EN/DE/FR switch, with the same spacing. */
+.you-switch {
+  position: relative;
+  margin-left: 1.5rem;
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--divider);
+}
+.you-switch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.you-switch-btn .ph-user-switch { font-size: 1rem; letter-spacing: 0; }
+.you-switch-caret { font-size: 0.9em; letter-spacing: 0; transition: transform 0.25s ease; }
+.you-switch-btn[aria-expanded="true"] .you-switch-caret { transform: rotate(180deg); }
+.you-switch-btn:hover { color: var(--black); }
+.you-switch-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* Panel styled like the main nav's .nav-sub, hanging from the bar's edge. */
+.you-switch-menu {
+  position: absolute;
+  top: calc(100% + 18px);
+  right: 0;
+  z-index: 110;
+  min-width: max-content;
+  list-style: none;
+  padding: 0.5rem 0;
+  background: var(--white);
+  border-top: 2px solid var(--accent);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+[data-theme="dark"] .you-switch-menu { box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5); }
+.you-switch-menu[hidden] { display: none; }
+.you-switch-group {
+  padding: 0.75rem 1.25rem 0.25rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mid);
+}
+.you-switch-group:first-child { padding-top: 0.35rem; }
+.you-switch-menu a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 1.25rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.you-switch-menu a .ph-bold { font-size: 1rem; letter-spacing: 0; color: var(--mid); }
+.you-switch-menu a.active, .you-switch-menu a.active .ph-bold { color: var(--accent); }
+.you-switch-menu a:hover .ph-bold { color: var(--accent); }
+.you-switch-all { margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--divider); }
+
+@media (max-width: 1240px) {
+  .you-switch { margin-left: auto; padding-left: 0; border-left: none; }
+  .you-switch-btn { font-size: 0.8rem; }
+}
+@media (max-width: 600px) {
+  .you-switch-menu { right: -3.5rem; max-height: calc(100vh - 80px); overflow-y: auto; }
+}
+
+/* ─── Hero: which perspective is active ─── */
+.you-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.6rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-quiet);
+}
+.you-bar .ph-bold { font-size: 1rem; color: var(--accent); }
+.you-bar strong { font-weight: 700; color: var(--accent); }
+.you-bar a {
+  margin-left: 0.4rem;
+  color: var(--black);
+  text-decoration: none;
+  border-bottom: 1px solid var(--divider);
+  transition: color 0.15s, border-color 0.15s;
+}
+.you-bar a:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ─── Text links in places the main site has none ─── */
+.intro-standalone a,
+.you-lede a,
+.focus-card p a,
+.contact-body a,
+.you-line a,
+.project-body-inner a,
+.participate-contact a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+}
+.intro-standalone a:hover, .you-lede a:hover, .focus-card p a:hover,
+.contact-body a:hover, .you-line a:hover, .project-body-inner a:hover { opacity: 0.7; }
+
+.you-lede { margin-top: 1rem; max-width: 720px; }
+.focus-intro { margin-bottom: 0.5rem; }
+.you-note { font-size: 0.9rem; color: var(--text-quiet); }
+.project-header:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+/* ─── Card grids ─── */
+@media (min-width: 901px) {
+  .focus-grid.you-grid-2 { grid-template-columns: repeat(2, 1fr); }
+}
+/* Fills an incomplete last row so the black gap colour never shows. */
+@media (max-width: 900px) {
+  .you-filler { display: none; }
+}
+
+/* Picker tiles: a whole focus card is the link. */
+a.you-tile {
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s;
+}
+a.you-tile:hover { background: var(--gray); }
+a.you-tile:hover h3 { color: var(--accent); }
+a.you-tile:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
+a.you-tile h3 { font-size: 1.35rem; transition: color 0.15s; }
+.you-tile .focus-num { display: flex; align-items: center; gap: 0.5rem; }
+.you-tile .focus-num .ph-bold { font-size: 1.3rem; letter-spacing: 0; }
+.you-tile-go {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-top: 1rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ─── Events: "Suggested for you" and the single merged box ─── */
+.you-pick-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.you-events-single .event-box { max-width: 720px; }
+
+/* ─── Plain numbered lines ("In a hurry", agent notes) ─── */
+.you-lines { list-style: none; border-top: 1px solid var(--divider); }
+.you-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 0.25rem;
+  border-bottom: 1px solid var(--divider);
+}
+.you-line .way-num { padding-top: 0.35rem; }
+.you-line p { font-size: 1.05rem; color: var(--black); }
+
+/* ─── People by topic ─── */
+.you-people { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.75rem; }
+.you-person { display: flex; align-items: center; gap: 0.75rem; }
+.you-person img, .you-person-ph {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--gray);
+}
+.you-person > span { display: flex; flex-direction: column; line-height: 1.35; }
+.you-person-name { font-size: 0.9rem; font-weight: 600; }
+.you-person-name a { color: var(--black); text-decoration: none; }
+.you-person-name a:hover { color: var(--accent); }
+.you-person-detail { font-size: 0.72rem; font-weight: 300; color: var(--text-quiet); }
+
+/* ─── Songs ─── */
+.you-track audio { width: 100%; margin-top: 1.25rem; }
+
+/* ─── Full publication list (skeptic) ─── */
+.you-pubs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem 3rem;
+}
+.you-pubgroup h3 { margin-bottom: 0; }
+@media (max-width: 900px) {
+  .you-pubs { grid-template-columns: 1fr; }
+}
+
+/* ─── Structured data (agent) ─── */
+.you-data-actions { display: flex; gap: 1.5rem; margin-bottom: 1rem; }
+.you-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: var(--text-quiet);
+}
+.you-btn:hover { color: var(--accent); }
+.you-data {
+  max-height: 70vh;
+  overflow: auto;
+  padding: 1.5rem;
+  background: var(--white);
+  border: 1px solid var(--divider);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-body);
+  white-space: pre;
+}
+
+/* Hero without a chain line: keep the main site's gap above the meta line. */
+.hero-sub:not(.hero-chain):has(+ .hero-meta) { margin-bottom: 2.5rem; }
