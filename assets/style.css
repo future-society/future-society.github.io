@@ -6,12 +6,13 @@
   --gray:    #f4f4f4;
   --mid:     #999999;
   --accent:  #00802F;
-  /* Fixed, never re-themed: the deep green needed so white button/badge text
-     on top of it keeps AA contrast. --accent itself gets lightened for dark
-     mode (readable as text on a dark page), which would fail that same
-     contrast test used as a fill under white text — so anywhere accent is a
-     background colour under white text, use this instead. */
+  /* Fill under white button/badge text. Same value as --accent; kept
+     separate so those fills never follow a future re-theme of --accent. */
   --accent-contrast: #00802F;
+  /* Small text (links, eyebrows, labels) that would be accent. Same green in
+     light mode; in dark mode #00802F on the page is only ~3.7:1, so small text
+     goes light and links keep their #00802F underline instead. */
+  --accent-text: #00802F;
   /* Body copy / muted labels / hairline dividers written as literal hex
      throughout this file rather than var(--black)/var(--mid) — several
      distinct shades (#333 and #444 for body copy; #555, #666, #777 for
@@ -31,10 +32,9 @@
    Overriding these five variables re-themes nearly every rule in this file,
    since almost all of them already read colour through var(--black)/
    var(--white)/var(--gray)/var(--mid)/var(--accent) rather than literal hex.
-   Values are inverted-but-softened (not pure #000/#fff) and, for --accent,
-   relightened so text/icons/borders drawn in it keep >=4.5:1 (resp. >=3:1)
-   against the new dark backgrounds — the original --accent only clears
-   ~3.7:1 there. The three added here (--text-body/--text-quiet/--divider)
+   Values are inverted-but-softened (not pure #000/#fff). --accent stays the
+   brand #00802F everywhere; small text uses --accent-text instead (see its
+   :root declaration). The three added here (--text-body/--text-quiet/--divider)
    back rules that used to hardcode hex instead of a variable; see the
    comment on their :root declaration above. */
 :root[data-theme="dark"] {
@@ -42,7 +42,8 @@
   --white: #121212;
   --gray:  #1a1a1a;
   --mid:   #a3a3a3;
-  --accent:#2db45e;
+  --accent:#00802F;
+  --accent-text: #ededed;
   --text-body:  #dadada;
   --text-quiet: #bdbdbd;
   --divider:    #2e2e2e;
@@ -211,32 +212,9 @@ nav a:hover { color: var(--accent); }
 .nav-social:hover { color: var(--accent); }
 .nav-social .ph-bold { display: block; font-size: 20px; }
 
-/* Light/dark toggle — same treatment as .nav-social so it reads as one more
-   icon control in the bar, not a separate widget. Both icons are always in
-   the DOM; CSS shows the one for the theme a click would switch *to*, driven
-   off the data-theme attribute the toggle's JS sets on <html>. */
-.theme-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 1.25rem;
-  padding: 0;
-  background: none;
-  border: none;
-  color: var(--black);
-  cursor: pointer;
-  transition: color 0.15s;
-}
-.theme-toggle:hover { color: var(--accent); }
-.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.theme-toggle .ph-bold { display: block; font-size: 20px; }
-.theme-toggle .icon-sun { display: none; }
-[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
-[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
-
-/* LinkedIn + dark-mode switch row at the foot of the collapsed menu. On the
-   desktop bar the icon controls above do this job, so the row stays hidden
-   until the nav collapses (see the max-width: 1240px block). */
+/* LinkedIn + dark-mode switch row at the foot of the collapsed menu. On
+   desktop the bar's LinkedIn icon and the footer's switch do this job, so the
+   row stays hidden until the nav collapses (see the max-width: 1240px block). */
 /* li.nav-extras outranks the full-height "#navMenu > li { display: flex }"
    rule in the desktop block; the collapsed block re-shows it. */
 #navMenu > li.nav-extras { display: none; }
@@ -323,7 +301,7 @@ nav a:hover { color: var(--accent); }
   position: relative;
   /* Sized to its content (not a full-viewport splash) so the mission box
      right after it sits close on any screen height. */
-  padding: 3.5rem 2rem 2.5rem;
+  padding: 7.5rem 2rem 5rem;
   display: grid;
   grid-template-columns: 0.3fr repeat(11, 1fr);
   gap: var(--gap);
@@ -356,7 +334,7 @@ h1 {
   font-size: clamp(1.1rem, 2.2vw, 1.5rem);
   font-weight: 300;
   font-style: italic;
-  color: var(--accent);
+  color: var(--accent-text);
   margin-bottom: 2rem;
   letter-spacing: -0.01em;
 }
@@ -367,16 +345,14 @@ h1 {
   line-height: 1.5;
   max-width: 540px;
   color: var(--text-body);
-  /* No gap: .hero-chain follows directly below and should read as the next
-     line of the same block, not as a separate paragraph. */
   margin-bottom: 0;
 }
 
-/* The pipeline line under .hero-sub. It carries .hero-sub too, so it is the
-   same plain type as the sentence above it — no chips, no reuse of the
-   About chain's .block-item boxes. Only the separators and spacing differ. */
+/* The pipeline line under the slogan. It carries .hero-sub for its plain
+   type — no chips, no reuse of the About chain's .block-item boxes. Only the
+   separators and spacing differ. */
 .hero-chain {
-  margin-bottom: 2.5rem;
+  margin-bottom: 0;
   /* No max-width (unlike .hero-sub's 540px): the longer German verbs need
      the full column to stay on one line. */
   max-width: none;
@@ -390,14 +366,6 @@ h1 {
 .chain-arrow {
   color: var(--mid);
   padding: 0 0.15rem;
-}
-
-.hero-meta {
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--mid);
 }
 
 .hero-image {
@@ -519,6 +487,15 @@ h1 {
 .song-menu button.playing { color: var(--accent); background: var(--gray); }
 
 .accent-text { color: var(--accent); }
+/* Highlights inside body text are too small for green-on-dark; in dark mode
+   they take the social-post treatment instead: white on a green box. */
+[data-theme="dark"] p .accent-text {
+  color: #fff;
+  background: var(--accent-contrast);
+  padding: 0 0.2em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
 
 /* Above 900px: force "Future" / "Society Hub" onto two lines */
 @media (min-width: 901px) {
@@ -624,6 +601,7 @@ p {
   padding: 1.5rem 2rem;
   margin-bottom: 4.5rem;
 }
+[data-theme="dark"] .about-intro { background: #242424; }
 .about-intro p { color: var(--black); }
 .about-intro p + p { margin-top: 1rem; }
 
@@ -632,7 +610,7 @@ p {
 .about-headline h2 { margin-bottom: 0; }
 .about-body { grid-column: 9 / 13; padding-top: 0.5rem; }
 .about-body p + p { margin-top: 1rem; }
-.about-body a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); transition: opacity 0.15s; }
+.about-body a { color: var(--accent-text); text-decoration: none; border-bottom: 1px solid var(--accent); transition: opacity 0.15s; }
 .about-body a:hover { opacity: 0.7; }
 .about-fullstack { grid-column: 3 / 13; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--black); }
 
@@ -705,7 +683,7 @@ p {
 }
 
 .project-item.open .project-title {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 /* Smooth reveal: animate the grid track from 0fr to 1fr so it eases to the
@@ -733,7 +711,7 @@ p {
 }
 
 .project-body-inner a {
-  color: var(--accent);
+  color: var(--accent-text);
   text-decoration: none;
   border-bottom: 1px solid var(--accent);
 }
@@ -765,10 +743,33 @@ p {
   flex-wrap: wrap;
 }
 
+/* Fixed grid instead of a wrapping row, so no piece of the chain can drop
+   onto a line of its own: label, arrow, then 4 × (step, arrow), label.
+   Each step column is as wide as its labels need; when space is tight the
+   labels wrap between words, never inside one. */
 .toolbox.process-flow {
-  gap: 0.6rem;
+  grid-column: 3 / 13;
+  display: grid;
+  grid-template-columns: repeat(11, auto);
+  gap: 0.4rem;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+}
+.process-flow .block-item {
+  font-size: 0.85rem;
+  line-height: 1.2;
+  padding: 0.6rem 0.75rem;
+}
+/* Start and end of the chain: same pill shape as the steps, outlined
+   instead of filled. */
+.process-flow .chain-label {
+  font-size: 0.95rem;
+  min-height: 0;
+  padding: 0.55rem 0.75rem;
+  border: 2px solid #0a8a3a;
+  border-radius: 4px;
+  color: #0a8a3a;
+  line-height: 1.2;
 }
 
 .chain-label {
@@ -880,7 +881,7 @@ p {
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
   margin-bottom: 0.75rem;
 }
 
@@ -906,7 +907,7 @@ p {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
   padding: 0.6rem 0;
 }
 /* Plus on the right that rotates to "×" when open — same as .way-toggle. */
@@ -1002,7 +1003,7 @@ p {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
   margin-bottom: 0.4rem;
 }
 .event-name { font-size: 1rem; font-weight: 700; line-height: 1.3; color: var(--black); }
@@ -1051,7 +1052,7 @@ p {
 }
 .talk-list > .talk-item:first-child,
 .ev-list > .ev-item:first-child { border-top: 0; padding-top: 0; }
-.talk-date { display: flex; flex-direction: column; align-items: center; line-height: 1.1; color: var(--accent); }
+.talk-date { display: flex; flex-direction: column; align-items: center; line-height: 1.1; color: var(--accent-text); }
 .talk-day { font-size: 1.1rem; font-weight: 700; white-space: nowrap; }
 .talk-month, .talk-year { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
 .talk-year { color: var(--mid); }
@@ -1110,7 +1111,7 @@ a.meta:hover { color: var(--accent); }
 .event-note { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--divider); }
 .event-note p, .event-contact { font-size: 0.9rem; color: var(--text-quiet); }
 .event-contact { margin-top: 1.5rem; }
-.event-link { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); }
+.event-link { color: var(--accent-text); text-decoration: none; border-bottom: 1px solid var(--accent); }
 /* Trailing arrow inside a text link; the &nbsp; before it keeps it from
    wrapping onto a line of its own. */
 .event-link .link-arrow { font-size: 0.8em; }
@@ -1129,7 +1130,7 @@ a.meta:hover { color: var(--accent); }
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
   padding: 0.85rem 0;
   border-top: 1px solid var(--divider);
 }
@@ -1178,7 +1179,7 @@ details[open] > summary .summary-open { display: inline; }
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
   margin-bottom: 0.4rem;
 }
 
@@ -1290,7 +1291,7 @@ details[open] > summary .summary-open { display: inline; }
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
   padding: 0.85rem 0;
   border-top: 1px solid var(--divider);
 }
@@ -1436,7 +1437,7 @@ details[open] > summary .summary-open { display: inline; }
   color: var(--mid);
 }
 
-.way-tag.is-match { color: var(--accent); }
+.way-tag.is-match { color: var(--accent-text); }
 
 .way-toggle {
   font-size: 1.25rem;
@@ -1454,7 +1455,7 @@ details[open] > summary .summary-open { display: inline; }
 }
 
 .way-item.open .way-title {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .way-body {
@@ -1479,7 +1480,7 @@ details[open] > summary .summary-open { display: inline; }
 }
 
 .way-body-inner a {
-  color: var(--accent);
+  color: var(--accent-text);
   text-decoration: none;
   border-bottom: 1px solid var(--accent);
 }
@@ -1492,7 +1493,7 @@ details[open] > summary .summary-open { display: inline; }
   border-left: 2px solid var(--accent);
 }
 .participate-contact a {
-  color: var(--accent);
+  color: var(--accent-text);
   text-decoration: none;
   border-bottom: 1px solid var(--accent);
 }
@@ -1507,6 +1508,7 @@ details[open] > summary .summary-open { display: inline; }
   align-self: end;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 0;
   padding-left: 1.25rem;
   border-left: 1px solid var(--divider);
@@ -1628,7 +1630,7 @@ footer .container {
   font-size: 0.95rem;
   font-weight: 300;
   font-style: italic;
-  color: var(--accent);
+  color: var(--accent-text);
   margin-top: 0.2rem;
 }
 
@@ -1636,6 +1638,9 @@ footer .container {
   height: 48px;
   width: auto;
 }
+.footer-hsg-dark { display: none; }
+[data-theme="dark"] .footer-hsg { display: none; }
+[data-theme="dark"] .footer-hsg-dark { display: block; }
 
 /* Analytics disclosure. Full-basis so it wraps onto its own line below the
    logos, separated by the container's 2.5rem row gap. */
@@ -1695,8 +1700,26 @@ footer .container {
     clip-path: inset(0);
     transition: clip-path 0.45s ease-in-out, visibility 0s;
   }
+  /* Dim the page under the open menu, so the menu reads as a layer on top
+     instead of merging with the page (both share the white/dark background).
+     A pseudo-element of the nav at z-index -1 sits above the nav's own
+     background but below #navMenu, and starts under the bar. It fades in
+     over the same 0.45s as the menu unrolls. Closed, it lets taps through;
+     open, it catches them, and the nav script closes the menu. */
+  nav::after {
+    content: '';
+    position: fixed;
+    inset: 56px 0 0;
+    z-index: -1;
+    background: rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.45s ease-in-out;
+  }
+  nav:has(#navMenu.open)::after { opacity: 1; pointer-events: auto; }
+  [data-theme="dark"] nav::after { background: rgba(0, 0, 0, 0.65); }
   @media (prefers-reduced-motion: reduce) {
-    #navMenu, #navMenu.open { transition: none; }
+    #navMenu, #navMenu.open, nav::after { transition: none; }
   }
   #navMenu > li { padding: 0.65rem 0; }
   #navMenu > li > a { font-size: 0.85rem; }
@@ -1735,9 +1758,10 @@ footer .container {
   }
   .lang-switch a { font-size: 0.8rem; }
 
-  /* LinkedIn and the theme control move out of the bar into the menu. */
+  /* LinkedIn moves out of the bar into the menu, and the theme switch moves
+     from the footer into the menu. */
   nav .container > .nav-social,
-  nav .container > .theme-toggle { display: none; }
+  .footer-theme-switch { display: none; }
   #navMenu > li.nav-extras {
     display: flex;
     justify-content: center;
@@ -1748,6 +1772,41 @@ footer .container {
     padding-top: 1.25rem;
     border-top: 1px solid var(--divider);
   }
+}
+
+/* Below 1240px the full horizontal chain no longer fits. Insight moves above
+   the first step and Impact below the last (with down arrows), which leaves
+   the four steps the full width, shared equally. */
+@media (max-width: 1240px) {
+  .toolbox.process-flow {
+    grid-template-columns: repeat(3, minmax(0, 1fr) auto) minmax(0, 1fr);
+    row-gap: 0.35rem;
+  }
+  .process-flow > * { grid-row: 3; }
+  .process-flow .chain-label,
+  .process-flow .flow-arrow-endpoint { justify-self: center; }
+  .process-flow .flow-arrow-endpoint { transform: rotate(90deg); min-height: 0; }
+  .process-flow > :first-child { grid-row: 1; grid-column: 1; }
+  .process-flow > :nth-child(2) { grid-row: 2; grid-column: 1; }
+  .process-flow > :nth-last-child(2) { grid-row: 4; grid-column: -2; }
+  .process-flow > :last-child { grid-row: 5; grid-column: -2; }
+  /* Long German compounds (Folgenabschätzung) break instead of overflowing
+     when the column is tight. */
+  .process-flow .block-item { hyphens: auto; }
+}
+
+/* Narrow screens: the chain runs fully top to bottom; the two blocks of a
+   step sit side by side. */
+@media (max-width: 900px) {
+  .toolbox.process-flow {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+  .toolbox.process-flow > * { grid-row: auto; grid-column: auto; }
+  .process-flow .flow-arrow { transform: rotate(90deg); min-height: 0; }
+  .process-flow .block-group { flex-direction: row; width: min(100%, 28rem); }
+  .process-flow .block-group .block-item { flex: 1 1 0; min-width: 0; }
 }
 
 @media (max-width: 900px) {
@@ -1765,26 +1824,40 @@ footer .container {
   .nav-logo { margin-left: 0; }
 
   #hero {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr auto;
+    row-gap: 0;
     padding-top: 3rem;
     padding-bottom: 3rem;
   }
-  .hero-text { grid-column: 1 / -1; }
-  /* Show the logo above the text on mobile, centered */
+  /* Small logo to the right of the title, centred on it. .hero-text dissolves
+     so its lines become rows of #hero (label, h1, slogan, chain) and the logo
+     can share the h1's row. The large negative block margins take the logo
+     out of the row's height calculation, so it does not push the slogan down;
+     being equal, they keep it centred on the h1. */
+  .hero-text { display: contents; }
+  .hero-text > * { grid-column: 1; }
   .hero-image {
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: center;
-    order: -1;
-    /* Room under the logo for the .song-egg that hangs off it, so its picker
-       cannot reach the "University of St.Gallen" line below. */
-    margin-bottom: 3.5rem;
+    grid-column: 2;
+    grid-row: 2;
+    align-self: center;
+    margin-block: -100px;
   }
-  .hero-logo { width: 80%; max-width: 320px; }
+  .hero-logo { width: clamp(110px, 27vw, 200px); }
+  /* One word per line (Future / Society / Hub) next to the logo, instead of
+     wherever the narrow column happens to wrap. */
+  #hero h1 .hero-line,
+  #hero h1 .accent-text { display: block; }
+  /* Smaller note so it does not compete with the small logo; the offset is
+     half the note + 6px, as on desktop (see .song-note). */
+  .song-note {
+    width: 26px;
+    height: 26px;
+    left: calc(50% + 0.7071 * (50% + 19px));
+    top: calc(50% + 0.7071 * (50% + 19px));
+  }
+  .song-note .ph-bold { font-size: 13px; }
 
-  .about-label { display: none; }
-
-  .concrete-label, .events-label,
+  .about-label, .concrete-label, .events-label,
   .focus-label, .participate-label,
   .team-label, .contact-label, .funders-label {
     display: block;
@@ -1831,6 +1904,9 @@ footer .container {
   .funders-grid { grid-template-columns: 1fr; }
   .funder-tile { min-height: 128px; padding: 1.75rem 1.25rem; }
 
+  /* Phone: the two blocks of each step stack again. */
+  .process-flow .block-group { flex-direction: column; width: min(100%, 17rem); }
+
   .container { padding: 0 1.25rem; }
   #navMenu { padding: 0.5rem 1.25rem 1.25rem; }
   #hero { padding-left: 1.25rem; padding-right: 1.25rem; }
@@ -1874,4 +1950,20 @@ footer .container {
    border has faded to a hairline, instead of a shadow that would read as
    pure black-on-black. */
 [data-theme="dark"] .song-menu { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6); }
-[data-theme="dark"] .nav-sub { box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5); }
+/* Desktop dropdowns only: on the collapsed menu the submenus are inline, and
+   this shadow drew dark boxes around them. */
+@media (min-width: 1241px) {
+  [data-theme="dark"] .nav-sub { box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5); }
+}
+
+/* Funder logos: brand rules forbid recolouring, so a tile with an official
+   dark-background version carries both images and swaps them here. */
+.funder-logo-dark { display: none; }
+[data-theme="dark"] .funder-tile:has(.funder-logo-dark) .funder-logo { display: none; }
+[data-theme="dark"] .funder-tile:has(.funder-logo-dark) .funder-logo-dark { display: block; }
+/* --gray is too close to the dark page to read as a hover; lift it a step. */
+[data-theme="dark"] .funder-tile:hover { background: #222; }
+/* The Chips JU negative ships on solid black; match the tile to it. */
+[data-theme="dark"] .funder-tile:has(.funder-logo--chips-ju) { background: #000; }
+/* Interreg has no public negative: show its own white field with a margin. */
+[data-theme="dark"] .funder-logo--interreg { background: #fff; padding: 8px; box-sizing: content-box; }
