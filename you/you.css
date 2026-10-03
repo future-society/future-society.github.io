@@ -23,7 +23,7 @@
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
   white-space: nowrap;
 }
 .you-switch-btn .ph-user-switch { font-size: 1rem; letter-spacing: 0; }
@@ -66,8 +66,8 @@
   white-space: nowrap;
 }
 .you-switch-menu a .ph-bold { font-size: 1rem; letter-spacing: 0; color: var(--mid); }
-.you-switch-menu a.active, .you-switch-menu a.active .ph-bold { color: var(--accent); }
-.you-switch-menu a:hover .ph-bold { color: var(--accent); }
+.you-switch-menu a.active, .you-switch-menu a.active .ph-bold { color: var(--accent-text); }
+.you-switch-menu a:hover .ph-bold { color: var(--accent-text); }
 .you-switch-all { margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--divider); }
 
 @media (max-width: 1240px) {
@@ -91,8 +91,8 @@
   text-transform: uppercase;
   color: var(--text-quiet);
 }
-.you-bar .ph-bold { font-size: 1rem; color: var(--accent); }
-.you-bar strong { font-weight: 700; color: var(--accent); }
+.you-bar .ph-bold { font-size: 1rem; color: var(--accent-text); }
+.you-bar strong { font-weight: 700; color: var(--accent-text); }
 .you-bar a {
   margin-left: 0.4rem;
   color: var(--black);
@@ -100,7 +100,7 @@
   border-bottom: 1px solid var(--divider);
   transition: color 0.15s, border-color 0.15s;
 }
-.you-bar a:hover { color: var(--accent); border-color: var(--accent); }
+.you-bar a:hover { color: var(--accent-text); border-color: var(--accent); }
 
 /* ─── Text links in places the main site has none ─── */
 .intro-standalone a,
@@ -110,7 +110,7 @@
 .you-line a,
 .project-body-inner a,
 .participate-contact a {
-  color: var(--accent);
+  color: var(--accent-text);
   text-decoration: none;
   border-bottom: 1px solid var(--accent);
 }
@@ -138,7 +138,7 @@ a.you-tile {
   transition: background 0.15s;
 }
 a.you-tile:hover { background: var(--gray); }
-a.you-tile:hover h3 { color: var(--accent); }
+a.you-tile:hover h3 { color: var(--accent-text); }
 a.you-tile:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
 a.you-tile h3 { font-size: 1.35rem; transition: color 0.15s; }
 .you-tile .focus-num { display: flex; align-items: center; gap: 0.5rem; }
@@ -152,7 +152,7 @@ a.you-tile h3 { font-size: 1.35rem; transition: color 0.15s; }
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 /* ─── Events: "Suggested for you" and the single merged box ─── */
@@ -165,7 +165,7 @@ a.you-tile h3 { font-size: 1.35rem; transition: color 0.15s; }
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .you-events-single .event-box { max-width: 720px; }
 
@@ -195,7 +195,7 @@ a.you-tile h3 { font-size: 1.35rem; transition: color 0.15s; }
 .you-person > span { display: flex; flex-direction: column; line-height: 1.35; }
 .you-person-name { font-size: 0.9rem; font-weight: 600; }
 .you-person-name a { color: var(--black); text-decoration: none; }
-.you-person-name a:hover { color: var(--accent); }
+.you-person-name a:hover { color: var(--accent-text); }
 .you-person-detail { font-size: 0.72rem; font-weight: 300; color: var(--text-quiet); }
 
 /* ─── Songs ─── */
@@ -226,7 +226,7 @@ a.you-tile h3 { font-size: 1.35rem; transition: color 0.15s; }
   font-size: 0.9rem;
   color: var(--text-quiet);
 }
-.you-btn:hover { color: var(--accent); }
+.you-btn:hover { color: var(--accent-text); }
 .you-data {
   max-height: 70vh;
   overflow: auto;

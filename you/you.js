@@ -14,6 +14,19 @@
   const requested = new URLSearchParams(location.search).get('as');
   const persona = PERSONAS.find(p => p.id === requested) || null;
 
+  // Per-persona design (themes.css keys off data-persona on <html>). Set
+  // before the main page is fetched so the first render is already themed.
+  // Standard and the picker keep the main site's design.
+  if (persona && persona.id !== 'standard') {
+    document.documentElement.setAttribute('data-persona', persona.id);
+    if (persona.fonts) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://fonts.googleapis.com/css2?family=' + persona.fonts + '&display=swap';
+      document.head.appendChild(link);
+    }
+  }
+
   // Main-page URLs are relative to the site root; this page lives one level
   // down. Anything that is not absolute, root-relative, a fragment, a query
   // or a mailto/tel link gets a "../" prefix.

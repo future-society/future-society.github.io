@@ -14,6 +14,8 @@
 // - events.highlight: regex over an event's text; matches get a
 //   "Suggested for you" tag.
 //
+// - fonts: Google Fonts families for this persona's design (themes.css).
+//
 // `standard` is special: it renders the main page itself, unchanged.
 
 const MAIL = 'fuso@unisg.ch';
@@ -31,6 +33,7 @@ window.YOU_PERSONAS = [
   // ─── ACADEMIC ───
   {
     id: 'academic',
+    fonts: 'Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,500&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600',
     group: 'serious',
     label: 'Academic',
     tag: 'academics',
@@ -132,6 +135,7 @@ window.YOU_PERSONAS = [
   // ─── STUDENT ───
   {
     id: 'student',
+    fonts: 'Space+Grotesk:wght@500;700',
     group: 'serious',
     label: 'Student',
     tag: 'students',
@@ -201,6 +205,7 @@ window.YOU_PERSONAS = [
   // ─── POLICYMAKER ───
   {
     id: 'policy',
+    fonts: 'IBM+Plex+Sans:wght@300;400;500;600;700',
     group: 'serious',
     label: 'Policymaker',
     tag: 'policymakers',
@@ -277,6 +282,7 @@ window.YOU_PERSONAS = [
   // ─── BUSINESS PROFESSIONAL ───
   {
     id: 'business',
+    fonts: 'Manrope:wght@300;400;500;600;700;800',
     group: 'serious',
     label: 'Business professional',
     short: 'Business',
@@ -356,6 +362,7 @@ window.YOU_PERSONAS = [
   // ─── IN A HURRY ───
   {
     id: 'hurry',
+    fonts: 'Archivo+Narrow:wght@500;700',
     group: 'creative',
     label: 'In a hurry',
     icon: 'timer',
@@ -393,6 +400,7 @@ window.YOU_PERSONAS = [
   // ─── CURIOUS 10-YEAR-OLD ───
   {
     id: 'kid',
+    fonts: 'Fredoka:wght@400;500;600;700',
     group: 'creative',
     label: 'Curious 10-year-old',
     short: 'Age 10',
@@ -449,6 +457,7 @@ window.YOU_PERSONAS = [
   // ─── AI AGENT ───
   {
     id: 'agent',
+    fonts: 'JetBrains+Mono:wght@400;500;700;800',
     group: 'creative',
     label: 'AI agent',
     short: 'Agent',
@@ -478,26 +487,27 @@ window.YOU_PERSONAS = [
     ],
   },
 
-  // ─── TIME TRAVELLER FROM 1926 ───
+  // ─── TIME TRAVELLER FROM 1898 ───
   {
     id: 'time-traveller',
+    fonts: 'Playfair+Display:ital,wght@0,700;0,900;1,700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400',
     group: 'creative',
-    label: 'Time traveller from 1926',
-    short: '1926',
+    label: 'Time traveller from 1898',
+    short: '1898',
     icon: 'clock-counter-clockwise',
-    tile: 'For a visitor who missed the last hundred years.',
+    tile: 'For a visitor who missed the last 128 years.',
     hero: {
-      label: 'University of St.Gallen, est. 1898',
-      sub: 'A society of scholars in law and the calculating sciences, occupied with the machines of the coming century.',
+      label: 'University of St.Gallen, founded in your year',
+      sub: 'A society of scholars in law and the calculating sciences, occupied with the machines of the twenty-first century.',
       chain: { steps: ['Observe', 'Construct', 'Install', 'Examine'] },
     },
-    intro: 'Welcome, traveller. Since your day, calculating machines have become so small and so cheap that nearly every person carries one in a coat pocket, connected without wires to every other. These machines now choose which news a person reads, help administrations reach their decisions, and assist the courts. Our hub brings together lawyers and the engineers of these machines to see that they serve society.',
+    intro: 'Welcome, traveller. You come from 1898, the year this university was founded. Since then, calculating machines have become so small and so cheap that nearly every person carries one in a coat pocket, connected without wires to every other. These machines now choose which news a person reads, help administrations reach their decisions, and assist the courts. Our hub brings together lawyers and the engineers of these machines to see that they serve society.',
     sections: [
       {
         type: 'split', id: 'explanation', nav: 'Explanation', label: 'Explanation',
         title: 'A word of <span class="accent-text">explanation</span>',
         body: [
-          'In 1926 a law could assume that a clerk read every application. Today a machine may read it first. Our members study when the public accepts such automation and how its fairness can be checked.',
+          'In 1898 a law could assume that a clerk read every application. Today a machine may read it first. Our members study when the public accepts such automation and how its fairness can be checked.',
           'The newspapers of your time have been joined by vast electronic notice boards, on which every reader is shown a different selection of items, chosen by a machine. We examine what this does to public life and whether the companies running these boards respect the law.',
         ],
       },
@@ -533,7 +543,7 @@ window.YOU_PERSONAS = [
         type: 'contact', id: 'contact', nav: 'Correspondence', label: 'Contact',
         title: '<span class="accent-text">Correspondence</span>',
         body: ['Letters may be sent by electronic mail, a kind of telegram that arrives within seconds and costs nothing, to the address opposite. The post still works as well.'],
-        subject: 'A letter from 1926',
+        subject: 'A letter from 1898',
       },
     ],
   },
@@ -541,6 +551,7 @@ window.YOU_PERSONAS = [
   // ─── MUSIC FAN ───
   {
     id: 'music',
+    fonts: 'Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,600',
     group: 'creative',
     label: 'Music fan',
     short: 'Music',
@@ -597,6 +608,7 @@ window.YOU_PERSONAS = [
   // ─── SKEPTIC ───
   {
     id: 'skeptic',
+    fonts: 'IBM+Plex+Serif:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600',
     group: 'creative',
     label: 'Skeptic',
     icon: 'magnifying-glass',
