@@ -1642,6 +1642,24 @@ footer .container {
 [data-theme="dark"] .footer-hsg { display: none; }
 [data-theme="dark"] .footer-hsg-dark { display: block; }
 
+/* Link to the personalized site (/you/). Full-basis like the privacy line
+   below it; the negative margin pulls the two lines together so they read
+   as one quiet footer block. */
+.footer-you {
+  flex-basis: 100%;
+  margin-bottom: -1.75rem;
+  text-align: center;
+  font-size: 0.8rem;
+}
+.footer-you a {
+  color: var(--accent-text);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+}
+.footer-you a:hover { opacity: 0.7; }
+.footer-you .ph-bold { font-size: 1rem; vertical-align: -0.15em; margin-right: 0.35rem; }
+
 /* Analytics disclosure. Full-basis so it wraps onto its own line below the
    logos, separated by the container's 2.5rem row gap. */
 .footer-privacy {

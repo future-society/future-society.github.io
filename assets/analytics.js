@@ -32,7 +32,10 @@ document.addEventListener('click', function (e) {
   if (!link) return;
 
   var name, title;
-  if (link.closest('.lang-switch')) {
+  if (link.closest('.footer-you')) {
+    name = 'footer-my-fuso';
+    title = 'Footer: My FuSo';
+  } else if (link.closest('.lang-switch')) {
     var lang = (link.getAttribute('href') || '').match(/index\.(\w\w)\.html/);
     name = 'lang-' + (lang ? lang[1] : 'en');
     title = 'Language switch: ' + name.slice(5).toUpperCase();

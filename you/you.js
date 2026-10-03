@@ -188,6 +188,10 @@
       <div><p class="footer-wordmark">Future Society Hub</p><p class="footer-tagline">where tech and society fuse</p></div>
     </div>
     <img class="footer-hsg" loading="lazy" src="../assets/images/HSG_Logo_EN_RGB.png" alt="University of St.Gallen">
+    <img class="footer-hsg footer-hsg-dark" loading="lazy" src="../assets/images/HSG_Logo_EN_RGB_Weiss.png" alt="University of St.Gallen">
+    <button class="theme-switch footer-theme-switch" type="button" role="switch" aria-checked="false" aria-label="Dark mode" data-theme-toggle>
+      <span class="theme-switch-track" aria-hidden="true"><span class="theme-switch-thumb"><i class="ph-bold ph-sun icon-sun" aria-hidden="true"></i><i class="ph-bold ph-moon icon-moon" aria-hidden="true"></i></span></span>
+    </button>
     <p class="footer-privacy">We measure visits with <a href="https://www.goatcounter.com/help/privacy" target="_blank" rel="noopener">GoatCounter</a>: cookieless and anonymous, storing no personal data. This page remembers the perspective you picked on your device only.</p>
   </div>
 </footer>`;
