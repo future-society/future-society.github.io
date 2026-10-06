@@ -162,6 +162,7 @@ nav a:hover { color: var(--accent); }
   padding: 0.5rem 0;
   background: var(--white);
   border-top: 2px solid var(--accent);
+  border-radius: 0 0 4px 4px;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
   visibility: hidden;
   opacity: 0;
@@ -600,6 +601,7 @@ p {
   background: var(--gray);
   padding: 1.5rem 2rem;
   margin-bottom: 4.5rem;
+  border-radius: 4px;
 }
 [data-theme="dark"] .about-intro { background: #242424; }
 .about-intro p { color: var(--black); }
@@ -980,7 +982,7 @@ p {
   gap: 1.5rem;
   align-items: start;
 }
-.event-box { background: var(--white); padding: 2rem; }
+.event-box { background: var(--white); padding: 2rem; border-radius: 4px; }
 
 /* Box-level title: larger weighted heading, underlined — clearly the box
    title, a step above the event names inside. */
