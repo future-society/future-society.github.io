@@ -109,13 +109,16 @@
       var speakerEl = item.querySelector(".event-speaker");
       var speaker = speakerEl ? speakerEl.textContent.replace(/\s+/g, " ").trim() : "";
 
-      var time = parseTimeRange(metaText(item, "icon-clock"));
-      var location = metaText(item, "icon-pin");
+      var time = parseTimeRange(metaText(item, "ph-clock"));
+      var location = metaText(item, "ph-map-pin");
+
+      var streamEl = item.querySelector(".talk-stream");
+      var stream = streamEl ? streamEl.href : "";
 
       talks.push({
         day: day, month: month, year: year,
         title: title, kicker: kicker, speaker: speaker,
-        time: time, location: location
+        time: time, location: location, stream: stream
       });
     });
 
@@ -160,6 +163,7 @@
       if (t.kicker) descParts.push(t.kicker);
       if (t.speaker) descParts.push(t.speaker);
       var desc = descParts.join(" — ");
+      if (t.stream) desc += (desc ? "\n\n" : "") + "Livestream: " + t.stream;
 
       lines.push("BEGIN:VEVENT");
       lines.push("UID:" + uid);
