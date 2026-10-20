@@ -1010,6 +1010,9 @@ p {
 }
 .event-name { font-size: 1rem; font-weight: 700; line-height: 1.3; color: var(--black); }
 .event-tag { font-weight: 400; font-size: 0.85rem; color: var(--mid); }
+/* Per-event "Add to calendar" icon, right after the event title. */
+.event-cal { display: inline-flex; vertical-align: -0.1em; margin-left: 0.2rem; font-size: 1.05rem; color: var(--mid); text-decoration: none; transition: color 0.15s; }
+.event-cal:hover, .event-cal:focus-visible { color: var(--accent); }
 /* "Brown Bag Talk" series marker, right after the talk title (like the
    "(Smartfeld)" tag) — same pill look as the Participate filters
    (.way-filter), but static. */
