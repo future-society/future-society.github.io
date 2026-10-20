@@ -136,7 +136,6 @@ Our work is supported by the following funding agencies and programmes:
 
 ## Upcoming Events
 
-- October 12, 2026 — International Workshop on Reality Mediation (UbiComp/ISWC 2026), Shanghai
 - October 27, 2026 — Closing the Loop: Sustainability in Fashion and Textiles (Circular Lab), St.Gallen — https://sustainable-fashion.github.io/
 - November 4, 2026 — Legal Design Workshop, St.Gallen
 - November 7–8, 2026 — Legal Hackathon, St.Gallen
@@ -159,6 +158,7 @@ Contact fuso@unisg.ch for details.
 
 ### Past Events
 
+- October 12, 2026 — International Workshop on Reality Mediation (UbiComp/ISWC 2026), Shanghai
 - July 6–7, 2026 — Everyday Law Workshop, Lausanne
 - June 9, 2026 — KEK Workshop "Meinungsmarkt oder Meinungsmacht?!", Berlin
 
