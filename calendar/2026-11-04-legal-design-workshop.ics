@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Future Society (FuSo)//Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-04-legal-design-workshop@future-society.github.io
+DTSTAMP:20261020T000000Z
+DTSTART;VALUE=DATE:20261104
+DTEND;VALUE=DATE:20261105
+SUMMARY:Legal Design Workshop
+DESCRIPTION:More information: https://www.legaldesignworkshop.org/
+LOCATION:St.Gallen
+URL:https://www.legaldesignworkshop.org/
+END:VEVENT
+END:VCALENDAR

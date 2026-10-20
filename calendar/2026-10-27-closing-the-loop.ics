@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Future Society (FuSo)//Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-10-27-closing-the-loop@future-society.github.io
+DTSTAMP:20261020T000000Z
+DTSTART;VALUE=DATE:20261027
+DTEND;VALUE=DATE:20261028
+SUMMARY:Closing the Loop: Sustainability in Fashion and Textiles
+DESCRIPTION:Hosted by Circular Lab\, University of St.Gallen.\n\nMore infor
+ mation: https://sustainable-fashion.github.io/
+LOCATION:St.Gallen
+URL:https://sustainable-fashion.github.io/
+END:VEVENT
+END:VCALENDAR

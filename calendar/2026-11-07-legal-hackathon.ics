@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Future Society (FuSo)//Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-07-legal-hackathon@future-society.github.io
+DTSTAMP:20261020T000000Z
+DTSTART;VALUE=DATE:20261107
+DTEND;VALUE=DATE:20261109
+SUMMARY:Legal Hackathon
+DESCRIPTION:More information: https://www.legalhackathons.org/
+LOCATION:St.Gallen
+URL:https://www.legalhackathons.org/
+END:VEVENT
+END:VCALENDAR

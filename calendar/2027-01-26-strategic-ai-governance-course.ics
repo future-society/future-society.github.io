@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Future Society (FuSo)//Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2027-01-26-strategic-ai-governance-course@future-society.github.io
+DTSTAMP:20261020T000000Z
+DTSTART;VALUE=DATE:20270126
+DTEND;VALUE=DATE:20270129
+SUMMARY:Strategic AI Governance Course
+DESCRIPTION:Continuing Education.\n\nMore information: https://www.linkedin
+ .com/posts/aurelia-tamo-larrieux-81a31130b_aigovernance-artificialintellig
+ ence-aistrategy-ugcPost-7490448664948289538-gQmc/
+LOCATION:Zurich
+URL:https://www.linkedin.com/posts/aurelia-tamo-larrieux-81a31130b_aigovern
+ ance-artificialintelligence-aistrategy-ugcPost-7490448664948289538-gQmc/
+END:VEVENT
+END:VCALENDAR

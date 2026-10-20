@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Future Society (FuSo)//Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-12-08-fuso-xmas-lunch@future-society.github.io
+DTSTAMP:20261020T000000Z
+DTSTART;VALUE=DATE:20261208
+DTEND;VALUE=DATE:20261209
+SUMMARY:FuSo Xmas Lunch & Speed Dating
+DESCRIPTION:More information: https://future-society.github.io/
+LOCATION:St.Gallen
+URL:https://future-society.github.io/
+END:VEVENT
+END:VCALENDAR
