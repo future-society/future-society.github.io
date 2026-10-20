@@ -956,6 +956,18 @@
      "is_transcript": false
     },
     {
+     "file": "derived/binary-strings.txt",
+     "lines": [
+      39,
+      39
+     ],
+     "quote": "content: include_str!(\"templates/workspace_docs/data-handling.md\")",
+     "note": "Source of the doc: Meta's runtime binary embeds it and writes it to ~/docs when the VM is set up",
+     "snippet": "  [templates/workspace_docs/data-handling.md] const WORKSPACE_DOC_SEEDS: &[WorkspaceDocSeed] = &[ ⏎ WorkspaceDocSeed { ⏎ relative_path: PRODUCT_DOC_RELATIVE_PATH, ⏎ content: include_str!(\"templates/workspace_docs/muse.md\"), ⏎ internal_test_only: false, ⏎ }, ⏎ WorkspaceDocSeed { ⏎ relative_path: \"data-handling.md\", ⏎ content: include_str!(\"templates/workspace_docs/data-handling.md\"), ⏎ internal_test_only: false,\n",
+     "is_derived": true,
+     "is_transcript": false
+    },
+    {
      "file": "home/hatch/docs/data-handling.md",
      "lines": [
       25,

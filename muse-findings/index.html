@@ -104,6 +104,7 @@
         <dt><span class="ev-badge">derived</span></dt>
         <dd>A value decoded from a binary or compressed file in the VM, such as an FST-encoded domain list or strings extracted from a compiled binary with <code>strings -n 6</code>. The decoded output is saved as a plain-text file, so the citation can be checked without re-running the decoder.</dd>
       </dl>
+      <p>The agent's manuals under <code>~/docs</code> are Meta's own text, not notes written by the agent or the user. Muse's runtime binary embeds each one, for example <code>include_str!("templates/workspace_docs/data-handling.md")</code>, and writes it to the virtual machine when it is set up, replacing any copy that differs.</p>
       <p>Where a finding draws a conclusion beyond what the files state, that conclusion appears separately under "Analysis".</p>
     </div>
   </div>
