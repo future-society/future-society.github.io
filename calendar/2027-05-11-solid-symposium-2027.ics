@@ -4,10 +4,10 @@ PRODID:-//Future Society (FuSo)//Events//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
-UID:2027-04-29-solid-symposium-2027@future-society.github.io
+UID:2027-05-11-solid-symposium-2027@future-society.github.io
 DTSTAMP:20261020T000000Z
-DTSTART;VALUE=DATE:20270429
-DTEND;VALUE=DATE:20270501
+DTSTART;VALUE=DATE:20270511
+DTEND;VALUE=DATE:20270513
 SUMMARY:Solid Symposium 2027
 DESCRIPTION:Sponsored by Muze.\n\nMore information: https://sosy2027.org
 LOCATION:St.Gallen
