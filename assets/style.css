@@ -1664,6 +1664,17 @@ footer .container {
 }
 .footer-you a:hover { opacity: 0.7; }
 .footer-you .ph-bold { font-size: 1rem; vertical-align: -0.15em; margin-right: 0.35rem; }
+/* "Other initiatives by FuSo" sits on the same line as My FuSo. Each item
+   stays whole and they stack on narrow screens; the dot only shows when
+   both fit side by side. */
+.footer-you-item { display: inline-block; color: var(--text-quiet); }
+.footer-you-item a { white-space: nowrap; }
+.footer-sep { margin: 0 0.9rem; color: var(--mid); }
+@media (max-width: 600px) {
+  .footer-you-item { display: block; }
+  .footer-you-item + .footer-sep + .footer-you-item { margin-top: 0.4rem; }
+  .footer-sep { display: none; }
+}
 
 /* Analytics disclosure. Full-basis so it wraps onto its own line below the
    logos, separated by the container's 2.5rem row gap. */
