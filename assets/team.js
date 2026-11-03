@@ -150,6 +150,16 @@ const teamMembers = [
       fr: 'J\'étudie comment les systèmes algorithmiques façonnent notre environnement informationnel — bulles de filtre, audit des réseaux sociaux et transparence des plateformes — en construisant des outils pour rendre les systèmes de recommandation lisibles pour chercheur·euses, régulateur·rices et utilisateur·rices.',
     }
   },
+  {
+    name: 'David Seger',
+    detail: 'PhD candidate',
+    role: 'researcher',
+    bio: {
+      en: 'My PhD research is on Medical Ubiquitous Computing (Medical UbiComp): bringing low-cost sensing and AI into clinical practice in ways that fit how healthcare professionals actually work. Together with the Eastern Switzerland Children\'s Hospital, I have built a pose-aware 3D ultrasound reconstruction system for peripheral nerve imaging that combines a potentiometer-based scanning guide and IMU-based tilt tracking with AI-based nerve segmentation.',
+      de: 'In meiner Doktorarbeit forsche ich zu Medical Ubiquitous Computing (Medical UbiComp): wie kostengünstige Sensorik und KI so in die klinische Praxis gelangen, dass sie zur tatsächlichen Arbeitsweise von Fachpersonen im Gesundheitswesen passen. Gemeinsam mit dem Ostschweizer Kinderspital habe ich ein lagebewusstes 3D-Ultraschall-Rekonstruktionssystem für die Bildgebung peripherer Nerven entwickelt, das eine potentiometerbasierte Scanführung und IMU-basierte Neigungsmessung mit KI-gestützter Nervensegmentierung kombiniert.',
+      fr: 'Ma thèse de doctorat porte sur le Medical Ubiquitous Computing (Medical UbiComp) : intégrer des capteurs à bas coût et l\'IA dans la pratique clinique, en phase avec la manière dont les professionnel·les de santé travaillent réellement. Avec l\'Hôpital pédiatrique de Suisse orientale, j\'ai développé un système de reconstruction échographique 3D tenant compte de la position de la sonde pour l\'imagerie des nerfs périphériques, combinant un guide de balayage à potentiomètre, un suivi de l\'inclinaison par centrale inertielle (IMU) et une segmentation des nerfs par IA.',
+    }
+  },
 ];
 
 // Former members. Rendered as a compact, collapsed-by-default list under the
