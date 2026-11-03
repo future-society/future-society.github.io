@@ -21,7 +21,7 @@ const TEAM_UI = {
 const teamMembers = [
   {
     name: 'Simon Mayer',
-    photo: 'https://storage.inrupt.com/f531f8ef-cd9d-474a-9fa6-70026b37c847/public/publicPortrait-square.jpg',
+    photo: 'https://smnmyr.solidcommunity.net/public/assets/publicPortrait-square.jpg',
     detail: 'Prof. Dr.',
     affiliation: 'Institute of Computer Science',
     role: 'co-director-m',
