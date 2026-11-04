@@ -26,11 +26,9 @@ DTSTAMP:20261104T000000Z
 DTSTART;TZID=Europe/Zurich:20261113T083000
 DTEND;TZID=Europe/Zurich:20261113T104500
 SUMMARY:Seminar Digitalität in der Sozialen Arbeit
-DESCRIPTION:Guest session by Luka Bekavac and Simon Mayer on filter bubbles
-  and social media\, ZHAW School of Social Work\n8.T66\, Toni-Areal\, Pfing
- stweidstrasse 69\, Zurich\n\nMore information: https://future-society.gith
- ub.io/#events
-LOCATION:8.T66\, Toni-Areal\, Pfingstweidstrasse 69\, Zurich
+DESCRIPTION:Guest session\, ZHAW School of Social Work\nZurich\n\nMore inf
+ ormation: https://future-society.github.io/#events
+LOCATION:Zurich
 URL:https://future-society.github.io/#events
 END:VEVENT
 END:VCALENDAR
