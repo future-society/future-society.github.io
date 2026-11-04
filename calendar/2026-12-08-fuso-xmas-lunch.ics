@@ -26,7 +26,7 @@ DTSTAMP:20261104T000000Z
 DTSTART;TZID=Europe/Zurich:20261208T120000
 DTEND;TZID=Europe/Zurich:20261208T140000
 SUMMARY:FuSo Christmas Lunch
-DESCRIPTION:More information: https://future-society.github.io/
+DESCRIPTION:Upon invitation only. https://future-society.github.io/
 LOCATION:C61-110\, Rosenbergstrasse 30\, St.Gallen
 URL:https://future-society.github.io/
 END:VEVENT
