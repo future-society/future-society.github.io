@@ -152,12 +152,13 @@ const teamMembers = [
   },
   {
     name: 'David Seger',
+    photo: 'https://deespod.solidcommunity.net/public/assets/Portrait.jpeg',
     detail: 'PhD candidate',
     role: 'researcher',
     bio: {
-      en: 'My PhD research is on Medical Ubiquitous Computing (Medical UbiComp): bringing low-cost sensing and AI into clinical practice in ways that fit how healthcare professionals actually work. Together with the Eastern Switzerland Children\'s Hospital, I have built a pose-aware 3D ultrasound reconstruction system for peripheral nerve imaging that combines a potentiometer-based scanning guide and IMU-based tilt tracking with AI-based nerve segmentation.',
-      de: 'In meiner Doktorarbeit forsche ich zu Medical Ubiquitous Computing (Medical UbiComp): wie kostengünstige Sensorik und KI so in die klinische Praxis gelangen, dass sie zur tatsächlichen Arbeitsweise von Fachpersonen im Gesundheitswesen passen. Gemeinsam mit dem Ostschweizer Kinderspital habe ich ein lagebewusstes 3D-Ultraschall-Rekonstruktionssystem für die Bildgebung peripherer Nerven entwickelt, das eine potentiometerbasierte Scanführung und IMU-basierte Neigungsmessung mit KI-gestützter Nervensegmentierung kombiniert.',
-      fr: 'Ma thèse de doctorat porte sur le Medical Ubiquitous Computing (Medical UbiComp) : intégrer des capteurs à bas coût et l\'IA dans la pratique clinique, en phase avec la manière dont les professionnel·les de santé travaillent réellement. Avec l\'Hôpital pédiatrique de Suisse orientale, j\'ai développé un système de reconstruction échographique 3D tenant compte de la position de la sonde pour l\'imagerie des nerfs périphériques, combinant un guide de balayage à potentiomètre, un suivi de l\'inclinaison par centrale inertielle (IMU) et une segmentation des nerfs par IA.',
+      en: 'My PhD research is on Medical Ubiquitous Computing (Medical UbiComp): bringing low-cost sensing into the clinical routine without disrupting established workflows. Together with the Eastern Switzerland Children\'s Hospital, I have built a pose-aware 3D ultrasound reconstruction system for peripheral nerve imaging. Other early research projects include smart bandages for burn wounds and instrumented smart toys for developmental monitoring.',
+      de: 'In meiner Doktorarbeit forsche ich zu Medical Ubiquitous Computing (Medical UbiComp): wie sich kostengünstige Sensorik in den klinischen Alltag bringen lässt, ohne etablierte Arbeitsabläufe zu stören. Gemeinsam mit dem Ostschweizer Kinderspital habe ich ein lagebewusstes 3D-Ultraschall-Rekonstruktionssystem für die Bildgebung peripherer Nerven entwickelt. Weitere frühe Forschungsprojekte sind intelligente Wundverbände für Brandwunden und sensorbestückte Smart Toys zur Entwicklungsbeobachtung.',
+      fr: 'Ma thèse de doctorat porte sur le Medical Ubiquitous Computing (Medical UbiComp) : intégrer des capteurs à bas coût dans la routine clinique sans perturber les flux de travail établis. Avec l\'Hôpital pédiatrique de Suisse orientale, j\'ai développé un système de reconstruction échographique 3D tenant compte de la position de la sonde pour l\'imagerie des nerfs périphériques. Parmi mes autres premiers projets de recherche figurent des pansements intelligents pour les brûlures et des jouets intelligents instrumentés pour le suivi du développement.',
     }
   },
 ];

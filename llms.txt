@@ -56,7 +56,7 @@ We architect next-generation digital infrastructure including autonomous multi-a
 We partner with local schools to help students handle harmful online content (flag&safe) and produce evidence-based forecasts of AI's impact on skills and education (TA Swiss study).
 
 **Digital Health**
-We design and evaluate population-scale health interventions using ubiquitous computing, in collaboration with health authorities and using rigorous socio-technical methodologies.
+We design and evaluate population-scale health interventions using ubiquitous computing, in collaboration with health authorities and using rigorous socio-technical methodologies. In Medical Ubiquitous Computing (Medical UbiComp), we bring low-cost sensing into the clinical routine without disrupting established workflows — e.g., pose-aware 3D ultrasound reconstruction for peripheral nerve imaging with the Eastern Switzerland Children's Hospital, smart bandages for burn wounds, and instrumented smart toys for developmental monitoring.
 
 ## Key People
 
@@ -83,7 +83,7 @@ Specialises in AI in the judiciary, risk assessment tools in legal systems, and 
 - **Jan Grau** — PhD candidate (Empa and University of St.Gallen). Solid protocol, web development, security and privacy, secure multi-party computation for circular-economy supply chains (*Solid and Secure Multi-Party Computation for a Circular Economy*, Solid Symposium 2026 — https://openreview.net/forum?id=eaLD4ioB02).
 - **Johannes David** — PhD candidate. Real-world utility of legal AI and access to justice; develops AI tools at Caritas.
 - **Luka Bekavac** — PhD candidate. Filter bubbles, social media auditing, and platform transparency.
-- **David Seger** — PhD candidate. Medical Ubiquitous Computing (Medical UbiComp): low-cost sensing and AI for clinical practice; pose-aware 3D ultrasound reconstruction for peripheral nerve imaging (with the Eastern Switzerland Children's Hospital).
+- **David Seger** — PhD candidate. Medical Ubiquitous Computing (Medical UbiComp): bringing low-cost sensing into the clinical routine without disrupting established workflows; pose-aware 3D ultrasound reconstruction for peripheral nerve imaging (with the Eastern Switzerland Children's Hospital); earlier projects on smart bandages for burn wounds and instrumented smart toys for developmental monitoring.
 
 **Supporting Network**: Prof. Ph.D. Veronica Barassi (University of St.Gallen; https://www.unisg.ch/en/university/about-us/organisation/detail/person-id/c9321fca-3993-4bf3-af74-37fe8e0bb295/), Prof. Dr. Bruno Caprettini (University of St.Gallen; https://brunocaprettini.com/), Prof. Dr. Elgar Fleisch (ETH Zurich & University of St.Gallen; https://www.unisg.ch/en/university/about-us/organisation/detail/person-id/7545a34e-716f-45d5-862b-3aa667edcda5/), Prof. Dr. Christoph Lutz (BI Norwegian Business School; https://www.bi.no/en/about-bi/employees/department-of-communication-and-culture/christoph-lutz/), Prof. Dr. Miriam Meckel (University of St.Gallen; https://www.unisg.ch/en/university/about-us/organisation/detail/person-id/a8ef2de1-6e88-4a64-9a6b-2920e641f9af/), Prof. Dr. Maud Reveilhac (LUT University; https://www.lut.fi/en/profiles/maud-reveilhac)
 
@@ -145,22 +145,32 @@ Our work is supported by the following funding agencies and programmes:
 - January 26–28, 2027 — Strategic AI Governance Course (Continuing Education), Zurich
 - May 11–12, 2027 — Solid Symposium 2027, St.Gallen
 
-### Brown Bag Lunch Series (bi-weekly, September–November 2026)
+### FuSo Talks (Brown Bag Talks and featured project talks, 12:15–13:15, St.Gallen)
 
-- September 15, 2026 — Giovanni de Toni
-- September 29, 2026 — Sophia Worth (KCL)
-- October 13, 2026 — Bruno Rodrigues
-- October 27, 2026 — Isabelle Wildhaber (HSG)
-- November 10, 2026 — Hannes Westermann (Maastricht University)
-- November 24, 2026 — Bruno Caprettini
+- October 27, 2026 — "Kids-fluencer" — Isabelle Wildhaber (HSG), Brown Bag Talk, in co-operation with the Institute for Law and Economics
+- November 6, 2026 — "Open Terms Archive" — Matti Schneider (founder of Open Terms Archive and OpenFisca), Featured CoCoDa Talk
+- November 10, 2026 — "Legal AI" — Hannes Westermann (Maastricht University), Featured ARCL Talk
+- November 24, 2026 — "Drivers of AI regulation" — Bruno Caprettini, Brown Bag Talk, in co-operation with the Institute for Law and Economics
+- January 19, 2027 — TBA — Simona Bonardi, Brown Bag Talk
 
-Talks are also streamed live on Zoom (except October 27): https://unisg.zoom.us/j/68598294892
+Upcoming talks are also streamed live on Zoom (except October 27): https://unisg.zoom.us/j/68598294892
+
+Past talks:
+
+- October 13, 2026 — "Wi-Fi Sensing and Privacy: Uses and Misuses of CSI and Beamforming Feedback" — Bruno Rodrigues, Brown Bag Talk
+- September 29, 2026 — "Who gets to encode the law? AI and Legal Processes for Data Access" — Jake Stein, Featured CoCoDa Talk
+- September 24, 2026 — "Wenn der Feed die Welt erklärt" — Simon Mayer, Smartfeld webinar (online)
+- September 17, 2026 — "On Action Plans, Action Research, and Inaction – States of Play in Researcher Data Access" — LK Seiling
+- September 15, 2026 — "Certifying Recommender Algorithms" — Giovanni de Toni, Brown Bag Talk
 
 Contact fuso@unisg.ch for details.
 
 ### Past Events
 
 - October 12, 2026 — International Workshop on Reality Mediation (UbiComp/ISWC 2026), Shanghai
+- October 1, 2026 — AI+Social Media Track, AI+X Summit (https://www.plusx.ai/) — slides: https://futuresociety.ch/event-slides/ai+x/
+- September 29, 2026 — FuSo Retreat
+- September 28, 2026 — Joint Research Meeting on Computing for Reality Mediation, with researchers from Nagoya University (Internet of Realities, https://internet-of-realities.org/)
 - July 6–7, 2026 — Everyday Law Workshop, Lausanne
 - June 9, 2026 — KEK Workshop "Meinungsmarkt oder Meinungsmacht?!", Berlin
 
@@ -190,4 +200,4 @@ than one, and the site lets visitors filter the list by audience.
 **Languages**: English, German, French
 
 ---
-Last updated: 2026-09-03
+Last updated: 2026-11-03
