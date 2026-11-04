@@ -17,6 +17,7 @@ const TEAM_UI = {
 // - detail: string shown below the name (kept English across all languages), or { en, de, fr } to translate it
 // - affiliation (optional): institute/organisation, shown on its own line below detail; string or { en, de, fr }
 // - link (optional): personal page (website, Scholar, LinkedIn, …); marked with an external-link arrow
+// - photoZoom (optional): { scale, origin } to zoom into a wide photo, e.g. { scale: 2, origin: '52% 47%' }
 // - bio: { en, de, fr } — write all three, or just 'en' and the others fall back to English
 const teamMembers = [
   {
@@ -33,7 +34,8 @@ const teamMembers = [
   },
   {
     name: 'Aurelia Tamò-Larrieux',
-    photo: 'https://www.sectorplandls.nl/wordpress/wp-content/uploads/elementor/thumbs/at-scaled-e1667747586811-pxbhxlwz04n8sysm54fadyobe105o6hzjq0aotqw8o.jpg',
+    photo: 'https://aurelia-atl.solidcommunity.net/public/DSC_0260%20(1).JPG',
+    photoZoom: { scale: 2, origin: '52% 47%' },
     detail: 'Prof. Dr.',
     affiliation: 'Institute for Law and Economics',
     role: 'co-director-f',
@@ -200,7 +202,9 @@ function renderTeam(lang) {
       : m.name;
     const words      = m.name.split(/\s+/).filter(Boolean);
     const initials   = (words[0]?.[0] || '') + (words.length > 1 ? words[words.length - 1][0] : '');
-    const photoHtml  = m.photo
+    const photoHtml  = m.photo && m.photoZoom
+      ? `<span class="brick-avatar brick-avatar--zoom"><img loading="lazy" src="${m.photo}" alt="${m.name}" style="transform:scale(${m.photoZoom.scale});transform-origin:${m.photoZoom.origin}"></span>`
+      : m.photo
       ? `<img class="brick-avatar" loading="lazy" src="${m.photo}" alt="${m.name}">`
       : `<div class="brick-avatar brick-avatar--placeholder" aria-hidden="true">${initials.toUpperCase()}</div>`;
     const learnMore  = TEAM_UI.learnMore[lang] || TEAM_UI.learnMore.en;
