@@ -9,7 +9,8 @@ DTSTAMP:20261020T000000Z
 DTSTART;VALUE=DATE:20261107
 DTEND;VALUE=DATE:20261109
 SUMMARY:Legal Hackathon Vol. 1
-DESCRIPTION:More information: https://www.legalhackathons.org/
+DESCRIPTION:For students at the University of St.Gallen only.\nMore
+  information: https://www.legalhackathons.org/
 LOCATION:St.Gallen
 URL:https://www.legalhackathons.org/
 END:VEVENT
