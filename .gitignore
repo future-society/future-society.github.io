@@ -5,3 +5,7 @@
 .DS_Store
 Thumbs.db
 assets/circuitlines/
+
+# Private KAS event registration data and analysis
+event-slides/kas-social-media-goes-social/*.xlsx
+event-slides/kas-social-media-goes-social/audience-analysis.md
