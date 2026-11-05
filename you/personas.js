@@ -189,7 +189,7 @@ window.YOU_PERSONAS = [
         type: 'events', id: 'events', nav: 'Events', label: 'Events',
         title: 'Coming <span class="accent-text">up</span>',
         order: ['events', 'talks'],
-        highlight: /hackathon|design workshop|speed dating|xmas/i,
+        highlight: /legal hack|design workshop|speed dating|xmas/i,
       },
       { type: 'team', id: 'team', nav: 'People', label: 'Team', title: 'People you would <span class="accent-text">work with</span>' },
       {
