@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 631 631"
+   width="631"
+   height="631"
+   role="img"
+   aria-labelledby="title desc"
+   version="1.1"
+   id="svg10"
+   sodipodi:docname="logo_clean.svg"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     id="namedview10"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.5530903"
+     inkscape:cx="309.7051"
+     inkscape:cy="316.14388"
+     inkscape:window-width="1385"
+     inkscape:window-height="1216"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="g10" />
+  <title
+     id="title">Justice mediation logo</title>
+  <desc
+     id="desc">Two people facing a central balance scale above a semicircular table.</desc>
+  <g
+     fill="#000000"
+     id="g10">
+    <!-- Central figure and balance -->
+    <circle
+       cx="315.5"
+       cy="103.5"
+       r="18"
+       id="circle1"
+       style="fill:#245ca6;fill-opacity:1;stroke:none" />
+    <path
+       d="M249 138h135l-7 15H256z"
+       id="path1"
+       style="fill:#18253a;fill-opacity:1" />
+    <rect
+       x="289"
+       y="167"
+       width="18"
+       height="131"
+       id="rect1"
+       style="fill:#18253a;fill-opacity:1" />
+    <rect
+       x="325"
+       y="167"
+       width="18"
+       height="131"
+       id="rect2"
+       style="fill:#18253a;fill-opacity:1" />
+    <!-- Left scale -->
+    <path
+       d="M241 164l27 57h-54z"
+       id="path2"
+       style="fill:#245ca6;fill-opacity:1;stroke:none" />
+    <path
+       d="M206 234h71a35.5 25 0 0 1-71 0z"
+       id="path3"
+       style="fill:#245ca6;fill-opacity:1;stroke:none" />
+    <!-- Right scale -->
+    <path
+       d="M390 164l27 57h-54z"
+       id="path4"
+       style="fill:#245ca6;fill-opacity:1;stroke:none" />
+    <path
+       d="M355 234h70a35 25 0 0 1-70 0z"
+       id="path5"
+       style="fill:#245ca6;fill-opacity:1;stroke:none" />
+    <!-- People -->
+    <circle
+       cx="128"
+       cy="248"
+       r="41"
+       id="circle5"
+       style="fill:#18253a;fill-opacity:1" />
+    <path
+       d="M63 440V357c0-31 25-55 57-55 28 0 55 8 74 21-51 26-96 67-131 117z"
+       id="path6"
+       style="fill:#18253a;fill-opacity:1" />
+    <circle
+       cx="498"
+       cy="248"
+       r="41"
+       id="circle6"
+       style="fill:#245ca6;fill-opacity:1;stroke:none" />
+    <path
+       d="M565 440V357c0-31-24-55-56-55-28 0-53 8-72 21 51 26 94 67 128 117z"
+       id="path7"
+       style="fill:#245ca6;fill-opacity:1;stroke:none" />
+    <!-- Semicircular table / forum -->
+    <path
+       d="M272 318A245 245 0 0 0 61 506h80a174 174 0 0 1 140-147z"
+       id="path8"
+       style="fill:#18253a;fill-opacity:1" />
+    <path
+       d="M359 318l-10 40a174 174 0 0 1 139 148h80a245 245 0 0 0-209-188z"
+       id="path9"
+       style="fill:#245ca6;fill-opacity:1;stroke:none" />
+    <path
+       d="M285 315h61l-9 43h-43z"
+       id="path10"
+       style="fill:#18253a;fill-opacity:1" />
+  </g>
+</svg>
