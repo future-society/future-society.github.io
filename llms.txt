@@ -137,7 +137,6 @@ Our work is supported by the following funding agencies and programmes:
 
 ## Upcoming Events
 
-- November 7–8, 2026 — Legal Hackathon Vol. 1, St.Gallen (for students at the University of St.Gallen only)
 - November 13, 2026, 08:30–10:45 — Seminar Digitalität in der Sozialen Arbeit (guest session, ZHAW School of Social Work), Zurich
 - December 8, 2026, 12:00–14:00 — FuSo Christmas Lunch, C61-110, Rosenbergstrasse 30, St.Gallen (upon invitation only)
 - January 26–28, 2027 — Strategic AI Governance Course (Continuing Education), Zurich
@@ -146,16 +145,16 @@ Our work is supported by the following funding agencies and programmes:
 
 ### FuSo Talks (Brown Bag Talks and featured project talks, 12:15–13:15, St.Gallen)
 
-- October 27, 2026 — "Kids-fluencer" — Isabelle Wildhaber (HSG), Brown Bag Talk, in co-operation with the Institute for Law and Economics
-- November 6, 2026 — "Open Terms Archive" — Matti Schneider (founder of Open Terms Archive and OpenFisca), Featured CoCoDa Talk
 - November 10, 2026 — "Legal AI" — Hannes Westermann (Maastricht University), Featured ARCL Talk
 - November 24, 2026 — "Drivers of AI regulation" — Bruno Caprettini, Brown Bag Talk, in co-operation with the Institute for Law and Economics
 - January 19, 2027 — TBA — Simona Bonardi, Brown Bag Talk
 
-Upcoming talks are also streamed live on Zoom (except October 27): https://unisg.zoom.us/j/68598294892
+Upcoming talks are also streamed live on Zoom: https://unisg.zoom.us/j/68598294892
 
 Past talks:
 
+- November 6, 2026 — "Open Terms Archive" — Matti Schneider (founder of Open Terms Archive and OpenFisca), Featured CoCoDa Talk
+- October 27, 2026 — "Kids-fluencer" — Isabelle Wildhaber (HSG), Brown Bag Talk, in co-operation with the Institute for Law and Economics
 - October 13, 2026 — "Wi-Fi Sensing and Privacy: Uses and Misuses of CSI and Beamforming Feedback" — Bruno Rodrigues, Brown Bag Talk
 - September 29, 2026 — "Who gets to encode the law? AI and Legal Processes for Data Access" — Jake Stein, Featured CoCoDa Talk
 - September 24, 2026 — "Wenn der Feed die Welt erklärt" — Simon Mayer, Smartfeld webinar (online)
@@ -166,6 +165,7 @@ Contact fuso@unisg.ch for details.
 
 ### Past Events
 
+- November 7–8, 2026 — Legal Hackathon Vol. 1, St.Gallen (for students at the University of St.Gallen only) — https://www.legalhackathons.org/ — slides: https://futuresociety.ch/event-slides/legal-hackathon/
 - November 4, 2026 — Social Media goes Social: Prosoziale Inhalte und Designs für Instagram & Co? (Fachgespräch, Konrad-Adenauer-Stiftung), Online — slides: https://futuresociety.ch/event-slides/kas-social-media-goes-social/
 - November 4, 2026 — Legal Design Workshop, St.Gallen — https://www.legaldesignworkshop.org/
 - October 27, 2026 — Closing the Loop: Sustainability in Fashion and Textiles (Circular Lab), St.Gallen — https://sustainable-fashion.github.io/
