@@ -145,7 +145,7 @@ Our work is supported by the following funding agencies and programmes:
 
 ### FuSo Talks (Brown Bag Talks and featured project talks, 12:15–13:15, St.Gallen)
 
-- November 10, 2026 — "Legal AI" — Hannes Westermann (Maastricht University), Featured ARCL Talk
+- November 10, 2026 — "Beyond Chatbots: Integrating LLMs into the Fabric of Access to Justice" — Hannes Westermann (Maastricht University), Featured ARCL Talk
 - November 24, 2026 — "Drivers of AI regulation" — Bruno Caprettini, Brown Bag Talk, in co-operation with the Institute for Law and Economics
 - January 19, 2027 — TBA — Simona Bonardi, Brown Bag Talk
 
