@@ -146,6 +146,7 @@ Our work is supported by the following funding agencies and programmes:
 ### FuSo Talks (Brown Bag Talks and featured project talks, 12:15–13:15, St.Gallen)
 
 - November 10, 2026 — "Beyond Chatbots: Integrating LLMs into the Fabric of Access to Justice" — Hannes Westermann (Maastricht University), Featured ARCL Talk
+- November 16, 2026, 13:00 — FuSo Emergency Policy Discussion: Leaked Digital Fairness Act — online only (Zoom); leaked draft (PDF, via Politico): https://futuresociety.ch/assets/documents/2026-11-dfa-leak-politico.pdf
 - November 24, 2026 — "Drivers of AI regulation" — Bruno Caprettini, Brown Bag Talk, in co-operation with the Institute for Law and Economics
 - January 19, 2027 — TBA — Simona Bonardi, Brown Bag Talk
 
