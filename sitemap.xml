@@ -3,6 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://futuresociety.ch/</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://futuresociety.ch/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://futuresociety.ch/index.de.html"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://futuresociety.ch/index.fr.html"/>
@@ -10,6 +11,7 @@
   </url>
   <url>
     <loc>https://futuresociety.ch/index.de.html</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://futuresociety.ch/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://futuresociety.ch/index.de.html"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://futuresociety.ch/index.fr.html"/>
@@ -17,6 +19,7 @@
   </url>
   <url>
     <loc>https://futuresociety.ch/index.fr.html</loc>
+    <lastmod>2026-11-13</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://futuresociety.ch/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://futuresociety.ch/index.de.html"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://futuresociety.ch/index.fr.html"/>
