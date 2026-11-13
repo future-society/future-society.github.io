@@ -186,10 +186,29 @@ const formerMembers = [
   },
 ];
 
+// Display order, fixed once per page load (so switching language doesn't reshuffle):
+// co-directors in random order, then hub leaders in random order, then everyone
+// else alphabetically by first name.
+const shuffled = arr => {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+const teamOrdered = [
+  ...shuffled(teamMembers.filter(m => m.role.startsWith('co-director'))),
+  ...shuffled(teamMembers.filter(m => m.role === 'hub-leader')),
+  ...teamMembers
+    .filter(m => !m.role.startsWith('co-director') && m.role !== 'hub-leader')
+    .sort((a, b) => a.name.localeCompare(b.name)),
+];
+
 function renderTeam(lang) {
   const wrap = document.getElementById('teamBricks');
   if (!wrap) return;
-  wrap.innerHTML = teamMembers.map(m => {
+  wrap.innerHTML = teamOrdered.map(m => {
     const role   = TEAM_ROLES[m.role] || m.role;
     const bio    = (m.bio || {})[lang] || (m.bio || {}).en || '';
     const pick   = v => (typeof v === 'object' && v !== null) ? (v[lang] || v.en || '') : (v || '');
