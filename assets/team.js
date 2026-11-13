@@ -48,7 +48,7 @@ const teamMembers = [
   {
     name: 'Jannis Strecker-Bischoff',
     link: 'https://academia.jrstrecker.de',
-    photo: 'https://academia.jrstrecker.de/images/profile.jpg',
+    photo: 'https://jsb.solidcommunity.net/public/profile-picture.jpg',
     detail: 'PhD candidate',
     role: 'hub-leader',
     bio: {
