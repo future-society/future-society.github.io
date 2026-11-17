@@ -137,7 +137,6 @@ Our work is supported by the following funding agencies and programmes:
 
 ## Upcoming Events
 
-- November 13, 2026, 08:30–10:45 — Seminar Digitalität in der Sozialen Arbeit (guest session, ZHAW School of Social Work), Zurich
 - December 8, 2026, 12:00–14:00 — FuSo Christmas Lunch, C61-110, Rosenbergstrasse 30, St.Gallen (for our team)
 - January 26–28, 2027 — Strategic AI Governance Course (Continuing Education), St.Gallen (C61-110, Rosenbergstrasse 30)
 - May 10, 2027 — Digital Sovereignty Day, SQUARE, St.Gallen (public open day on digital sovereignty: student hackathon, public evening event in German, Solid Pod onboarding; part of https://sosy2027.org)
@@ -146,7 +145,6 @@ Our work is supported by the following funding agencies and programmes:
 
 ### FuSo Talks (Brown Bag Talks and featured project talks, 12:15–13:15, St.Gallen)
 
-- November 16, 2026, 13:00 — FuSo Emergency Policy Discussion: Digital Fairness Act — online only (Zoom); official proposal (European Commission): https://ec.europa.eu/commission/presscorner/detail/en/ip_26_2407; leaked draft (PDF, via Politico): https://futuresociety.ch/assets/documents/2026-11-dfa-leak-politico.pdf
 - November 24, 2026 — "Drivers of AI regulation" — Bruno Caprettini, Brown Bag Talk, in co-operation with the Institute for Law and Economics
 - January 19, 2027 — TBA — Simona Bonardi, Brown Bag Talk
 
@@ -154,6 +152,7 @@ Upcoming talks are also streamed live on Zoom: https://unisg.zoom.us/j/685982948
 
 Past talks:
 
+- November 16, 2026, 13:00 — FuSo Emergency Policy Discussion: Digital Fairness Act — online; official proposal (European Commission): https://ec.europa.eu/commission/presscorner/detail/en/ip_26_2407; leaked draft (PDF, via Politico): https://futuresociety.ch/assets/documents/2026-11-dfa-leak-politico.pdf
 - November 10, 2026 — "Beyond Chatbots: Integrating LLMs into the Fabric of Access to Justice" — Hannes Westermann (Maastricht University), Featured ARCL Talk
 - November 6, 2026 — "Open Terms Archive" — Matti Schneider (founder of Open Terms Archive and OpenFisca), Featured CoCoDa Talk
 - October 27, 2026 — "Kids-fluencer" — Isabelle Wildhaber (HSG), Brown Bag Talk, in co-operation with the Institute for Law and Economics
@@ -167,6 +166,7 @@ Contact fuso@unisg.ch for details.
 
 ### Past Events
 
+- November 13, 2026, 08:30–10:45 — Seminar Digitalität in der Sozialen Arbeit (guest session, ZHAW School of Social Work), Zurich
 - November 7–8, 2026 — Legal Hackathon Vol. 1, St.Gallen (for students at the University of St.Gallen only) — https://www.legalhackathons.org/ — slides: https://futuresociety.ch/event-slides/legal-hackathon/
 - November 4, 2026 — Social Media goes Social: Prosoziale Inhalte und Designs für Instagram & Co? (Fachgespräch, Konrad-Adenauer-Stiftung), Online — slides: https://futuresociety.ch/event-slides/kas-social-media-goes-social/
 - November 4, 2026 — Legal Design Workshop, St.Gallen — https://www.legaldesignworkshop.org/
