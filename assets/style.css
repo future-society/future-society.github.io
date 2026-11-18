@@ -525,11 +525,11 @@ h1 {
 .intro-standalone .about-intro p { grid-column: 2; }
 /* Above 900px the box ends at the right edge of the hero logo's circle, not
    at the grid edge. The logo sits left-aligned in cols 9-12 (width W =
-   40% of this box's area - 0.6 gap), capped at 360px, and its circle ends at
-   93.31% of the image (fuso-logo.svg: cx 302.06 + r 253.41 of 595.28). */
+   40% of this box's area - 0.6 gap), capped at 360px, and its circle fills
+   the image edge to edge (fuso-logo-white-large.svg), so it ends at W. */
 @media (min-width: 901px) {
   .intro-standalone .about-intro {
-    margin-right: calc(40% - 0.6 * var(--gap) - 0.9331 * min(40% - 0.6 * var(--gap), 360px));
+    margin-right: calc(40% - 0.6 * var(--gap) - min(40% - 0.6 * var(--gap), 360px));
   }
 }
 
