@@ -1626,7 +1626,7 @@ footer .container {
   gap: 1rem;
 }
 
-.footer-logo img { width: 84px; height: 84px; object-fit: contain; }
+.footer-logo img { width:70px; height: 70px; object-fit: contain; }
 
 .footer-wordmark {
   font-size: 1.05rem;
@@ -1647,7 +1647,6 @@ footer .container {
   font-weight: 300;
   font-style: italic;
   color: var(--accent-text);
-  margin-top: 0.2rem;
 }
 
 .footer-hsg {
