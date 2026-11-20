@@ -21,11 +21,11 @@ RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
 END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
-UID:2026-12-08-fuso-xmas-lunch@future-society.github.io
+UID:2026-12-08-fuso-xmas-event@future-society.github.io
 DTSTAMP:20261104T000000Z
-DTSTART;TZID=Europe/Zurich:20261208T120000
+DTSTART;TZID=Europe/Zurich:20261208T100000
 DTEND;TZID=Europe/Zurich:20261208T140000
-SUMMARY:FuSo Christmas Lunch
+SUMMARY:FuSo Christmas Event
 DESCRIPTION:Upon invitation only. https://future-society.github.io/
 LOCATION:C61-110\, Rosenbergstrasse 30\, St.Gallen
 URL:https://future-society.github.io/

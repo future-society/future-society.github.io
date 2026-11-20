@@ -137,7 +137,7 @@ Our work is supported by the following funding agencies and programmes:
 
 ## Upcoming Events
 
-- December 8, 2026, 12:00–14:00 — FuSo Christmas Lunch, C61-110, Rosenbergstrasse 30, St.Gallen (for our team)
+- December 8, 2026, 10:00–14:00 — FuSo Christmas Event, C61-110, Rosenbergstrasse 30, St.Gallen (for our team)
 - January 26–28, 2027 — Strategic AI Governance Course (Continuing Education), St.Gallen (C61-110, Rosenbergstrasse 30)
 - May 10, 2027 — Digital Sovereignty Day, SQUARE, St.Gallen (public open day on digital sovereignty: student hackathon, public evening event in German, Solid Pod onboarding; part of https://sosy2027.org)
 - May 11–12, 2027 — Solid Symposium 2027, SQUARE, St.Gallen (fifth annual Solid conference; https://sosy2027.org)
