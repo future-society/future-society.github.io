@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The EU's AI regulation portfolio: targets × instruments</title>
+<style>
+.viz-root {
+  color-scheme: light;
+  --surface-0: #f6f5f2;
+  --surface-1: #fcfcfb;
+  --surface-2: #eceae5;
+  --border: #dcdad3;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #77756f;
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --hatch: #0b0b0b;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) .viz-root {
+    color-scheme: dark;
+    --surface-0: #121211;
+    --surface-1: #1a1a19;
+    --surface-2: #2a2a28;
+    --border: #3a3a37;
+    --text-primary: #f0efec;
+    --text-secondary: #c3c2b7;
+    --text-muted: #9a998f;
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --hatch: #f0efec;
+  }
+}
+:root[data-theme="dark"] .viz-root {
+  color-scheme: dark;
+  --surface-0: #121211; --surface-1: #1a1a19; --surface-2: #2a2a28; --border: #3a3a37;
+  --text-primary: #f0efec; --text-secondary: #c3c2b7; --text-muted: #9a998f;
+  --series-1: #3987e5; --series-2: #d95926; --hatch: #f0efec;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+.viz-root {
+  background: var(--surface-0); color: var(--text-primary);
+  font: 14px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh; padding: 32px 24px 64px;
+}
+main { max-width: 1180px; margin: 0 auto; }
+h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: -0.01em; }
+h2 { font-size: 17px; margin: 0 0 4px; }
+.sub { color: var(--text-secondary); margin: 0 0 20px; max-width: 860px; }
+.card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+.controls { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center; }
+.controls label { color: var(--text-secondary); font-size: 13px; }
+.date-ctl { display: flex; align-items: center; gap: 10px; flex: 1 1 420px; }
+.date-ctl input[type=range] { flex: 1; accent-color: var(--series-1); }
+.date-val { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 96px; }
+.btns { display: flex; gap: 6px; flex-wrap: wrap; }
+button.chip { font: inherit; font-size: 12px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border);
+  background: var(--surface-1); color: var(--text-primary); cursor: pointer; }
+button.chip[aria-pressed=true] { background: var(--text-primary); color: var(--surface-1); border-color: var(--text-primary); }
+.toggle { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-top: 18px; }
+.tile { border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+.tile .k { font-size: 12px; color: var(--text-secondary); }
+.tile .v { font-size: 26px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.tile .d { font-size: 12px; color: var(--text-muted); }
+.matrix-wrap { overflow-x: auto; }
+svg text { fill: var(--text-secondary); font-family: inherit; }
+.cell { cursor: pointer; }
+.cell:focus { outline: none; }
+.cell:focus-visible rect.bg, .cell.sel rect.bg { stroke: var(--text-primary); stroke-width: 2; }
+.legend { display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: center; font-size: 12px; color: var(--text-secondary); margin-top: 6px; }
+.ramp { display: flex; align-items: center; gap: 6px; }
+.ramp .bar { display: flex; height: 12px; border-radius: 3px; overflow: hidden; }
+.ramp .bar span { width: 16px; }
+.tooltip { position: fixed; pointer-events: none; z-index: 10; max-width: 420px; background: var(--surface-1); color: var(--text-primary);
+  border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 12px; box-shadow: 0 6px 24px rgba(0,0,0,.18); display: none; }
+.tooltip .t { font-weight: 650; font-size: 13px; margin-bottom: 4px; }
+.tooltip ul { margin: 4px 0 0; padding-left: 16px; }
+.tooltip li { margin: 2px 0; }
+.muted { color: var(--text-muted); }
+.sec { color: var(--text-secondary); }
+.detail table, .tbl { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.detail th, .detail td, .tbl th, .tbl td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.detail th, .tbl th { color: var(--text-secondary); font-weight: 600; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.pill { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--border); color: var(--text-secondary); white-space: nowrap; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 900px) { .grid2 { grid-template-columns: 1fr; } }
+ul.obs { margin: 8px 0 0; padding-left: 18px; }
+ul.obs li { margin: 6px 0; }
+details summary { cursor: pointer; font-weight: 600; }
+.note { font-size: 12px; color: var(--text-muted); }
+code { font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="viz-root">
+<main>
+  <h1>The EU's AI regulation portfolio</h1>
+  <p class="sub">Targets × instruments, following the portfolio method of Fernández-i-Marín, Hinterleitner, Knill, Steinebach &amp; Nachtigall,
+    "Analyzing Climate Policy Portfolios" (<i>JCPA</i>, 2025), Figure 3. Each box is a target–instrument combination; shaded boxes are in place
+    at the chosen date, and darker means a more intense intervention. Hover a box for the legal provisions behind it; click to pin.</p>
+
+  <section class="card">
+    <div class="controls">
+      <div class="date-ctl">
+        <label for="date">Snapshot</label>
+        <input id="date" type="range" min="0" max="1" step="1" aria-describedby="dateval">
+        <span class="date-val" id="dateval"></span>
+      </div>
+      <div class="btns" id="presets"></div>
+      <label class="toggle"><input type="checkbox" id="omni" checked> Digital Omnibus on AI applied (Reg. (EU) 2026/1744, in force 27 Jul 2026). Untick to see the original AI Act timeline.</label>
+    </div>
+    <div class="tiles" id="tiles"></div>
+  </section>
+
+  <section class="card">
+    <h2 id="mtitle">European Union, 24 Nov 2026</h2>
+    <div class="matrix-wrap"><svg id="matrix" role="img" aria-labelledby="mtitle"></svg></div>
+    <div class="legend">
+      <div class="ramp"><span>Intensity</span><span>2</span><div class="bar" id="rampbar"></div><span>10</span></div>
+      <div class="ramp"><svg width="18" height="14"><rect width="18" height="14" rx="2" fill="url(#hatchLegend)"></rect></svg>
+        <span>Adopted, not yet applicable</span></div>
+      <div class="ramp"><svg width="18" height="14"><rect width="18" height="14" rx="2" fill="var(--surface-2)"></rect></svg><span>No instrument</span></div>
+      <span class="muted">Row and column totals count boxes in place.</span>
+    </div>
+    <div id="detail" class="detail" style="margin-top:16px"></div>
+  </section>
+
+  <div class="grid2">
+    <section class="card">
+      <h2>Portfolio size over time</h2>
+      <p class="note" style="margin:0 0 8px">Share of the 552 possible target–instrument boxes in place (unweighted), and weighted by intensity (sum of cell intensities ÷ 5520, dashed).</p>
+      <svg id="ts" width="100%" viewBox="0 0 540 280" role="img" aria-label="Portfolio size over time"></svg>
+      <div class="legend" style="margin-top:2px">
+        <span><svg width="22" height="10"><line x1="0" y1="5" x2="22" y2="5" stroke="var(--series-1)" stroke-width="2"/></svg> Size (unweighted)</span>
+        <span><svg width="22" height="10"><line x1="0" y1="5" x2="22" y2="5" stroke="var(--series-2)" stroke-width="2" stroke-dasharray="5 3"/></svg> Size (intensity-weighted)</span>
+      </div>
+    </section>
+    <section class="card">
+      <h2>Reading the matrix</h2>
+      <ul class="obs" id="obs"></ul>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Blind spots: further instrument types</h2>
+    <p class="note" style="margin:0 0 8px">EU level only. National measures (e.g. digital services taxes, R&amp;D tax credits) are not coded.</p>
+    <div style="overflow-x:auto"><table class="tbl">
+      <tr><th>Instrument</th><th>What it could look like for AI</th><th>EU level, Nov 2026</th></tr>
+      <tr><td>Taxes &amp; levies</td><td>Levy on compute, on AI-driven automation or on revenue from AI services; earmarked to fund oversight or transition</td><td>None</td></tr>
+      <tr><td>Tax incentives &amp; adoption subsidies</td><td>Tax credits or vouchers for SME adoption, conditional on compliance or open models</td><td>None at EU level (tax is a national competence); grant funding is in the Funding row</td></tr>
+      <tr><td>Fees &amp; supervisory charges</td><td>Supervisory fee on GPAI providers to fund the AI Office, as the DSA does for platforms</td><td>Platforms only (DSA Art. 43)</td></tr>
+      <tr><td>Licensing &amp; prior authorisation</td><td>Licence to train or deploy models above a compute threshold</td><td>Only per-use authorisation of real-time biometric identification (AI Act Art. 5(3))</td></tr>
+      <tr><td>Public procurement conditions</td><td>Binding requirements on AI the public sector buys; preference for audited or open systems</td><td>Voluntary model clauses only</td></tr>
+      <tr><td>Compulsory insurance</td><td>Mandatory liability cover for operators of high-risk systems</td><td>None; proposed in the European Parliament's 2020 resolution on civil liability for AI</td></tr>
+      <tr><td>Competition &amp; structural remedies</td><td>Interoperability or access duties for foundation models, cloud and compute; merger review of AI partnerships</td><td>No AI-specific instrument; general competition law and the DMA (not coded)</td></tr>
+      <tr><td>Export &amp; investment controls</td><td>Controls on exports of advanced chips or model weights</td><td>AI named in FDI screening; no EU-level chip or model-weight export controls</td></tr>
+      <tr><td>Labour-market transition</td><td>Retraining funds or notice duties for AI-driven job displacement</td><td>None AI-specific (ESF+ and the Globalisation Adjustment Fund are general)</td></tr>
+    </table></div>
+  </section>
+
+  <section class="card">
+    <h2>Method and coding</h2>
+    <div class="sec" style="max-width:900px">
+      <p><b>Targets</b> (x-axis) are <i>domain: objective</i> pairs, like the paper's <i>sector: objective</i>. There are six domains:
+        <b>General</b> (all AI systems), <b>GPAI models</b>, <b>Products</b> (AI in regulated products, AI Act Annex I),
+        <b>Public sector</b> (law enforcement, migration, justice, democratic processes, public benefits), <b>Private uses</b>
+        (employment, education, credit, insurance, critical infrastructure) and <b>Platforms</b> (recommender systems, moderation, online ads).
+        Each domain is crossed with four objectives: safety &amp; security, fundamental rights, information integrity and innovation &amp; uptake.</p>
+      <p><b>Instruments</b> (y-axis) are 23 types. The first 14 run from command-and-control at the top to support, soft-law and governance instruments.
+        The 9 below them are further types from general policy-instrument typologies (market-based, procurement, competition, trade and labour instruments), added to expose blind spots;
+        most are empty at EU level. As in the paper, every instrument can in principle address every target, so the space is symmetrical: 24 × 23 = 552 boxes.
+        Adding the further types lowers portfolio size relative to a 14-row space; it does not change which boxes are in place.</p>
+      <p><b>Intensity (2–10)</b> stands in for the stringency score of the OECD Climate Actions and Policies Measurement Framework (CAPMF). Each provision scores the sum of three parts. The box shows the highest score among its provisions.</p>
+      <table class="tbl" style="max-width:820px">
+        <tr><th>Component</th><th>Scale</th></tr>
+        <tr><td>Legal form</td><td>4 regulation · 3 directive, programme regulation or Commission decision · 2 soft law anchored in a binding act (codes of practice, Art. 96 guidelines, harmonised standards) · 1 pure soft law, strategy or signed-unratified treaty (a treaty ratified but not yet in force scores 3, hatched)</td></tr>
+        <tr><td>Teeth / resources</td><td>3 fines ≥ 4 % of turnover, or funding ≥ €1 bn · 2 fines &lt; 4 %, national penalties, civil liability, enforcement powers, or announced ≥ €1 bn · 1 weak or indirect (no direct fine; compliance-signalling; &lt; €1 bn) · 0 none</td></tr>
+        <tr><td>Applicability at the snapshot date</td><td>3 applicable · 1 in force but not yet applicable (hatched)</td></tr>
+      </table>
+      <p class="note">Coding by Claude from the legal texts (Nov 2026), for illustration. It is not a validated dataset. Instrument diversity follows the logic of average instrument diversity (AID) used in the paper:
+        the share of pairs of covered targets that use different instrument mixes. Acts without AI-relevant provisions (DMA, Data Act, DGA, NIS2) are left out.
+        <b>Status checked 24 Nov 2026:</b> the Digital Omnibus on AI is in force (Reg. (EU) 2026/1744, OJ 24 Jul 2026). EN 18286:2026 is the only AI Act harmonised standard cited in the OJ.
+        The Art. 50 labelling code was published as final on 10 Jun 2026. The EU ratified CETS 225 on 15 May 2026, but the convention is not yet in force (last confirmed mid-Oct 2026).</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <details>
+      <summary>All coded provisions (table view)</summary>
+      <div style="overflow-x:auto;margin-top:10px"><table class="tbl" id="alltbl"></table></div>
+    </details>
+    <details style="margin-top:12px">
+      <summary>Not in the portfolio: proposals, withdrawn and pending items</summary>
+      <ul class="obs" id="pipeline"></ul>
+    </details>
+  </section>
+</main>
+<div class="tooltip" id="tip" role="tooltip"></div>
+</div>
+
+<script>
+// ---------- Dimensions ----------
+const DOMAINS = [
+  ['GEN', 'General'], ['GPAI', 'GPAI models'], ['PROD', 'Products'],
+  ['PUB', 'Public sector'], ['PRIV', 'Private uses'], ['PLAT', 'Platforms'],
+];
+const OBJECTIVES = [
+  ['SAF', 'Safety & security'], ['FR', 'Fundamental rights'], ['INF', 'Information integrity'], ['INN', 'Innovation & uptake'],
+];
+const TARGETS = DOMAINS.flatMap(([d, dn]) => OBJECTIVES.map(([o, on]) => ({ key: `${d}:${o}`, label: `${dn}: ${on}`, domain: d })));
+const INSTRUMENTS = [
+  ['PROHIB', 'Prohibitions'],
+  ['RISK', 'Risk-management duties'],
+  ['STD', 'Technical standards'],
+  ['CONF', 'Conformity assessment & audits'],
+  ['TRANS', 'Transparency & disclosure'],
+  ['DOC', 'Documentation & registration'],
+  ['HUMAN', 'Human oversight & individual rights'],
+  ['LIAB', 'Liability rules'],
+  ['FUND', 'Funding & infrastructure'],
+  ['SANDBOX', 'Sandboxes & testing facilities'],
+  ['CODES', 'Codes of practice & guidelines'],
+  ['GOV', 'Governance & enforcement bodies'],
+  ['LIT', 'Literacy & information'],
+  ['INTL', 'International co-operation'],
+  // Further types from general policy-instrument typologies, added to expose blind spots
+  ['TAX', 'Taxes & levies'],
+  ['SUBS', 'Tax incentives & adoption subsidies'],
+  ['FEE', 'Fees & supervisory charges'],
+  ['LIC', 'Licensing & prior authorisation'],
+  ['PROC', 'Public procurement conditions'],
+  ['INS', 'Compulsory insurance'],
+  ['COMP', 'Competition & structural remedies'],
+  ['INVEST', 'Export & investment controls'],
+  ['LAB', 'Labour-market transition'],
+];
+const INST_GROUP_BREAKS = [8, 10, 14]; // after LIAB (regulatory), after SANDBOX (support), after INTL (further types)
+const FURTHER_FROM = 14;
+
+// ---------- Coded provisions ----------
+// form: 4 reg · 3 directive/programme/decision · 2 anchored soft law · 1 pure soft law
+// teeth: 0–3 ; inForce / appl: ISO dates (appl null = not yet applicable, date unknown)
+const M = [];
+function E(act, prov, inst, t, form, teeth, inForce, appl, extra = {}) { M.push({ act, prov, inst, t, form, teeth, inForce, appl, ...extra }); }
+
+const AIA = 'AI Act (Reg. 2024/1689)';
+const A3 = ['2024-08-01', '2026-08-02', { omni: { appl: '2027-12-02' }, tag: 'Annex III' }];
+const A1 = ['2024-08-01', '2027-08-02', { omni: { appl: '2028-08-02' }, tag: 'Annex I' }];
+// Prohibitions
+E(AIA, 'Art. 5(1)(a)–(b): manipulative techniques; exploiting vulnerabilities', 'PROHIB', ['GEN:FR', 'GEN:SAF', 'PLAT:FR'], 4, 3, '2024-08-01', '2025-02-02');
+E(AIA, 'Art. 5(1)(c): social scoring', 'PROHIB', ['PUB:FR', 'PRIV:FR'], 4, 3, '2024-08-01', '2025-02-02');
+E(AIA, 'Art. 5(1)(d), (h): individual predictive policing; real-time remote biometric ID for law enforcement (narrow exceptions)', 'PROHIB', ['PUB:FR'], 4, 3, '2024-08-01', '2025-02-02');
+E(AIA, 'Art. 5(1)(e), (g): untargeted facial-image scraping; biometric categorisation by sensitive traits', 'PROHIB', ['GEN:FR'], 4, 3, '2024-08-01', '2025-02-02');
+E(AIA, 'Art. 5(1)(f): emotion recognition at work and in education', 'PROHIB', ['PRIV:FR'], 4, 3, '2024-08-01', '2025-02-02');
+E('AI Act as amended by Reg. 2026/1744', 'Art. 5(1)(ba)–(bb): AI systems generating non-consensual intimate imagery or child sexual abuse material', 'PROHIB', ['GEN:FR', 'GEN:SAF', 'GPAI:FR'], 4, 3, '2026-07-27', '2026-12-02', { omniOnly: true });
+// High-risk, Annex III
+E(AIA, 'Art. 9–10, 15: risk management, data governance (bias), accuracy, robustness, cybersecurity', 'RISK', ['PUB:SAF', 'PUB:FR', 'PRIV:SAF', 'PRIV:FR'], 4, 2, ...A3);
+E(AIA, 'Art. 27: fundamental-rights impact assessment (public bodies; credit and insurance deployers)', 'RISK', ['PUB:FR', 'PRIV:FR'], 4, 2, ...A3);
+E(AIA, 'Art. 43: conformity assessment (mostly internal control; third party for biometrics)', 'CONF', ['PUB:SAF', 'PUB:FR', 'PRIV:SAF', 'PRIV:FR'], 4, 2, ...A3);
+E(AIA, 'Art. 13, 26(11): instructions for use; informing affected persons', 'TRANS', ['PUB:FR', 'PRIV:FR'], 4, 2, ...A3);
+E(AIA, 'Art. 11–12, 49, 71: technical documentation, logging, EU database registration (incl. public-sector deployers)', 'DOC', ['PUB:SAF', 'PUB:FR', 'PRIV:SAF', 'PRIV:FR'], 4, 2, ...A3);
+E(AIA, 'Art. 14, 26: human oversight', 'HUMAN', ['PUB:SAF', 'PUB:FR', 'PRIV:SAF', 'PRIV:FR'], 4, 2, ...A3);
+E(AIA, 'Art. 85–86: complaints to market-surveillance authorities; right to explanation of individual decisions', 'HUMAN', ['PUB:FR', 'PRIV:FR'], 4, 1, ...A3);
+// High-risk, Annex I
+E(AIA, 'Art. 6(1), 9–15: requirements for AI safety components of regulated products', 'RISK', ['PROD:SAF', 'PROD:FR'], 4, 2, '2024-08-01', '2027-08-02', { omni: { appl: '2028-08-02' }, note: 'Reg. 2026/1744 removes products under the Machinery Regulation from direct Annex I classification (delegated acts may add AI requirements later).' });
+E(AIA, 'Art. 43(3): conformity assessment within the sectoral procedure (notified bodies)', 'CONF', ['PROD:SAF', 'PROD:FR'], 4, 2, ...A1);
+E(AIA, 'Art. 11–13: technical documentation, logging, instructions for use', 'DOC', ['PROD:SAF'], 4, 2, ...A1);
+E(AIA, 'Art. 14: human oversight', 'HUMAN', ['PROD:SAF'], 4, 2, ...A1);
+// Standards
+E(AIA, 'Art. 40: EN 18286:2026 quality management system (Art. 17), cited by Implementing Decision (EU) 2026/2274', 'STD', ['PUB:SAF', 'PUB:FR', 'PRIV:SAF', 'PRIV:FR'], 2, 1, '2026-10-14', '2026-08-02', { omni: { appl: '2027-12-02' }, note: 'First AI Act harmonised standard; OJ citation Oct 2026 (14 Oct per JTC 21 tracker; Commission news 19 Oct). Presumption of conformity bites once Annex III obligations apply.' });
+E(AIA, 'Art. 40: EN 18286:2026 QMS for AI safety components of products', 'STD', ['PROD:SAF', 'PROD:FR'], 2, 1, '2026-10-14', '2027-08-02', { omni: { appl: '2028-08-02' } });
+E(AIA, 'Art. 40: remaining harmonised standards (risk management, data, logging, transparency, oversight, accuracy/robustness, cybersecurity, conformity assessment) under M/593, amended 2025 (M/613)', 'STD', ['PROD:SAF', 'PUB:SAF', 'PRIV:SAF', 'PUB:FR', 'PRIV:FR'], 2, 1, '2023-05-22', null, { note: 'Not yet cited in the OJ as of Nov 2026; CEN-CENELEC target Q4 2026 for prioritised items.' });
+E('MDR/IVDR (Reg. 2017/745, 2017/746)', 'Harmonised standards for medical software (e.g. EN 62304 life cycle)', 'STD', ['PROD:SAF'], 2, 1, '2017-05-25', '2021-05-26');
+// GPAI
+E(AIA, 'Art. 53(1)(a)–(b): technical documentation for the AI Office and downstream providers', 'DOC', ['GPAI:SAF', 'GPAI:INN'], 4, 2, '2024-08-01', '2025-08-02', { note: 'Commission fining powers (Art. 101) from 2 Aug 2026.' });
+E(AIA, 'Art. 53(1)(c)–(d): copyright policy; public summary of training content', 'TRANS', ['GPAI:FR'], 4, 2, '2024-08-01', '2025-08-02', { note: 'Coded as fundamental rights via IP protection (Charter Art. 17(2)).' });
+E(AIA, 'Art. 55: systemic-risk models: evaluation, adversarial testing, incident reporting, cybersecurity', 'RISK', ['GPAI:SAF'], 4, 2, '2024-08-01', '2025-08-02');
+// Transparency Art. 50
+E(AIA, 'Art. 50(1)–(2): disclose AI interaction; machine-readable marking of synthetic content', 'TRANS', ['GEN:INF', 'GPAI:INF'], 4, 2, '2024-08-01', '2026-08-02', { note: 'Reg. 2026/1744: systems on the market before 2 Aug 2026 have until 2 Dec 2026 for machine-readable marking (not modelled).' });
+E(AIA, 'Art. 50(4): deepfake disclosure; AI-generated text on matters of public interest', 'TRANS', ['GEN:INF', 'PUB:INF'], 4, 2, '2024-08-01', '2026-08-02');
+// Sandboxes
+E(AIA, 'Art. 57–59: AI regulatory sandboxes (at least one per Member State)', 'SANDBOX', ['GEN:INN', 'PROD:INN', 'PUB:INN', 'PRIV:INN'], 4, 1, '2024-08-01', '2026-08-02', { omni: { appl: '2027-08-02' }, note: 'Deadline for national sandboxes moved to 2 Aug 2027 by Reg. 2026/1744.' });
+E(AIA, 'Art. 60: testing high-risk AI in real-world conditions', 'SANDBOX', ['PUB:INN', 'PRIV:INN'], 4, 1, '2024-08-01', '2026-08-02');
+// Governance
+E('Commission Decision C(2024) 390', 'European AI Office (fining powers over GPAI providers from 2 Aug 2026)', 'GOV', ['GPAI:SAF', 'GPAI:FR', 'GPAI:INF', 'GEN:INN'], 3, 2, '2024-02-21', '2024-02-21');
+E(AIA, 'Art. 64–70: AI Board, scientific panel, advisory forum, national market-surveillance authorities', 'GOV', ['GEN:SAF', 'GEN:FR', 'PUB:FR', 'PRIV:FR', 'PROD:SAF'], 4, 2, '2024-08-01', '2025-08-02');
+// Literacy
+E(AIA, 'Art. 4: AI literacy of staff (providers and deployers)', 'LIT', ['GEN:SAF', 'GEN:FR'], 4, 1, '2024-08-01', '2025-02-02',
+  { omni: { form: 4, teeth: 0, from: '2026-07-27' }, note: 'Reg. 2026/1744 rewrites Art. 4: from a duty to ensure a sufficient level of staff literacy to a duty to take measures supporting AI literacy (coded as losing its teeth).' });
+// Codes & guidelines
+E('European Commission', 'Guidelines on prohibited practices and on the AI-system definition (AI Act Art. 96)', 'CODES', ['GEN:FR', 'PUB:FR', 'PRIV:FR'], 2, 0, '2025-02-04', '2025-02-04');
+E('AI Office / Commission', 'General-Purpose AI Code of Practice (transparency, copyright, safety & security chapters)', 'CODES', ['GPAI:SAF', 'GPAI:FR', 'GPAI:INF'], 2, 1, '2025-07-10', '2025-08-01', { note: 'Adherence is a way to show compliance with Art. 53/55.' });
+E('AI Office / Commission', 'Code of Practice on marking and labelling AI-generated content (Art. 50(7))', 'CODES', ['GEN:INF', 'GPAI:INF', 'PUB:INF'], 2, 1, '2026-06-10', '2026-06-10', { note: 'Final 10 Jun 2026; adequacy assessment by Commission/AI Board pending at publication. Commission Art. 50 guidelines followed.' });
+E('European Commission', 'Guidelines on the scope of GPAI obligations', 'CODES', ['GPAI:SAF'], 2, 0, '2025-07-18', '2025-07-18');
+E('European Commission', 'AI Pact (voluntary early-compliance pledges)', 'CODES', ['GEN:SAF', 'GEN:FR'], 1, 0, '2024-09-25', '2024-09-25');
+E('High-Level Expert Group on AI', 'Ethics Guidelines for Trustworthy AI (2019; ALTAI 2020)', 'CODES', ['GEN:SAF', 'GEN:FR'], 1, 0, '2019-04-08', '2019-04-08');
+// GDPR & LED
+const GDPR = 'GDPR (Reg. 2016/679)';
+E(GDPR, 'Art. 22: right not to be subject to solely automated decisions', 'HUMAN', ['GEN:FR', 'PRIV:FR', 'PLAT:FR'], 4, 3, '2016-05-24', '2018-05-25');
+E(GDPR, 'Art. 13–15: meaningful information about the logic involved', 'TRANS', ['GEN:FR', 'PRIV:FR', 'PLAT:FR'], 4, 3, '2016-05-24', '2018-05-25');
+E(GDPR, 'Art. 25, 35: data protection by design; data-protection impact assessment', 'RISK', ['GEN:FR', 'PRIV:FR', 'PLAT:FR'], 4, 3, '2016-05-24', '2018-05-25');
+E(GDPR, 'Art. 51–76: data-protection authorities; EDPB', 'GOV', ['GEN:FR', 'PRIV:FR', 'PLAT:FR'], 4, 3, '2016-05-24', '2018-05-25');
+const LED = 'Law Enforcement Directive (Dir. 2016/680)';
+E(LED, 'Art. 11: automated decisions only where authorised by law, with safeguards', 'HUMAN', ['PUB:FR'], 3, 2, '2016-05-05', '2018-05-06');
+E(LED, 'Art. 27: data-protection impact assessment', 'RISK', ['PUB:FR'], 3, 2, '2016-05-05', '2018-05-06');
+E(LED, 'Art. 41–51: supervisory authorities', 'GOV', ['PUB:FR'], 3, 2, '2016-05-05', '2018-05-06');
+// DSA
+const DSA = 'Digital Services Act (Reg. 2022/2065)';
+const VLOP = ['2022-11-16', '2023-08-25'], ALL = ['2022-11-16', '2024-02-17'];
+E(DSA, 'Art. 34–35: systemic-risk assessment and mitigation (VLOPs/VLOSEs)', 'RISK', ['PLAT:SAF', 'PLAT:FR', 'PLAT:INF'], 4, 3, ...VLOP);
+E(DSA, 'Art. 37: independent audits (VLOPs/VLOSEs)', 'CONF', ['PLAT:SAF', 'PLAT:FR', 'PLAT:INF'], 4, 3, ...VLOP);
+E(DSA, 'Art. 27: recommender-system transparency', 'TRANS', ['PLAT:FR', 'PLAT:INF'], 4, 3, ...ALL);
+E(DSA, 'Art. 26, 39: advertising transparency; ad repository', 'TRANS', ['PLAT:INF'], 4, 3, ...ALL);
+E(DSA, 'Art. 40: data access for vetted researchers', 'TRANS', ['PLAT:INF'], 4, 3, ...VLOP, { note: 'Delegated act on data access adopted 2025.' });
+E(DSA, 'Art. 25, 26(3), 28(2): dark patterns; ads based on sensitive-data profiling; profiling-based ads to minors', 'PROHIB', ['PLAT:FR'], 4, 3, ...ALL);
+E(DSA, 'Art. 38: non-profiling recommender option (VLOPs/VLOSEs)', 'HUMAN', ['PLAT:FR'], 4, 3, ...VLOP);
+E(DSA, 'Art. 20–21: complaint handling; out-of-court dispute settlement', 'HUMAN', ['PLAT:FR'], 4, 3, ...ALL);
+E(DSA, 'Art. 24(5): statements-of-reasons transparency database', 'DOC', ['PLAT:FR'], 4, 3, ...ALL);
+E(DSA, 'Art. 49–66: Digital Services Coordinators, Board, Commission enforcement (supported by ECAT)', 'GOV', ['PLAT:SAF', 'PLAT:FR', 'PLAT:INF'], 4, 3, ...VLOP);
+E(DSA, 'Code of Conduct on Disinformation (integrated under Art. 45)', 'CODES', ['PLAT:INF'], 2, 1, '2025-02-13', '2025-07-01');
+E(DSA, 'Art. 28 guidelines on the protection of minors', 'CODES', ['PLAT:FR', 'PLAT:SAF'], 2, 1, '2025-07-14', '2025-07-14');
+// Political advertising
+const TTPA = 'Political Advertising Reg. 2024/900';
+E(TTPA, 'Art. 7–12: labelling and transparency notices for political ads', 'TRANS', ['PUB:INF', 'PLAT:INF'], 4, 3, '2024-04-09', '2025-10-10');
+E(TTPA, 'Art. 18–19: limits on targeting and ad-delivery techniques; no profiling on special-category data', 'PROHIB', ['PUB:INF', 'PLAT:INF'], 4, 3, '2024-04-09', '2025-10-10');
+// Platform work, consumer credit
+const PWD = 'Platform Work Directive (Dir. 2024/2831)';
+E(PWD, 'Art. 7: bans on processing emotional state, private conversations etc. in algorithmic management', 'PROHIB', ['PRIV:FR'], 3, 2, '2024-12-01', '2026-12-02');
+E(PWD, 'Art. 9: transparency on automated monitoring and decision-making systems', 'TRANS', ['PRIV:FR'], 3, 2, '2024-12-01', '2026-12-02');
+E(PWD, 'Art. 10–11: human monitoring and human review of significant decisions', 'HUMAN', ['PRIV:FR'], 3, 2, '2024-12-01', '2026-12-02');
+E('Consumer Credit Directive (Dir. 2023/2225)', 'Art. 18: automated creditworthiness assessment: human intervention, explanation, contestation', 'HUMAN', ['PRIV:FR'], 3, 2, '2023-11-19', '2026-11-20');
+// Liability
+E('Product Liability Directive (Dir. 2024/2853)', 'Software, incl. AI, as a product; disclosure of evidence; rebuttable presumptions of defect/causation', 'LIAB', ['GEN:SAF', 'PROD:SAF'], 3, 2, '2024-12-08', '2026-12-09');
+E('Product Liability Directive (Dir. 85/374/EEC)', 'Strict liability for defective products (coverage of software contested)', 'LIAB', ['PROD:SAF'], 3, 1, '1985-08-07', '1988-07-30', { until: '2026-12-09' });
+// Product safety
+E('MDR/IVDR (Reg. 2017/745, 2017/746)', 'Rule 11 software classification; notified-body conformity assessment', 'CONF', ['PROD:SAF'], 4, 2, '2017-05-25', '2021-05-26');
+E('Machinery Regulation (Reg. 2023/1230)', 'Annex I Part A: third-party assessment of safety components with self-evolving (ML) behaviour', 'CONF', ['PROD:SAF'], 4, 2, '2023-07-19', '2027-01-20');
+E('General Product Safety Reg. (Reg. 2023/988)', 'Art. 6: safety assessment incl. evolving, learning and predictive functionalities', 'RISK', ['PROD:SAF'], 4, 2, '2023-06-12', '2024-12-13');
+E('Cyber Resilience Act (Reg. 2024/2847)', 'Essential cybersecurity requirements; Art. 12 link to AI Act Art. 15', 'RISK', ['PROD:SAF', 'GEN:SAF'], 4, 2, '2024-12-10', '2027-12-11');
+// Funding
+E('Horizon 2020 (Reg. 1291/2013)', 'AI research funding', 'FUND', ['GEN:INN'], 3, 3, '2014-01-01', '2014-01-01', { until: '2021-01-01' });
+E('Horizon Europe (Reg. 2021/695)', 'AI research funding, incl. GenAI4EU', 'FUND', ['GEN:INN', 'GPAI:INN'], 3, 3, '2021-04-28', '2021-04-28');
+E('Digital Europe Programme (Reg. 2021/694)', 'AI capacities, European Digital Innovation Hubs, AI-on-demand platform', 'FUND', ['GEN:INN', 'PUB:INN', 'PRIV:INN'], 3, 3, '2021-05-11', '2021-05-11');
+E('EuroHPC (Council Reg. 2024/1732)', 'AI Factories: compute for model training', 'FUND', ['GPAI:INN', 'GEN:INN'], 3, 3, '2024-07-09', '2024-07-09');
+E('EuroHPC amendment (Council, Jan 2026)', 'AI gigafactories; new objective of the EuroHPC Joint Undertaking', 'FUND', ['GPAI:INN'], 3, 3, '2026-01-20', '2026-01-20', { note: 'Adopted 16 Jan 2026; in force the day after OJ publication (scheduled 19 Jan).' });
+E('European Commission', 'Coordinated Plan on AI (2018; 2021 review)', 'FUND', ['GEN:INN'], 1, 1, '2018-12-07', '2018-12-07');
+E('European Commission', 'InvestAI and AI gigafactories (announced Feb 2025)', 'FUND', ['GPAI:INN'], 1, 2, '2025-02-11', '2025-02-11');
+E('European Commission', 'AI Continent Action Plan (Apr 2025)', 'FUND', ['GEN:INN', 'GPAI:INN'], 1, 2, '2025-04-09', '2025-04-09');
+E('European Commission', 'Apply AI Strategy (Oct 2025): sectoral flagships, AI-first public sector', 'FUND', ['PUB:INN', 'PRIV:INN', 'PROD:INN'], 1, 2, '2025-10-08', '2025-10-08');
+E('Digital Europe Programme', 'Testing and Experimentation Facilities (agrifood, health, manufacturing, smart cities)', 'SANDBOX', ['PROD:INN', 'PRIV:INN', 'PUB:INN'], 2, 1, '2023-01-01', '2023-01-01', { note: 'Projects started 1 Jan 2023; official launch 27 Jun 2023; fully open Jan 2024.' });
+// Literacy
+E('European Commission', 'Digital Education Action Plan 2021–27; ethical guidelines on AI for educators (2022)', 'LIT', ['GEN:INN'], 1, 1, '2020-09-30', '2020-09-30');
+E('AVMSD (Dir. 2018/1808)', 'Art. 33a: promotion of media literacy (not AI-specific)', 'LIT', ['PLAT:INF'], 3, 0, '2018-12-18', '2020-09-19');
+// International
+E('Council of Europe', 'Framework Convention on AI (CETS 225): signed by the EU', 'INTL', ['GEN:FR', 'PUB:FR', 'PUB:INF'], 1, 0, '2024-09-05', null, { until: '2026-05-15' });
+E('Council of Europe', 'Framework Convention on AI (CETS 225): ratified by the EU, convention not yet in force', 'INTL', ['GEN:FR', 'PUB:FR', 'PUB:INF'], 3, 0, '2026-05-15', null, { note: 'EU deposited 15 May 2026 as first Party. Entry into force needs 5 ratifications incl. 3 CoE member states; not reached as of mid-Oct 2026.' });
+// Further instrument types
+E(DSA, 'Art. 43: annual supervisory fee on VLOPs/VLOSEs (capped at 0.05 % of worldwide net income)', 'FEE', ['PLAT:SAF', 'PLAT:FR', 'PLAT:INF'], 4, 1, ...VLOP);
+E(AIA, 'Art. 5(2)–(3): prior authorisation by a judicial or independent administrative authority for each use of real-time remote biometric identification', 'LIC', ['PUB:FR'], 4, 3, '2024-08-01', '2025-02-02');
+E('European Commission (Public Buyers Community)', 'EU model contractual AI clauses for public procurement', 'PROC', ['PUB:SAF', 'PUB:FR'], 1, 0, '2023-09-29', '2023-09-29', { note: 'Published autumn 2023 (exact date not verified); revised for the AI Act in 2025.' });
+E('FDI Screening Regulation (Reg. 2019/452)', 'Art. 4(1)(b): artificial intelligence listed among the critical technologies to consider when screening foreign direct investment', 'INVEST', ['GEN:SAF'], 4, 1, '2019-04-10', '2020-10-11');
+E('G7', 'Hiroshima Process International Code of Conduct for advanced AI', 'INTL', ['GPAI:SAF', 'GPAI:INF'], 1, 0, '2023-10-30', '2023-10-30');
+E('AI Safety Summit / AI Office', 'Bletchley Declaration; International Network of AI Safety Institutes', 'INTL', ['GPAI:SAF'], 1, 0, '2023-11-01', '2023-11-01');
+E('EU–US Trade and Technology Council', 'Joint Roadmap for Trustworthy AI and Risk Management', 'INTL', ['GEN:SAF'], 1, 0, '2022-12-01', '2022-12-01');
+
+const PIPELINE = [
+  ['AI Liability Directive (COM(2022) 496)', 'Proposed 28 Sept 2022; withdrawal announced Feb 2025, published in OJ C/2025/5423 on 6 Oct 2025. Fault-based AI liability stays with national law.'],
+  ['AI Office supervision under Reg. 2026/1744', 'Extended to AI systems built on a provider\'s own GPAI model and to AI systems integrated into VLOPs/VLOSEs. Not coded separately: application details not verified.'],
+  ['Further AI Act harmonised standards', 'Eleven JTC 21 deliverables beyond EN 18286 are still in development; coded as one pending (hatched) item.'],
+  ['Digital Fairness Act', 'Expected Commission proposal on dark patterns, addictive design and personalisation. Would add instruments for Platforms and Private uses.'],
+];
+
+// ---------- Scoring ----------
+const DAY = 86400000;
+const toD = s => new Date(s + 'T00:00:00Z');
+function scoreAt(m, d, omni) {
+  if (m.omniOnly && !omni) return null;
+  if (d < toD(m.inForce)) return null;
+  if (m.until && d >= toD(m.until)) return null;
+  let appl = m.appl, form = m.form, teeth = m.teeth;
+  if (omni && m.omni) {
+    if (m.omni.appl) appl = m.omni.appl;
+    if (m.omni.from && d >= toD(m.omni.from)) { form = m.omni.form ?? form; teeth = m.omni.teeth ?? teeth; }
+  }
+  const applicable = appl && d >= toD(appl);
+  return { s: form + teeth + (applicable ? 3 : 1), applicable, appl };
+}
+function compute(d, omni) {
+  const cells = {};
+  for (const m of M) {
+    const r = scoreAt(m, d, omni);
+    if (!r) continue;
+    for (const t of m.t) {
+      const k = `${m.inst}|${t}`;
+      (cells[k] ||= { max: 0, anyApplicable: false, list: [] });
+      cells[k].list.push({ m, ...r });
+      cells[k].max = Math.max(cells[k].max, r.s);
+      if (r.applicable) cells[k].anyApplicable = true;
+    }
+  }
+  const total = TARGETS.length * INSTRUMENTS.length;
+  const filled = Object.keys(cells).length;
+  const weighted = Object.values(cells).reduce((a, c) => a + c.max, 0) / (total * 10);
+  const pending = Object.values(cells).filter(c => !c.anyApplicable).length;
+  // AID: share of covered-target pairs with distinct instrument mixes
+  const mixes = TARGETS.map(t => INSTRUMENTS.filter(([i]) => cells[`${i}|${t.key}`]).map(([i]) => i).join(',')).filter(s => s);
+  let pairs = 0, diff = 0;
+  for (let a = 0; a < mixes.length; a++) for (let b = a + 1; b < mixes.length; b++) { pairs++; if (mixes[a] !== mixes[b]) diff++; }
+  return { cells, filled, total, size: filled / total, weighted, pending, aid: pairs ? diff / pairs : 0, covered: mixes.length };
+}
+
+// ---------- Colour ----------
+const RAMP_LIGHT = ['#cde2fb', '#b7d3f6', '#9ec5f4', '#86b6ef', '#6da7ec', '#5598e7', '#3987e5', '#2a78d6', '#256abf', '#1c5cab', '#184f95', '#104281', '#0d366b'];
+const isDark = () => {
+  const t = document.documentElement.dataset.theme;
+  if (t) return t === 'dark';
+  return matchMedia('(prefers-color-scheme: dark)').matches;
+};
+function rampColor(v) { // v in 1..10
+  const r = isDark() ? [...RAMP_LIGHT].reverse() : RAMP_LIGHT;
+  const idx = Math.round(((v - 1) / 9) * (r.length - 1));
+  return r[Math.max(0, Math.min(r.length - 1, idx))];
+}
+function textOn(hex) {
+  const n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255;
+  return (0.299 * r + 0.587 * g + 0.114 * b) > 150 ? '#0b0b0b' : '#ffffff';
+}
+
+// ---------- State ----------
+const MIN = toD('2014-01-01'), MAX = toD('2029-12-31'), TODAY = toD('2026-11-24');
+const state = { d: TODAY, omni: true, sel: null };
+const fmt = d => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+const pct = x => (x * 100).toFixed(1) + ' %';
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+const slider = document.getElementById('date');
+slider.max = Math.round((MAX - MIN) / DAY);
+slider.value = Math.round((TODAY - MIN) / DAY);
+slider.addEventListener('input', () => { state.d = new Date(MIN.getTime() + slider.value * DAY); render(); });
+const PRESETS = [['2018', '2018-06-01'], ['2021', '2021-06-01'], ['2024', '2024-06-01'], ['Today', '2026-11-24'], ['Aug 2027', '2027-08-02'], ['2029', '2029-01-01']];
+const presetsEl = document.getElementById('presets');
+for (const [lab, iso] of PRESETS) {
+  const b = document.createElement('button'); b.className = 'chip'; b.textContent = lab; b.dataset.iso = iso;
+  b.addEventListener('click', () => { state.d = toD(iso); slider.value = Math.round((state.d - MIN) / DAY); render(); });
+  presetsEl.appendChild(b);
+}
+document.getElementById('omni').addEventListener('change', e => { state.omni = e.target.checked; render(); });
+
+// ---------- Matrix ----------
+const CS = 26, GAP = 2, STEP = CS + GAP;
+const LEFT = 236, TOP = 46, RIGHT = 40;
+const DOM_GAP = 8;
+const colX = i => LEFT + i * STEP + Math.floor(i / OBJECTIVES.length) * DOM_GAP;
+const rowY = j => TOP + j * STEP + INST_GROUP_BREAKS.filter(b => j >= b).length * DOM_GAP + (j >= FURTHER_FROM ? 18 : 0);
+const W = colX(TARGETS.length - 1) + CS + RIGHT;
+const GRID_BOTTOM = rowY(INSTRUMENTS.length - 1) + CS;
+const H = GRID_BOTTOM + 150;
+const svg = document.getElementById('matrix');
+svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+const NS = 'http://www.w3.org/2000/svg';
+const el = (tag, attrs = {}, parent = svg) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; };
+
+const defs = el('defs');
+for (const id of ['hatch', 'hatchLegend']) {
+  const p = el('pattern', { id, width: 6, height: 6, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' }, defs);
+  el('line', { x1: 0, y1: 0, x2: 0, y2: 6, stroke: 'var(--hatch)', 'stroke-width': 1.6, 'stroke-opacity': 0.55 }, p);
+}
+// legend swatch uses its own svg; inject pattern there too
+document.querySelector('.legend svg rect[fill="url(#hatchLegend)"]').closest('svg').innerHTML =
+  `<defs><pattern id="hatchLegend2" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="var(--hatch)" stroke-width="1.6" stroke-opacity="0.55"/></pattern></defs>
+   <rect width="18" height="14" rx="2" fill="${RAMP_LIGHT[4]}"/><rect width="18" height="14" rx="2" fill="url(#hatchLegend2)"/>`;
+
+// Domain separators & labels
+DOMAINS.forEach(([d, dn], di) => {
+  const x0 = colX(di * OBJECTIVES.length), x1 = colX(di * OBJECTIVES.length + OBJECTIVES.length - 1) + CS;
+  const t = el('text', { x: (x0 + x1) / 2, y: TOP - 22, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 600 });
+  t.textContent = dn; t.style.fill = 'var(--text-primary)';
+});
+// Row labels
+INSTRUMENTS.forEach(([i, lab], j) => {
+  const t = el('text', { x: LEFT - 10, y: rowY(j) + CS / 2 + 4, 'text-anchor': 'end', 'font-size': 12 }); t.textContent = lab;
+});
+el('text', { x: LEFT - 10, y: rowY(FURTHER_FROM) - 9, 'text-anchor': 'end', 'font-size': 11, 'font-style': 'italic' }).textContent = 'Further instrument types';
+// Column labels (rotated)
+TARGETS.forEach((t, i) => {
+  const x = colX(i) + CS / 2 + 4, y = GRID_BOTTOM + 8;
+  const tx = el('text', { x, y, 'text-anchor': 'end', 'font-size': 11, transform: `rotate(-90 ${x} ${y})` });
+  tx.textContent = OBJECTIVES[i % OBJECTIVES.length][1];
+});
+const axisY = el('text', { x: 14, y: TOP + (GRID_BOTTOM - TOP) / 2, 'text-anchor': 'middle', 'font-size': 12, transform: `rotate(-90 14 ${TOP + (GRID_BOTTOM - TOP) / 2})` });
+axisY.textContent = 'Instrument';
+const axisX = el('text', { x: (LEFT + W - RIGHT) / 2, y: H - 6, 'text-anchor': 'middle', 'font-size': 12 }); axisX.textContent = 'Target (domain: objective)';
+
+// Cells
+const cellEls = {};
+INSTRUMENTS.forEach(([i], j) => TARGETS.forEach((t, k) => {
+  const g = el('g', { class: 'cell', tabindex: 0, 'data-k': `${i}|${t.key}` });
+  const x = colX(k), y = rowY(j);
+  const bg = el('rect', { class: 'bg', x, y, width: CS, height: CS, rx: 3 }, g);
+  const hatch = el('rect', { x, y, width: CS, height: CS, rx: 3, fill: 'url(#hatch)', 'pointer-events': 'none' }, g);
+  cellEls[`${i}|${t.key}`] = { g, bg, hatch, inst: i, target: t };
+  g.addEventListener('mouseenter', e => showTip(e, `${i}|${t.key}`));
+  g.addEventListener('mousemove', moveTip);
+  g.addEventListener('mouseleave', hideTip);
+  g.addEventListener('focus', e => { const r = bg.getBoundingClientRect(); showTip({ clientX: r.right, clientY: r.bottom }, `${i}|${t.key}`); });
+  g.addEventListener('blur', hideTip);
+  g.addEventListener('click', () => { state.sel = state.sel === `${i}|${t.key}` ? null : `${i}|${t.key}`; render(); });
+  g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); g.dispatchEvent(new Event('click')); } });
+}));
+// Row / column totals
+const rowTot = INSTRUMENTS.map((_, j) => el('text', { x: colX(TARGETS.length - 1) + CS + 8, y: rowY(j) + CS / 2 + 4, 'font-size': 11 }));
+const colTot = TARGETS.map((_, k) => el('text', { x: colX(k) + CS / 2, y: TOP - 0, 'text-anchor': 'middle', 'font-size': 10 }));
+// put column totals just above the grid (below domain labels)
+colTot.forEach(t => t.setAttribute('y', TOP - 3));
+el('text', { x: colX(TARGETS.length - 1) + CS + 8, y: TOP - 3, 'font-size': 10 }).textContent = 'Σ';
+
+// Ramp legend
+const rb = document.getElementById('rampbar');
+function drawRamp() { rb.innerHTML = ''; for (let v = 2; v <= 10; v++) { const s = document.createElement('span'); s.style.background = rampColor(v); rb.appendChild(s); } }
+
+// Tooltip
+const tip = document.getElementById('tip');
+let cur = null;
+function cellHtml(k, full) {
+  const c = cur.cells[k]; const { inst, target } = cellEls[k];
+  const iname = INSTRUMENTS.find(x => x[0] === inst)[1];
+  let h = `<div class="t">${esc(iname)} × ${esc(target.label)}</div>`;
+  if (!c) return h + `<div class="muted">No instrument in place on ${fmt(state.d)}.</div>`;
+  h += `<div class="sec">Intensity <b>${c.max}</b>/10${c.anyApplicable ? '' : ' · adopted, not yet applicable'}</div><ul>`;
+  for (const x of c.list.sort((a, b) => b.s - a.s)) {
+    h += `<li><b>${esc(x.m.act)}</b>: ${esc(x.m.prov)} <span class="muted">(${x.s}; ${x.applicable ? 'applies since ' + fmt(toD(x.appl)) : x.appl ? 'applies from ' + fmt(toD(x.appl)) : 'application date open'})</span>${full && x.m.note ? `<br><span class="muted">${esc(x.m.note)}</span>` : ''}</li>`;
+  }
+  return h + '</ul>';
+}
+function showTip(e, k) { tip.innerHTML = cellHtml(k, false); tip.style.display = 'block'; moveTip(e); }
+function moveTip(e) {
+  const pad = 14, r = tip.getBoundingClientRect();
+  let x = e.clientX + pad, y = e.clientY + pad;
+  if (x + r.width > innerWidth - 8) x = e.clientX - r.width - pad;
+  if (y + r.height > innerHeight - 8) y = Math.max(8, e.clientY - r.height - pad);
+  tip.style.left = x + 'px'; tip.style.top = y + 'px';
+}
+function hideTip() { tip.style.display = 'none'; }
+
+// ---------- Time series ----------
+const ts = document.getElementById('ts');
+const TS = { w: 540, h: 280, l: 44, r: 92, t: 14, b: 30 };
+const series = []; // computed per scenario
+function computeSeries() {
+  series.length = 0;
+  for (let d = new Date(MIN); d <= MAX; d = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1))) {
+    const r = compute(d, state.omni); series.push({ d, size: r.size, w: r.weighted });
+  }
+}
+function drawTS() {
+  ts.innerHTML = '';
+  const tx = d => TS.l + (d - MIN) / (MAX - MIN) * (TS.w - TS.l - TS.r);
+  const ymax = Math.max(0.3, Math.ceil(Math.max(...series.map(s => s.size)) * 10) / 10);
+  const ty = v => TS.h - TS.b - v / ymax * (TS.h - TS.t - TS.b);
+  const g = (tag, a) => el(tag, a, ts);
+  for (let v = 0; v <= ymax + 1e-9; v += 0.1) {
+    g('line', { x1: TS.l, x2: TS.w - TS.r, y1: ty(v), y2: ty(v), stroke: 'var(--border)', 'stroke-width': 1 });
+    g('text', { x: TS.l - 6, y: ty(v) + 4, 'text-anchor': 'end', 'font-size': 11 }).textContent = Math.round(v * 100) + ' %';
+  }
+  for (let y = 2014; y <= 2029; y += 3) g('text', { x: tx(toD(`${y}-01-01`)), y: TS.h - 10, 'text-anchor': 'middle', 'font-size': 11 }).textContent = y;
+  // today marker
+  g('line', { x1: tx(TODAY), x2: tx(TODAY), y1: TS.t, y2: TS.h - TS.b, stroke: 'var(--text-muted)', 'stroke-dasharray': '3 3' });
+  g('text', { x: tx(TODAY) + 4, y: TS.h - TS.b - 6, 'font-size': 10 }).textContent = 'today';
+  // snapshot marker
+  g('line', { x1: tx(state.d), x2: tx(state.d), y1: TS.t, y2: TS.h - TS.b, stroke: 'var(--text-primary)', 'stroke-width': 1 });
+  const path = key => series.map((s, i) => `${i ? 'L' : 'M'}${tx(s.d).toFixed(1)},${ty(s[key]).toFixed(1)}`).join('');
+  g('path', { d: path('size'), fill: 'none', stroke: 'var(--series-1)', 'stroke-width': 2, 'stroke-linejoin': 'round' });
+  g('path', { d: path('w'), fill: 'none', stroke: 'var(--series-2)', 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-dasharray': '5 3' });
+  const last = series[series.length - 1];
+  g('text', { x: TS.w - TS.r + 6, y: ty(last.size) + 4, 'font-size': 11 }).textContent = 'Unweighted';
+  g('text', { x: TS.w - TS.r + 6, y: ty(last.w) + 4, 'font-size': 11 }).textContent = 'Weighted';
+  // crosshair
+  const ch = g('line', { y1: TS.t, y2: TS.h - TS.b, stroke: 'var(--text-secondary)', 'stroke-width': 1, visibility: 'hidden' });
+  const d1 = g('circle', { r: 4, fill: 'var(--series-1)', stroke: 'var(--surface-1)', 'stroke-width': 2, visibility: 'hidden' });
+  const d2 = g('circle', { r: 4, fill: 'var(--series-2)', stroke: 'var(--surface-1)', 'stroke-width': 2, visibility: 'hidden' });
+  const hit = g('rect', { x: TS.l, y: TS.t, width: TS.w - TS.l - TS.r, height: TS.h - TS.t - TS.b, fill: 'transparent' });
+  const pick = e => {
+    const pt = ts.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+    const p = pt.matrixTransform(ts.getScreenCTM().inverse());
+    const i = Math.max(0, Math.min(series.length - 1, Math.round((p.x - TS.l) / (TS.w - TS.l - TS.r) * (series.length - 1))));
+    return series[i];
+  };
+  hit.addEventListener('mousemove', e => {
+    const s = pick(e), x = tx(s.d);
+    for (const n of [ch, d1, d2]) n.setAttribute('visibility', 'visible');
+    ch.setAttribute('x1', x); ch.setAttribute('x2', x);
+    d1.setAttribute('cx', x); d1.setAttribute('cy', ty(s.size)); d2.setAttribute('cx', x); d2.setAttribute('cy', ty(s.w));
+    tip.innerHTML = `<div class="t">${s.d.toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' })}</div>
+      <div>Unweighted size <b>${pct(s.size)}</b></div><div>Weighted size <b>${pct(s.w)}</b></div><div class="muted">Click to set the snapshot</div>`;
+    tip.style.display = 'block'; moveTip(e);
+  });
+  hit.addEventListener('mouseleave', () => { for (const n of [ch, d1, d2]) n.setAttribute('visibility', 'hidden'); hideTip(); });
+  hit.addEventListener('click', e => { state.d = pick(e).d; slider.value = Math.round((state.d - MIN) / DAY); render(); });
+}
+
+// ---------- Render ----------
+let lastOmni = null;
+function render() {
+  cur = compute(state.d, state.omni);
+  if (lastOmni !== state.omni) { computeSeries(); lastOmni = state.omni; }
+  document.getElementById('dateval').textContent = fmt(state.d);
+  document.getElementById('mtitle').textContent = `European Union, ${fmt(state.d)}${state.omni ? '' : ' (counterfactual: original AI Act timeline)'}`;
+  for (const b of presetsEl.children) b.setAttribute('aria-pressed', toD(b.dataset.iso).getTime() === state.d.getTime());
+
+  for (const k in cellEls) {
+    const c = cur.cells[k], e = cellEls[k];
+    e.bg.setAttribute('fill', c ? rampColor(c.max) : 'var(--surface-2)');
+    e.hatch.setAttribute('visibility', c && !c.anyApplicable ? 'visible' : 'hidden');
+    e.g.classList.toggle('sel', state.sel === k);
+    e.g.setAttribute('aria-label', `${INSTRUMENTS.find(x => x[0] === e.inst)[1]}, ${e.target.label}: ${c ? 'intensity ' + c.max : 'empty'}`);
+  }
+  INSTRUMENTS.forEach(([i], j) => rowTot[j].textContent = TARGETS.filter(t => cur.cells[`${i}|${t.key}`]).length);
+  TARGETS.forEach((t, k) => colTot[k].textContent = INSTRUMENTS.filter(([i]) => cur.cells[`${i}|${t.key}`]).length);
+
+  // Tiles
+  const prev = compute(new Date(Date.UTC(state.d.getUTCFullYear() - 1, state.d.getUTCMonth(), state.d.getUTCDate())), state.omni);
+  const dpp = (a, b) => { const v = (a - b) * 100; return (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(1) + ' pp vs. one year earlier'; };
+  document.getElementById('tiles').innerHTML = `
+    <div class="tile"><div class="k">Portfolio size</div><div class="v">${pct(cur.size)}</div><div class="d">${cur.filled} of ${cur.total} boxes · ${dpp(cur.size, prev.size)}</div></div>
+    <div class="tile"><div class="k">Intensity-weighted size</div><div class="v">${pct(cur.weighted)}</div><div class="d">${dpp(cur.weighted, prev.weighted)}</div></div>
+    <div class="tile"><div class="k">Instrument diversity (AID)</div><div class="v">${cur.aid.toFixed(2)}</div><div class="d">across ${cur.covered} of ${TARGETS.length} covered targets</div></div>
+    <div class="tile"><div class="k">Adopted, not yet applicable</div><div class="v">${cur.pending}</div><div class="d">boxes (hatched)</div></div>`;
+
+  // Detail panel
+  const det = document.getElementById('detail');
+  det.innerHTML = state.sel ? `<div style="border:1px solid var(--border);border-radius:8px;padding:12px">${cellHtml(state.sel, true)}<div class="note">Click the box again to unpin.</div></div>` : '';
+
+  drawRamp();
+  drawTS();
+  drawObs();
+}
+
+function drawObs() {
+  const c = cur.cells;
+  const byInst = INSTRUMENTS.map(([i, n]) => [n, TARGETS.filter(t => c[`${i}|${t.key}`]).length]).sort((a, b) => b[1] - a[1]);
+  const byDom = DOMAINS.map(([d, dn]) => {
+    const keys = Object.keys(c).filter(k => k.split('|')[1].startsWith(d + ':'));
+    return [dn, keys.length, keys.length ? keys.reduce((a, k) => a + c[k].max, 0) / keys.length : 0];
+  });
+  const byObj = OBJECTIVES.map(([o, on]) => [on, Object.keys(c).filter(k => k.endsWith(':' + o)).length]);
+  const empty = TARGETS.filter(t => !INSTRUMENTS.some(([i]) => c[`${i}|${t.key}`])).map(t => t.label);
+  const topDom = [...byDom].sort((a, b) => b[1] - a[1]);
+  const items = [
+    `<b>Most-used instruments:</b> ${byInst.slice(0, 3).map(([n, v]) => `${esc(n)} (${v})`).join(', ')}. Least used: ${byInst.filter(x => x[1] > 0).slice(-2).map(([n, v]) => `${esc(n)} (${v})`).join(', ')}${byInst.some(x => x[1] === 0) ? '; unused: ' + byInst.filter(x => x[1] === 0).map(x => esc(x[0])).join(', ') : ''}.`,
+    `<b>By domain:</b> ${topDom.map(([n, v, m]) => `${esc(n)} ${v}${v ? ` (mean intensity ${m.toFixed(1)})` : ''}`).join(' · ')}.`,
+    `<b>By objective:</b> ${byObj.map(([n, v]) => `${esc(n)} ${v}`).join(' · ')}.`,
+    empty.length ? `<b>Empty targets:</b> ${empty.map(esc).join('; ')}.` : `<b>Every target</b> has at least one instrument.`,
+  ];
+  if (state.d >= toD('2024-08-01')) items.push(`The AI Act is layered on existing law. GDPR and the DSA had already filled the fundamental-rights and Platforms columns, and product-safety law the Products: Safety column. The AI Act adds depth to the Public sector and Private uses columns through its Annex III high-risk bloc of risk management, conformity assessment, transparency, documentation and human oversight, all applying on the same day. ${state.omni
+    ? 'Reg. 2026/1744 moves that day from 2 Aug 2026 to 2 Dec 2027, so the bloc stays hatched until then; untick the Omnibus box to see the original timeline.'
+    : 'Under the original timeline the bloc applies from 2 Aug 2026.'}`);
+  if (state.d >= toD('2026-06-10')) items.push(`The Liability row stays thin after the withdrawal of the AI Liability Directive. Platforms have no innovation instruments and are regulated only through risk-side instruments. Information integrity outside platforms rests mainly on Art. 50 transparency, backed by the June 2026 labelling code.`);
+  document.getElementById('obs').innerHTML = items.map(s => `<li>${s}</li>`).join('');
+}
+
+// Table view & pipeline
+(function () {
+  const iname = i => INSTRUMENTS.find(x => x[0] === i)[1];
+  const tl = k => TARGETS.find(t => t.key === k).label;
+  let h = '<tr><th>Act</th><th>Provision</th><th>Instrument</th><th>Targets</th><th>In force</th><th>Applies</th><th class="num">Form</th><th class="num">Teeth</th></tr>';
+  for (const m of M) h += `<tr><td>${esc(m.act)}</td><td>${esc(m.prov)}${m.note ? `<br><span class="muted">${esc(m.note)}</span>` : ''}</td><td>${esc(iname(m.inst))}</td>
+    <td>${m.t.map(k => `<span class="pill">${esc(tl(k))}</span>`).join(' ')}</td><td>${m.inForce}</td><td>${m.omni?.appl ? `${m.omni.appl}<br><span class="muted">original text: ${m.appl ?? 'open'}</span>` : (m.appl ?? 'open')}${m.until ? `<br><span class="muted">until ${m.until}</span>` : ''}</td>
+    <td class="num">${m.form}</td><td class="num">${m.teeth}</td></tr>`;
+  document.getElementById('alltbl').innerHTML = h;
+  document.getElementById('pipeline').innerHTML = PIPELINE.map(([a, b]) => `<li><b>${esc(a)}</b>: ${esc(b)}</li>`).join('');
+})();
+
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', render);
+render();
+</script>
+</body>
+</html>
